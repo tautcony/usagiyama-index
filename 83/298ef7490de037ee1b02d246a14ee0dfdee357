@@ -1,0 +1,111 @@
+scraper/tests/test_http_client.py
+  s_2c6eead3370c47::t_a507665fb5afd7 15,23-24,26-27,29-30
+  s_2c6eead3370c47::t_158d8b979f4960 251-263,273-328
+  s_2c6eead3370c47::t_def6e01271a016 264-272
+  s_2c6eead3370c47::t_4d2e832c2da1f3 392-446,449-532
+  s_2c6eead3370c47::t_75749517d5d0f6 34-36
+  s_2c6eead3370c47::t_0c6d5045ba0f8b 447-448
+scraper/archive.py
+  s_2c6eead3370c47::t_a089de9002e905 249-251
+data/structure.json
+  s_2c6eead3370c47::t_dacf75e4b89c93 405,552,1706,2253-2502
+  s_2c6eead3370c47::t_c37a13ed45fc9c 402-404
+  s_2c6eead3370c47::t_1a9bb326baec1d 406-408,549-551
+  s_2c6eead3370c47::t_8addb786c0a03b 553-555,1703-1705
+README.md
+  s_2c6eead3370c47::t_10495464c25b46 129-139
+  s_2c6eead3370c47::t_710aa007b6c66d 62-64
+  s_2c6eead3370c47::t_0acdf92114d9d0 65
+scraper/browser.py
+  s_2c6eead3370c47::t_564886d7cbcc77 388-396
+scraper/config.py
+  s_2c6eead3370c47::t_1c2a011345837e 106-107
+  s_2c6eead3370c47::t_a4376c7768a2fd 83-84
+  s_2c6eead3370c47::t_c8c7186889c247 40-82,85-86
+scraper/cli.py
+  s_2c6eead3370c47::t_ca4c4d044e0c99 117,120,125-126,128-130,132-134,137,141-144,148
+  s_2c6eead3370c47::t_23baf99f3a4ad7 1814-1815
+  s_2c6eead3370c47::t_432f62b79e5a64 265
+  s_2c6eead3370c47::t_5e2b0fa151c785 235-238
+  s_2c6eead3370c47::t_919acb7f0d6557 1943-1946
+  s_2c6eead3370c47::t_0144f10a325275 127,131,135-136,138-140,146-147
+  s_2c6eead3370c47::t_c0525ebb54e217 1710
+  s_2c6eead3370c47::t_055a89b5b9690d 1689
+  s_2c6eead3370c47::t_6e9f11611094c2 145
+  s_2c6eead3370c47::t_204867fcc192cb 225-234
+  s_2c6eead3370c47::t_59be858e73600e 170-175
+  s_2c6eead3370c47::t_9958afd0181f80 38-39,41-47
+  s_2c6eead3370c47::t_a7cc8a335eba72 1706-1707,1711-1714
+  s_2c6eead3370c47::t_ed00d11396dafe 40
+  s_2c6eead3370c47::t_2d94e7f423eef3 149-150
+scraper/SCRAPER.md
+  s_2c6eead3370c47::t_637cfe937c94e5 111-116
+  s_2c6eead3370c47::t_126cd627d7a99e 102-105
+  s_2c6eead3370c47::t_bab81d471023dc 226-229,231-234
+  s_2c6eead3370c47::t_09f8b65aa49888 536-540
+  s_2c6eead3370c47::t_10b080edd16476 553-560
+  s_2c6eead3370c47::t_ce5c047807910b 148
+  s_2c6eead3370c47::t_5f96112133c608 414-417
+  s_2c6eead3370c47::t_407a1842757d30 437-438
+  s_2c6eead3370c47::t_b4517ba9947dd8 336-353
+  s_2c6eead3370c47::t_7dc6be02ea059e 250
+  s_2c6eead3370c47::t_9f0bbfa9781231 93-96
+  s_2c6eead3370c47::t_ef7807b3cde797 211-225,230,235-237
+  s_2c6eead3370c47::t_02fb283b102879 162
+scraper/media.py
+  s_2c6eead3370c47::t_0ffc53f471bc49 345-349,361-367
+  s_2c6eead3370c47::t_56bba0e6040046 354-356
+  s_2c6eead3370c47::t_6f75fd8f5e6a94 398
+  s_2c6eead3370c47::t_3401d7fbff1211 37-43
+  s_2c6eead3370c47::t_12133fe0f1ba57 401-403
+  s_2c6eead3370c47::t_8eee10e58d0607 113-147
+scraper/README.md
+  s_2c6eead3370c47::t_8cd6a62b8ef09f 107-112
+  s_2c6eead3370c47::t_06aef7928e32fd 183-198
+  s_2c6eead3370c47::t_eb241445d1d056 32-33
+  s_2c6eead3370c47::t_7d6632eb34a51c 84-98
+  s_2c6eead3370c47::t_98b98f98e274f6 268-273
+  s_2c6eead3370c47::t_6af0164c905a9b 274-279
+  s_2c6eead3370c47::t_fa448736068131 510
+scraper/transport.py
+  s_2c6eead3370c47::t_ffaf9201a41dc8 34-40,48,52
+  s_2c6eead3370c47::t_d5e4e2d053ddfb 53
+scraper/tests/test_media.py
+  s_2c6eead3370c47::t_02a052e7fa03bf 252-443
+scraper/tests/test_cli.py
+  s_2c6eead3370c47::t_9446129a827112 1-115
+scraper/http_client.py
+  s_2c6eead3370c47::t_f36aab3dfe86dc 639-641
+  s_2c6eead3370c47::t_961bea7b1e9300 439
+  s_2c6eead3370c47::t_66cd998b210cf2 689-702
+  s_2c6eead3370c47::t_49dae1b4596c0a 97-166
+  s_2c6eead3370c47::t_489cbc31814fd8 687,711-716
+  s_2c6eead3370c47::t_e597c0949df79f 271-273
+  s_2c6eead3370c47::t_7646cb4025ca9a 657,668-669
+  s_2c6eead3370c47::t_19ed7c7f4e91b0 676
+  s_2c6eead3370c47::t_3bea6f8b771b72 763-774
+  s_2c6eead3370c47::t_771fa04e327f95 589-591,593
+  s_2c6eead3370c47::t_e92127667e3f82 533-537,539-549
+  s_2c6eead3370c47::t_a014643a632554 30-32
+  s_2c6eead3370c47::t_f82005c8c7ff9d 636-638,642-645
+  s_2c6eead3370c47::t_6e29f3a7d82dcc 661-664
+  s_2c6eead3370c47::t_d7fa95f69fe009 530-532,538,550
+  s_2c6eead3370c47::t_2ccbfb6fb2e324 472-479
+  s_2c6eead3370c47::t_19d0c90695eda6 688
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "83298ef7490de037ee1b02d246a14ee0dfdee357",
+  "prompts": {},
+  "sessions": {
+    "s_2c6eead3370c47": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d435971d-0122-479c-bf25-af101c6aa741",
+        "model": "deepseek-v4-flash"
+      },
+      "human_author": "TautCony <i@tautcony.xyz>"
+    }
+  }
+}
