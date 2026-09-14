@@ -199,6 +199,17 @@ class TestEmitAlbum:
         text = SiteEmitter(cfg).emit_album(self._album()).read_text(encoding="utf-8")
         assert "描述一" in text
 
+    def test_no_description_renders_no_caption_and_no_empty_attrs(self, cfg) -> None:
+        """没有描述的照片：不写 `<p class="caption">`，也不留空 title/alt。"""
+        album = Album(album_id="1", title="t")
+        album.photos = [PhotoMeta(photo_id="1", album_id="1", local="/media/1.jpg")]
+        text = SiteEmitter(cfg).emit_album(album).read_text(encoding="utf-8")
+
+        assert 'class="caption"' not in text
+        assert 'alt=""' not in text
+        assert 'title=""' not in text
+        assert '<img src="/media/1.jpg" loading="lazy" />' in text
+
     def test_quotes_in_caption_escaped(self, cfg) -> None:
         album = Album(album_id="1", title="t")
         album.photos = [

@@ -6,13 +6,13 @@ aside: false
 # 文章索引
 
 
-共收录 **132** 篇文章，分组沿用原站站长手工编排的索引①/②。
+共收录 **144** 篇文章，分组沿用原站站长手工编排的索引①/②。
 
 
 ## 穹庐下的魔女
 
 
-- [“珍视角色”——唯有这一点，无论创作什么作品，我都会绝不动摇地坚守下去——《穹庐下的魔女》总导演山田尚子访谈（CREA）](https://www.douban.com/topic/499780453/) <small class="badge-unavailable">未归档</small>
+- [“珍视角色”——唯有这一点，无论创作什么作品，我都会绝不动摇地坚守下去——《穹庐下的魔女》总导演山田尚子访谈（CREA）](/external/topic-499780453)
 
 ## 聲之形
 
@@ -25,7 +25,7 @@ aside: false
 - [电影《聲之形》导演山田尚子谈选角理由](/notes/569110361) <small>2016-07-08</small>
 - [电影《聲之形》配音演员获选感言](/notes/569286438) <small>2016-07-09</small>
 - [电影《聲之形》配音完成感想](/notes/572997848) <small>2016-07-28</small>
-- [电影《聲之形》导演山田尚子创作感言（《Animedia》2016年9月号）](https://site.douban.com/211330/widget/notes/190597056/note/575615184/) <small class="badge-unavailable">未归档</small>
+- [电影《聲之形》导演山田尚子创作感言（《Animedia》2016年9月号）](/notes/575615184) <small>2016-08-11</small>
 - [诚实用心地面对作品——导演山田尚子谈电影《聲之形》（《Newtype》2016年9月号）](/notes/575811208) <small>2016-08-12</small>
 - [难能可贵，惹人怜爱——导演山田尚子谈电影《聲之形》（《Animage》2016年9月号）](/notes/576189949) <small>2016-08-15</small>
 - [肯定世界的电影——《聲之形》导演山田尚子访谈（《Quick Japan》Vol.127）](/notes/581099972) <small>2016-09-11</small>
@@ -110,14 +110,14 @@ aside: false
 [豆瓣豆列](http://www.douban.com/doulist/39014187/)
 
 
-- [《吹响悠风号》演出小析 ①](http://site.douban.com/211330/widget/notes/13431979/note/493628625/) <small class="badge-unavailable">未归档</small>
-- [②](http://site.douban.com/211330/widget/notes/13431979/note/494796780/) <small class="badge-unavailable">未归档</small>
-- [③](http://site.douban.com/211330/widget/notes/13431979/note/496259160/) <small class="badge-unavailable">未归档</small>
-- [④](http://site.douban.com/211330/widget/notes/13431979/note/497257959/) <small class="badge-unavailable">未归档</small>
-- [⑤](http://site.douban.com/211330/widget/notes/13431979/note/498486997/) <small class="badge-unavailable">未归档</small>
-- [⑥](http://site.douban.com/211330/widget/notes/13431979/note/499646004/) <small class="badge-unavailable">未归档</small>
-- [⑦](http://site.douban.com/211330/widget/notes/13431979/note/500779951/) <small class="badge-unavailable">未归档</small>
-- [⑧](http://site.douban.com/211330/widget/notes/13431979/note/501830142/) <small class="badge-unavailable">未归档</small>
+- [《吹响悠风号》第一回演出小析](/notes/493628625) <small>2015-04-11</small> <small class="badge-unavailable">原站不可访问</small>
+- [《吹响悠风号》第二回演出小析](/notes/494796780) <small>2015-04-17</small> <small class="badge-unavailable">原站不可访问</small>
+- [《吹响悠风号》第三回演出小析](/notes/496259160) <small>2015-04-26</small> <small class="badge-unavailable">原站不可访问</small>
+- [《吹响悠风号》第四回演出小析](/notes/497257959) <small>2015-05-03</small> <small class="badge-unavailable">原站不可访问</small>
+- [《吹响悠风号》第五回演出小析](/notes/498486997) <small>2015-05-10</small> <small class="badge-unavailable">原站不可访问</small>
+- [《吹响悠风号》第六回演出小析](/notes/499646004) <small>2015-05-17</small> <small class="badge-unavailable">原站不可访问</small>
+- [《吹响悠风号》第七回演出小析](/notes/500779951) <small>2015-05-24</small> <small class="badge-unavailable">原站不可访问</small>
+- [《吹响悠风号》第八回演出小析](/notes/501830142) <small>2015-05-31</small>
 - [《吹响悠风号》第九回演出小析](/notes/502853776) <small>2015-06-07</small>
 - [《吹响悠风号》第十回演出小析](/notes/503910662) <small>2015-06-14</small>
 - [《吹响悠风号》第十一回演出小析](/notes/504870376) <small>2015-06-21</small>
@@ -136,9 +136,9 @@ aside: false
 ## 其他作品
 
 
-- [《中二病也要谈恋爱！》片尾解读](http://site.douban.com/211330/widget/notes/13431979/note/326639941/) <small class="badge-unavailable">未归档</small>
-- [所以人们才会彼此寻求——《境界的彼方》第5话演出小析](http://site.douban.com/211330/widget/notes/13431979/note/314598362/) <small class="badge-unavailable">未归档</small>
-- [《Free! Eternal Summer》第12话演出分析](http://site.douban.com/211330/widget/notes/13431979/note/425866593/) <small class="badge-unavailable">未归档</small>
+- [《中二病也要谈恋爱！》片尾解读](/notes/326639941) <small>2014-01-14</small> <small class="badge-unavailable">原站不可访问</small>
+- [所以人们才会彼此寻求——《境界的彼方》第5话演出小析](/notes/314598362) <small>2013-11-06</small> <small class="badge-unavailable">原站不可访问</small>
+- [《Free! Eternal Summer》第12话演出分析](/notes/425866593) <small>2014-09-19</small> <small class="badge-unavailable">原站不可访问</small>
 
 ## Papico 日志
 

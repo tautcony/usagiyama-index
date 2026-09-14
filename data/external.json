@@ -1,1 +1,20 @@
-{}
+{
+  "topic-499780453": {
+    "page_id": "topic-499780453",
+    "url": "https://www.douban.com/topic/499780453/",
+    "title": "",
+    "content_html": "",
+    "origin": "穹庐下的魔女",
+    "comments": [],
+    "status": {
+      "availability": "login_required",
+      "label": "需要登录，无法归档",
+      "httpStatus": 403,
+      "detail": "源站拒绝访问：缓存记录为被拦截 [403] https://www.douban.com/topic/499780453/",
+      "waybackUrl": null,
+      "waybackTimestamp": null,
+      "waybackStatus": null
+    },
+    "route": "/external/topic-499780453"
+  }
+}

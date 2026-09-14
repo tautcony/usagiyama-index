@@ -1064,8 +1064,9 @@ def stage_notes(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
             note.title = entry.title
         if not note.date:
             note.date = entry.date
-        if not note.comment_count:
-            note.comment_count = entry.comment_count
+        # 评论数以列表页条目的 "(N回应)" 为准：详情页没有权威数量
+        # （那里的"回应"只是每条评论的回复按钮，见 parse_note 的说明）
+        note.comment_count = entry.comment_count
         note.status = page.status
 
         # 归档配图并建立重写映射

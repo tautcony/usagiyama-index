@@ -295,9 +295,11 @@ class SiteEmitter:
         for photo in album.photos:
             if photo.local:
                 caption = (photo.caption or "").strip()
-                attr = html_attr(caption)
-                img = f'<img src="{photo.local}" alt="{attr}" loading="lazy" />'
-                inner = f'<a href="{photo.local}" target="_blank" title="{attr}">{img}</a>'
+                # 没有描述就整个属性都别写，免得留下一串空 title/alt
+                attr = f' alt="{html_attr(caption)}"' if caption else ""
+                title = f' title="{html_attr(caption)}"' if caption else ""
+                img = f'<img src="{photo.local}"{attr} loading="lazy" />'
+                inner = f'<a href="{photo.local}" target="_blank"{title}>{img}</a>'
                 if caption:
                     inner += f'<p class="caption">{html_text(caption)}</p>'
                 cards.append(f'<figure class="photo-card">{inner}</figure>')

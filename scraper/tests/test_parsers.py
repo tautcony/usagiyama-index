@@ -60,7 +60,7 @@ NOTE_LIST_HTML = """
   <div class="summary" id="note_624442255_short"><div class="ll"><a href="https://www.douban.com/note/624442255/">
     <img src="https://img3.doubanio.com/view/note/small/public/p43282417.jpg" alt=""/></a></div>
     译自mynavi news（记者=公文哲）……</div>
-  <div class="actions"><a class="btn">3回应</a></div>
+  <div class="actions"><a href="https://site.douban.com/211330/widget/notes/190597056/note/624442255/#comments">(3回应)</a></div>
 </div>
 <div class="paginator"><span class="thispage" data-total-page="4">1</span></div>
 </body></html>
@@ -76,6 +76,49 @@ NOTE_DETAIL_HTML = """
 </body></html>
 """
 
+# 列表页里两条都没有评论数链接：第一条摘要以数字收尾、第二条没有评论区。
+# 第一条末尾跟着一段内嵌评论，评论尾部的"回应"回复按钮就在正文后面 ——
+# 这正是"整条文本搜 数字+回应"会读出假数量的形状（→ 20180517）。
+NOTE_LIST_NO_COUNT_HTML = """
+<html><body>
+<div class="item-entry">
+  <div class="title"><a href="https://site.douban.com/211330/widget/notes/17565710/note/669962541/">丽兹亦青鸟☆Papico</a></div>
+  <div class="datetime">2018-05-17 21:36:55</div>
+  <div class="summary">真的很开心，谢谢大家20180517</div>
+  <div class="comment-item"><span><a href="?cid=47263983#add_comment" class="lnk-reply hidden_lnk">回应</a></span></div>
+  <div class="actions"><a href="#" class="fav-add j a_show_login">喜欢</a></div>
+</div>
+<div class="item-entry">
+  <div class="title"><a href="https://site.douban.com/211330/widget/notes/17565710/note/485196288/">烤肉☆Papico</a></div>
+  <div class="datetime">2015-02-18 21:30:57</div>
+  <div class="summary">好想吃烤肉。</div>
+</div>
+</body></html>
+"""
+
+# 详情页：两条评论的正文都以数字收尾，后面紧跟各自的"回应"回复按钮
+# （真实 href 是 ``?cid=…#add_comment``）。旧实现整页搜"数字+回应"，
+# 于是把评论正文结尾当成了评论数（208 → 20170725 / 23333）。
+NOTE_DETAIL_WITH_COMMENTS_HTML = """
+<html><head><title>标题 (兔子山的小站)</title></head><body>
+<h1>标题</h1>
+<div class="note-header"><span class="datetime">2017-07-25 21:00:00</span></div>
+<div id="note_594375309_full" class="note-content"><div id="link-report"><div class="cc">正文内容。</div></div></div>
+<div id="comments">
+  <ul class="comment-list">
+    <li class="comment-item">
+      <div class="comment-content"><p>参考 http://www.kyotoanimation.co.jp/staff/anibaka/blog/?m=20170725</p></div>
+      <span><a href="?cid=47263983#add_comment" class="lnk-reply hidden_lnk">回应</a></span>
+    </li>
+    <li class="comment-item">
+      <div class="comment-content"><p>这就是山田不拍她们穿大学校服的理由么23333</p></div>
+      <span><a href="?cid=47263984#add_comment" class="lnk-reply hidden_lnk">回应</a></span>
+    </li>
+  </ul>
+</div>
+</body></html>
+"""
+
 PHOTO_LIST_HTML = """
 <html><head><title>海报墙 (豆瓣)</title></head><body><h1>海报墙</h1>
 <div class="event-photo-list"><ul class="list-s"><li><div class="photo-item">
@@ -86,11 +129,42 @@ PHOTO_LIST_HTML = """
 </div></li></ul></div></body></html>
 """
 
+# 照片详情页的真实骨架（按缓存页面裁剪）：
+# #link-report 里除了照片本身，还套着每张照片都一样的相册导航与按钮。
 PHOTO_DETAIL_HTML = """
-<html><head><title>海报墙</title></head><body>
-<div class="photo-show"><img src="https://img2.doubanio.com/view/photo/photo/public/p2770778841.jpg" /></div>
-<img src="https://img2.doubanio.com/view/photo/large/public/p2770778841.jpg" />
-<img src="https://img2.doubanio.com/view/photo/m/public/p2507748862.jpg" />
+<html><head><title>幕后&周边</title></head><body>
+<div class="photo-wrapper"><div id="link-report">
+  <div class="photitle">&gt; 返回相册 第156张 / 共179张 <a id="pre_photo">上一张</a> / <a id="next_photo">下一张</a></div>
+  <div class="phoview"><a class="mainphoto"><img src="https://img2.doubanio.com/view/photo/large/public/p2180208471.jpg" /></a></div>
+  <div class="phodesc">
+    <p>【4/19 たまこまーけっと おさらい上映会＆スタッフトークショー】（左起）瀬波里梨、山田尚子</p>
+    <p><span id="original"><a href="https://img2.doubanio.com/view/photo/raw/public/p2180208471.jpg" title="查看原图">查看原图</a></span></p>
+  </div>
+  <span class="btn-report">投诉</span>
+</div></div>
+</body></html>
+"""
+
+# 一篇没有描述的照片：.phodesc 只剩"查看原图"
+PHOTO_DETAIL_NO_DESC_HTML = """
+<html><head><title>幕后&周边</title></head><body>
+<div id="link-report">
+  <div class="photitle">&gt; 返回相册 第1张 / 共22张 上一张 / 下一张</div>
+  <div class="phodesc">
+    <p><span id="original"><a href="https://img9.doubanio.com/view/photo/raw/public/p1958678825.jpg" title="查看原图">查看原图</a></span></p>
+  </div>
+  <span class="btn-report">投诉</span>
+</div>
+</body></html>
+"""
+
+# 长链接里插了嵌套的 <wbr> 断行提示（真实页面就是这么写的）
+PHOTO_DETAIL_WBR_HTML = """
+<html><head><title>幕后&周边</title></head><body>
+<div id="link-report">
+  <div class="phodesc"><p>KORG 联名款 - See more <a rel="nofollow" href="http://x/"> http://www.korg.com/ <wbr> jp/products/synthesi <wbr> zers/rk_100s/k_on.ph <wbr> p </wbr></wbr></wbr></a></p>
+  <p><span id="original">查看原图</span></p></div>
+</div>
 </body></html>
 """
 
@@ -250,6 +324,15 @@ class TestNoteList:
         doubled = NOTE_LIST_HTML + NOTE_LIST_HTML
         assert len(parse_note_list(doubled, "190597056")) == 1
 
+    def test_count_only_from_comments_anchor(self) -> None:
+        """没有指向 ``#comments`` 的链接时评论数必须是 0。
+
+        摘要以数字收尾（"…20180517"）也不能被当成评论数——那样的
+        结果会一路写进 manifest 与原站标注统计里。
+        """
+        entries = parse_note_list(NOTE_LIST_NO_COUNT_HTML, "17565710")
+        assert [entry.comment_count for entry in entries] == [0, 0]
+
 
 class TestNote:
     def test_note_parsed(self) -> None:
@@ -264,6 +347,19 @@ class TestNote:
         note = parse_note(NOTE_DETAIL_HTML, "190597056", "575615184", "https://example.com/")
         assert "<table>" in note.content_html
         assert "p36410176.jpg" in note.content_html
+
+    def test_comment_count_not_taken_from_comment_bodies(self) -> None:
+        """详情页不解析评论数。
+
+        页面上每条评论都有个"回应"回复按钮，整页文本里搜"数字+回应"命中
+        的是上一条评论正文的结尾（"…?m=20170725 回应" → 20170725）。
+        权威数量在列表页条目的 ``(N回应)`` 上，由 ``stage_notes`` 填进来，
+        这里一律留 0。
+        """
+        note = parse_note(NOTE_DETAIL_WITH_COMMENTS_HTML, "17565710", "594375309", "https://example.com/")
+        assert note.comment_count == 0
+        # 评论区不混进正文（评论另有归档流程）
+        assert "23333" not in note.content_html
 
     def test_empty_body_marks_unavailable(self) -> None:
         html = '<html><head><title>空 (豆瓣)</title></head><body><h1>空</h1></body></html>'
@@ -280,9 +376,33 @@ class TestPhoto:
         assert "thumb" in photos[0].thumb_url
 
     def test_photo_detail_prefers_large(self) -> None:
-        photo = parse_photo_detail(PHOTO_DETAIL_HTML, "13432051", "2770778841", "https://example.com/")
+        photo = parse_photo_detail(PHOTO_DETAIL_HTML, "13431373", "2180208471", "https://example.com/")
         assert "/large/" in photo.large_url
         assert photo.status.availability == "ok"
+
+    def test_caption_excludes_album_chrome(self) -> None:
+        """描述只取照片自己的文字。
+
+        ``#link-report`` 里除了照片还有一条每张都一样的相册导航
+        （"返回相册 第N张 / 共M张 上一张 / 下一张"）与"查看原图 投诉"按钮，
+        旧代码用的 ``.photo-desc`` 选择器匹配不上真实类名 ``.phodesc``，
+        于是一路退到 ``#link-report``，把整页界面文字当成了描述。
+        """
+        photo = parse_photo_detail(PHOTO_DETAIL_HTML, "13431373", "2180208471", "https://example.com/")
+        assert photo.caption.startswith("【4/19")
+        for chrome in ("返回相册", "上一张", "下一张", "查看原图", "投诉", "第156张"):
+            assert chrome not in photo.caption
+
+    def test_empty_description_stays_empty(self) -> None:
+        """没有描述的照片不能拿相册名顶上——那是另一回事的噪音。"""
+        photo = parse_photo_detail(PHOTO_DETAIL_NO_DESC_HTML, "13431373", "1958678825", "https://example.com/")
+        assert photo.caption == ""
+
+    def test_wbr_rejoined_into_full_url(self) -> None:
+        """长链接里的 ``<wbr>`` 断行提示要拼回去，而不是留一串空格。"""
+        photo = parse_photo_detail(PHOTO_DETAIL_WBR_HTML, "13431373", "2212412958", "https://example.com/")
+        assert "http://www.korg.com/jp/products/synthesizers/rk_100s/k_on.php" in photo.caption
+        assert "korg.com/ jp" not in photo.caption
 
     def test_photo_detail_missing(self) -> None:
         html = "<html><body><img src='https://img2.doubanio.com/view/photo/large/public/p999.jpg'/></body></html>"

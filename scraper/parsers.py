@@ -5,6 +5,7 @@
 
 from __future__ import annotations
 
+import copy
 import logging
 import re
 from urllib.parse import unquote, urlparse
@@ -46,6 +47,14 @@ COMMENT_COUNT_RE = re.compile(r"\(?\s*(\d+)\s*回应\s*\)?")
 TITLE_SUFFIX_RE = re.compile(r"\s*[（(](?:兔子山的小站|豆瓣)[)）]\s*$")
 # 相册大图 URL
 PHOTO_SIZE_RE = re.compile(r"/view/photo/([a-z]+)/public/(p\d+\.\w+)$")
+#: 相册照片描述容器。注意真实类名是 ``phodesc``（**没有**连字符），
+#: 它在 ``#link-report`` 里面；直接取 ``#link-report`` 会把整页的
+#: "> 返回相册 第N张 / 共M张 上一张 / 下一张 … 查看原图 投诉" 全带上。
+PHOTO_DESC_SELECTORS = (".phodesc", ".photo-desc")
+#: 描述容器里的界面元素（不是照片本身的描述）
+PHOTO_DESC_UI_SELECTORS = ("#original", ".btn-report")
+#: ``<wbr>`` 断行提示的占位符，见 :func:`_photo_caption`
+WBR_PLACEHOLDER = "\x00"
 # 日记图片 URL
 NOTE_IMG_RE = re.compile(r"/view/note/([a-z]+)/public/(\w+\.\w+)$")
 # 日期
@@ -286,13 +295,13 @@ def _note_entry_from(item: Tag, widget_id: str) -> NoteListEntry | None:
     date_node = item.select_one(".datetime")
     summary_node = item.select_one(".summary")
 
-    # 评论数：优先读指向 #comments 的链接，其次在整条文本里找 "(N回应)"
+    # 评论数只读指向 #comments 的链接文本（"(N回应)" / "N回应"）。
+    # 不能在整条文本里搜：摘要末尾若是数字，紧随其后的"回应"链接会被
+    # 拼成一个假数量（"…心情变得非23333" + "回应" → 23333）。
     count = 0
     comment_link = item.select_one('a[href*="#comments"]')
     if isinstance(comment_link, Tag):
         count = parse_comment_count(comment_link.get_text(" "))
-    if not count:
-        count = parse_comment_count(item.get_text(" "))
 
     return NoteListEntry(
         note_id=match.group(2),
@@ -340,13 +349,16 @@ def parse_note(html: str, widget_id: str, note_id: str, url: str,
     date = parse_date(date_node.get_text()) if isinstance(date_node, Tag) else ""
 
     content = _link_report(soup, note_id)
+    # 这里**不解析**评论数：详情页每个评论尾部都有个"回应"回复按钮，
+    # 整页文本里搜数字+回应，会把上一条评论正文的结尾当成数量
+    # （"…blog/?m=20170725 回应" → 20170725）。权威数量是列表页条目上的
+    # "(N回应)"，由 ``stage_notes`` 从列表条目填进来。
     note = Note(
         note_id=note_id,
         widget_id=widget_id,
         title=title,
         date=date,
         content_html=content,
-        comment_count=parse_comment_count(soup.get_text(" ")),
         source_url=url,
         status=SourceStatus(
             availability="ok" if content.strip() else "unavailable",
@@ -405,6 +417,43 @@ def parse_photo_list(html: str, album_id: str, cfg: Config = CONFIG) -> list[Pho
     return photos
 
 
+def _photo_caption(soup: BeautifulSoup) -> str | None:
+    """提取照片自身的描述，剔除相册导航与界面按钮。
+
+    页面上真正的描述只有 ``.phodesc`` 里那几段文字；它外面还有一层
+    ``#link-report``，装着"返回相册 / 上一张 / 下一张 / 查看原图 / 投诉"
+    这些每张照片都一样的界面文字。
+
+    返回 ``None`` 表示**没找到**描述容器（多半是拿到了别的页面），
+    返回空串表示容器在、但这张照片本来就没写描述 —— 两者要分开：
+    后者不该退回标题，否则每张无描述的照片都会被冠上相册名。
+    """
+    for selector in PHOTO_DESC_SELECTORS:
+        node = soup.select_one(selector)
+        if not isinstance(node, Tag):
+            continue
+
+        # 在副本上删节点，别改动调用方的 soup
+        node = copy.copy(node)
+        for junk in node.select(", ".join(PHOTO_DESC_UI_SELECTORS)):
+            junk.decompose()
+        # 豆瓣给长链接插 <wbr> 断行，前后还各留一个空格。原样取文本会得到
+        # "http://…/ jp/products/synthesi zers/…"，这里把 wbr 连同两侧空白
+        # 一起去掉，还原成完整 URL。
+        #
+        # 必须先把标记塞进 wbr 再 unwrap：这些 <wbr> 是**嵌套**的
+        # （"<wbr> a <wbr> b <wbr> c </wbr></wbr></wbr>"），直接
+        # ``replace_with`` 会把它里面夹着的文本一并丢出文档。
+        for wbr in node.find_all("wbr"):
+            wbr.insert(0, WBR_PLACEHOLDER)
+            wbr.unwrap()
+        text = re.sub(rf"\s*{WBR_PLACEHOLDER}\s*", "", node.get_text(" "))
+
+        # 容器在，就以它为准（可能是空的：这张照片没写描述）
+        return " ".join(text.split())
+    return None
+
+
 def parse_photo_detail(html: str, album_id: str, photo_id: str, url: str,
                        cfg: Config = CONFIG) -> PhotoMeta:
     """解析相册详情页，提取大图 URL 与完整描述。"""
@@ -420,11 +469,9 @@ def parse_photo_detail(html: str, album_id: str, photo_id: str, url: str,
             if match.group(1) == "photo" and not large:
                 large = src
 
-    caption = ""
-    node = soup.select_one(".photo-desc") or soup.select_one("#link-report")
-    if isinstance(node, Tag):
-        caption = " ".join(node.get_text(" ").split())
-    if not caption:
+    caption = _photo_caption(soup)
+    if caption is None:
+        # 没有描述容器，说明拿到的多半不是照片页；退回标题总比空着强
         title_node = soup.find("title")
         caption = clean_title(title_node.get_text()) if isinstance(title_node, Tag) else ""
 

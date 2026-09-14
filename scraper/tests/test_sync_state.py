@@ -379,6 +379,66 @@ class TestUnavailableReport:
         assert len(records) == 1
 
 
+class _Response404:
+    """一个恒定 404 的响应（curl_cffi 响应的最小替身）。"""
+
+    status_code = 404
+    content = b""
+    headers = {"Content-Type": "text/html; charset=utf-8"}
+
+
+class _Session404:
+    """恒定返回 404 的会话替身；不用它就不会有任何请求。"""
+
+    def __init__(self) -> None:
+        self.headers: dict[str, str] = {}
+        self.trust_env = False
+
+    def get(self, url: str, headers: dict[str, str] | None = None, **_kwargs: object):
+        return _Response404()
+
+    def close(self) -> None:
+        pass
+
+
+class TestOfflineMissNotRecorded:
+    """离线模式下的缓存未命中不是"源站不可得"的证据。
+
+    ``--offline`` 这一轮根本没发过请求，无从判断页面还在不在。若照记，
+    ``refresh_unavailable()`` 就会把它写进 ``data/unavailable.md``，说成
+    "原站不可访问"——和 ``ProgressStore`` 在离线模式只读是同一个理由。
+    状态本身仍返回 UNAVAILABLE，页面照旧按占位块渲染。
+    """
+
+    def test_status_unavailable_but_no_record(self, cfg) -> None:
+        import dataclasses
+
+        from scraper.http_client import Fetcher
+        from scraper.resolver import PageResolver
+
+        offline = dataclasses.replace(cfg, offline=True)
+        resolver = PageResolver(Fetcher(offline), cfg=offline)
+        page = resolver.resolve(
+            "https://site.douban.com/211330/widget/notes/17565710/note/1/", context="日记"
+        )
+
+        assert page.status.availability == Availability.UNAVAILABLE
+        assert "离线" in page.status.detail
+        assert resolver.unavailable == []
+
+    def test_online_failure_still_recorded(self, cfg) -> None:
+        """对照组：真发过请求而失败（这里源站 404）仍要进清单。"""
+        from scraper.http_client import Fetcher
+        from scraper.resolver import PageResolver
+
+        resolver = PageResolver(Fetcher(cfg, session=_Session404()), cfg=cfg)
+        resolver.resolve("https://site.douban.com/211330/widget/notes/17565710/note/1/", context="日记")
+
+        assert [record.url for record in resolver.unavailable] == [
+            "https://site.douban.com/211330/widget/notes/17565710/note/1/"
+        ]
+
+
 class TestNoEmitStillPersists:
     """``--no-emit`` 只表示"不渲染站点"，抓到的东西必须照样落盘。
 

@@ -9,7 +9,8 @@ export const sidebar: DefaultTheme.Sidebar = {
       "collapsed": false,
       "items": [
         {
-          "text": "“珍视角色”——唯有这一点，无论创作什么作品，我都会绝不动摇地坚守下去——《穹庐下的魔女》总导演山田尚子访谈（CREA）（未归档）"
+          "text": "“珍视角色”——唯有这一点，无论创作什么作品，我都会绝不动摇地坚守下去——《穹庐下的魔女》总导演山田尚子访谈（CREA）",
+          "link": "/external/topic-499780453"
         }
       ]
     },
@@ -38,7 +39,8 @@ export const sidebar: DefaultTheme.Sidebar = {
           "link": "/notes/572997848"
         },
         {
-          "text": "电影《聲之形》导演山田尚子创作感言（《Animedia》2016年9月号）（未归档）"
+          "text": "电影《聲之形》导演山田尚子创作感言（《Animedia》2016年9月号）",
+          "link": "/notes/575615184"
         },
         {
           "text": "诚实用心地面对作品——导演山田尚子谈电影《聲之形》（《Newtype》2016年9月号）",
@@ -311,28 +313,36 @@ export const sidebar: DefaultTheme.Sidebar = {
       "collapsed": false,
       "items": [
         {
-          "text": "《吹响悠风号》演出小析 ①（未归档）"
+          "text": "《吹响悠风号》第一回演出小析",
+          "link": "/notes/493628625"
         },
         {
-          "text": "②（未归档）"
+          "text": "《吹响悠风号》第二回演出小析",
+          "link": "/notes/494796780"
         },
         {
-          "text": "③（未归档）"
+          "text": "《吹响悠风号》第三回演出小析",
+          "link": "/notes/496259160"
         },
         {
-          "text": "④（未归档）"
+          "text": "《吹响悠风号》第四回演出小析",
+          "link": "/notes/497257959"
         },
         {
-          "text": "⑤（未归档）"
+          "text": "《吹响悠风号》第五回演出小析",
+          "link": "/notes/498486997"
         },
         {
-          "text": "⑥（未归档）"
+          "text": "《吹响悠风号》第六回演出小析",
+          "link": "/notes/499646004"
         },
         {
-          "text": "⑦（未归档）"
+          "text": "《吹响悠风号》第七回演出小析",
+          "link": "/notes/500779951"
         },
         {
-          "text": "⑧（未归档）"
+          "text": "《吹响悠风号》第八回演出小析",
+          "link": "/notes/501830142"
         },
         {
           "text": "《吹响悠风号》第九回演出小析",
@@ -397,13 +407,16 @@ export const sidebar: DefaultTheme.Sidebar = {
       "collapsed": false,
       "items": [
         {
-          "text": "《中二病也要谈恋爱！》片尾解读（未归档）"
+          "text": "《中二病也要谈恋爱！》片尾解读",
+          "link": "/notes/326639941"
         },
         {
-          "text": "所以人们才会彼此寻求——《境界的彼方》第5话演出小析（未归档）"
+          "text": "所以人们才会彼此寻求——《境界的彼方》第5话演出小析",
+          "link": "/notes/314598362"
         },
         {
-          "text": "《Free! Eternal Summer》第12话演出分析（未归档）"
+          "text": "《Free! Eternal Summer》第12话演出分析",
+          "link": "/notes/425866593"
         }
       ]
     },
@@ -652,6 +665,10 @@ export const sidebar: DefaultTheme.Sidebar = {
         {
           "text": "文章索引",
           "link": "/notes/"
+        },
+        {
+          "text": "站外文章",
+          "link": "/external/"
         },
         {
           "text": "相册",

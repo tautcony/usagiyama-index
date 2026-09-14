@@ -114,7 +114,15 @@ class PageResolver:
         except BlockedError as exc:
             return self._fallback(url, exc.status or 403, f"源站拒绝访问：{exc}", context, allow_archive)
         except OfflineCacheMiss as exc:
-            return self._fallback(url, None, f"离线模式且无缓存：{exc}", context, allow_archive)
+            # 离线且无缓存 ≠ 源站不可得：这一轮根本没发请求，无从判断
+            # 页面还在不在。因此**不记入**不可访问清单（与 ProgressStore
+            # 在离线模式只读是同一个理由：否则一次离线运行就会把整站
+            # 写成"源站不可访问"）。状态仍返回 UNAVAILABLE，渲染时照旧
+            # 出占位块。
+            return self._fallback(
+                url, None, f"离线模式且无缓存：{exc}", context, allow_archive,
+                record_unavailable=False,
+            )
         except FetchError as exc:
             return self._fallback(url, exc.status, f"抓取失败：{exc}", context, allow_archive)
 
@@ -141,8 +149,14 @@ class PageResolver:
         detail: str,
         context: str,
         allow_archive: bool,
+        record_unavailable: bool = True,
     ) -> ResolvedPage:
-        """源站不可用时的 archive.org 补足流程。"""
+        """源站不可用时的 archive.org 补足流程。
+
+        ``record_unavailable=False`` 表示本次失败**不构成**"源站不可得"的
+        证据（离线模式下缓存未命中），只返回状态、不写入 :attr:`unavailable`。
+        名字取全，免得和下面的记录对象 ``record`` 撞名。
+        """
         login_required = _looks_login_required(url)
         log.warning("不可访问 %s（%s）%s", url, http_status or "-", detail)
 
@@ -168,7 +182,8 @@ class PageResolver:
                     wayback_timestamp=wayback_ts,
                     context=context,
                 )
-                self.unavailable.append(record)
+                if record_unavailable:
+                    self.unavailable.append(record)
                 return ResolvedPage(
                     url=url,
                     html=html,
@@ -196,7 +211,8 @@ class PageResolver:
             wayback_timestamp=wayback_ts,
             context=context,
         )
-        self.unavailable.append(record)
+        if record_unavailable:
+            self.unavailable.append(record)
 
         return ResolvedPage(
             url=url,

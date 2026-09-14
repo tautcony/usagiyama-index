@@ -63,7 +63,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -145,7 +145,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -379,7 +379,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -719,7 +719,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -728,6 +728,31 @@
     "index_order": 0,
     "content_hash": "",
     "route": "/notes/291753270"
+  },
+  "314598362": {
+    "note_id": "314598362",
+    "widget_id": "13431979",
+    "title": "所以人们才会彼此寻求——《境界的彼方》第5话演出小析",
+    "date": "2013-11-06 13:47:17",
+    "content_html": "",
+    "comment_count": 1,
+    "source_url": "https://site.douban.com/211330/widget/notes/13431979/note/314598362/",
+    "also_in": [],
+    "images": [],
+    "comments": [],
+    "status": {
+      "availability": "unavailable",
+      "label": "原站不可访问",
+      "httpStatus": null,
+      "detail": "离线模式且无缓存：离线模式下缓存未命中 [-] https://site.douban.com/211330/widget/notes/13431979/note/314598362/",
+      "waybackUrl": null,
+      "waybackTimestamp": null,
+      "waybackStatus": null
+    },
+    "category": "其他作品",
+    "index_order": 2,
+    "content_hash": "",
+    "route": "/notes/314598362"
   },
   "319279183": {
     "note_id": "319279183",
@@ -775,7 +800,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -809,7 +834,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -843,7 +868,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -868,7 +893,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -877,6 +902,31 @@
     "index_order": 9,
     "content_hash": "",
     "route": "/notes/326223685"
+  },
+  "326639941": {
+    "note_id": "326639941",
+    "widget_id": "13431979",
+    "title": "《中二病也要谈恋爱！》片尾解读",
+    "date": "2014-01-14 21:43:13",
+    "content_html": "",
+    "comment_count": 4,
+    "source_url": "https://site.douban.com/211330/widget/notes/13431979/note/326639941/",
+    "also_in": [],
+    "images": [],
+    "comments": [],
+    "status": {
+      "availability": "unavailable",
+      "label": "原站不可访问",
+      "httpStatus": null,
+      "detail": "离线模式且无缓存：离线模式下缓存未命中 [-] https://site.douban.com/211330/widget/notes/13431979/note/326639941/",
+      "waybackUrl": null,
+      "waybackTimestamp": null,
+      "waybackStatus": null
+    },
+    "category": "其他作品",
+    "index_order": 1,
+    "content_hash": "",
+    "route": "/notes/326639941"
   },
   "332912954": {
     "note_id": "332912954",
@@ -893,7 +943,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -1063,7 +1113,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -1129,7 +1179,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -1179,7 +1229,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -1290,7 +1340,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -1323,7 +1373,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -1348,7 +1398,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -1373,7 +1423,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -1398,7 +1448,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -1423,7 +1473,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -1463,7 +1513,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -1472,6 +1522,31 @@
     "index_order": 10,
     "content_hash": "",
     "route": "/notes/412701420"
+  },
+  "425866593": {
+    "note_id": "425866593",
+    "widget_id": "13431979",
+    "title": "《Free! Eternal Summer》第12话演出分析",
+    "date": "2014-09-19 14:00:34",
+    "content_html": "",
+    "comment_count": 0,
+    "source_url": "https://site.douban.com/211330/widget/notes/13431979/note/425866593/",
+    "also_in": [],
+    "images": [],
+    "comments": [],
+    "status": {
+      "availability": "unavailable",
+      "label": "原站不可访问",
+      "httpStatus": null,
+      "detail": "离线模式且无缓存：离线模式下缓存未命中 [-] https://site.douban.com/211330/widget/notes/13431979/note/425866593/",
+      "waybackUrl": null,
+      "waybackTimestamp": null,
+      "waybackStatus": null
+    },
+    "category": "其他作品",
+    "index_order": 3,
+    "content_hash": "",
+    "route": "/notes/425866593"
   },
   "429473097": {
     "note_id": "429473097",
@@ -1702,7 +1777,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -1776,7 +1851,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -1801,7 +1876,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -1864,7 +1939,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -1922,7 +1997,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -2028,7 +2103,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -2086,7 +2161,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -2136,7 +2211,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -2226,7 +2301,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -2396,7 +2471,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -2542,7 +2617,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -2623,7 +2698,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -2742,7 +2817,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -2836,7 +2911,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -3248,7 +3323,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -3288,7 +3363,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -3330,7 +3405,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -3409,7 +3484,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -3434,7 +3509,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -3459,7 +3534,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -3484,7 +3559,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -3509,7 +3584,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -3518,6 +3593,81 @@
     "index_order": 0,
     "content_hash": "",
     "route": "/notes/490420693"
+  },
+  "493628625": {
+    "note_id": "493628625",
+    "widget_id": "13431979",
+    "title": "《吹响悠风号》第一回演出小析",
+    "date": "2015-04-11 19:42:35",
+    "content_html": "",
+    "comment_count": 5,
+    "source_url": "https://site.douban.com/211330/widget/notes/13431979/note/493628625/",
+    "also_in": [],
+    "images": [],
+    "comments": [],
+    "status": {
+      "availability": "unavailable",
+      "label": "原站不可访问",
+      "httpStatus": null,
+      "detail": "离线模式且无缓存：离线模式下缓存未命中 [-] https://site.douban.com/211330/widget/notes/13431979/note/493628625/",
+      "waybackUrl": null,
+      "waybackTimestamp": null,
+      "waybackStatus": null
+    },
+    "category": "吹响悠风号",
+    "index_order": 1,
+    "content_hash": "",
+    "route": "/notes/493628625"
+  },
+  "494796780": {
+    "note_id": "494796780",
+    "widget_id": "13431979",
+    "title": "《吹响悠风号》第二回演出小析",
+    "date": "2015-04-17 22:00:41",
+    "content_html": "",
+    "comment_count": 9,
+    "source_url": "https://site.douban.com/211330/widget/notes/13431979/note/494796780/",
+    "also_in": [],
+    "images": [],
+    "comments": [],
+    "status": {
+      "availability": "unavailable",
+      "label": "原站不可访问",
+      "httpStatus": null,
+      "detail": "离线模式且无缓存：离线模式下缓存未命中 [-] https://site.douban.com/211330/widget/notes/13431979/note/494796780/",
+      "waybackUrl": null,
+      "waybackTimestamp": null,
+      "waybackStatus": null
+    },
+    "category": "吹响悠风号",
+    "index_order": 2,
+    "content_hash": "",
+    "route": "/notes/494796780"
+  },
+  "496259160": {
+    "note_id": "496259160",
+    "widget_id": "13431979",
+    "title": "《吹响悠风号》第三回演出小析",
+    "date": "2015-04-26 22:11:25",
+    "content_html": "",
+    "comment_count": 0,
+    "source_url": "https://site.douban.com/211330/widget/notes/13431979/note/496259160/",
+    "also_in": [],
+    "images": [],
+    "comments": [],
+    "status": {
+      "availability": "unavailable",
+      "label": "原站不可访问",
+      "httpStatus": null,
+      "detail": "离线模式且无缓存：离线模式下缓存未命中 [-] https://site.douban.com/211330/widget/notes/13431979/note/496259160/",
+      "waybackUrl": null,
+      "waybackTimestamp": null,
+      "waybackStatus": null
+    },
+    "category": "吹响悠风号",
+    "index_order": 3,
+    "content_hash": "",
+    "route": "/notes/496259160"
   },
   "496648491": {
     "note_id": "496648491",
@@ -3534,7 +3684,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -3543,6 +3693,433 @@
     "index_order": 0,
     "content_hash": "",
     "route": "/notes/496648491"
+  },
+  "497257959": {
+    "note_id": "497257959",
+    "widget_id": "13431979",
+    "title": "《吹响悠风号》第四回演出小析",
+    "date": "2015-05-03 14:52:03",
+    "content_html": "",
+    "comment_count": 11,
+    "source_url": "https://site.douban.com/211330/widget/notes/13431979/note/497257959/",
+    "also_in": [],
+    "images": [],
+    "comments": [],
+    "status": {
+      "availability": "unavailable",
+      "label": "原站不可访问",
+      "httpStatus": null,
+      "detail": "离线模式且无缓存：离线模式下缓存未命中 [-] https://site.douban.com/211330/widget/notes/13431979/note/497257959/",
+      "waybackUrl": null,
+      "waybackTimestamp": null,
+      "waybackStatus": null
+    },
+    "category": "吹响悠风号",
+    "index_order": 4,
+    "content_hash": "",
+    "route": "/notes/497257959"
+  },
+  "498486997": {
+    "note_id": "498486997",
+    "widget_id": "13431979",
+    "title": "《吹响悠风号》第五回演出小析",
+    "date": "2015-05-10 20:19:44",
+    "content_html": "",
+    "comment_count": 6,
+    "source_url": "https://site.douban.com/211330/widget/notes/13431979/note/498486997/",
+    "also_in": [],
+    "images": [],
+    "comments": [],
+    "status": {
+      "availability": "unavailable",
+      "label": "原站不可访问",
+      "httpStatus": null,
+      "detail": "离线模式且无缓存：离线模式下缓存未命中 [-] https://site.douban.com/211330/widget/notes/13431979/note/498486997/",
+      "waybackUrl": null,
+      "waybackTimestamp": null,
+      "waybackStatus": null
+    },
+    "category": "吹响悠风号",
+    "index_order": 5,
+    "content_hash": "",
+    "route": "/notes/498486997"
+  },
+  "499646004": {
+    "note_id": "499646004",
+    "widget_id": "13431979",
+    "title": "《吹响悠风号》第六回演出小析",
+    "date": "2015-05-17 19:48:47",
+    "content_html": "",
+    "comment_count": 5,
+    "source_url": "https://site.douban.com/211330/widget/notes/13431979/note/499646004/",
+    "also_in": [],
+    "images": [],
+    "comments": [],
+    "status": {
+      "availability": "unavailable",
+      "label": "原站不可访问",
+      "httpStatus": null,
+      "detail": "离线模式且无缓存：离线模式下缓存未命中 [-] https://site.douban.com/211330/widget/notes/13431979/note/499646004/",
+      "waybackUrl": null,
+      "waybackTimestamp": null,
+      "waybackStatus": null
+    },
+    "category": "吹响悠风号",
+    "index_order": 6,
+    "content_hash": "",
+    "route": "/notes/499646004"
+  },
+  "500779951": {
+    "note_id": "500779951",
+    "widget_id": "13431979",
+    "title": "《吹响悠风号》第七回演出小析",
+    "date": "2015-05-24 21:30:25",
+    "content_html": "",
+    "comment_count": 6,
+    "source_url": "https://site.douban.com/211330/widget/notes/13431979/note/500779951/",
+    "also_in": [],
+    "images": [],
+    "comments": [],
+    "status": {
+      "availability": "unavailable",
+      "label": "原站不可访问",
+      "httpStatus": null,
+      "detail": "离线模式且无缓存：离线模式下缓存未命中 [-] https://site.douban.com/211330/widget/notes/13431979/note/500779951/",
+      "waybackUrl": null,
+      "waybackTimestamp": null,
+      "waybackStatus": null
+    },
+    "category": "吹响悠风号",
+    "index_order": 7,
+    "content_hash": "",
+    "route": "/notes/500779951"
+  },
+  "501830142": {
+    "note_id": "501830142",
+    "widget_id": "13431979",
+    "title": "《吹响悠风号》第八回演出小析",
+    "date": "2015-05-31 17:26:53",
+    "content_html": "【绣球花】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img3.doubanio.com/view/note/large/public/p27152762.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>梅雨时节盛开的绣球花（<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Frubeusu-trend.com%2F4605%2F&amp;link2key=7389a61754\" rel=\"nofollow\" target=\"_blank\">紫陽花</a>），本集中一共出现了三次。绣球花的花语繁多，有些与颜色相关。<br/>粉红色绣球花的花语是“活泼的女性”（元気な女性），叶月的象征。粉红色也是恋爱的颜色，庙会上叶月穿的上衣也是粉红色。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img9.doubanio.com/view/note/large/public/p27152766.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>蓝色绣球花的花语是“坚忍的爱情”（辛抱強い愛情），出现在久美子与秀一在长椅上的对话场景前，象征秀一对久美子的感情。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img1.doubanio.com/view/note/large/public/p27152768.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>庙会中的绣球花，对应的花语是“友好、友情、家人团聚、和睦、团结”，与画面中的人物与情景相映衬。这里之所以选白色，应该是为了抛弃与颜色相关的花语（白色→无色），白色绣球花的花语“宽容”与这个场景并无关联。<br/>夏纪与优子的关系真是让人意想不到，顿时觉得两人都可爱了十倍（笑）。<br/>【视线三角铁】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img3.doubanio.com/view/note/large/public/p27152772.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>OP开始前的短短几十秒内，几乎囊括了本集所有的悬念与看点：香织与明日香和晴香、优子与夏纪的关系、小绿与妹妹、秀一对久美子的注视与叶月的会错意、丽奈对久美子的视线。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img9.doubanio.com/view/note/large/public/p27152774.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>练习时丽奈也在观察久美子，并且秀一也注意到了丽奈对久美子的视线。本集标题“庙会三角铁”的三角，既是秀一与久美子和叶月的三角，也是久美子与丽奈和秀一的三角。丽奈观察久美子的描写与下面即将提到的“丽奈对久美子心情的体察”是相连的。<br/>【脚、雨、久美子的心情与丽奈的体察】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img9.doubanio.com/view/note/large/public/p27152775.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>叶月的腿部动作表现了她对久美子与秀一青梅竹马的关系有所顾虑。<br/>对于叶月喜欢秀一这件事，此时的久美子并没有放在心上，表情与腿部表现都是“无动于衷”。这种无动于衷在后来车站上久美子依旧无视秀一的描写中得到了补充。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img3.doubanio.com/view/note/large/public/p27152777.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>秀一的邀请让久美子察觉到了秀一对自己的感情，此时久美子陷入了混乱。下一个场景，天下起了雨，这场雨象征着久美子烦乱的心情。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img1.doubanio.com/view/note/large/public/p27152779.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>久美子在笔记本上画关系图时，可以发现秀一与自己的距离远比叶月与秀一的距离来得短，这也许反映了久美子在潜意识中对秀一的感情。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img2.doubanio.com/view/note/large/public/p27152781.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>久美子\"退让\"的腿部动作，然而这个退让并没有令久美子感到释然。此时镜头将焦点对准了窗户，窗外依旧下着纷乱的雨。秀一与叶月离去后，久美子下意识地握紧了丽奈的手。之后扔鞋子的动作也表现了久美子心中的烦闷。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img3.doubanio.com/view/note/large/public/p27152783.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>所有的一切丽奈都看在眼里，她应该体察到了久美子当时的心情，也明白久美子心里其实是在意秀一的。所以丽奈明知久美子对自己的邀请只是为了打发秀一，却还是问了集合的时间与地点。一方面如后半的台词中提到的那样，丽奈原本也想约久美子出去玩，另一方面也是为久美子着想，于是就正好借这个机会带久美子一起去转换一下心情。<br/>丽奈让久美子的这场“雨”告一段落，树叶上滑落的雨珠仿佛是久美子滴汗的表情，回过神来的久美子意识到自己闯了祸。<br/>【时间、信号灯、源氏物语与宇治】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img9.doubanio.com/view/note/large/public/p27152786.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>叶月与琥珀对话时还在看时间，说明了她的紧张与期待。<br/>由红转绿的信号灯仿佛宣告着开始，叶月深吸一口气等待秀一的到来。<br/>信号灯旁的人物出自《源氏物语》，这个镜头似乎预示着叶月的“悲恋”。叶月穿的鞋子是紫色的，紫色是《源氏物语》的代表色。<br/>《源氏物语》最后十卷以宇治作为主要舞台，描述了没落贵族的三位女儿——大君、中君、浮舟与光源氏之子薰君及外孙匂宫之间以悲剧告终的纷繁爱情故事，故被称作“宇治十帖”。相关内容详见<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fwww.uji-genji.jp%2Fch%2Fgenji%2F&amp;link2key=7389a61754\" rel=\"nofollow\" target=\"_blank\">源氏物语博物馆</a>中的介绍，其中提到了宇治特有的“华丽与静谧”、 “此岸与彼岸”这两个对比要素。<br/>叶月与秀一、久美子与丽奈，这两对人物同时进行的约会分别位于宇治川的两岸，结局也截然相反。<br/>【水流、路灯、高跟鞋对布鞋的吸引】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img3.doubanio.com/view/note/large/public/p27152793.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>正当人们在底下逛庙会时，丽奈却选择登山，这种“逆流而上”、有违常识的行为正是她对“随波逐流”的抵抗。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img1.doubanio.com/view/note/large/public/p27152799.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>面对丽奈可爱的打扮，久美子低头望向自己那双穿旧的布鞋，这种落差与随后的“吸引”是相连的。高跟鞋与布鞋在本集中是一对象征性道具。<br/>久美子的独白与小飞虫被路灯吸引的描写相映成趣，让人联想到“飞蛾扑火”。伴随着独白，睁大眼睛的久美子从停滞到迈出脚步的一连串描写，将丽奈迷人的吸引力表现得淋漓尽致。<br/>【直角、丽奈的抵抗与痛楚】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img3.doubanio.com/view/note/large/public/p27152803.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>相信一般人都会像久美子那样去抄近道，而不是像丽奈那样沿着地面上的菱形图案去走直角……细节体现人物性格，丽奈的这种“不走寻常路”充分表现了她的与众不同、坚持自己的原则与信念的作风。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img9.doubanio.com/view/note/large/public/p27152806.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>丽奈穿连衣裙和高跟鞋登山的意义也同样如此。穿高跟鞋登山是志向高洁、特立独行的丽奈对“在理所当然中形成的世间常识”的抵抗，由此带来的是这种抵抗所伴随的痛楚。<br/>“痛，但我并不讨厌痛”——这就是丽奈回答，她心甘情愿的选择与坚持。<br/>【星星相吸】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img1.doubanio.com/view/note/large/public/p27152809.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>丽奈与久美子登上山顶后，出现在夜空中的是金星与木星。<br/>与《玉子爱情故事》的做法相同，这两颗星的位置与片中的时期以及现实中的情形相吻合。《玉爱》对应的2014年4月正好是火星与地球和月球相接近的时期，而本次的2015年6月则是金星与木星相接近的时期。两者最为接近的一天将会出现在7月1日，差不多就是本片最后一集（第13集）播映的日子。也就是说，本片播映期间，象征丽奈与久美子的这两颗星始终在不断接近，听起来是不是很浪漫？<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img9.doubanio.com/view/note/large/public/p27152816.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>“地面仿佛星空一样”——久美子的这句台词让地面上那片“人造的星空”与天空中真正的星空形成了对比。宇治川的彼岸与此岸，地面上的华丽与山顶上的静谧，种种对比都诉说着丽奈的追求与志向——不想没入浮华的人潮，而是要成为天空中那颗货真价实、与众不同、最为耀眼的明星。丽奈选择的小号正可谓是吹奏乐中的“明星”，所以她才会力争独奏的巅峰。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img1.doubanio.com/view/note/large/public/p27152818.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>伴随着久美子“被吸引到不可自拔”的独白，金星与木星分别闪烁的描写强调了两者之间的“引力”。对于同样不喜欢人群，过去总是随波逐流、如今正尝试改变的久美子来说，丽奈的引力是毋庸置疑的，而这样的久美子也是“想要变得与众不同”的丽奈最好的理解者。在性格上拥有共同点、互相理解的两人是惺惺相惜的存在。<br/>“…我此时此刻就算殒命也在所不惜”比刚开始登山时的“…最终殒命的感觉应该就是如此吧”更为深刻。这个登山的过程，也是久美子（与观众）对丽奈的认识由浅入深的过程。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img9.doubanio.com/view/note/large/public/p27152825.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>“不是自命不凡，而是要成为真正不同凡响的人”——这意味着丽奈同样需要他人的认同。<br/>第三集的分析中，在谈到那幅“个人vs团队”的构图时，当时推测丽奈心怀对于团队的渴望，现在来看那无疑就是她在本集中所说的“抵抗”。作为理解者的久美子第一个认出了丽奈的小号声，并在第四集中对丽奈表示感谢——孤高的抵抗得到了他人的理解与支持，这对丽奈而言恐怕是从未有过的经历。那是两人关系的重要转折点，她们的距离也在之后几集中一步步拉近。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img1.doubanio.com/view/note/large/public/p27152829.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>在这个<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmusic.163.com%2F%23%2Fsong%3Fid%3D26529962&amp;link2key=7389a61754\" rel=\"nofollow\" target=\"_blank\">“寻觅到爱的地方”</a>，丽奈与久美子完成了一次身体上的接触与心灵上的交融。高音与低音的依恋与缠绵，两人在这场颇具神圣仪式感的合奏中接受了彼此，成为了真正的知心朋友。<br/>【本集分镜+演出：藤田春香】\n    <div class=\"clear\"></div>\n<span class=\"btn-report\">投诉</span>",
+    "comment_count": 20,
+    "source_url": "https://site.douban.com/211330/widget/notes/13431979/note/501830142/",
+    "also_in": [],
+    "images": [
+      {
+        "src": "https://img3.doubanio.com/view/note/large/public/p27152762.jpg",
+        "local": "/media/notes/501830142/p27152762.jpg",
+        "alt": "",
+        "archived": true,
+        "archive_url": null,
+        "bytes": 75593
+      },
+      {
+        "src": "https://img9.doubanio.com/view/note/large/public/p27152766.jpg",
+        "local": "/media/notes/501830142/p27152766.jpg",
+        "alt": "",
+        "archived": true,
+        "archive_url": null,
+        "bytes": 54563
+      },
+      {
+        "src": "https://img1.doubanio.com/view/note/large/public/p27152768.jpg",
+        "local": "/media/notes/501830142/p27152768.jpg",
+        "alt": "",
+        "archived": false,
+        "archive_url": null,
+        "bytes": 0
+      },
+      {
+        "src": "https://img3.doubanio.com/view/note/large/public/p27152772.jpg",
+        "local": "/media/notes/501830142/p27152772.jpg",
+        "alt": "",
+        "archived": false,
+        "archive_url": null,
+        "bytes": 0
+      },
+      {
+        "src": "https://img9.doubanio.com/view/note/large/public/p27152774.jpg",
+        "local": "/media/notes/501830142/p27152774.jpg",
+        "alt": "",
+        "archived": false,
+        "archive_url": null,
+        "bytes": 0
+      },
+      {
+        "src": "https://img9.doubanio.com/view/note/large/public/p27152775.jpg",
+        "local": "/media/notes/501830142/p27152775.jpg",
+        "alt": "",
+        "archived": false,
+        "archive_url": null,
+        "bytes": 0
+      },
+      {
+        "src": "https://img3.doubanio.com/view/note/large/public/p27152777.jpg",
+        "local": "/media/notes/501830142/p27152777.jpg",
+        "alt": "",
+        "archived": false,
+        "archive_url": null,
+        "bytes": 0
+      },
+      {
+        "src": "https://img1.doubanio.com/view/note/large/public/p27152779.jpg",
+        "local": "/media/notes/501830142/p27152779.jpg",
+        "alt": "",
+        "archived": false,
+        "archive_url": null,
+        "bytes": 0
+      },
+      {
+        "src": "https://img2.doubanio.com/view/note/large/public/p27152781.jpg",
+        "local": "/media/notes/501830142/p27152781.jpg",
+        "alt": "",
+        "archived": false,
+        "archive_url": null,
+        "bytes": 0
+      },
+      {
+        "src": "https://img3.doubanio.com/view/note/large/public/p27152783.jpg",
+        "local": "/media/notes/501830142/p27152783.jpg",
+        "alt": "",
+        "archived": false,
+        "archive_url": null,
+        "bytes": 0
+      },
+      {
+        "src": "https://img9.doubanio.com/view/note/large/public/p27152786.jpg",
+        "local": "/media/notes/501830142/p27152786.jpg",
+        "alt": "",
+        "archived": false,
+        "archive_url": null,
+        "bytes": 0
+      },
+      {
+        "src": "https://img3.doubanio.com/view/note/large/public/p27152793.jpg",
+        "local": "/media/notes/501830142/p27152793.jpg",
+        "alt": "",
+        "archived": false,
+        "archive_url": null,
+        "bytes": 0
+      },
+      {
+        "src": "https://img1.doubanio.com/view/note/large/public/p27152799.jpg",
+        "local": "/media/notes/501830142/p27152799.jpg",
+        "alt": "",
+        "archived": false,
+        "archive_url": null,
+        "bytes": 0
+      },
+      {
+        "src": "https://img3.doubanio.com/view/note/large/public/p27152803.jpg",
+        "local": "/media/notes/501830142/p27152803.jpg",
+        "alt": "",
+        "archived": false,
+        "archive_url": null,
+        "bytes": 0
+      },
+      {
+        "src": "https://img9.doubanio.com/view/note/large/public/p27152806.jpg",
+        "local": "/media/notes/501830142/p27152806.jpg",
+        "alt": "",
+        "archived": false,
+        "archive_url": null,
+        "bytes": 0
+      },
+      {
+        "src": "https://img1.doubanio.com/view/note/large/public/p27152809.jpg",
+        "local": "/media/notes/501830142/p27152809.jpg",
+        "alt": "",
+        "archived": false,
+        "archive_url": null,
+        "bytes": 0
+      },
+      {
+        "src": "https://img9.doubanio.com/view/note/large/public/p27152816.jpg",
+        "local": "/media/notes/501830142/p27152816.jpg",
+        "alt": "",
+        "archived": false,
+        "archive_url": null,
+        "bytes": 0
+      },
+      {
+        "src": "https://img1.doubanio.com/view/note/large/public/p27152818.jpg",
+        "local": "/media/notes/501830142/p27152818.jpg",
+        "alt": "",
+        "archived": false,
+        "archive_url": null,
+        "bytes": 0
+      },
+      {
+        "src": "https://img9.doubanio.com/view/note/large/public/p27152825.jpg",
+        "local": "/media/notes/501830142/p27152825.jpg",
+        "alt": "",
+        "archived": false,
+        "archive_url": null,
+        "bytes": 0
+      },
+      {
+        "src": "https://img1.doubanio.com/view/note/large/public/p27152829.jpg",
+        "local": "/media/notes/501830142/p27152829.jpg",
+        "alt": "",
+        "archived": false,
+        "archive_url": null,
+        "bytes": 0
+      }
+    ],
+    "comments": [
+      {
+        "author": "虚酱椰",
+        "date": "2015-05-31 17:48:09",
+        "content_html": "赞",
+        "avatar_url": "https://img9.doubanio.com/icon/u38244760-5.jpg",
+        "comment_id": "42141237"
+      },
+      {
+        "author": "phil",
+        "date": "2015-05-31 18:03:54",
+        "content_html": "好赞～ \n<br/>\n<br/>“\n<br/>丽奈让久美子的这场“雨”告一段落，树叶上滑落的雨珠…\n<br/>久美子的独白与小飞虫被路灯吸引的描写相映成趣，让人联想到“飞蛾扑火”。……\n<br/>相信一般人都会像久美子那样去抄近道，而不是像丽奈那样沿着地面上的菱形图案去走直角……\n<br/>“\n<br/>\n<br/>看的时候根本没有想到这些细节的含义啊～这演出太细心了",
+        "avatar_url": "https://img9.doubanio.com/icon/u48886982-4.jpg",
+        "comment_id": "42141299"
+      },
+      {
+        "author": "迪丽热拉",
+        "date": "2015-05-31 19:27:53",
+        "content_html": "走直角这个真没发现。",
+        "avatar_url": "https://img2.doubanio.com/icon/u49130667-131.jpg",
+        "comment_id": "42141592"
+      },
+      {
+        "author": "大熊(￣(工)￣)",
+        "date": "2015-05-31 20:57:14",
+        "content_html": "在知乎上看了很多关于本集的回答，果然还是你的分析更细啊。",
+        "avatar_url": "https://img2.doubanio.com/icon/u1748835-81.jpg",
+        "comment_id": "42141960"
+      },
+      {
+        "author": "某条街",
+        "date": "2015-05-31 21:52:48",
+        "content_html": "在这个“寻觅到爱的地方”，丽奈与久美子完成了一次身体上的接触与心灵上的交融。\n<br/>我竟无言以对……",
+        "avatar_url": "https://img9.doubanio.com/icon/u48941785-6.jpg",
+        "comment_id": "42142252"
+      },
+      {
+        "author": "mixyzai",
+        "date": "2015-05-31 23:50:47",
+        "content_html": "楼主你分析的太纯洁了。。。。我在s1看到的帖子已经扭曲的不行了，当然没去s1之前我已经扭曲的不行了。",
+        "avatar_url": "https://img1.doubanio.com/icon/user_normal.jpg",
+        "comment_id": "42143006"
+      },
+      {
+        "author": "小张生",
+        "date": "2015-06-01 11:25:05",
+        "content_html": "贴吧看到的，虽然细节有些地方有误，但是很详细，也是因为这贴才来小站的，hentai后应是久美子的笑声，丽奈偷瞄的是久美子不是秀一\n<br/>\n<br/>人物形象上，女主三人组、三年级学姐三人组的形象都相对丰满。后藤和梨子这对公认CP、之前一直含蓄的青梅竹马、夏纪和蝴蝶结这对相爱相杀也都抓住有限的时间为自己加上一笔。绿的妹妹琥珀本来强势卖萌，不过这集全员出彩，居然已经没什么人提了……\n<br/>\n<br/>顺便激赞一下女主的声优，虽说可称新人，但配音非常贴合女主这种有些冷淡迟钝的性格，不在第一时间招人喜欢，但相当真实。\n<br/>\n<br/>广受好评的细节方面，不贴图了，总结一下这一集中比较有趣的地方：\n<br/>1. 久美子意识到叶月喜欢秀一时的惊讶声线\n<br/>2. 叶月开头的腿部细节、久美子看到叶月来找秀一时的腿部细节\n<br/>3. 二年级，夏纪和优子（蝴蝶结)先冲突，再一起逛县祭\n<br/>4. 掐准时机的夏季校服出场\n<br/>5. 夏纪逐渐融入低音部\n<br/>6. 梨子与后藤犹豫要不要公开关系，相当真实\n<br/>7. 女主在闲聊时说讨厌人多的场合，呼应与丽奈的独处\n<br/>8. 女主拒绝男主带乐器排练的邀请，却又背上悠风号去见丽奈\n<br/>9. 排练时秀一偷瞄久美子，而丽奈偷瞄秀一（应该是在意久美子和秀一之间的关系）\n<br/>10. 叶月有话要说，秀一随她离去时，久美子抓紧丽奈的手\n<br/>11. 秀一这一集反复表现出的无奈和害羞\n<br/>12. 后藤发红的耳朵，不多说了\n<br/>13. 绿的妹妹，出场和片尾两次强行卖萌\n<br/>14. 看到丽奈的女神装扮，久美子低头看向自己的鞋，对比明显，而似乎这一天久美子和秀一的鞋又是同款的\n<br/>15. 夜间梦幻般的蓝色，让人想起冰菓里同样模糊了奉太郎的玫瑰色\n<br/>16. 丽奈说出hentai后的轻笑\n<br/>17. 明日香学姐在讨论恋爱和去神社许愿的两次出场都再次突出了她重视音乐、重视练习（以及痴女）的形象\n<br/>18. 丽奈的头发，绑马尾、撩马尾、最后演奏时再将头发放下，真正的光是头发就可以玩一集了\n<br/>19. 依旧丽奈，凉鞋磨出的伤痕，某条恰到好处的背带，无需多言\n<br/>20. 确认久美子不在意秀一后丽奈的笑（呼应第九条）\n<br/>21. 讨论“特别的人”时候的分镜，久美子侧趴在台阶上，而丽奈孑然而立，仿佛是油画中的人神之间\n<br/>22. 丽奈大笑完坐下，梦露般捂住被风吹起的裙子\n<br/>23. 脱鞋演奏时，鞋面的尘土与污迹\n<br/>24. 谈论演奏曲目时，丽奈简洁却又可以看做双关的“喜欢的“\n<br/>25. 演奏时的对视\n<br/>26. 叶月睫毛的颤动、“大号啊”三个字的语调、最后的强作欢颜\n<br/>27. 鼻子到嘴唇的那一记，不用说有多摄人心魄了\n<br/>\n<br/>最后推荐下一个专注分析山田尚子作品的豆瓣小站不在的空间 (兔子山的小站)，每周会定期放出《吹响悠风号》的演出小析，视角更独特更冷静也更专业。大概会在31号放出第八话的分析，届时可以关注一下。",
+        "avatar_url": "https://img9.doubanio.com/icon/u49687315-6.jpg",
+        "comment_id": "42144949"
+      },
+      {
+        "author": "某条街",
+        "date": "2015-06-01 15:00:35",
+        "content_html": "话说确定不是从知乎看的么？",
+        "avatar_url": "https://img9.doubanio.com/icon/u48941785-6.jpg",
+        "comment_id": "42146792"
+      },
+      {
+        "author": "某条街",
+        "date": "2015-06-01 15:05:39",
+        "content_html": "好吧在贴吧也看到了……应该是我在知乎的回答被人抄到贴吧上去了",
+        "avatar_url": "https://img9.doubanio.com/icon/u48941785-6.jpg",
+        "comment_id": "42146825"
+      },
+      {
+        "author": "大熊(￣(工)￣)",
+        "date": "2015-06-01 15:29:31",
+        "content_html": "是你的答案啊，我还评论了",
+        "avatar_url": "https://img2.doubanio.com/icon/u1748835-81.jpg",
+        "comment_id": "42147084"
+      },
+      {
+        "author": "phil",
+        "date": "2015-06-01 17:19:38",
+        "content_html": "原来是你的回答～赞～",
+        "avatar_url": "https://img9.doubanio.com/icon/u48886982-4.jpg",
+        "comment_id": "42148679"
+      },
+      {
+        "author": "某条街",
+        "date": "2015-06-01 21:58:06",
+        "content_html": "@大熊(￣(工)￣)\n<br/>\n<br/>@<a href=\"https://www.douban.com/people/phil/\">phil</a>\n<br/>圈子很小咯o(╯□╰)o",
+        "avatar_url": "https://img9.doubanio.com/icon/u48941785-6.jpg",
+        "comment_id": "42150035"
+      },
+      {
+        "author": "悲鱼",
+        "date": "2015-06-01 23:17:51",
+        "content_html": "经历了《冰菓》的洗礼之后，明白了京阿尼喜欢在画面中加入各种彩蛋，丰富了镜头语言的表达。在我看过的对本集的解读文章中，您对各种象征、隐喻、人物动作的解读大概是最靠谱的了。感谢！",
+        "avatar_url": "https://img9.doubanio.com/icon/u28797776-15.jpg",
+        "comment_id": "42150592"
+      },
+      {
+        "author": "小张生",
+        "date": "2015-06-02 10:43:13",
+        "content_html": "现在的网络，你不注明禁止转载，或者转载请注明，就会有辛勤的搬运工“帮你”搬运到别处去",
+        "avatar_url": "https://img9.doubanio.com/icon/u49687315-6.jpg",
+        "comment_id": "42153045"
+      },
+      {
+        "author": "phil",
+        "date": "2015-06-02 15:58:56",
+        "content_html": "转载不注出处真是很恶心，我还在其他地方看到无注名转兔子山这些小析的～",
+        "avatar_url": "https://img9.doubanio.com/icon/u48886982-4.jpg",
+        "comment_id": "42156578"
+      },
+      {
+        "author": "也不知道谁",
+        "date": "2015-06-02 20:25:10",
+        "content_html": "“不是自命不凡，而是要成为真正不同凡响的人”——这意味着丽奈同样需要他人的认同。\n<br/>\n<br/>上面这一句我的理解给你不一样。我觉得高板的意思重点不在于需要别人的认同。我认为在这里，她的想要的不同并非是对自己的认识，即那种“觉得自己是不同的人”，而是要“实践”自己的不同。在她看来，自己走在“成为不同的人”的路上，所以她会说 “我‘想’成为特别的人”，以及后面“更拼命联系，吹得更好，就能变得更特别”。这与你对高板关于痛处的解读也是一致的。\n<br/>\n<br/>不能说变得特别这件事不需要别人的认同，不需要别人看出来，但是在我看来，高板的性格着重体现在她是一个坚定的实践派。 并且在她的世界观里有一种人是通过如此的实践把其本性发掘出来的，而她在九美子身上看到的“性格很差”就是跟她同样的对周遭环境的不认同。因此才有所谓像洋葱一样拨开之类的话。",
+        "avatar_url": "https://img3.doubanio.com/icon/u45903448-2.jpg",
+        "comment_id": "42158679"
+      },
+      {
+        "author": "mrfate",
+        "date": "2015-06-07 22:24:47",
+        "content_html": "赞一个",
+        "avatar_url": "https://img3.doubanio.com/icon/u128577025-2.jpg",
+        "comment_id": "42212113"
+      },
+      {
+        "author": "宇远",
+        "date": "2017-01-31 21:38:05",
+        "content_html": "另一对呢，人造星空的那一对相反结果的好期待的说，怎么没分析",
+        "avatar_url": "https://img2.doubanio.com/icon/u141820673-1.jpg",
+        "comment_id": "48032593"
+      },
+      {
+        "author": "斗篷客",
+        "date": "2019-01-04 17:57:09",
+        "content_html": "lss所言极是。",
+        "avatar_url": "https://img1.doubanio.com/icon/u40889708-118.jpg",
+        "comment_id": "56827950"
+      },
+      {
+        "author": "斗篷客",
+        "date": "2019-01-04 18:10:44",
+        "content_html": "上面打错了（无法删）。指“也不知道谁”。",
+        "avatar_url": "https://img1.doubanio.com/icon/u40889708-118.jpg",
+        "comment_id": "56828092"
+      }
+    ],
+    "status": {
+      "availability": "ok",
+      "label": "已归档",
+      "httpStatus": 200,
+      "detail": "缓存命中",
+      "waybackUrl": null,
+      "waybackTimestamp": null,
+      "waybackStatus": null
+    },
+    "category": "吹响悠风号",
+    "index_order": 8,
+    "content_hash": "",
+    "route": "/notes/501830142"
   },
   "502324234": {
     "note_id": "502324234",
@@ -3574,7 +4151,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -3753,7 +4330,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -3911,7 +4488,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -4140,7 +4717,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -4359,7 +4936,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -4461,7 +5038,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -4791,7 +5368,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -4816,7 +5393,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -4983,7 +5560,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -5063,7 +5640,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -5103,7 +5680,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -5128,7 +5705,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -5144,7 +5721,7 @@
     "title": "《吹响悠风号》评论音轨笔记2",
     "date": "2015-09-12 13:59:02",
     "content_html": "【泷老师的人设】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img1.doubanio.com/view/note/large/public/p28985558.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>池田晶子在第三集的评论音轨中谈到，泷老师的人物设定——戴着老爷爷式的眼镜、蓬松的头发、柔和的微笑、竞赛会时穿的燕尾服，这些都来自于山田的指示。<br/>【RYDEEN】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img9.doubanio.com/view/note/large/public/p28985565.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>第五集Sun-Fes上演奏的曲子《RYDEEN》（ライディーン）来自山田的提议（山田：这是泷老师的主意）。当时制作组想选一首男女老少尽人皆知，同时又适合用吹奏乐演奏的名曲，正当大家绞尽脑汁冥思苦想的时候，山田鼓起勇气提出了“《RYDEEN》如何？”（注：山田是YMO的粉丝）。<br/>Lantis的音乐制作人斋藤滋表示这首曲子选得很妙，获得了极大的反响，观众们都对这首曲子的出现感到意外。制作组为此也做足了保密工作，在前面的集数中没有加入练习这首曲子的场景，秀一询问曲名时泷老师也卖关子说“敬请期待下周”。<br/>《RYDEEN》的曲名与作曲家高桥幸宏的名字出现在片尾中令山田感慨万千。斋藤的公司里也有一位超喜欢YMO的监制，那位监制与YMO曾经的工作人员也有交流，斋藤向他请教过曲名该如何表示的问题。据那位监制所说，这首曲子虽然也有英文名，但最早推出时用的是片假名，YMO的乐迷们看到片假名的曲名一定会高兴的，于是片尾字幕中就使用了片假名。<br/>注：除了曲名外，高桥幸宏的名字也使用了早期的片假名“高橋ユキヒロ”（出道时的1978年至1980年前半使用的名字，之后改为“高橋幸宏”）。<br/>【谜步】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img3.doubanio.com/view/note/large/public/p28985573.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>复杂又可爱的谜步是由三好一郎设计的，先将舞步做成动画，然后发给原画师参考。被问及谜步好在哪里时，三好回答“谜步就美在谜上”。<br/>另外山田提到第五集是相当费力的一集，开始制作前制作人员就有这种预感，石原导演对此愁眉苦脸、忐忑不安，不过在得知第五集的演出由老将三好接手后，石原终于恢复了笑容。<br/>【ED】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img1.doubanio.com/view/note/large/public/p28985578.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>ED画面中出现了宋体字，吹奏乐部给人一种大家都怀着满腔热忱全力以赴的印象，那份坚定不移的热忱与宋体字很般配。动画开播前的PV中也使用了宋体字，那也是出于对吹奏乐部的敬意。ED还注重“青春”，画面的基调也偏青色。此外还有Ska。<br/>注：Ska是牙买加的一种流行音乐，也是ED的曲风。ED中小绿的舞步源自“Ska dance”（スカダンス），Ska dance是配合Ska乐曲欢快的节奏所跳的舞步（Ska系演唱会上粉丝们跳的舞）。<br/>《Newtype》2015年7月号的访谈中，山田也提到过相同的内容：吹奏乐部的青春不是“得过且过”，而是怀着满腔热忱。为了让大家好好关注这一点，于是用宋体字打出了歌词。绿辉配合Ska的节拍踏出舞步的地方不是作画错误（笑）。<br/>【眼睛的高光与颜色】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img2.doubanio.com/view/note/large/public/p28985581.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>角色的眼睛中除了白色的高光以外还有一点彩色的高光，这是本作的一大特征，负责色彩设计的竹田明代谈到这个提议来自山田。山田想表现出眼睛的那种水灵灵的感觉，在眼睛的画法上做了各种摸索后，提出了“那一点彩色的高光用粉红色如何？”这个建议。<br/>竹田从池田那里拿到各种眼睛的画法后从久美子开始上色，然后发现粉红色与久美子实在不搭。以往的作品中竹田都是用同色系的色彩来设计眼睛，比如蓝色的眼睛用水蓝色的高光，采用的是深浅渐变的方式。竹田之前就想改变这个风格，于是趁此机会，她开始尝试用异色系的颜色，比如像互补色与反差色。抱着这个想法竹田在久美子的眼睛高光中涂上了黄绿色，结果很相称。然后就采用了这种反差色的搭配法，叶月是水蓝色，绿辉是淡紫色，粉红色用在了丽奈的眼睛上，最终的效果令山田很中意。泷老师的眼睛是蓝色的，高光是完全相反的红色，这种反差也符合他给人的印象。<br/>【发色】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img9.doubanio.com/view/note/large/public/p28985586.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>发色请摄影组加入了一点淡淡的渐变效果，具体表现在头发下端（比如明日香的头发下端偏蓝）。头发的渐变色使用的是每个角色眼睛中的颜色。<br/>【大号君的颜色】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img2.doubanio.com/view/note/large/public/p28985591.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>大号君的白色与水蓝色来自山田的强烈要求，石原吐槽说“为什么是白色呢，照理说不应该是金色吗，白色感觉好不舒服啊”。因为有白色的大号君在先，所以其他乐器君系列也没有使用乐器本身的颜色，圆号妹妹是粉红色，萨克斯君是水蓝色，悠风君是淡紫色，只有低音大提琴君的颜色比较正经。<br/>【夏服领巾的颜色】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img3.doubanio.com/view/note/large/public/p28985592.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>一年级夏服领巾的颜色，一开始竹田打算用淡紫色，但石原说粉红色好看，为此引发了一番争执。石原当时还闹别扭说“没人肯听我的话”，最后就决定用粉红色了……<br/>【冰激凌】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img1.doubanio.com/view/note/large/public/p29155708.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>久美子手中的冰激凌是焙茶味的，不是巧克力。\n    <div class=\"clear\"></div>\n<span class=\"btn-report\">投诉</span>",
-    "comment_count": 23333,
+    "comment_count": 4,
     "source_url": "https://site.douban.com/211330/widget/notes/13431979/note/516700383/",
     "also_in": [],
     "images": [
@@ -5255,7 +5832,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -5271,7 +5848,7 @@
     "title": "《吹响悠风号》评论音轨笔记3",
     "date": "2015-09-22 18:14:34",
     "content_html": "【周边减光的摄影效果】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img2.doubanio.com/view/note/large/public/p29161171.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>高尾一也（摄影导演）：一开始石原导演提出希望摄影做得有真实感，比如对焦之类的处理。为了追求真实感，实际上每一集的画面都降低了周边光量，做过一点虚化（模糊）效果，由此来打造出胶片感。<br/>石原：而且还不是单纯的虚化，用摄影术语来说就是“二线性虚化”，是一种质量不好的镜头拍摄出来的不太理想的焦外成像效果。Photoshop的那种模糊太干净，看上去不像是用摄像机拍出来的，所以就提出了那样的要求。<br/>高尾：所以看了许多摄影集，将那些好的摄影作品的虚化部分移植过来，比如像圆形的虚化光斑，将这部分贴到画面中。为了做出漂亮的虚化效果做了各种各样的尝试。<br/>【空气中飘舞的灰尘】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img3.doubanio.com/view/note/large/public/p29161173.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>石原：OP的演奏场景中，空气中飘舞的像是灰尘般的东西，那是镜头上以及空气里的灰尘。<br/>高尾：被戏称为泷老师的鳞粉，最终回满屏飞舞（笑）。因为画面显得有些空寂，所以就加上了。<br/>石原：想做得华丽点，追求的是少女漫画中常用的肥皂泡的效果。最早那张久美子光脚抱着悠风号的宣传图也加入了镜头上的灰尘的反光效果。<br/>高尾：我在一开始做那张宣传图的CG时就明白了，这部作品要做这种效果。<br/>石原：说到摄影，最近的电视剧和电影的画面都太干净太清晰了。几年前流行过玩具相机，虽然拍出来的照片不是很清晰，但很受大众欢迎。人记忆中的影像并不鲜明，周边会显得有些昏暗，我想忠实地再现这种感觉。<br/>【窗上垂落的雨滴】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img9.doubanio.com/view/note/large/public/p29161176.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>高尾：窗上垂落的雨滴太棒了，那是我做的。<br/>石原：自卖自夸啊（笑）。<br/>高尾：难得会做这种细节。那是用CG做的，本集中所有的窗户上都做了雨滴垂落的效果。<br/>【泷昇】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img3.doubanio.com/view/note/large/public/p29161177.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>樱井孝宏：泷老师的名字是“昇”令人感到意外，这名字听起来像在攀越瀑布一样（滝=瀑布，昇=攀升），感觉会被人嘲弄。<br/>黑泽朋世：因为父亲的名字是泷透。<br/>樱井：通（=透）过瀑布攀越而上！<br/>寿美菜子：姓和名都是一个字确实令人意外。我的姓氏是一个字，所以名字绝对不想取一个字的，尤其是“司（Tsukasa）”这种。<br/>樱井：尤其是“司（Tsukasa）”？<br/>寿：因为会变成“寿司（Sushi）”。<br/>樱井：噢噢噢！真的诶！！<br/>寿：虽然读音（→Kotobuki Tsukasa）听起来不错。<br/>樱井：不是有“海月（Mitsuki）”这种名字吗，结果被人念成“水母（Kurage）”。因为水母（クラゲ）可以写成“海月”，但取名字的人不知道，取好名字过了一阵子被人提醒后才发现，然后对那个人说“你倒是早点说啊！”（笑）。<br/>黑泽：不过本名是小海月（Mitsuki-chan），昵称是小水母（Kurage-chan）的话也很可爱。<br/>樱井：嗯，长大了会觉得可爱。<br/>【秀一中途上车的原因】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img1.doubanio.com/view/note/large/public/p29161178.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>高尾：为什么秀一会在中途的黄檗站上车，为了买面包中途下过车吗？<br/>石原：不是为了买面包，买面包只是顺便。吹奏乐部的一年级男生只有两个人，所以秀一与吹萨克斯的泷川Chikao关系很好。他们经常一起回家，泷川在黄檗站下车，秀一也下车和他闲聊，顺便买面包吃。<br/>高尾：Chikao在黄檗站下车，也就是说他不是特地（陪秀一）来到黄檗站的吧？<br/>石原：他在黄檗站下车，然后再回到车站送别秀一。<br/>高尾：啊，还有个问题，为什么丽奈也在此时出现，她也是从黄檗站上车的吗？<br/>石原：丽奈并不是在那里上车的。<br/>高尾：正好看见久美子于是就坐过去了？<br/>石原：嗯，她应该原本就和久美子在同一辆电车中。<br/>高尾：秀一回家时总是乘上久美子所在的那辆电车，那是偶然吗？<br/>石原：应该是偶然吧。<br/>高尾：我还以为秀一在等她呢。<br/>石原：你要这么解释也可以。<br/>黑泽：你们听我说，据说这里是Chikao离家最近的车站，Chikao和秀一去买面包，然后Chikao为了送别秀一特地买了张站台票回到这里。说到底这个车站离学校只有一站，Chikao恐怕不是乘电车通学的，他特地买了站台票为秀一送行。<br/>樱井：真的假的啊Chikao！<br/>黑泽：然后秀一连“Chikao，明天见”都不说一句就走了，你们想想被留下来的他是怎样一种心情！<br/>寿：确实，这家伙……<br/>樱井：就是那个吧，这时候女生就会开始讨论他们有一腿什么的，真让人气愤啊。<br/>【ED】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img1.doubanio.com/view/note/large/public/p29161199.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>高尾：关于ED有一大堆话想说，首先是这里的橙色背景……<br/>石原：这里山田的分镜太随便了。<br/>高尾：没错，超随便（笑），这里的背景是我画的，粉红色的低音符号也是我画的。真是不容易，之前问过好几次山田都犹豫不决地说“怎么做好呢……”，直到上交日的前一天山田才终于说想做成箭头冲破粉红色的云，我说“你倒是早点说啊”，然后拼命赶工。<br/>【绣球花】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img1.doubanio.com/view/note/large/public/p29161209.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>石原&amp;藤田：这朵绣球花的画面制作时也颇有讲究。虽然是一朵绣球花，但为了表现出焦距的层次感，作画时分成了两三层。焦点对准最上面那层，后两层做焦外虚化，从而令这朵花显得更像球体。说到梅雨季就少不了绣球花。<br/>【向山进发】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img2.doubanio.com/view/note/large/public/p29161211.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>石原：虽然片中县祭当天没有下雨，但现实中那天下着雨。<br/>藤田：没错，下得挺大的，县祭那天我去登大吉山了。<br/>石原：县祭当晚？真的吗！我是之前取材的时候去的。<br/>藤田：过程中与许多人擦肩而过，山顶也聚集了很多人，吃了一惊。画分镜前的冬天也和原画师一起去过一次，负责上色的大冢（芙由纪）也一个人去登过……为了在制作时能切身体会到剧本中描写的气氛，第八集的许多制作人员都自发去登山，令人深深感受到了大家对第八集的爱。<br/>石原：本片的舞台离公司很近所以很方便，随时都能去取材。<br/>【画面摇晃】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img1.doubanio.com/view/note/large/public/p29161230.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>石原：摇晃画面主要用于表现角色的表情与心情，另外使用远摄镜头时也会用到。原本想更频繁的使用画面摇晃，因为想拍出纪录片的感觉，就像有个摄像师手举着摄像机在拍摄一样，但最终并没有运用到全篇中。<br/>藤田：第八集为了表现出摄像师一边登山一边拍摄的气氛，登山场景全部加入了细微的摇晃。<br/>【早放的原因】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img1.doubanio.com/view/note/large/public/p29161238.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>石原：吹奏乐部经常练习到很晚，县祭当天提早结束是因为县祭的电车晚高峰与交通管制，这里姑且说明一下。<br/>藤田：我还以为那是泷老师小小的好意呢（笑）。<br/>石原：读原作时在想，因为有交通管制，所以他到时候没法开车回家（笑）。<br/>【琥珀与叶月】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img3.doubanio.com/view/note/large/public/p29161243.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>石原&amp;藤田：琥珀体现了山田的喜好，迷你版的绿辉，脸上的两抹红晕也非常可爱。叶月看到琥珀时发出的声音（gang～），以及琥珀说“超可爱”后叶月掩饰羞涩的动作都是山田加入的。<br/>【叶月的发饰】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img1.doubanio.com/view/note/large/public/p29161248.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>藤田：叶月戴的发饰与平时不同，如珠宝般闪闪发光，体现了女孩子面对特殊时刻的决胜心，以及为自己加油的心情。最后叶月一边看着发饰一边行走，就像对魔法的解除感到惋惜般，“不过实际上并没有施展什么魔法呢”——当时她应该是这么想的吧。<br/>【连衣裙的颜色】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img1.doubanio.com/view/note/large/public/p29161249.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>藤田：虽然丽奈穿的是白色连衣裙，但因为背景是亮蓝色的夜晚，所以想让连衣裙散发淡蓝色的光芒。一开始交上来的色样是贴近背景的淡蓝色，为了突出丽奈的与众不同，请制作人员做成了荧光色的感觉。<br/>【重画表情】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img3.doubanio.com/view/note/large/public/p29161253.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>藤田：“大号的职责就是在背后默默提供支持”——叶月说这句话的场景，为了让角色更栩栩如生，作画根据后期配音的演技重画了表情。丽奈回头后的微笑也是在完成原画检查后又拿回来重新加入的，对于久美子的不诚实丽奈哼地一笑，心想久美子就是这点不好。<br/>【金星与木星】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img1.doubanio.com/view/note/large/public/p29161260.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>藤田：多次出现在画面中的这两颗象征性的星星，这是石原导演的主意。<br/>石原：我在制作动画时会在意月龄与星星的位置，打开星空模拟软件一看，发现这一天金星正好位于很棒的位置，并且木星正渐渐接近金星。不过实际6月5日的夜空中，这两颗星看起来要比片中离得远一些。<br/>藤田：没错，不过想尽可能地将这两颗星拍到画面中（笑）。<br/>【特殊ED】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img9.doubanio.com/view/note/large/public/p29161264.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>石原：我们公司的作品基本上不会去掉ED，这集的篇幅在分镜阶段就非常长，但又难以做出删减，于是就向制片人提出了请求。ED用的是奥华子的曲子，要问为什么选这首，只能说这是一首很棒的曲子。虽然我是根据旋律与气氛来选曲的人，但这首歌的歌词真的很契合片中的场景。<br/>【对话的青春感】<br/>石原：鹤冈经常会问——“刚才那段台词有没有青春感？”<br/>鹤冈：我们不明白，所以就会问青春的巨匠。<br/>石原：青春的巨匠是说山田（笑）。<br/>斋藤：后期录音时会回过头问，“刚才那段台词有没有青春感？怎么样？Yes还是No？”<br/>鹤冈：这方面果然还是要征求专家的意见。<br/>石原：人与人之间的对话有时会有些驴唇不对马嘴的感觉……<br/>鹤冈：所以在看到5名女生一起组乐队的动画（《轻音！》）的剧本时我很震惊。<br/>石原：因为对话驴唇不对马嘴是吧（笑）。<br/>鹤冈：那种对话别人绝对没法模仿。<br/>石原：写剧本时一般都会写成那种有条不紊并且推进剧情的对话……<br/>鹤冈：没错，在准备写对话的那一刻就注定了写出来的东西会变得有逻辑性。<br/>石原：对对，后期录音时经常会听到“逻辑性”这个词（笑）。<br/>鹤冈：要写出无逻辑性的对话真的非常困难，并且还要使其作为剧本得以成立，可以说这是一种出色的才能。要让我们组织出那种随意的对话确实有些困难。<br/>石原：随意的对话确实很难写，想出来的对话总显得刻意……<br/>斋藤：会变成按部就班的感觉。<br/>鹤冈：所以我们会讨论“这段台词有青春感吗？是不是太有条理了？”，经常会让山田修改。<br/>石原：我还被鹤冈说了，“高中女生说话会这么有条不紊吗！”（笑）。<br/>鹤冈：啊，确实有这么回事，因为觉得对话太有条有理了。<br/>斋藤：没错，因为她们是高中女生。<br/>鹤冈：所以我就说“改成随意点的对话吧”。<br/>斋藤：后期录音时鹤冈确实经常会指出类似的问题。<br/>鹤冈：确实思考模式会和平常相反。一般我们常说“这段对话缺乏条理吧”，但在制作本片时会说“这段对话太有条理了吧”。\n    <div class=\"clear\"></div>\n<span class=\"btn-report\">投诉</span>",
-    "comment_count": 233,
+    "comment_count": 3,
     "source_url": "https://site.douban.com/211330/widget/notes/13431979/note/518061571/",
     "also_in": [],
     "images": [
@@ -5431,7 +6008,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -5581,7 +6158,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -5710,7 +6287,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -5828,7 +6405,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -5987,7 +6564,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -6029,7 +6606,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -6093,7 +6670,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -6109,7 +6686,7 @@
     "title": "想让她们再穿一次校服——山田尚子导演谈《电影 轻音！》（《电影旬报》2011年12月上旬号）",
     "date": "2015-10-16 20:34:34",
     "content_html": "<div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img3.doubanio.com/view/note/large/public/p29527662.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>采访・文＝大久保清朗<br/>【对银幕的憧憬】<br/>山田尚子导演喜欢用“银幕”这个词。“决定电影化的时候，一开始非常高兴。我对银幕一直心怀憧憬，所以听到这个消息时，我用一句‘好，我做！’很爽快地答应了。但事后一想到我们制作的东西将会呈现在银幕上，才意识到这下搞大了（笑）”。两年前《轻音！》刚开始在电视上播映时，有谁想过这部作品会在无数观众的支持下推向大银幕呢？<br/>《轻音！》（第一期）是2009年4月至6月播映的全十三集的电视动画。某个女子高中，因成员不足而面临废部的轻音乐部，田井中律（鼓手）与好友秋山澪（贝斯手）成功拉拢了原本打算加入合唱部的琴吹紬（键盘手）。离规定的成员数还差一人。此时出现的是至今连乐器都没碰过，就在心血来潮之下提交了入部申请的平泽唯。面对一开始打算辞退的唯，三人演奏了《请给我一双翅膀》。自那个瞬间起，唯身上的某种东西开始发生变化。<br/>包括第一集的剧本在内，负责系列构成的是吉田玲子。细田守执导的《数码宝贝：我们的战争游戏！》（2000）同样是吉田写的剧本，在令人窒息的动作戏中，细腻地描绘了普通小学生之间的纠葛。“首先是吉田的剧本俘虏了我的心”山田导演说道，“在读第一期第一集的剧本时，我非常感动。纯真女孩的鲜嫩欲滴跃然纸上。虽然那时连角色设计都还没有完成，但眼前浮现出了各色各样的东西，心中充满了想要快点制作的心情”。<br/>然而《轻音！》播映当初，并不是所有人都对其抱有好感。唯她们没有拼命投入到乐队活动中，也没有与异性恋爱。为了补考开学习会，放学后一起喝茶（顾问老师山中佐和子根据她们的特点将乐队起名为“放学后tea time”），片中一味地在描写这些平静的日常。包括大人几乎不露面这一点在内，有人批评说《轻音！》中的登场人物们不存在“纠葛”，甚至说本片没有描写“成长”。<br/>像《轻音！》这种被称为“日常系”的动画并不少见。在这种情况下，山田说非常庆幸遇到了能对这种恬静的世界表示赞同的制作人员。除了山田与吉田，还有一个女性制作人员也不能不提，那就是负责角色设计与总作画导演的堀口悠纪子。“吉田与堀口在制作时都做了周密的考虑，但她们都是感性优先的人。两人都很喜欢暧昧模糊的语气。特别是堀口，对于我提出的要求她从不会说‘不明白’，反而会相当投入地去思考。这真的令人感到庆幸”。致力于描写少女们随意自然的举止的《轻音！》，终于渐渐获得了观众们的支持。<br/>【少女们的芬芳】<br/>《轻音！！》（第二期）最后唯等人从高中毕业。然而2010年9月28日最终回播映结束时，观众们被突击式地告知了电影化的消息。电影究竟会讲述怎样的故事引起了热议。关于这方面的详情已在今年公布，电影讲述的是唯她们毕业旅行的故事。然而原作中唯等人早已开始了大学生活。<br/>为什么仍旧选择高中时代呢？<br/>“与其说《轻音！》的主人公们必须是学生，不如说必须穿着校服”山田导演说道，“唯虽然乍看波澜不惊，但三年间她其实是以惊人的速度在奔跑。所以制作电影时我也想过，让已经毕业的她们再回到从前真的好吗？不过一旦再次开始描绘唯她们，果然还是想让她们穿校服。那种只有高中女生才会散发出的气息与光芒，对《轻音！》来说非常重要。她们确实因为毕业而登上了大人的阶梯。只不过我对此感到有些寂寞，想再见一次我曾喜欢的唯她们一起欢闹的身影。‘啊，她们确实是这样的女生呢’——我希望电影能让一路陪伴至今的观众产生这种怀念的心情”。<br/>山田导演称自己有少女情结，执着于高中女生特有的芬芳，这在她的演出中也随处可见——用固定的画面隔开一段距离去拍摄少女们的身姿。令人印象深刻的是升入三年级时唯她们参加开学典礼的第二期第一集。唯在走廊里捡起了飘落的樱花，那是一个从头到尾长达一分钟的固定镜头。“如果可以的话，真想把摄像机放着不动，一直看着她们，就连包围着她们的空气我也想拍进去。为此，与其拉近画面，不如隔开一些距离更能表达这种感觉”。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img1.doubanio.com/view/note/large/public/p29527679.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>“对‘少女性’怀抱憧憬”的山田导演，称自己喜欢像<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmovie.douban.com%2Fsubject%2F1444232%2F\" rel=\"nofollow\" target=\"_blank\">《纯真》</a>（2004）那样“一直在拍摄少女的电影”。“我还以为这部电影是个老爷爷拍的，没想到是个女性导演（露西儿·哈兹哈利罗维克）。自己也想拍出那种独特的气息”。《纯真》的舞台是一所建在森林深处的神秘的少女学校，白色裙子下娇媚的双腿给人留下了深刻的印象，《轻音！》中也常常会出现少女们丰富的腿部描写。<br/>另外，山田导演的作品中经常会用到仰角拍摄的固定镜头，这不禁令人想起小津安二郎的电影。“小津电影的仰角拍摄我实在比不上（笑），不过拍摄登场人物时将视线稍微移开一些，在这一点上或许是相近的。简单来说就是不要太逼近主人公。虽然这种做法不容易得到大多数人的认可，但稍微退开一点反而能拍出少女们飘散的余味。能否接受因各人喜好而异。有时候这么做会让观众觉得莫名其妙，所以也有风险”。<br/>【为了让《轻音！》始终如一】<br/>正如小津电影始终专注于拍摄“现在”，《轻音！》也是执着于“现在”的作品。对此山田导演说道：“我只是很珍惜高中女生的现在这一瞬间”。重要的不是去展现波澜壮阔的剧情，而是抓住每时每刻都在变迁的真实的现在。比如第二期第二十四集《毕业典礼！》就回避了让过去的回忆像走马灯一样浮现的演出。对此山田导演说道：“在这一点上我赌上了自尊（笑）。虽然回想看上去很棒很感动，但我不想去依赖这种东西，只想专注于‘现在’。某种意义上是想展示裸露的状态。带有说明性质的做法会让人觉得索然无趣”。<br/>“这样说也许不太恰当，但《轻音！》并不是为了让登场人物成长而制作的动画。我没有去促使她们成长，而是她们自己在三年当中的经历成就了现在的她们。一切都是她们一路走来所获的相应的成果”。唯、澪、律、紬，以及学妹中野梓，她们确实在一点一点发生变化。唯也是，对比第一期中靠不住的她与第二期中温柔地关怀着周围的她，变化一目了然。但那并不是事先的考虑，而是珍惜登场人物的结果。“第一期与第二期之间，我的心情并没有什么不同”山田导演说道，“但是前不久隔了很长时间再次重温第一期时，区别之大令自己也感到惊讶”。<br/>《轻音！》有着个性迥异的角色，动画贴近了每一个角色的心情，描写了她们心中的涟漪。在温和平静的时光中，她们的面貌也发生了相应的改变。某种意义上那是动画片的正统后继。例如《阿尔卑斯山的少女》（1974）与《红发少女安妮》（1979）等高畑勋执导的电视动画，也是这种舒缓的节奏。那么山田导演在《电影 轻音！》中追求的又是什么呢？<br/>“还是制作《轻音！》。最重要的是让《轻音！》始终如一。我非常重视这一点。无论是电视还是电影，制作时同样会感到烦恼，不会灵机一动就冒出一个好主意。总是在烦恼与气馁之间反复。这时最重要的就是去守护这部作品，让《轻音！》永远是《轻音！》”。\n    <div class=\"clear\"></div>\n<span class=\"btn-report\">投诉</span>",
-    "comment_count": 23333,
+    "comment_count": 2,
     "source_url": "https://site.douban.com/211330/widget/notes/15416684/note/520941015/",
     "also_in": [],
     "images": [
@@ -6150,7 +6727,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -6256,7 +6833,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -6281,7 +6858,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -6608,7 +7185,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -6633,7 +7210,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -6649,7 +7226,7 @@
     "title": "抱着正面决胜负的态度制作的“青春动画”——《吹响悠风号》石原立也×山田尚子访谈（《Animestyle 007》）",
     "date": "2015-12-29 12:30:47",
     "content_html": "<div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img3.doubanio.com/view/note/large/public/p30928007.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>采访：小黑祐一郎、远藤一树<br/>撰文：远藤一树<br/>采访日期：2015年8月13日<br/>采访地点：京都动画东京办事处<br/>小黑：首先请谈谈企划当初的事情。一开始读《吹响悠风号》的原作时有何感想？<br/>石原：第一感想是“哇，好麻烦”。故事虽好，但预感到作画会很困难。特别是Sun-Fes的游行场景，我一边读一边在想“这要怎样制作成影像”。<br/>小黑：石原担任导演，山田负责系列演出——一开始就是这样定的吗？<br/>石原：不是很清楚，起初好像并不是这样。<br/>山田：先是两人同时被告知了这个企划。<br/>小黑：啊，是同时的啊。<br/>石原：对对，至于为什么会同时被告知呢，总之其中有错综复杂的内情……<br/>山田：什么内情（笑）。<br/>小黑：原本是双导演？<br/>山田：不，是想让我们其中一人来担任导演。<br/>石原：啊，想起来了。拿到这个企划时我觉得一个人来干似乎有点困难。这样说或许不太合适，但我觉得应该有个人来协助。然后山田也正好抱有同样的想法。<br/>山田：是的。<br/>石原：觉得制作起来会很费力对吧？<br/>山田：嗯，还是觉得吹奏乐部这个题材有些困难。因为人数众多，并且他们的心理结构也很复杂，所以就提出能否与石原一起通力合作（笑）。<br/>石原：嗯，于是我们为实现彼此的合作，做了一些谋划（笑）。<br/>山田：与此同时也在考虑“谁来担任导演？”。不过我个人希望将自己的注意力集中在正篇上。导演必须掌控全局，并且还有许多外围工作要做，因而有时会很难顾及正篇的每一个角落。<br/>石原：嗯，有时也会想“其他作品的导演是怎么做的呢？”。其实在电视动画中，导演能做的事情意外地少。最多只是检查分镜，对于每个镜头的完成情况，虽然可以提出“这个镜头请让我看一下”这样的检查要求，但数量上是有限的。从这个意义上讲，这部作品必须更细致地顾及每一个角落。是这样吧？<br/>山田：没错，这部作品中的许多内容光靠导演一个人来负责感觉会比较棘手……<br/>石原：没法照顾到细节。<br/>山田：对，于是就和石原与制片人商量，接下了系列演出一职。<br/>小黑：具体是如何分工的？<br/>石原：山田负责细节。<br/>山田：俯瞰整部作品，确保角色的心情等方面合情合理。在工作的过程中，我渐渐明白了系列演出这个头衔的意义。<br/>小黑：剧本会议你们两人都参加吗？<br/>山田：是的。<br/>石原：一起参加的。然后分镜先由山田检查，接着再轮到我。大致就是这样分担。另外我一开始说了，“后期录音那边由我去，山田你留在京都检查画面设计等内容”，然而……（笑）<br/>山田：（笑）。<br/>石原：结果还是跟来了。<br/>山田：是的。<br/>石原：要站在系列演出的立场上关注细节的话，配音和混录的检查也是相当必要的，对吧。<br/>山田：没想到你这么了解我（笑）。另外也提醒自己不要管得太细。<br/>小黑：不要管得太细？<br/>山田：别光把注意力集中在点上。<br/>石原：就是要顾全大局对吧，了不起（笑）。<br/>山田：其实我一直都有顾全哦，没想到吧（笑）。<br/>石原：不不（笑），我知道的。<br/>山田：嗯（笑）。在检查细节的同时也要考虑大方向。工作分担上，石原是总指挥，指挥棒在他手里。<br/>石原：“这里这样做”——我只是提提这种指示。<br/>山田：嗯。<br/>石原：说难听点就是磨人精（笑）。<br/>山田：（笑）。<br/>小黑：各集的演出处理实际也会去检查吗？<br/>山田：演出处理基本上是交给各集的演出负责。<br/>石原：嗯，在演出处理这一点上，京阿尼的水准，或者说我们公司的作风早已确立。所以先由导演决定每部作品的风格与配色等大方向，然后交给演出负责。导演这边就算不仔细检查，做出来的东西也不会有大的偏差。<br/>山田：摄影技巧上也是如此，还是取决于画分镜的人自身的想法。比如我想在检查分镜的环节中添加“镜头感”的效果，但如果画分镜的人不能理解这种技巧的话，到头来也只是临时镀金。<br/>小黑：就算导演或系列演出在检查分镜时添加了摄影处理，但如果负责那集演出的人觉得不合适的话，到头来那种处理只会显得格格不入，是吧。<br/>山田：没错，不明白那种效果的意义就没法添加。因为在制作分镜的阶段，演出组织每个场景时都有自己的用意。所以有几集摄影效果用得比较少。或者应该这样说，用什么样的效果由各个演出来定。<br/>小黑：原来如此。那么画面风格也没有定得很死吧？<br/>石原：《吹响悠风号》算是定得比较厉害了。<br/>山田：没错，和摄影导演一起谈过。摄影导演也很擅长制作虚拟镜头的风格，因而这次摄影部分的制作也相当顺利。<br/>石原：嗯，正中高尾（一也）君的美感。<br/>山田：同感，很多表现比以往更出色。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img3.doubanio.com/view/note/large/public/p32476162.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div>↑ 摄影前后对比。上面是加入摄影处理前的素材，下面是加入处理后的完成画面。通过摄影处理加入光照效果，通过虚化背景表现傍晚的情景。增添了临场感，突出了角色的心情。<br/>【镜头与“浅景深的世界”】<br/>小黑：《吹响悠风号》的画面采用了特殊的制作手法。制作画面时意识到了镜头的存在，以此为基础，更进一步地讲是“浅景深的世界”。那种镜头效果恐怕不是出自最新的优质相机，而是有点像老式相机拍出来的效果，许多画面别有风情。手法也相当细致和彻底，令人惊叹电视动画竟能做到如此地步。为什么要采用那样的画面制作手法？<br/>石原：嗯……其实我们公司以往的作品中多多少少都有用到那种效果。说起来，现在大家常用的数码相机以及电视上播放的影像画面都太干净了，至少我是这么觉得，画面太干净反而没有真实感。那种画质远高于日常生活中人眼所见的世界。<br/>小黑：换言之就是太清晰了？<br/>石原：没错，太清晰了。所以我就想，不如将画面做成符合人眼所见的印象或人们记忆中的景色。为了实现这一点，对画面周围做了虚化处理，看上去像是用老旧镜头拍出来的效果。我觉得那样更真实。例如多年前俄罗斯的LOMO胶卷相机曾盛行一时，而玩具相机与玩具相机风格的数码相机至今仍备受年轻人喜爱。那种模糊的画面看上去更真实更好看。在这部作品中，我们特别想追求真实。我们想将本作制作成一部真实反映高中生的剧集，所以就彻底采用了这种有真实感的画面风格。<br/>小黑：制作初期就是这样设想的吗？<br/>石原：刚开始就是这么想的——“这部作品（《悠风号》）就这么办吧”。以往的作品虽然也提出过“虚化背景”这样的指示，但这次特别提出“要做成不干净的虚化”。最近的数码相机和单反虽然也能拍出虚化效果，但镜头越来越好了。品质不佳的老旧镜头会产生名为“二线性虚化”的焦外成像效果，我要求在摄影中添加这种虚化。另外画面的周边光量也基本上都做过些微的调低处理。<br/>山田：没错，不仅调低了周边光量，还添加了色像差。说起来，在注重镜头感这一点上石原和我很相似……抱歉，这么说好像有些自大，但我们追求的画面应该是相近的。不过最近发现我们在画的用法上有所不同。<br/>石原：哦，不同在哪里？（笑）<br/>山田：石原做出来的视觉效果非常时髦。<br/>石原：时髦？你说我？<br/>山田：嗯，我觉得你的用法很时髦。<br/>石原：不，我不觉得时髦。<br/>山田：很帅气。<br/>石原：不觉得我只是无力地将摄像机摆在那里吗？<br/>山田：即便如此，我还是觉得你很有一套，做出来的画面很帅气，观众会觉得很赏心悦目。<br/>石原：有吗。<br/>山田：是的。反观自己则与帅气无缘。感觉有种午睡打盹儿般的肥重感……不太容易理解是吧（笑）。就是偏重于情绪。<br/>石原：我感觉到的区别更简单，我喜欢广角镜头，而你喜欢远摄镜头（长焦镜头），对吧？<br/>山田：最喜欢远摄镜头了。<br/>石原：嗯，这就是我们的不同。<br/>山田：另外我非常喜欢牛奶瓶瓶底般的镜头。<br/>石原：我也挺喜欢的。<br/>山田：是吧。所以说，虽然我们喜欢的东西非常相似，但在拍摄方式上却有所不同。<br/>小黑：具体来说？<br/>山田：嗯……我觉得石原很帅气。<br/>石原：哪有（笑）。<br/>山田：（笑）。<br/>小黑：（笑）话题绕回去了！<br/>石原：我不觉得自己的拍摄方式很帅气啊。广角镜头多，机位有点单一。<br/>山田：果然还是因为广角看起来很帅气。<br/>石原：是吗，我倒觉得远摄更帅气。<br/>山田：远摄很帅气！<br/>全员：（笑）。<br/>山田：不过这两种镜头都是为了诱发观众的无意识。<br/>小黑：诱发无意识是指让观众感受到比台词更深刻的东西吗？<br/>山田：没错……或许应该说是为了充分表现剧本所蕴含的热量。台词、画面、声音……将所有的东西结合到一起时的信息量考虑在内，调动观众的情绪。怎么说呢，就好像“此时激起微微涟漪，最终将变成巨大波澜！”那样。<br/>石原：听不太懂（笑）。<br/>山田：什么！（笑）抱歉，我说得有些抽象（笑）。<br/>小黑：不不，我明白，我明白的。第一集参观完吹奏乐部的久美子她们回家时的场景，摄影下了很大的功夫，分镜的说明中也写着“浅景深”。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img2.doubanio.com/view/note/large/public/p30927371.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>山田：没错，开学典礼当天早上的樱花行道树的场景也是，有点像印刷的感觉，而且像是用不干净的镜头拍出来的画面。<br/>小黑：有点女生相机的感觉。<br/>山田：女生相机？<br/>石原：啊，最近是这么叫的。<br/>山田：原来如此。<br/>石原：这方面也有相关的书籍，我拿来参考过。把书拿给制作人员看，请他做成那种风格。那是玩具相机，或者说是最近的时尚相机拍出来的感觉。<br/>山田：石原的书架上应有尽有。<br/>石原：啊，算是吧。我挺喜欢读书的。<br/>山田：另外说到画面，<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmovie.douban.com%2Fcelebrity%2F1037316%2F\" rel=\"nofollow\" target=\"_blank\">寺山修司</a>的作品也很有意思。比如《实验影像（寺山修司实验影像世界）》、<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmovie.douban.com%2Fsubject%2F1366165%2F\" rel=\"nofollow\" target=\"_blank\">《死者田园祭》</a>等。<br/>小黑：前卫戏剧风格？<br/>山田：嗯，那种1970年左右的电影。另外还有像<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmovie.douban.com%2Fsubject%2F1303542%2F\" rel=\"nofollow\" target=\"_blank\">《石榴的颜色》</a>（※电影《The Colour of Pomegranates》<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F17565710%2Fnote%2F410464332%2F\" rel=\"nofollow\" target=\"_blank\">谢尔盖·帕拉杰诺夫</a>导演／1971年／73分钟／苏联）等作品，我被俄罗斯影像那种异想天开的神秘世界观深深吸引。<br/>石原：相比之下，我则喜欢1970年左右的美国电影，这或许也是我们的不同点。<br/>小黑：虽说如此，你们两位以往的画面风格都是仿照实拍的吧？<br/>石原：是的。<br/>山田：是的。<br/>小黑：那种画面风格在《吹响悠风号》中表现得尤为强烈，可以这么说吧。<br/>石原：嗯……是这样吗？我倒不怎么觉得。不过这或许是因为两人齐心协力的关系吧。<br/>【手绘3D模型的意义】<br/>石原：她作为演出家的“女性视角”为本作提供了很大帮助。<br/>小黑：是说拍摄手法还是演技？<br/>石原：拍摄手法。虽然女性多半会讨厌“男性化”和“女性化”这样的形容，但在角色关系和心理方面，感觉还是女性更拿手，更注重。男性会致力于展现酷炫的摄影技术，而女性则更重视角色之间的关系和联系，山田在这方面提供了很大的帮助。<br/>小黑：是指怎样去拍角色，选取怎样的构图吗？<br/>石原：可以这么说吧。另外在台词表达上山田也功不可没。音响导演也很依赖山田。后期录音时，山田常常会一边读台本一边对音响导演说“这句台词有青春感吗？”。然后，遇到确实不像出自高中女生口中的台词时，就会当场修改。这次音响导演也很注重“高中女生的真实感”，总而言之就是“高中女生说话不会这么有条不紊吧！”（笑）。虽然写剧本时会理所当然地写出合乎条理、有板有眼的台词，但高中女生的对话是没有逻辑可言的，说话有时会颠三倒四。所以这方面的感觉？就让山田来把关。最浅显易懂的是第九集，叶月失恋后与久美子在电车中的对话，从文章的角度来看会有点奇怪。我读的时候也在想“嗯？这段台词没问题吧？”。就是叶月说“抱歉，我约了秀一”之类的话后“没有”“有的”那部分。我觉得相当奇怪，但对话应该是成立的。<br/>小黑：这方面都是由山田审定的吧。<br/>山田：我不记得自己做过这么帅的事情……说起来，有一点我想反驳（笑）。<br/>小黑：尽管说。<br/>山田：（笑）。“颠三倒四的对话”这一点在《轻音！》那时石原就对我说过。不过我很担心别人会将颠三倒四、不得要领的对话与高中女生划上等号，于是就盘算着哪天要委婉地做一下反驳（笑）。<br/>小黑：原来如此。<br/>山田：我所做的是削减信息量，而不是组织没有逻辑的对话。我注意让对话在看似没有条理的同时又合乎一定的条理。<br/>石原：嗯嗯，我明白。<br/>山田：咦（笑）。<br/>石原：我没觉得你是随随便便做出来的。<br/>山田：哦……感觉我是个小人物（笑）。<br/>小黑：刚才山田说到“很多表现比以往更出色”，能举一些例子吗？<br/>山田：例如虚化做成了不干净的虚化，还有巧妙地表现出了远摄镜头感，这种技术性的部分。<br/>石原：摄像机摇晃还需要进一步研究。<br/>山田：已经好很多了。<br/>石原：啊，是吗？<br/>小黑：摄像机摇晃是指手持摄像机的抖动般的表现吧。<br/>石原：没错，做起来比想象中要难。<br/>山田：以往也一直在用，这次感觉做得更好了。<br/>小黑：那种抖动表现的用意是什么？<br/>山田：感情的摇荡的一部分……<br/>小黑：啊，原来是感情的摇荡啊。<br/>石原：比起感情的摇荡，我使用摇晃更多是为了表现临场感和人眼实际所见的景象。<br/>山田：没错，一种表现也能包含多层意义，很难用一句话解释清楚。<br/>小黑：不只是抖动，还有像在镜头上加灰尘，这种表现也是为了告诉观众“这是摄像师拍摄的影像”。换言之，不是“观众进入了动画的世界”，而是“摄像师在动画的世界中拍摄”。但这样一来不就强调了客观视角，从而会产生难以代入的风险吗？<br/>石原：嗯……原来如此。这个观点很有意思。我使用摇晃时，大多是久美子的视线。<br/>山田：我倒觉得反而突出了存在感，或者说实在感。我希望通过用虚拟的镜头让观众产生一种“啊，这个女孩真的生活在这个世界上啊”这样的感觉。<br/>石原：刚才也说过，我喜欢人眼实际所见般的画面，加入抖动也是因为这一点。不过说到人眼实际所见的景色，人的眼睛只有一种镜头，也不能加滤镜。换言之，我们在通过模拟摄像机和镜头来制作画面时就已经脱离了人眼。所以今后我的想法可能会发生变化，那样的话就不会采用本作这样的画面风格了。另外，我很喜欢照片和相机，所以也会理所当然地受到电影的影响。我会参考电影的摄影技术和景深的弄法。<br/>山田：这次镜头上粘附的灰尘等效果虽然我们自己非常满意，但也有人不太喜欢那种表现。为什么画面突然变糊了……有的人会抱有这种纯粹的疑问。实际上在检查时可能会被人当作摄影失误。<br/>小黑：制作现场发生过这种事吗？<br/>山田：是的，检查样片时差点被人提出重修（笑）。<br/>小黑：“别把背景弄得那么糊，清晰点不好吗”——也有人会这么说吧？<br/>山田：嗯，应该有。<br/>石原：确实会有这种意见。虽然有些过意不去，但我觉得不是挺好的吗（苦笑）。刚才的话题让我想到了一件事，最近感觉自己也上了年纪，视野中会出现大量飞蚊症那样细小的浮游物，如果在摄影中再现这种现象或许会很有意思（笑）。<br/>山田：噢噢……（笑）<br/>石原：在老爷爷的视线中使用这种效果或许会很有意思。<br/>山田：老爷爷的视线！想想就觉得感动（笑）。<br/>小黑：啊，同样一件事物，小孩和大人看出来的东西会有所不同。<br/>石原：大概是不同的。<br/>山田：确实。<br/>石原：另外，年纪一大眼球的晶状体会出现浑浊，所见之物的彩度好像会发生些许变化。<br/>山田：听说黑色看上去会完全不同。<br/>石原：所以有种说法，年纪一大就想穿鲜艳的衣服好像就是因为这个原因。<br/>山田：原来如此。<br/>小黑：回到景深的话题上，浅景深的画面与前后均清晰成像的全景深的画面所能表现的东西应该是不同的。这次的画面很符合“真实展现青春”这种作品风格。<br/>山田：没错，青春的狭小视野，没有余地去顾及周围的瞳孔。<br/>石原：就是那种“只注视着一处的感觉”。想在画面中突出被摄体时就会缩小景深，只对焦被摄体。不过因为这次角色众多，遇到必须拍摄集体成员的画面时，就只能使用全景深了。音乐室中的演奏场景大抵如此。<br/>山田：即使是全景深般的画面也会添加空气感。前后全都特别清晰的画面几乎没有。<br/>石原：音乐室的场景还是想展现整体，所以除非打通墙壁获得足够的拍摄距离，否则就只能用广角镜头了。最近的作品中，教室的美术会用3D来做，非常方便，可以模拟各种镜头在各种位置上拍摄的效果。<br/>小黑：这次3D画面设计用得多吗？<br/>石原：挺多的。音乐室与班级的教室，另外还有用于练习的教室，这些都是用3D做的。<br/>山田：还有音乐厅，第十一集进行二次选拔的会场。<br/>石原：啊，对，音乐厅也做了。那是因为摄影的需要不得已才做的。<br/>小黑：教室中的课桌也是3D吗？<br/>石原：是的。<br/>小黑：不是根据课桌的3D模型手描的吗？<br/>石原：是手描的啊，对吧？<br/>山田：……其实两种都有。<br/>石原：啊，是吗。<br/>小黑：音乐室的练习场景中，有的镜头是从指挥身后拍摄，所有成员都拍在一个画面中，那种镜头中的角色也是3D的吧？<br/>山田：是的，所以制作了所有成员的3D设定，另外还有乐谱架。<br/>小黑：排着乐谱架的镜头密度非常高，看得我心驰神往。手绘的话肯定办不到。<br/>山田：不过第一集是手绘的。<br/>小黑：真的吗！？<br/>山田：真的（笑）。一开始是手绘的，但渐渐地大家开始抱有疑问——“请问这些必须手画吗？图层分起来超麻烦”（笑）。然后我就说“也是呢”。<br/>全员：（笑）。<br/>山田：要问画这个有什么意义的话，其实意义是有的。虽说有意义，但因为量大太麻烦，所以就用3D来做了。<br/>石原：说到乐谱架，放工具的小布袋挂在哪里因人而异，有的挂在当中那条板上，有的挂在左边，这种细节也做进去了。<br/>小黑：全体成员都有吗？<br/>山田：都有。<br/>石原：总是变来变去会搞得很乱，所以就做了每个学生习惯放在哪里的设定。另外还有每个人的水壶（笑）。<br/>小黑：水壶吗？<br/>石原：因为必须湿润口腔，所以演奏时会把水壶放在椅子底下。这个也为每个成员都做了设定。啊，另外还有毛巾，每个成员摆放毛巾的位置。<br/>山田：嗯，比如挂在肩膀上之类的。<br/>石原：为了擦拭吹乐器时产生的唾沫和蒸汽，大家都会常备一条毛巾。有的人放在腿上，打击乐手会挂在脖子上，放法各式各样。<br/>小黑：这种细节一旦设定好后，整部片中那名角色就一直是那样放的吗？例如将毛巾挂在脖子上的角色会一直挂在脖子上？<br/>石原：单个镜头中改变是允许的。“这家伙基本上是这么放的”——是这样定的。<br/>小黑：这样做的话设定会相当庞大吧。<br/>石原：与其说庞大……<br/>山田：好歹是画在一张图上的。<br/>石原：在合奏队形的集体画中标注各种内容，“这家伙的水壶是这个”——比如像这样。<br/>小黑：啊，原来如此原来如此。<br/>山田：这些由设定经理负责。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img3.doubanio.com/view/note/large/public/p30927372.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div>↑ 前面的泷老师和第一排成员是手绘的，后面的成员是3DCG。<br/>【丽奈与久美子之间洋溢的感情】<br/>小黑：第十二集久美子一边说“我想演奏得更好！”一边奔跑的场景做得非常棒，我很惊讶，在最终回之前居然还会制作如此费力的场面。<br/>石原：说实话，那段我在检查分镜时看漏了。<br/>山田：诶！？<br/>小黑：哈哈（笑）。<br/>石原：分镜上写着“背景用CG”但我没注意，在摄影阶段初次看到时吓了一跳——“哇，背景在动！”。<br/>山田：负责摄影的人也很喜欢做那种花哨的事情，制作时乐在其中的样子。<br/>小黑：明知最终回会很辛苦还要这么干，我当时在想——你们的制作班子真是体力充沛，不会是在制作初期就为这段场景空出了日程吧（笑）。<br/>山田：不，那是三好一郎心血来潮（笑）。<br/>小黑：就是说原本并没有这种安排，是三好一郎在分镜中突然提出了让背景动起来的要求？<br/>山田：没错，三好说“这里必须奔跑”。当时我在画最终回的分镜，一般我们不是都会想尽办法把最终回做得最富丽堂皇吗？然而在第十二集就做出了那么厉害的分镜……我在想三好前辈这是要对后辈赶尽杀绝吗。<br/>全员：（笑）。<br/>石原：三好或许会想“没什么大不了吧，动的背景只有这一个镜头”。不过除此以外，第十二集光影的掌控也很厉害。<br/>山田：确实很厉害。例如练习时夏日的阳光反射，久美子奔跑时桥上的光影处理等。阴影的加法总之也很厉害。对三好而言这也是一部容易代入感情的作品。<br/>石原：对动画演出家来说，这种作品浅显易懂。<br/>小黑：是指描绘率直的心情这一点吗？<br/>山田：对，“不必害羞，坦率就好”——这种气氛令人心旷神怡。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img9.doubanio.com/view/note/large/public/p30927374.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>小黑：“练习时夏日的阳光反射”是指久美子练习时丽奈走到跟前的场面吧？<br/>山田：对，看上去很神的那段。检查样片时看到那里吃了一惊。那个瞬间我甚至怀疑——如果万一这部作品要做剧场版的话，能拿出比那更高的质量吗？<br/>石原：如果真要做的话，就只能做出比那更好的东西（笑）。<br/>小黑：这么说，第十二集的浓厚之处主要归功于负责那集演出的三好对吧。<br/>山田：没错，三好仍然给人一种深藏不露的感觉。<br/>石原：宝刀未老，势头正旺呢。<br/>小黑：说到第十二集，夏纪和优子你追我赶时的跑法引发了观众的热议。突然减少作画张数，看上去很逗。<br/>石原：啊，看上去很好玩儿的那段。<br/>山田：其实原本是想做成章鱼脚的感觉。<br/>石原：对，分镜阶段，夏纪绕到优子背后的镜头中，夏纪看上去像妖怪一样有很多只脚，我看到后就说“请不要这样”。换成其他作品可能就完全没问题了。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img9.doubanio.com/view/note/large/public/p30927375.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>小黑：在《悠风号》中用过去搞笑漫画的表现手法会有种越界的感觉。<br/>石原：没错，这次没有使用漫画符号。<br/>小黑：搞笑式的表现在前几集中偶有出现，但之后就越来越少了。<br/>石原：前半是想做成让深夜动画的观众更容易亲近的感觉。不过随着剧情的深入，画面的制作也渐渐变得追求真实性。<br/>山田：剧本的走向也是如此。过了第八集就再也不需要耍任何出其不意的小花招了，只能从正面去描绘，而且这也是一条最能引人入胜的捷径。此前的序曲一方面是必须让观众喜欢上本片，另一方面是担心有的人一看到吹奏乐部这种团体会觉得门槛很高，所以就做成了比较有趣的感觉。因为后半变得杀气腾腾（笑）。<br/>小黑：杀气腾腾（笑）。<br/>山田：或者说火热吧。<br/>小黑：果然是从第八集开始吧？<br/>石原：第七集之后吧。第七集有点沉重……<br/>山田：第八集用过一点出其不意的小花招。<br/>小黑：是指情节上吗？<br/>山田：嗯，没错。<br/>小黑：我当时还以为突然开始播放其他动画了。<br/>山田：（笑）。<br/>石原：唯一没有演奏的一集？啊，演奏还是有的。<br/>山田：有！<br/>石原：不过后半不是登山和县祭的剧情吗。<br/>山田：不不，有演奏的。别跟我说那不算演奏（笑）。<br/>小黑：能否具体谈一下，为什么第八集的镜头数会多到必须掐掉片尾？<br/>山田：……因为久美子她们的感情溢出来了。<br/>小黑：然后山田对久美子她们的感情也溢出来了是吧（笑）。<br/>石原：嗯，长度也延长了。基本上和你想的差不多。<br/>小黑：我明白。<br/>石原：虽然其他集数也是，但第八集需要花笔墨去描写的镜头特别多。久美子与丽奈一起登山的那部分又不能几个镜头就快步流星地抵达山顶，省略掉也很可惜。我们公司的作品基本上很少会掐掉片尾，唯独这次向制片人提出了请求。<br/>山田：那集除了必须小心翼翼地描写久美子与丽奈的感情之外，还有叶月的失恋。两边都必须认真描绘，不能缩减。但如果过多描写叶月的话，可能会使久美子与丽奈显得很轻率。也就是说，搞不好会让观众觉得“这里明明有个如此伤心的女孩，她们俩还在那边做什么啊”。所以说这集相当危险，必须多加小心地处理好两边的感情，因而无论如何都没法再做删减了。镜头数的话其他集数也很多。<br/>石原：比起镜头数更应该是长度的问题。<br/>山田：嗯，所以关于第八集我很早就说了“吃不准（做出来会有多长）”。<br/>小黑：一般在检查分镜时也会对长度做调整，这集是检查完后变长了吧。<br/>石原：记得山田做完检查后一下子长了好多。这么说都要怪山田咯（笑）。<br/>山田：（笑）。<br/>石原：不过第八集完成得那么出色也是多亏了山田。<br/>山田：多亏了大吉山……。分镜检查的流程是先由我，然后再交给石原，不过因为我非常重视第八集，所以将同时上交过来的第九集的分镜使劲推给了石原检查（笑）。<br/>小黑：（笑）。<br/>石原：第八集的长度很让担心了好久。剪辑前我一直在想“要是超出长度的话该怎么办”。<br/>山田：不停地窥视制片人的脸色（笑）。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img3.doubanio.com/view/note/large/public/p30927607.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>小黑：丽奈的手指触摸久美子的嘴唇的动作令人印象深刻，那是谁的主意？<br/>石原：（默不作声地指山田）<br/>山田：要怪就怪久美子和丽奈制造出了那般妖娆的氛围（笑）。<br/>小黑：哈哈哈！（笑）<br/>山田：制作分镜时正可谓是深夜的感觉，像在半夜写情书一样非常开心。登山的过程中久美子渐渐看起来像个少年。我希望在观众眼中她是一名坠入一夏之恋的少年。那是对久美子而言的“第一次”。<br/>小黑：就像初吻？<br/>山田：怎么说呢，就像初次的经历。<br/>小黑：原来如此（笑）。<br/>石原：不过说到这里，又要提一下女性与男性之间的区别了，你觉得男性画得出那段分镜吗？<br/>小黑：画不出呢。<br/>石原：就是说吧（笑）。如果让男性来画，感觉会变得更下流。<br/>小黑：没错。怎么说呢，感觉像第一次看到真正的百合片。<br/>石原：是啊，不过这是我们男人的看法（笑）。<br/>山田：原来如此。不过我觉得，无论是丽奈的感情还是久美子的感情，就她们两人的关系而言并没有什么违和感。<br/>石原：没有呢。<br/>小黑：嗯，没有违和感。<br/>山田：（笑）。<br/>小黑：看了第八集觉得“所谓的百合就是这种吧”。与男性幻想中的百合有所不同。<br/>石原：嗯嗯，没错。<br/>小黑：虽然我对百合漫画也并不十分了解，但不像那种轻飘飘软绵绵的百合漫画，而是面向成人女性的漫画，以现实世界为舞台的作品。我觉得本作就有那样的温度和真实感。<br/>石原：是啊，不过山田有时候会做过头。<br/>山田：诶！？（笑）<br/>石原：《玉子市场》那时就是，过于真实。<br/>小黑：咦，是吗？<br/>石原：百合式的描写感觉像来真的。<br/>小黑：不过山田不认为那是百合吧。<br/>山田：嗯，没错。<br/>小黑：可是我也觉得《玉子市场》是百合。<br/>山田：啊～是吗，一定是说小绿吧。<br/>小黑：没错。<br/>石原：对的。不觉得那像来真的吗？（笑）<br/>山田：有吗？<br/>石原：男人追求的百合不会到那种程度。<br/>小黑：（打断石原）不不，山田不认为那是百合啦！<br/>石原：（继续说下去）男人追求的是那种嬉闹欢笑的感觉……<br/>山田：（打断石原和小黑）你们先冷静一下吧（笑）。<br/>小黑：不好意思，我有点激动了。<br/>全员：（笑）。<br/>山田：是吗。我并没有打算去描写那种露骨的百合。我是想描写青春期。<br/>小黑：那是在什么情况下？<br/>山田：应该是任何情况下。无论是《玉子》还是丽奈都是如此。我想描写青春期！<br/>小黑：是想描写青春期的情感吗？<br/>山田：对，想要描写情感。我对她们的视线很感兴趣。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img1.doubanio.com/view/note/large/public/p30927379.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>小黑：继续第八集的话题，山顶上丽奈坐下时裙子翻卷起来的那一幕也很棒。<br/>山田：没错。画分镜时写的是“无法平息的裙子”，但没想到能做得那么有质感。看的时候惊叹“好厉害！竟能表现得如此传神”。在我原本的想象中是更轻飘的感觉。<br/>小黑：那么有量感的裙子真是史无前例，在动画中还是第一次看到。<br/>山田：真的很棒。……那里如果久美子不对丽奈非常着迷的话，叶月会让人不好受。<br/>小黑：原来如此，为了让两边取得平衡。经历了登山这事情后，久美子对丽奈有些耿耿于怀，那是理所当然的吗？<br/>山田：耿耿于怀又何妨！（笑）<br/>石原：嗯，说得没错。<br/>山田：对吧。经历了那般如梦似幻……“就算殒命也在所不惜”的体验，心中当然会留下某些东西，久美子是个善感的女孩。<br/>小黑：虽然之后久美子与丽奈成为了故事的中心，但片中并没有久美子只想着丽奈这种描写吧？<br/>山田：不过我觉得久美子应该是只想着丽奈的。说到底，初中时惹哭丽奈这件事成了久美子的精神创伤，所以她心中一直惦记着丽奈。而那样的丽奈突然来到了自己的身边……嗯，好感人，太感人了。我没法很好地表达（笑）。<br/>小黑：问个故事设定上的问题，虽然她们一起去县祭是出于偶然，但此前丽奈也一直关注着久美子吗？<br/>山田：嗯，丽奈一直关注着久美子。<br/>石原：我也觉得。<br/>小黑：久美子没有关注丽奈？<br/>山田：久美子……觉得非常尴尬。<br/>小黑：说的也是。<br/>山田：因为久美子觉得自己被丽奈讨厌了。她想尽可能地避开丽奈，但又对丽奈非常在意。久美子很少会主动出击，她会先等对方挑明态度。反过来丽奈则对久美子非常关注。<br/>石原：嗯，丽奈非常关注久美子，尽管这方面的描写并不多。虽说如此，比原作还是多一些的，比如增加了第五集放学回家时的对话。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img9.doubanio.com/view/note/large/public/p30927384.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>小黑：原来如此。问个不合时宜的问题，片尾中的丽奈是最终回之后的丽奈吗？<br/>山田：啊！那个啊。会让人这么觉得吧。……嗯，应该是的（笑）。<br/>全员：（笑）。<br/>小黑：这样啊。是设想到两人会变得要好，所以就有了那样的片尾吧。<br/>山田：嗯，没错。所以严格地讲，那是第八集以后的她们。<br/>小黑：应该是第八集以后呢。虽然不是百合，但彼此却连着红线呢。<br/>山田：没错（笑）。<br/>小黑：在画片尾的分镜时，肯定已经知道后面的故事了吧。<br/>山田：那当然。所以只看了前半部分的话，或许会觉得片尾有点故弄玄虚。<br/>小黑：也许会让人觉得这是在迎合观众，玩与正篇剧情无关的百合？<br/>山田：或许吧。我在想“不过没关系，之后会明白的”（笑）。<br/>小黑：原来如此。“第八集之后她会像这样露出会心的微笑”——片尾中丽奈的笑容可以这样理解吗？<br/>山田：可以（笑）。丽奈的笑容很可爱吧。丽奈其实也是个普通的女孩子。<br/>石原：不，与一般的女生相比还是很厉害的。<br/>山田：有点与众不同呢。感觉像深田恭子。<br/>小黑：诶，深田恭子！？<br/>山田：嗯，丽奈是“深田恭子感”。<br/>小黑：那是石原导演的想法吗？<br/>石原：不，我从来没这样想过（笑）。<br/>山田：与池田（晶子）一起讨论角色时，我说过“觉得丽奈像深田恭子”。<br/>石原：是与深田恭子饰演的角色印象相近吗？还是说……<br/>山田：是指深田恭子的个性。<br/>石原：是吗。<br/>山田：就像拥有魔性般……接近她的人都会变成俘虏。不过我没见过她本人，所以完全是我自己信以为是。<br/>小黑：诶！？<br/>全员：（哄堂大笑）。<br/>小黑：是在说丽奈吧？（笑）<br/>山田：是在说丽奈（笑）。丽奈很有艺术家气质，活得随心所欲，非常有魅力。做事常常杂乱无章、漫无计划。<br/>小黑：嗯。<br/>山田：突然说出“我喜欢泷老师”这种话。虽然相当乱来，但信念极为坚定，所以才会这么有魅力。在“想被她任意摆布”的榜单中排名第一。<br/>小黑：想被她任意摆布的人是山田吗？<br/>山田：是久美子！（笑）<br/>全员：（笑）。<br/>山田：丽奈的魔性，或者说随心所欲的生存方式令她看上去十分迷人。爱上她会很痛苦。<br/>石原：会很痛苦呢。注定是段难以实现的恋情。<br/>山田：对吧。感觉永远会是单相思。<br/>石原：不是泷老师那样的她大概看不上。同龄人无法成为她的对象。<br/>小黑、山田：啊～。<br/>石原：除非特别稳重。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img3.doubanio.com/view/note/large/public/p30927723.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>小黑：明日香学姐的个性与你们当中的哪一位更接近？<br/>石原：嗯……怎么说呢？<br/>小黑：我觉得更接近石原。<br/>石原：啊，有点吧。创作者或多或少会把自己投射到角色身上，从这个意义上讲，我也许确实比较像明日香。<br/>山田：原来如此。我对明日香这个人很感兴趣，看着她我会想“确实有这种人呢”。<br/>石原：是吗。我是那种不投射就没法创作的人。嗯……这么说也许很不恰当，有一种“有她才好办”的角色——那种可以转述自己的观点，或是能推进剧情的角色。如果硬要我选一个的话，那就是明日香。<br/>山田：是啊。所以我注意不要让她看起来像是石原在说话（笑）。让明日香做她自己。<br/>石原：嗯，当然也不是说明日香等于我自己。只是如果要说谁最能代表自己的话，那么我会选明日香。<br/>山田：明日香这个角色的出发点是“一本正经的变态”，并且是个有着沟通障碍的女孩……<br/>石原：明日香吗？啊，从某种意义上来说或许确实如此吧。你是指她不打趣逗乐就没法跟别人沟通这一点吗？<br/>山田：是的。<br/>小黑：感觉她跟别人保持着距离。参加竞赛会前大家一起喊口号时，也只有她一个人没有跟着喊。<br/>石原：没错，意外地跟他人保持着距离。主要原因是她的家庭环境，不过这是幕后设定了。<br/>山田：一开始在想，她会不会是像那种亲历过两种以上的文化的归国子女那样，眼界比较开阔呢？但其实正好相反，有着非常孩子气的一面。<br/>石原：那些也是幕后设定，实际上是原作中的内容。没读过的人可能听不懂我下面要说的话，我觉得她还是无法摆脱父亲的影响。<br/>山田：没错。<br/>石原：从心理学的角度去分析她与母亲的对立也很有意思，明日香是典型的恋父情结。说典型可能有些言过其实。<br/>【真正麻烦的是那些不为人所关注的镜头】<br/>小黑：回到虚化的话题上，比方说画面前后有两个角色在对话，一开始先把焦点对准前面的角色，轮到后面的角色说话时把焦点转移到那个角色上，然后前面的角色再次说话时再把焦点对到前面——这种调焦镜头在本片中很常见，这些是交给各集演出自行判断使用的吗？<br/>石原：啊，没错。本作的分镜中经常可以看到“调焦”二字。<br/>山田：没错，我们不会提出“这个镜头要调焦”这种指示。<br/>小黑：就是说第一和第二集为画面制作提供了范本，并没有演出指示书之类的东西吧？<br/>山田：并没有特别称得上是演出指示书的东西。<br/>石原：调焦其实算不上什么特殊的东西，其他作品中也能看到。<br/>小黑：可我还是觉得，在前后两个角色之间来回调焦这种做法很少见。<br/>石原：是吗？<br/>山田：视线引导这方面会时刻放在心上。根据每个镜头的不同，也会考虑到画面设计和角色的视线。做视线引导时会从场景整体出发，将上述内容都考虑在内。<br/>石原：说件不值一提的事情，最近我们公司的作品，分镜的镜头数有变多的倾向。因为大多数演出家都喜欢固定画面，遇到明明可以通过摆动镜头来拍摄多个角色的场面，却还是切换镜头用固定画面来拍。为了避免这一点，可以将角色布置在画面前后，通过调焦将他们拍在一个镜头中。<br/>小黑：就是说利用调焦，可以用一个镜头来表现两个镜头的内容，对吧？<br/>石原：没错，所以为了实现这一点就得找到合适的机位。遇到想利用调焦来分别使两个角色引人注目的时候，必须将两人分别拍在画面的前后。<br/>山田：并且还要使那种拍摄角度具有意义。<br/>小黑：这种处理如果是画在分镜中的话，导演和系列演出就能检查，但如果分镜中没有，演出也会自己加吗？<br/>山田：不过大家常常会给出自己的方案。<br/>小黑：啊，原来如此。<br/>石原：我有时候在看到某个场面被切分成多个镜头时会提出“这种地方摆动镜头就行了，用不着切镜头”，然后对分镜做出修改。因为身为导演必须控制好镜头数和作画张数。其他片场可能也有类似的感慨，现在的动画节奏都很快，镜头数无论如何都会达到350个镜头左右。过去的镜头数在200以内。<br/>山田：记得《CLANNAD》很多集数也在200以内，最多也只不过300前半。再增加的话大家就会觉得这是大问题了。<br/>石原：我是觉得镜头切得太多了。但如果不总是切换镜头加快节奏的话，观众可能会觉得无聊——创作者这边有这种担心。以前我读过某位电影导演写的电影指南书，上面写着“不管怎样就是切镜头”（笑）。因为那样不会令人感到无聊，虽然我觉得并没有那么简单。而且动画考虑到预算，必须控制镜头数。<br/>小黑：最终回从正面展现了演奏场景，一开始就觉得不能回避，只能硬着头皮做了？<br/>石原：是这么想的，第五集的游行和最终回，只能硬着头皮把演奏做出来了。反过来说，那是事先就能预想到的，让人没想到的是其他集数比那更麻烦（笑）。<br/>山田：没错。例如第十二集的乐器镜头真的是比最终回还多。<br/>石原：真正麻烦的是那些不为人所关注的镜头。演奏场景倒还好，乐器的使用方法我们是从零学起的。例如乐器的拿法和放法，要在动画中画出来就必须去了解一大堆的东西。比如小号上有一根能伸缩的调音管，我们需要了解打开这根管的方法，这种细节非常麻烦，制作前真没想到。因为我们对悠风号的拿法都一无所知（笑）。<br/>小黑：你们专门花时间学过乐器的使用方法？<br/>石原：算是吧。公司里买了悠风号，然后我们从“这个要怎么拿”开始学起（笑）。我也买了悠风号的教程。<br/>小黑：听说制作人员当中很多都学过吹奏乐？<br/>石原：没错，比如山田的姐姐。<br/>山田：我姐姐不是制作人员好吧（笑）。<br/>石原：我也不知道算不算多，原画师中也有学过吹奏乐的人，他们的经验和知识也反映在了作画中。例如片头优子吹小号的镜头中，加入了拉动三号管微调音调的动作。那是原画师的提议，问我“这样做可以吗？”，我说“请务必这样做”。<br/>山田：那个动作很棒。<br/>石原：像这种地方，有相关经验人士在真是帮了大忙。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img3.doubanio.com/view/note/large/public/p30927387.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>小黑：说起来，担任乐器作监的高桥（博行）应该对乐器很了解吧？<br/>石原：不，说实话他对乐器也并不是很在行，硬要说的话，他是那种擅长画机械的人。善于处理乐器复杂的管道，能在脑海中想象出乐器的立体结构。那也是一种才能。高桥作为作画监督做了各种各样的修正工作，相当辛苦。<br/>小黑：乐器使用了3DCG吗？<br/>石原：模型是建过。在设计画面时用来参考。先在画面设计稿中放入3D模型，画原画时再用手描摹。<br/>山田：补充一下，在建模前高桥画了三视图，3D组员根据这个建立了模型，然后高桥负责检查，一直到他觉得“这样就能在作画时派用场了”为止。所以像线的省略、作画时需要补足的部分等，高桥在这方面做了大量的调整。那已经称得上是只有高桥才能看懂的暗号了。<br/>小黑：暗号？<br/>山田：只有他本人看得懂。<br/>石原：另外还有阴影的加法。阴影是作画时加的，导出的模型只是单纯的线条画。<br/>小黑：阴影和高光是手绘的？<br/>石原：当然是手绘的。<br/>山田：还是手绘的棒。<br/>小黑：有完全是用3D的镜头吗？<br/>山田：背景或者位于后方的小乐器是直接用3D的。<br/>石原：那些都是连阴影都不用加的小东西。基本上都是手绘的。<br/>小黑：是因为动画还是手绘看上去更舒服吗？<br/>石原：因为没有违和感。3D做出来的阴影太光滑了，就算加工成动画式的线条画，阴影的加法也会显得很不自然。另外如果直接用3D模型的话就会产生一个问题——要怎样与作画联动呢？乐器不是光拿着就好了，而是要用手指操作的，要对准的话相当麻烦。<br/>山田：想想就觉得麻烦（笑）。<br/>石原：我当初还想过——考虑到工作量，乐器不用3D不行呢。<br/>山田：我一直觉得手绘的好。<br/>石原：你是因为有过相关的作品经验吧。<br/>山田：是吗。另外也是因为这次高桥接下了乐器方面的工作，所以无论如何都想用手绘。<br/>小黑：映照在乐器上的东西也是手绘的吧？<br/>石原：有时是会映照出角色的人影，或者发生光影变化，但没有角色清晰地映在上面的场面吧？<br/>小黑：角色是没有，但是有朦胧映照出人影的高光。<br/>山田：那也是高桥的强悍之处。我经常会问“什么样的大脑才能画出这种东西呢？”。<br/>小黑：这么说高桥在乐器方面介入得很深？<br/>山田：可以说几乎是全部。<br/>小黑：全部！？<br/>石原：做了相当深入的研究。因为公司里有悠风号和小号的实物，所以认真地研究过。<br/>山田：高桥整天都在画乐器。<br/>小黑：就是在《轻音！》中用手画磁带的那位吧？<br/>山田：啊，没错！（笑）高桥一说起磁带就没完没了，非常讲究。<br/>小黑：像是“磁带就必须画出磁带的样子”？<br/>山田：对对（笑）。他非常热爱80年代的文化，常常谈得很起劲。<br/>小黑：因为有高桥所以才制作了磁带的镜头？<br/>山田：啊，真的可以这么说。在我刚当上演出那时，经常是我做演出高桥当作监这样一起搭档。所以我会因为与高桥一起合作的关系，在镜头中加入许多车子等好看的机械……<br/>石原：你这个丫头～！（笑）<br/>全员：（笑）。<br/>山田：画面因此变得极为豪华。<br/>石原：你是要累死高桥君吗（笑）。<br/>山田：是吗……我还以为他乐在其中……<br/>石原：乐你个头（笑）。他总是一言不发地埋头苦干，动画进入高潮时我都害怕得不敢去跟他搭话。<br/>山田：我要反省一下（笑）。啊，不过在《悠风号》中我们会尽量减少乐器出现的镜头。<br/>石原：啊，确实。在剧本阶段就会加以控制。<br/>山田：“这里不拿乐器也没关系”——开始做分镜前，我们像这样削减了很多。<br/>【特殊的主人公与最终回的描写方式】<br/>小黑：话题渐渐回溯到制作初期，在系列构成和剧本方面提过怎样的要求？<br/>石原：一开始提出的要求是节奏要好，加点搞笑要素。<br/>小黑：和现在完全不同呢。<br/>石原：嗯，从结果来看与当初的方向不同。第二集大概是最特殊的，那集是我做的。有不少搞笑的场景吧？<br/>小黑：嗯。<br/>石原：现在来看的话有点格格不入（笑）。<br/>小黑：看完最终回再重头开始看，会觉得“咦，这部动画是这样的吗？”（笑）。<br/>石原：没错，因为越到后面剧情越严肃。……我还提过其他要求吗？除此以外都是些普通的要求吧，比如尽量在每集中都加入一个小高潮，不过这是花田（十辉）作为剧本家所要考虑的内容，在编剧时会理所当然地考虑到这些。<br/>山田：啊，还提过一个要求——保留丽奈对泷老师的恋慕之情。<br/>石原：啊，这个还引发过一场争执，一开始有意见说要去掉。怎么说呢，我们不希望让观众觉得丽奈完全是为了追泷老师才来这所学校的，可我就是喜欢丽奈的这一点，所以不想去掉。<br/>山田：所以丽奈说“Love”的时机花田斟酌了好久。<br/>石原：没错。我们希望让观众觉得，包含泷老师在内的所有成员都在为“在这所高中赢得金奖”这个共同的目标而奋斗。为此我们想尽了各种办法。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img1.doubanio.com/view/note/large/public/p30927849.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>小黑：这是我收看时的感想——久美子在第十二集说出了“我想演奏得更好！”，我心想“太好了！久美子终于成为主角了！”，可再定睛一看“诶！？下周最终回！？”（笑）。<br/>石原：嗯嗯（笑）。<br/>小黑：当时好想接着看下一季（笑）。<br/>山田：啊，没错。因为久美子很少会那么来劲。不过她的性格就是如此。<br/>石原：不过我一直是抱着“不，主人公是久美子吧”这种想法来做的哦（笑）。<br/>山田：是个相当特殊的主人公呢。<br/>石原：因为一开始有点懒散，入部当初也并不是那么有干劲。不过我当时在想“也会有这种角色吧？”。<br/>山田：所以才会有第十二集的精神发泄。我们一路看着久美子一点一点地发生变化，最后终于开花，这个过程令人很满足。<br/>石原：这方面也商量过。也就是说，原作中久美子对演奏并不是十分投入，她基本上是客观地看待丽奈与葵以及其他角色的。花田想到的是必须展现久美子自身的成长，为此就得让久美子自身体会到丽奈初三时的那份悔恨，所以就做成了那样。<br/>山田：就是久美子被撤下的场面吧。<br/>石原：对，泷老师说“这段由田中同学一个人演奏”的场面。加入那个场景就是这样的用意。<br/>山田：为了让至今一直都随波逐流的久美子成为主角，就必须这么做了。看到第十二集的分镜时，因为久美子实在迈得太远，于是就改变了最终回分镜的开头部分。准确地说，对久美子的描写在最终回整集中都做出了改变。虽然原本描写的也是久美子，但那不是经历过第十二集的久美子……<br/>石原：一开始是怎样的？<br/>山田：姿态有些不同，还是那副倦怠的老样子。比如懒懒地关掉闹钟这种稀松平常的感觉。<br/>石原：是吗。一开始的剧本也是这样，闹钟响起然后伸手去关这种很平常的感觉。<br/>山田：原本是“好，起床吧”这种感觉，改变后目光已经变得炯炯有神，早就醒了。那是因吹奏乐部而情绪高涨的久美子。这处改动让最终回一下子变得很好描绘。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img1.doubanio.com/view/note/large/public/p30927390.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>【最注重的是实在感】<br/>小黑：《悠风号》这部作品令人欣喜的是，制作者们坚信着表现的力量。“通过表现确实能传达给观众！”——让人感觉到这样一种气魄。<br/>石原：是指像第十一集的二次选拔那种场面吗？<br/>小黑：那里也是，最终回的演奏也是。一般来说会去拍观众感动的表情，但那里只靠展现演奏就能做出那般充满紧张感和高涨感的片断，我觉得那正是因为你们坚信着表现的力量，所以才能做到。<br/>石原：这部作品原本是想用纪录片的方式去做的。因为我们到实地做过取材，亲眼观看过演奏和竞赛会。然后这是山田常说的话——光是看着他们的演奏，就能收获十足的感动。<br/>山田：没错，所以在画最终回的分镜时也觉得不必去拍观众席。重要的是去谱写属于这些孩子们的青春剧，拍观众席上的陌生人会显得很假。<br/>小黑：一般会让观众说“太厉害了！这个那个的演奏太怎么怎么样了！”。<br/>山田：嗯，不过那样感觉会显得格格不入。我们想看的不是陌生人心服口服的表情，而是久美子她们的心路历程，光是这点就已足够，因为她们经历了各种烦恼走到了今天。那正是我们对吹奏乐部的学生们进行取材后所感觉到的东西。<br/>石原：所以最终回就想做成纪录片那样，描写一所高中早上集合，卡车将乐器送往会场的情景。<br/>小黑：这方面也做过取材吧？<br/>石原：没错，所以就希望最终回能一直把镜头对准吹奏乐部的成员们。<br/>小黑：最后以竞赛会的闭幕作为结尾也是因为这一点？<br/>石原：嗯，当初也有各种各样的意见。一开始想过最坏的打算是省略掉演奏。原作中正式比赛的演奏在即将开始前戛然而止，然后直接跳到了公布结果的尾声。所以也不是不能那样做，但我们觉得观众还是很想看演奏的（笑）。<br/>山田：嗯，想看（笑）。像舞台灯光一亮，或者老师的手一举起就结束，感觉会有点可惜。<br/>小黑：印象中那种动画看过无数次（笑）。<br/>石原：不过我倒不讨厌那种做法。<br/>山田：说起来，吹奏乐部的演奏虽然在不同场合下会有所区别，但在竞赛会这种场合上演奏时并不会唱歌也不会跳舞，因而很难让气氛一下子变得很高涨。<br/>小黑：因为没什么丰富多彩的表演。<br/>山田：对对（笑）。所以播放前很难估量到观众会作何感想。<br/>石原：是啊。换做是足球或者篮球比赛就好办了（笑）。<br/>山田：可以加入“射门！球进了！”这种话来调动情绪（笑）。那般宁静的叙述能否让观众耐心地看完，我们真的会感到担心，同时也确实是一次挑战。<br/>石原：嗯，不过只能硬着头皮做了。这部作品还是应该从正面决胜负，虽然这么做会给我们带来很大的负担（笑）。尤其是作画人员干得相当辛苦，但这种付出和努力是值得的。<br/>小黑：要做就做到底，不要留下遗憾是吧。<br/>石原：不过我们也不想老是对观众吐苦水。为了获得观众青睐只能硬着头皮上了。虽然实际上我们真的很辛苦（笑）。即使我们拼尽全力描绘了乐器，但如果影片本身却不吸引人的话，那么也就到此为止了。不是说我们描绘了乐器，观众就会觉得本片很了不起。<br/>山田：没错，那也只是精华当中的一部分。<br/>小黑：虽说如此，但纵观全集，本片也是那种能欣赏画面表现的作品。例如第七集水的表现和阴天的感觉。<br/>石原：做那些东西时制作人员应该是乐在其中的。我想大家应该都是如此，画那些东西的人对那方面都很考究。<br/>山田：第七集的阴天，怎么说呢，是梅雨季那种并不阴沉，天空亮白，紫外线强烈的夏季的雨天，我非常喜欢那种感觉。不用灰色而是用白色去表现。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img9.doubanio.com/view/note/large/public/p30927395.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><br/>小黑：另外全片中光影的掌控也令人印象深刻，特别是久美子与丽奈的场景做得非常美。<br/>山田：比如像第十一集吗？<br/>小黑：那集也是，还有像第五和第八集。<br/>石原：第五集放学回家的场景是吧。丽奈撩头发时身后车灯闪亮的逆光镜头。那种部分是演出的工作，但是第十一集在分镜阶段大致就明白了。不过光与影作为演出艺术来说可能有些过于浅显易懂了。<br/>山田：做这个有点小害羞，明明想做却有些犹豫。不过真正做起来就没什么顾虑了。<br/>石原：记得达芬奇的《最后的晚餐》中就有明与暗的对比，叛徒犹大那里有点暗。<br/>山田：啊，原来如此。过去的宗教画确实会在这方面运用很多艺术手法，加入象征性的暗示，或是利用颜色的含义，在创作中融入各种各样的意义。很多演出家也喜欢这么做。<br/>石原：大概会自然而然地那样做。<br/>小黑：在我们看来，这种技巧性的部分成为了本次作品的基调，但未必完全如此吧？<br/>石原：没错。<br/>山田：基本上是正面决胜负。<br/>小黑：演出和画面制作都抱着正面决胜负的态度。<br/>山田：没错。我们注重的是“将实际存在的人和事物描写得像实际存在一样”。为了如实描绘出“青春”。所以像光与影这种人为的演出，要做得看起来不是很刻意才行。<br/>石原：只要让观众隐隐约约感觉到“啊，好漂亮”“啊，这个角色正打算向前迈出脚步”就足够了。我们不太想让观众注意到“这个演出就是为了达到这种目的”（笑）。<br/>小黑：也不是彻头彻尾的真实性作品吧，也会加入动画式的艺术表现与画面风格。<br/>石原：没错。虽然我们努力让本片看起来真实，但还是会和往常一样使用动画式的表现手法。<br/>山田：最注重的是存在感，或者说实在感。描绘有实在感的青春。制作时我们会考虑，创作者能在画面中隐藏多少气息，能让观众在久美子她们身上集中多少注意力。我们希望通过这样做，能让大家觉得久美子她们真的生活在这个世界上。<br/>【附录】<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img9.doubanio.com/view/note/large/public/p32476345.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img2.doubanio.com/view/note/large/public/p32476351.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img3.doubanio.com/view/note/large/public/p32476353.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img9.doubanio.com/view/note/large/public/p32476354.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div>↑ 第八集山顶场景的分镜（by 山田尚子）。丽奈的手指在久美子脸上划动，触摸久美子的嘴唇。镜头344的说明中写着“像在对久美子施魔法一般”。城市的灯光透过丽奈的裙子这个描写也很美。<br/><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img1.doubanio.com/view/note/large/public/p30927428.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img1.doubanio.com/view/note/large/public/p30927429.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img1.doubanio.com/view/note/large/public/p30927430.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div><div class=\"cc\"><table><tbody><tr><td><img alt=\"\" src=\"https://img3.doubanio.com/view/note/large/public/p30927433.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></tbody></table></div>↑ 第十二集“我想演奏得更好”这段场景的分镜（by 三好一郎）。起到重要作用的久美子的奔跑戏。第105页第一个说明中写着“重要的事情说两遍……无论是明日香、丽奈，还是自己”（※指久美子的台词“不想输给任何人”）。\n    <div class=\"clear\"></div>\n<span class=\"btn-report\">投诉</span>",
-    "comment_count": 1,
+    "comment_count": 12,
     "source_url": "https://site.douban.com/211330/widget/notes/13431979/note/531685883/",
     "also_in": [],
     "images": [
@@ -6920,7 +7497,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -6978,7 +7555,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -7012,7 +7589,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -7037,7 +7614,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -7071,7 +7648,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -7096,7 +7673,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -7146,7 +7723,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -7244,7 +7821,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -7269,7 +7846,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -7327,7 +7904,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -7336,6 +7913,40 @@
     "index_order": 5,
     "content_hash": "",
     "route": "/notes/572997848"
+  },
+  "575615184": {
+    "note_id": "575615184",
+    "widget_id": "190597056",
+    "title": "电影《聲之形》导演山田尚子创作感言（《Animedia》2016年9月号）",
+    "date": "2016-08-11 21:06:31",
+    "content_html": "<div class=\"cc\"><table><tr><td><img alt=\"\" src=\"https://img9.doubanio.com/view/note/large/public/p36410176.jpg\"/></td></tr><tr><td align=\"center\" class=\"wr pl\"></td></tr></table></div><br/>译自<a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fwww.amazon.co.jp%2Fdp%2FB01HIP2K34&amp;link2key=4ef9cc4039\" rel=\"nofollow\" target=\"_blank\">《Animedia》2016年9月号</a><br/>西宫硝子有着生动和固执的一面，让人觉得她是个非常非常有魅力的女孩子。接触到硝子时，感觉她是个活生生的女孩。读了原作，听原作者大今良时老师谈了很多，实际画分镜时深有感触。“她并不是天使，而是一个有着倔强想法的女孩子”，我很喜欢硝子这一点。<br/>描绘耳朵听不见的硝子时，我在想“硝子这个女孩会对什么做出反应，她是如何获取包含声音在内的周围的信息的呢？”。眼睛看得到的声音、身体能感觉到的声音，我想将这些有形的声音描绘出来。<br/>关于主人公石田将也，我想去好好描绘形成将也人格的“根源”。具体来说就是他的家人。将也是有着美也子这位母亲的将也……像这样把将也本性温柔的理由和原因放在心上。在我印象当中，总觉得将也是只怯懦的大型犬、身形庞大的小动物。<br/>将长篇原作归纳成一部电影，我定的目标是牢牢贴近石田将也的故事。因为篇幅有限必须删减剧情，为了不让将也的故事显现出空缺，创作时我注重的是找出本质精炼到影片当中。把将也他们居住的水门市描绘得充满魅力也是一大目标。希望能够实现。记忆、感觉、气息，对这些事物的描写在本作中应该会显得格外突出。希望能表现出色彩给人带来的舒适感。\n    <div class=\"clear\"></div>\n",
+    "comment_count": 0,
+    "source_url": "https://site.douban.com/211330/widget/notes/190597056/note/575615184/",
+    "also_in": [],
+    "images": [
+      {
+        "src": "https://img9.doubanio.com/view/note/large/public/p36410176.jpg",
+        "local": "/media/notes/575615184/p36410176.jpg",
+        "alt": "",
+        "archived": false,
+        "archive_url": null,
+        "bytes": 0
+      }
+    ],
+    "comments": [],
+    "status": {
+      "availability": "ok",
+      "label": "已归档",
+      "httpStatus": 200,
+      "detail": "缓存命中",
+      "waybackUrl": null,
+      "waybackTimestamp": null,
+      "waybackStatus": null
+    },
+    "category": "聲之形",
+    "index_order": 6,
+    "content_hash": "",
+    "route": "/notes/575615184"
   },
   "575811208": {
     "note_id": "575811208",
@@ -7361,7 +7972,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -7403,7 +8014,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -7453,7 +8064,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -7487,7 +8098,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -7512,7 +8123,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -7554,7 +8165,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -7596,7 +8207,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -7630,7 +8241,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -7664,7 +8275,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -7810,7 +8421,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -7860,7 +8471,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -7918,7 +8529,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -7976,7 +8587,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -8050,7 +8661,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -8075,7 +8686,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -8125,7 +8736,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -8159,7 +8770,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -8249,7 +8860,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -8299,7 +8910,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -8333,7 +8944,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -8391,7 +9002,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -8416,7 +9027,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -8449,7 +9060,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -8483,7 +9094,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -8508,7 +9119,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -8541,7 +9152,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -8566,7 +9177,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -8591,7 +9202,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -8657,7 +9268,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -8731,7 +9342,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -8789,7 +9400,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -8855,7 +9466,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -9022,7 +9633,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -9088,7 +9699,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -9113,7 +9724,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -9147,7 +9758,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -9205,7 +9816,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -9271,7 +9882,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -9336,7 +9947,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -9378,7 +9989,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -9436,7 +10047,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -9461,7 +10072,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -9477,7 +10088,7 @@
     "title": "梦境☆Papico",
     "date": "2017-07-26 19:56:19",
     "content_html": "<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fwww.kyotoanimation.co.jp%2Fstaff%2Fanibaka%2Fblog%2F%3Fp%3D2050&amp;link2key=7389a61754\" rel=\"nofollow\" target=\"_blank\">2017年7月25日 </a><br/>出梅后迎来了夏天。<br/>大家最近可好？<br/>今天从苦练排球接球技巧的梦中醒来了。<br/>为了便于二传手托球，要尽量减少球的旋转。<br/>遇到强力的扣球时，只要像拉伸手臂般去接球，就能吸收冲击，将球稳妥地递给二传手。<br/>注意手臂不能向前挥动。<br/>做了这样的梦。<br/>在梦中久违地做了体育运动。<br/>多亏了这个梦，心情变得非常爽快。<br/>不过，运动的记忆对动画人来说十分重要。<br/>能让我们在画原画和做演出为角色加演技时，更容易明白物体动作的原理。<br/>这个梦让我想去体育馆中摸爬滚打，竭尽全力打一场酣畅淋漓的排球。<br/>总之我会努力工作的！<br/>译者注：山田小学和初中时代参加的社团活动是排球。\n    <div class=\"clear\"></div>\n<span class=\"btn-report\">投诉</span>",
-    "comment_count": 20170725,
+    "comment_count": 1,
     "source_url": "https://site.douban.com/211330/widget/notes/17565710/note/630626923/",
     "also_in": [],
     "images": [],
@@ -9494,7 +10105,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -9519,7 +10130,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -9544,7 +10155,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -9569,7 +10180,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -9602,7 +10213,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -9651,7 +10262,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -9719,7 +10330,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -9768,7 +10379,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -9808,7 +10419,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -9919,12 +10530,20 @@
     "source_url": "https://site.douban.com/211330/widget/notes/17565710/note/673585518/",
     "also_in": [],
     "images": [],
-    "comments": [],
+    "comments": [
+      {
+        "author": "贫僧读物理",
+        "date": "2019-01-24 15:22:41",
+        "content_html": "希望兔子山能翻译一些利兹与青鸟的文章==",
+        "avatar_url": "https://img9.doubanio.com/icon/u151409267-5.jpg",
+        "comment_id": "57095888"
+      }
+    ],
     "status": {
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
@@ -10011,7 +10630,7 @@
       "availability": "ok",
       "label": "已归档",
       "httpStatus": 200,
-      "detail": "",
+      "detail": "缓存命中",
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
