@@ -43,7 +43,7 @@ from .http_client import (
 )
 from .transport import Transport
 from .models import ImageRef
-from .util import atomic_write_bytes
+from .util import atomic_write_bytes, files_equal
 
 log = logging.getLogger("usagi.media")
 
@@ -55,6 +55,20 @@ MAGIC_PREFIXES: tuple[tuple[bytes, str], ...] = (
     (b"GIF89a", "gif"),
     (b"BM", "bmp"),
 )
+
+# 真实格式 → 落盘后缀。``jpeg`` 一律落 ``.jpg`` —— ``.jpeg`` 是等价写法，
+# 同一份内容在两个等价后缀之间来回改名只会平白制造噪音。
+SUFFIX_FOR_KIND: dict[str, str] = {
+    "jpeg": ".jpg",
+    "png": ".png",
+    "webp": ".webp",
+    "gif": ".gif",
+    "bmp": ".bmp",
+    "svg": ".svg",
+}
+
+# 允许按真实内容纠正的后缀。不在此列的后缀（站点素材的自定义命名等）一律不动。
+IMAGE_SUFFIXES = frozenset({".jpg", ".jpeg", ".jpe", ".png", ".webp", ".gif", ".bmp", ".svg"})
 
 # 豆瓣图片尺寸变体路径片段
 SIZE_SEGMENT_RE = re.compile(r"/view/(?:photo|note)/([a-z]+)/public/")
@@ -108,6 +122,43 @@ def is_valid_image(path: Path) -> bool:
             return sniff_image(handle.read(32)) is not None
     except OSError:
         return False
+
+
+def read_kind(path: Path) -> str:
+    """读文件头判定的真实格式；读不了返回空串。"""
+    try:
+        with path.open("rb") as handle:
+            return sniff_image(handle.read(32)) or ""
+    except OSError:
+        return ""
+
+
+def correct_suffix(path: Path, kind: str) -> Path:
+    """把 ``path`` 的后缀纠正成 ``kind`` 对应的真实后缀。
+
+    后缀不认识（不在 :data:`IMAGE_SUFFIXES` 里）或本已正确时原样返回。
+
+    **必须做这一步**：豆瓣的 ``/view/photo/large/public/p{id}.webp`` 会返回
+    ``Content-Type: image/webp`` 而 body 是 JPEG 字节（``raw`` 尺寸那份的字节原封不动），
+    偶尔还会是 PNG。照 URL 后缀命名，盘上就会出现"后缀说 webp、内容是 JPEG"的假文件
+    —— 既误导后续按后缀做的判断，也让 VitePress 按后缀发错 ``Content-Type``。
+    落盘名字只认内容。
+    """
+    wanted = SUFFIX_FOR_KIND.get(kind)
+    suffix = path.suffix.lower()
+    if not wanted or suffix not in IMAGE_SUFFIXES or suffix == wanted:
+        return path
+    return path.with_suffix(wanted)
+
+
+def with_name(local_url: str, name: str) -> str:
+    """替换站内 URL 的最后一段文件名。
+
+    落盘名字被纠正后，下载前算好的 ``local_url`` 就指向不存在的文件了，
+    必须同步换掉最后一段才能写进 ``data/``。
+    """
+    head, sep, _ = local_url.rpartition("/")
+    return f"{head}{sep}{name}" if sep else name
 
 
 def describe_response(resp: CachedResponse) -> str:
@@ -283,6 +334,26 @@ class MediaArchive:
             f"{ORIGINAL_MEDIA_SUBDIR}/",
         )
 
+    def drop_redundant_original(self, album_id: str, photo_id: str) -> bool:
+        """原图与预览是同一份字节时删掉原图，返回是否删了。
+
+        豆瓣的 ``large`` 与 ``raw`` 对同一张图常常返回同一份字节（尤其是原图本身就
+        没超过 ``large`` 长边上限时），存两份不多任何信息。判别只能靠下载后比字节 ——
+        尺寸不可靠：既有预览比原图大的，也有豆瓣给了小号预览而原图确实更大的。
+
+        只有预览或只有原图时一律不动：那样删掉的就是**唯一**的一份
+        （``local`` 会回退指向 ``original/`` 的情况正属此类）。
+        """
+        original = self.find_album_original(album_id, photo_id)
+        preview = self.find_album_image(album_id, photo_id)
+        if original is None or preview is None:
+            return False
+        if not files_equal(original[0], preview[0]):
+            return False
+        original[0].unlink()
+        log.info("原图与预览字节相同，只保留预览：%s", original[0].name)
+        return True
+
     def _find_album_file(
         self,
         directory: Path,
@@ -320,6 +391,45 @@ class MediaArchive:
 
     # ---------------------------------------------------------------- 下载
 
+    def _existing_archived(self, dest: Path) -> Path | None:
+        """在 ``dest`` 同目录里找这张图已归档的那一份，没有返回 ``None``。
+
+        落盘名字由内容决定，所以 ``dest``（按 URL 后缀猜的）可能根本不是实际文件名。
+        按 stem 把同目录的兄弟后缀依次看一遍即可 —— 相册照片的 stem 是 ``photo_id``、
+        日记配图是 URL 哈希、视频缩略图是 ``video_id``，都只对应这一张图，不会串。
+        """
+        if dest.exists() and is_valid_image(dest):
+            return dest
+        for suffix in PREVIEW_SUFFIX_ORDER:
+            candidate = dest.with_suffix(suffix)
+            if candidate != dest and candidate.exists() and is_valid_image(candidate):
+                return candidate
+        return None
+
+    def _heal_suffix(self, path: Path) -> Path:
+        """后缀与真实格式不符时就地改名，返回改名后的路径。
+
+        这是给"URL 后缀撒谎"时代的存量文件兜底的：新下载已经由
+        :func:`correct_suffix` 直接落成真实后缀，但老文件不会自己变。
+        目标名已被占用时保持原样并记 WARNING —— 那说明同一目录里两张**不同**的图
+        争一个名字，是需要人看一眼的事，绝不能悄悄覆盖掉其中一张。
+        """
+        kind = read_kind(path)
+        target = correct_suffix(path, kind)
+        if target == path:
+            return path
+        if target.exists():
+            log.warning(
+                "后缀与内容不符但纠正目标已被占用，保持原样：%s（实际是 %s）→ %s",
+                path.name,
+                kind,
+                target.name,
+            )
+            return path
+        path.rename(target)
+        log.info("按真实格式纠正后缀：%s → %s", path.name, target.name)
+        return target
+
     def download(
         self,
         url: str,
@@ -330,14 +440,25 @@ class MediaArchive:
         allow_archive: bool = True,
         force: bool = False,
     ) -> MediaResult:
-        """下载一张图片到 ``dest``，返回归档结果。"""
+        """下载一张图片到 ``dest``，返回归档结果。
+
+        ``dest`` 只是**按 URL 后缀猜的名字**：真正落盘的名字由内容决定
+        （见 :func:`correct_suffix`），因此成功时要以 ``result.local_path`` /
+        ``result.local_url`` 为准，调用方不能再用传进来的 ``dest`` / ``local_url``。
+        """
         result = MediaResult(url=url, local_path=dest, local_url=local_url)
 
-        # 幂等：已存在且是有效图片则跳过（增量同步的关键）
-        if not force and dest.exists() and is_valid_image(dest):
+        # 幂等：已归档且是有效图片则跳过（增量同步的关键）。不能只看 dest ——
+        # 它可能已不是当初落盘的名字（URL 给 .webp、内容是 JPEG，落盘时纠正成了 .jpg），
+        # 只看 dest 会让每次运行都把它当"没下过"而重复下载。
+        existing = None if force else self._existing_archived(dest)
+        if existing is not None:
+            existing = self._heal_suffix(existing)
             result.ok = True
-            result.size_bytes = dest.stat().st_size
-            result.kind = sniff_image(dest.read_bytes()[:32]) or ""
+            result.local_path = existing
+            result.local_url = with_name(local_url, existing.name)
+            result.size_bytes = existing.stat().st_size
+            result.kind = read_kind(existing)
             result.from_cache = True
             self.skipped += 1
             return result
@@ -367,9 +488,13 @@ class MediaArchive:
                     self.fetcher.invalidate_cache(candidate)
                 continue
 
-            dest.parent.mkdir(parents=True, exist_ok=True)
-            atomic_write_bytes(dest, resp.content, tmp_dir=self.cfg.tmp_dir)
+            # 落盘名字只认内容：URL 后缀是 CDN 的一面之词，实测会撒谎。
+            target = correct_suffix(dest, kind)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            atomic_write_bytes(target, resp.content, tmp_dir=self.cfg.tmp_dir)
             result.ok = True
+            result.local_path = target
+            result.local_url = with_name(local_url, target.name)
             result.size_bytes = len(resp.content)
             result.kind = kind
             self.downloaded += 1
@@ -383,14 +508,18 @@ class MediaArchive:
             shot = self.wayback.fetch_image(url)
             if shot is not None:
                 data, wayback_url = shot
-                if sniff_image(data) is not None:
-                    dest.parent.mkdir(parents=True, exist_ok=True)
-                    atomic_write_bytes(dest, data, tmp_dir=self.cfg.tmp_dir)
+                kind = sniff_image(data)
+                if kind is not None:
+                    target = correct_suffix(dest, kind)
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    atomic_write_bytes(target, data, tmp_dir=self.cfg.tmp_dir)
                     result.ok = True
                     result.archived = True
                     result.wayback_url = wayback_url
+                    result.local_path = target
+                    result.local_url = with_name(local_url, target.name)
                     result.size_bytes = len(data)
-                    result.kind = sniff_image(data) or ""
+                    result.kind = kind
                     self.archived += 1
                     self.bytes_total += result.size_bytes
                     log.info("图片已从 archive.org 补足：%s", url)
@@ -437,14 +566,16 @@ class MediaArchive:
             ref.bytes = result.size_bytes
             ref.archive_url = result.wayback_url
             if result.ok:
-                mapping[ref.src] = local_url
+                # 落盘后缀可能被纠正过，映射要用纠正后的站内 URL
+                ref.local = result.local_url
+                mapping[ref.src] = result.local_url
         return mapping
 
     def archive_site_asset(self, url: str, name: str) -> str:
         """归档站点素材（logo / 头像），返回站内 URL。"""
         dest, local_url = self.site_asset_path(name)
         result = self.download(url, dest, local_url)
-        return local_url if result.ok else url
+        return result.local_url if result.ok else url
 
     def summary(self) -> dict[str, int | float]:
         return {

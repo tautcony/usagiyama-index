@@ -166,6 +166,49 @@ class TestCheckImages:
         assert Verifier(cfg).check_images().passed
 
 
+class TestCheckMediaFormats:
+    """后缀与内容不符（CDN 拿 .webp 的 URL 发 JPEG 字节）要被抓出来。"""
+
+    def test_detects_jpeg_hiding_behind_webp(self, cfg) -> None:
+        media = cfg.media_dir / "albums" / "1"
+        media.mkdir(parents=True, exist_ok=True)
+        (media / "p1.webp").write_bytes(b"\xff\xd8\xff\xe0" + b"\x00" * 200)
+        result = Verifier(cfg).check_media_formats()
+        assert not result.passed
+        assert any("实际是 jpeg" in problem for problem in result.problems)
+        assert any("后缀与真实格式不符" in note for note in result.notes)
+
+    def test_detects_png_hiding_behind_webp(self, cfg) -> None:
+        media = cfg.media_dir / "albums" / "1"
+        media.mkdir(parents=True, exist_ok=True)
+        (media / "p2.webp").write_bytes(b"\x89PNG\r\n\x1a\n" + b"\x00" * 200)
+        result = Verifier(cfg).check_media_formats()
+        assert not result.passed
+        assert any("实际是 png" in problem for problem in result.problems)
+
+    def test_passes_when_suffix_matches_content(self, cfg) -> None:
+        media = cfg.media_dir / "albums" / "1"
+        media.mkdir(parents=True, exist_ok=True)
+        (media / "a.jpg").write_bytes(b"\xff\xd8\xff\xe0" + b"\x00" * 200)
+        (media / "b.webp").write_bytes(b"RIFF\x00\x00\x00\x00WEBP" + b"\x00" * 200)
+        result = Verifier(cfg).check_media_formats()
+        assert result.passed
+        assert result.checked == 2
+        assert any("后缀与内容一致" in note for note in result.notes)
+
+    def test_non_image_is_left_to_integrity_check(self, cfg) -> None:
+        """不是图片的文件由「图片完整性」报，格式检查不重复刷问题。"""
+        media = cfg.media_dir / "notes" / "1"
+        media.mkdir(parents=True, exist_ok=True)
+        (media / "bad.jpg").write_bytes(b"<html><body>418</body></html>" + b" " * 100)
+        result = Verifier(cfg).check_media_formats()
+        assert result.passed
+        assert result.problems == []
+
+    def test_missing_media_dir_passes(self, cfg) -> None:
+        assert Verifier(cfg).check_media_formats().passed
+
+
 class TestCheckDuplicates:
     def test_detects_duplicate_content(self, cfg) -> None:
         media = cfg.media_dir / "notes" / "1"

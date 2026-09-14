@@ -178,7 +178,8 @@ class PhotoMeta:
     local_original: str = ""
     """**原图**的站内路径：点开预览、或在新窗口打开时看的那张（``<a href>``）。
 
-    为空表示这张照片没有可得的原图（源站不提供，或者没抓到），
+    为空表示这张照片没有单独的原图：源站不提供、没抓到，或者原图与预览是
+    同一份字节因而没有另存（见 :meth:`scraper.media.MediaArchive.drop_redundant_original`）。
     此时预览打开的仍是 :attr:`local`。
     """
 

@@ -182,6 +182,73 @@ class TestFindAlbumFile:
         assert found[1] == "/media/albums/13432051/original/2770778841.jpg"
 
 
+class TestDropRedundantOriginal:
+    """原图与预览字节相同时只留一份。
+
+    豆瓣的 ``large`` 与 ``raw`` 对同一张图常常返回同一份字节，抓两遍存两份
+    不多任何信息 —— 但判别只能靠比字节：既有预览比原图大的，也有原图确实
+    更大的，尺寸不足以作准。
+    """
+
+    def _archive(self, cfg) -> MediaArchive:
+        archive = MediaArchive.__new__(MediaArchive)
+        archive.cfg = cfg
+        return archive
+
+    def _write(self, path: Path, blob: bytes) -> Path:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(blob)
+        return path
+
+    def test_identical_original_is_dropped(self, cfg) -> None:
+        album_dir = cfg.media_dir / "albums" / "13433748"
+        preview = self._write(album_dir / "2314125077.jpg", JPEG)
+        original = self._write(album_dir / "original" / "2314125077.jpg", JPEG)
+
+        assert self._archive(cfg).drop_redundant_original("13433748", "2314125077") is True
+        assert not original.exists()
+        assert preview.read_bytes() == JPEG
+
+    def test_different_original_is_kept(self, cfg) -> None:
+        """原图真的更大时必须留着 —— 这是 183 份原图的场景。"""
+        album_dir = cfg.media_dir / "albums" / "13432051"
+        self._write(album_dir / "2770778841.webp", WEBP)
+        original = self._write(album_dir / "original" / "2770778841.jpg", JPEG)
+
+        assert self._archive(cfg).drop_redundant_original("13432051", "2770778841") is False
+        assert original.exists()
+
+    def test_sole_original_is_never_dropped(self, cfg) -> None:
+        """只有原图没有预览时它就是唯一的一份，删了图就没了。
+
+        ``local`` 会回退指向 ``original/``，线上确实存在这种照片
+        （``13431950/2325379527``）。
+        """
+        original = self._write(
+            cfg.media_dir / "albums" / "13431950" / "original" / "2325379527.jpg", JPEG
+        )
+
+        assert self._archive(cfg).drop_redundant_original("13431950", "2325379527") is False
+        assert original.exists()
+
+    def test_missing_files_are_noop(self, cfg) -> None:
+        assert self._archive(cfg).drop_redundant_original("13431373", "1") is False
+
+    def test_real_webp_preview_wins_over_matching_jpg(self, cfg) -> None:
+        """根目录同时有真 webp 预览与同字节的 jpg 时，以 webp 为准，原图留着。
+
+        ``find_album_image`` 按 :data:`PREVIEW_SUFFIX_ORDER` 优先取 webp ——
+        它才是网格里显示的那张，与它比对才算数。
+        """
+        album_dir = cfg.media_dir / "albums" / "190597061"
+        self._write(album_dir / "2459298089.webp", WEBP)
+        self._write(album_dir / "2459298089.jpg", JPEG)
+        original = self._write(album_dir / "original" / "2459298089.jpg", JPEG)
+
+        assert self._archive(cfg).drop_redundant_original("190597061", "2459298089") is False
+        assert original.exists()
+
+
 class TestCollectNoteImages:
     def test_collects_and_dedupes(self, cfg) -> None:
         archive = MediaArchive.__new__(MediaArchive)
@@ -482,3 +549,141 @@ class TestDownloadTempFiles:
             # 目标是一个目录，os.replace 会失败
             atomic_write_bytes(dest.parent, b"x", tmp_dir=cfg.tmp_dir)
         assert not list(cfg.tmp_dir.glob("*.tmp"))
+
+
+class TestSuffixFollowsContent:
+    """落盘后缀由**内容**决定，不由 URL 后缀决定。
+
+    豆瓣的 ``/view/photo/large/public/p{id}.webp`` 会返回 ``Content-Type: image/webp``
+    而 body 是 JPEG 字节（``raw`` 尺寸那份原封不动），偶尔是 PNG。照 URL 后缀命名就会
+    落下"后缀说 webp、内容是 JPEG"的假文件。这里把"名字只认内容"钉死。
+    """
+
+    class _StubTransport:
+        def __init__(self, payload: bytes) -> None:
+            self.payload = payload
+            self.calls: list[str] = []
+
+        def get_image(self, url: str) -> CachedResponse:
+            self.calls.append(url)
+            return CachedResponse(url=url, status=200, content=self.payload)
+
+    def test_webp_url_holding_jpeg_is_stored_as_jpg(self, cfg) -> None:
+        transport = self._StubTransport(JPEG)
+        archive = MediaArchive(transport, cfg=cfg)
+        dest = cfg.media_dir / "albums" / "1" / "p1.webp"
+        url = "https://img1.doubanio.com/view/photo/large/public/p1.webp"
+
+        result = archive.download(url, dest, "/media/albums/1/p1.webp")
+
+        assert result.ok, result.error
+        assert result.local_path == dest.with_suffix(".jpg")
+        assert result.local_url == "/media/albums/1/p1.jpg"
+        assert result.kind == "jpeg"
+        assert (dest.parent / "p1.jpg").exists()
+        assert not dest.exists()
+
+    def test_webp_url_holding_png_is_stored_as_png(self, cfg) -> None:
+        archive = MediaArchive(self._StubTransport(PNG), cfg=cfg)
+        dest = cfg.media_dir / "albums" / "1" / "p2.webp"
+
+        result = archive.download(
+            "https://img1.doubanio.com/view/photo/large/public/p2.webp",
+            dest,
+            "/media/albums/1/p2.webp",
+        )
+
+        assert result.ok, result.error
+        assert result.local_url == "/media/albums/1/p2.png"
+        assert (dest.parent / "p2.png").exists()
+
+    def test_truthful_suffix_is_left_alone(self, cfg) -> None:
+        """后缀本来就对时不该改名，也不该凭空多出文件。"""
+        archive = MediaArchive(self._StubTransport(WEBP), cfg=cfg)
+        dest = cfg.media_dir / "albums" / "1" / "p3.webp"
+
+        result = archive.download(
+            "https://img1.doubanio.com/view/photo/large/public/p3.webp",
+            dest,
+            "/media/albums/1/p3.webp",
+        )
+
+        assert result.ok, result.error
+        assert result.local_url == "/media/albums/1/p3.webp"
+        assert [p.name for p in dest.parent.iterdir()] == ["p3.webp"]
+
+    def test_existing_wrong_suffix_is_healed_without_refetch(self, cfg) -> None:
+        """存量假后缀：下次 sync 时就地改名，且不该为它再发一次请求。"""
+        dest = cfg.media_dir / "albums" / "1" / "p4.webp"
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_bytes(JPEG)
+        transport = self._StubTransport(JPEG)
+        archive = MediaArchive(transport, cfg=cfg)
+
+        result = archive.download(
+            "https://img1.doubanio.com/view/photo/large/public/p4.webp",
+            dest,
+            "/media/albums/1/p4.webp",
+        )
+
+        assert result.ok, result.error
+        assert result.from_cache
+        assert transport.calls == []
+        assert result.local_path == dest.with_suffix(".jpg")
+        assert result.local_url == "/media/albums/1/p4.jpg"
+        assert not dest.exists()
+        assert (dest.parent / "p4.jpg").read_bytes() == JPEG
+
+    def test_already_corrected_file_is_not_downloaded_again(self, cfg) -> None:
+        """纠正过一次之后，再跑不能因为 URL 后缀不符就把文件当成"没下过"。"""
+        corrected = cfg.media_dir / "albums" / "1" / "p5.jpg"
+        corrected.parent.mkdir(parents=True, exist_ok=True)
+        corrected.write_bytes(JPEG)
+        transport = self._StubTransport(JPEG)
+        archive = MediaArchive(transport, cfg=cfg)
+
+        result = archive.download(
+            "https://img1.doubanio.com/view/photo/large/public/p5.webp",
+            cfg.media_dir / "albums" / "1" / "p5.webp",
+            "/media/albums/1/p5.webp",
+        )
+
+        assert result.ok, result.error
+        assert result.from_cache
+        assert transport.calls == []
+        assert result.local_url == "/media/albums/1/p5.jpg"
+
+    def test_heal_never_clobbers_a_different_file(self, cfg, caplog) -> None:
+        """同目录已有同名但**内容不同**的文件时保持原样 + WARNING，绝不能覆盖。"""
+        import logging
+
+        victim = cfg.media_dir / "albums" / "1" / "p6.jpg"
+        victim.parent.mkdir(parents=True, exist_ok=True)
+        other = b"\xff\xd8\xff\xe0" + b"\x11" * 40
+        victim.write_bytes(other)
+        wrong = cfg.media_dir / "albums" / "1" / "p6.webp"
+        wrong.write_bytes(JPEG)
+        archive = MediaArchive(self._StubTransport(JPEG), cfg=cfg)
+
+        with caplog.at_level(logging.WARNING, logger="usagi.media"):
+            result = archive.download(
+                "https://img1.doubanio.com/view/photo/large/public/p6.webp",
+                wrong,
+                "/media/albums/1/p6.webp",
+            )
+
+        assert victim.read_bytes() == other, "已有文件被覆盖了"
+        assert wrong.exists()
+        assert result.ok
+        assert any("已被占用" in r.getMessage() for r in caplog.records)
+
+    def test_note_image_map_uses_corrected_url(self, cfg) -> None:
+        """日记配图重写 Markdown 用的是纠正后的站内 URL。"""
+        archive = MediaArchive(self._StubTransport(JPEG), cfg=cfg)
+        url = "https://img1.doubanio.com/view/note/large/public/p7.webp"
+        refs = archive.collect_note_images(f'<img src="{url}">', "123")
+
+        mapping = archive.archive_note_images(refs, "123")
+
+        assert mapping == {url: "/media/notes/123/p7.jpg"}
+        assert refs[0].local == "/media/notes/123/p7.jpg"

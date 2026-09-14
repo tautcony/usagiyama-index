@@ -32,6 +32,13 @@ def url_cache_key(url: str) -> str:
     return sha1_of(url)
 
 
+def files_equal(a: Path, b: Path) -> bool:
+    """两个文件是否字节相同。先比大小早退，免得为大文件白读一遍。"""
+    if a.stat().st_size != b.stat().st_size:
+        return False
+    return sha1_of(a.read_bytes()) == sha1_of(b.read_bytes())
+
+
 def _atomic_replace(tmp: Path, target: Path) -> None:
     os.replace(tmp, target)
 

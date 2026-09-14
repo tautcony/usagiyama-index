@@ -1,15 +1,16 @@
 """归档结果校验。
 
-七项检查，全部产出可读报告：
+八项检查，全部产出可读报告：
 
 1. **数量对账**    manifest 计数与 ``data/`` 中间产物、磁盘上的 md 文件三方比对
 2. **断链检查**    扫描所有 md 中的站内链接与媒体链接，确认目标存在
 3. **图片完整性**  对 ``docs/public/media`` 全量做 magic bytes 校验
                    （防止把 418 返回的 HTML 错误页当成图片存下来）
-4. **图片重复**    按内容哈希分组，报告重复文件
-5. **frontmatter** 每篇 md 必含 title / source / noteId 等字段
-6. **内容抽查**    随机抽 N 篇，与缓存中的原始 HTML 做纯文本相似度比对
-7. **构建检查**    由 ``npm run docs:build`` 承担（``ignoreDeadLinks: false``）
+4. **图片格式**    后缀是否与真实内容一致（CDN 会拿 ``.webp`` 的 URL 发 JPEG 字节）
+5. **图片重复**    按内容哈希分组，报告重复文件
+6. **frontmatter** 每篇 md 必含 title / source / noteId 等字段
+7. **内容抽查**    随机抽 N 篇，与缓存中的原始 HTML 做纯文本相似度比对
+8. **构建检查**    由 ``npm run docs:build`` 承担（``ignoreDeadLinks: false``）
 
 最后写入 ``data/verify-report.md``。
 """
@@ -28,7 +29,7 @@ from typing import Any, Iterable
 
 from .config import CONFIG, Config
 from .html2md import html_to_plain_text, markdown_to_plain_text
-from .media import is_valid_image, sniff_image
+from .media import SUFFIX_FOR_KIND, is_valid_image, read_kind, sniff_image
 from .util import atomic_write_text, human_size, now_iso, read_json
 
 log = logging.getLogger("usagi.verify")
@@ -88,6 +89,7 @@ class Verifier:
             self.check_counts(),
             self.check_links(),
             self.check_images(),
+            self.check_media_formats(),
             self.check_duplicate_images(),
             self.check_frontmatter(),
             self.check_content_sample(sample=sample),
@@ -245,7 +247,50 @@ class Verifier:
         result.notes.append(f"合计 {result.checked} 个文件，{human_size(total_bytes)}")
         return result
 
-    # ------------------------------------------------------------ 4. 图片重复
+    # ------------------------------------------------------------ 4. 图片格式
+
+    def check_media_formats(self) -> CheckResult:
+        """后缀是否与真实内容一致。
+
+        豆瓣的 ``/view/photo/large/public/p{id}.webp`` 会返回 ``Content-Type: image/webp``
+        而 body 是 JPEG（偶尔 PNG），照 URL 后缀命名就会落下"后缀说 webp、内容不是"的假文件。
+        落盘名字由内容决定（见 :func:`scraper.media.correct_suffix`），这条检查负责
+        在它失效时喊出来 —— 假后缀会让 VitePress 按后缀发错 ``Content-Type``，
+        也会误导所有按后缀做的判断。
+        """
+        result = CheckResult(name="图片格式检测")
+        media_dir = self.cfg.media_dir
+        if not media_dir.exists():
+            return result
+
+        expected = {suffix: kind for kind, suffix in SUFFIX_FOR_KIND.items()}
+        mismatched: list[str] = []
+        for path in sorted(media_dir.rglob("*")):
+            if not path.is_file() or path.name.startswith("."):
+                continue
+            # 不认识的格式对应的后缀（站点素材的自定义命名）无从判断，跳过
+            want = expected.get(path.suffix.lower())
+            if want is None:
+                continue
+            result.checked += 1
+            kind = read_kind(path)
+            if not kind:
+                # 不是图片：交给「图片完整性」报，这里不重复
+                continue
+            if kind != want:
+                mismatched.append(f"{path.relative_to(media_dir)} 后缀为 {path.suffix}，实际是 {kind}")
+
+        if mismatched:
+            for message in mismatched[:100]:
+                result.add_problem(message)
+            if len(mismatched) > 100:
+                result.add_problem(f"… 其余 {len(mismatched) - 100} 个后缀不符的文件见下")
+            result.notes.append(f"发现 {len(mismatched)} 个后缀与真实格式不符的文件")
+        else:
+            result.notes.append("所有图片的后缀与内容一致")
+        return result
+
+    # ------------------------------------------------------------ 5. 图片重复
 
     def check_duplicate_images(self) -> CheckResult:
         result = CheckResult(name="图片重复检测")
@@ -276,7 +321,7 @@ class Verifier:
             result.notes.append("没有重复图片")
         return result
 
-    # --------------------------------------------------------- 5. frontmatter
+    # --------------------------------------------------------- 6. frontmatter
 
     # 详情页与栏目页的字段要求不同：栏目页（首页/索引/留言板）本就没有单一来源
     DETAIL_FIELDS = ("title", "source")
@@ -334,7 +379,7 @@ class Verifier:
                     result.add_problem(f"{rel} 缺少 noteId")
         return result
 
-    # ------------------------------------------------------------ 6. 内容抽查
+    # ------------------------------------------------------------ 7. 内容抽查
 
     def _cached_html_for_note(self, note_id: str, widget_id: str) -> str | None:
         """从磁盘缓存里取回该日记的原始 HTML。"""

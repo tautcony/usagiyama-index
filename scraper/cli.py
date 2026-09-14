@@ -1201,7 +1201,8 @@ def _archive_photo_original(ctx: SyncContext, meta: PhotoMeta) -> str:
         meta.original_url, dest, local, variants=album_original_variants(meta.original_url)
     )
     if outcome.ok:
-        meta.local_original = local
+        # 落盘名字由内容决定，可能已不是按 URL 后缀算出来的那个，以返回值为准
+        meta.local_original = outcome.local_url
         return ""
     return outcome.error
 
@@ -1220,7 +1221,8 @@ def _archive_photo_preview(ctx: SyncContext, meta: PhotoMeta) -> str:
         meta.large_url, dest, local, variants=album_image_variants(meta.large_url)
     )
     if outcome.ok:
-        meta.local = local
+        # 同上：URL 后缀会撒谎，落盘名字以返回值为准
+        meta.local = outcome.local_url
         return ""
     # 预览图拿不到、原图在：用原图顶上，至少网格里看得见
     meta.local = meta.local_original
@@ -1271,6 +1273,10 @@ def stage_photos(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
         # 原图才是上传时的文件，只有"查看原图"链接指向它。
         error = _archive_photo_original(ctx, meta)
         error = _archive_photo_preview(ctx, meta) or error
+        # 但两者是同一份字节时就只留预览：原图不比它多任何信息。
+        # 必须放在两次归档之后 —— 原图先落盘时预览还没有，无从比对。
+        if ctx.media.drop_redundant_original(meta.album_id, meta.photo_id):
+            meta.local_original = ""
         if meta.local or meta.local_original:
             ctx.progress.mark_done(key_of(pair), stage="photos", detail=meta.caption[:40])
         else:
@@ -1357,7 +1363,7 @@ def stage_videos(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> St
             dest, local = ctx.media.video_thumb_path(video.video_id, video.thumb_url)
             outcome = ctx.media.download(video.thumb_url, dest, local)
             if outcome.ok:
-                video.local_thumb = local
+                video.local_thumb = outcome.local_url
         merge_by(ctx.videos, [video], lambda v: v.video_id)
         ctx.progress.mark_done(key_of(video), stage="videos", detail=truncate(video.title, 40))
 
