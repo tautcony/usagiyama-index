@@ -91,6 +91,9 @@ class PageResolver:
         self.wayback = wayback if wayback is not None else WaybackClient(cfg)
         self.cfg = cfg
         self.unavailable: list[UnavailableRecord] = []
+        #: 本次运行成功取回的页面地址。清单要剔除"已经补回来的"条目，
+        #: 光看失败列表做不到——成功时根本不产生记录，旧记录便永远留在清单里。
+        self.resolved_ok: set[str] = set()
 
     # ------------------------------------------------------------------ 核心
 
@@ -116,6 +119,7 @@ class PageResolver:
             return self._fallback(url, exc.status, f"抓取失败：{exc}", context, allow_archive)
 
         if resp.ok and resp.content:
+            self.resolved_ok.add(url)
             return ResolvedPage(
                 url=url,
                 html=resp.text,

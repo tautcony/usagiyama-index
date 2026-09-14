@@ -11,13 +11,14 @@ import logging
 from dataclasses import dataclass, field
 
 from .config import CONFIG, Config
-from .models import Bulletin, Room, Video, Widget
+from .models import Bulletin, PhotoMeta, Room, Video, Widget
 from .parsers import (
     NoteListEntry,
     parse_album_title,
     parse_bulletin,
     parse_discussion_list,
     parse_note_list,
+    parse_page_step,
     parse_photo_list,
     parse_room_nav,
     parse_site_meta,
@@ -29,9 +30,10 @@ from .resolver import PageResolver
 
 log = logging.getLogger("usagi.discover")
 
-# 列表页每页条数（实测）
+# 列表页每页条数的兜底值（实测）。真实步长优先从分页链接里读，
+# 见 :func:`parse_page_step`——写死的常量与实际不符时会静默漏抓。
 NOTES_PER_PAGE = 10
-PHOTOS_PER_PAGE = 26
+PHOTOS_PER_PAGE = 30
 
 
 @dataclass
@@ -101,6 +103,48 @@ class SiteStructure:
             "videos": [v.to_dict() for v in self.videos],
             "forumTopics": {k: [list(t) for t in v] for k, v in self.forum_topics.items()},
         }
+
+
+def enumerate_album_photos(
+    resolver: PageResolver,
+    album_id: str,
+    cfg: Config = CONFIG,
+    *,
+    first_html: str = "",
+) -> list[PhotoMeta]:
+    """翻页取回一个相册的全部照片（含缩略图与描述），按 ``photo_id`` 去重。
+
+    调用方若已抓到第一页，用 ``first_html`` 传进来即可省一次请求。
+
+    这里同时是全站唯一的相册翻页实现：发现阶段只要照片 ID，渲染阶段要
+    完整条目，两边必须走同一套翻页逻辑，否则「枚举到的」与「页面上显示的」
+    会不一致——曾因为只读第一页，页面把已归档的照片整批报成缺失。
+    """
+    if not first_html:
+        page = resolver.resolve(cfg.photos_list_url(album_id), context=f"相册列表 {album_id}")
+        if not page.has_content:
+            return []
+        first_html = page.html
+
+    photos: list[PhotoMeta] = []
+    seen: set[str] = set()
+
+    def absorb(html: str) -> None:
+        for meta in parse_photo_list(html, album_id, cfg):
+            if meta.photo_id not in seen:
+                seen.add(meta.photo_id)
+                photos.append(meta)
+
+    absorb(first_html)
+
+    step = parse_page_step(first_html, cfg, PHOTOS_PER_PAGE)
+    for index in range(1, parse_total_pages(first_html)):
+        url = cfg.photos_list_url(album_id, index * step)
+        sub = resolver.resolve(url, context=f"相册列表 {album_id} 第 {index + 1} 页")
+        if sub.has_content:
+            absorb(sub.html)
+
+    return photos
 
 
 class SiteDiscovery:
@@ -223,23 +267,11 @@ class SiteDiscovery:
 
         self.structure.album_titles.setdefault(album_id, parse_album_title(page.html, self.cfg))
 
-        ids: list[str] = []
-        total_pages = parse_total_pages(page.html)
-        for meta in parse_photo_list(page.html, album_id, self.cfg):
-            if meta.photo_id not in ids:
-                ids.append(meta.photo_id)
-
-        for index in range(1, total_pages):
-            url = self.cfg.photos_list_url(album_id, index * PHOTOS_PER_PAGE)
-            sub = self.resolver.resolve(url, context=f"相册列表 {album_id} 第 {index + 1} 页")
-            if not sub.has_content:
-                continue
-            for meta in parse_photo_list(sub.html, album_id, self.cfg):
-                if meta.photo_id not in ids:
-                    ids.append(meta.photo_id)
-
-        log.info("  相册 %s：%d 张（共 %d 页）", album_id, len(ids), total_pages)
-        return ids
+        photos = enumerate_album_photos(self.resolver, album_id, self.cfg, first_html=page.html)
+        log.info(
+            "  相册 %s：%d 张（共 %d 页）", album_id, len(photos), parse_total_pages(page.html)
+        )
+        return [meta.photo_id for meta in photos]
 
     def discover_photos(self) -> dict[str, list[str]]:
         for widget in self.structure.widgets_of("photos"):

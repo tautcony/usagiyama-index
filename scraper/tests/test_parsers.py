@@ -15,6 +15,7 @@ from scraper.parsers import (
     parse_miniblog,
     parse_note,
     parse_note_list,
+    parse_page_step,
     parse_photo_detail,
     parse_photo_list,
     parse_room_nav,
@@ -169,6 +170,37 @@ class TestHelpers:
 
     def test_parse_total_pages_default(self) -> None:
         assert parse_total_pages("<div></div>") == 1
+
+    def test_parse_page_step_from_paginator(self) -> None:
+        html = """<div class="paginator">
+            <a href="/x/widget/photos/1/?start=0">1</a>
+            <a href="/x/widget/photos/1/?start=30">2</a>
+            <a href="/x/widget/photos/1/?start=60">3</a>
+        </div>"""
+        assert parse_page_step(html) == 30
+
+    def test_parse_page_step_ignores_page_jumps(self) -> None:
+        """分页器混着「首页」这类跨页跳转时，取最小间距才是每页条数。"""
+        html = """<div class="paginator">
+            <a href="/x/widget/notes/1/?start=0">首页</a>
+            <a href="/x/widget/notes/1/?start=40">4</a>
+            <a href="/x/widget/notes/1/?start=50">5</a>
+        </div>"""
+        assert parse_page_step(html) == 10
+
+    def test_parse_page_step_falls_back_without_paginator(self) -> None:
+        assert parse_page_step("<div></div>", fallback=30) == 30
+        # 单页列表只有一个页码链接，推不出间距
+        single = '<div class="paginator"><a href="/x/?start=0">1</a></div>'
+        assert parse_page_step(single, fallback=30) == 30
+
+    def test_parse_page_step_rejects_degenerate_step(self) -> None:
+        """间距为 1 必然是误读，照做会把列表逐条翻一遍。"""
+        html = """<div class="paginator">
+            <a href="/x/?start=0">1</a>
+            <a href="/x/?start=1">2</a>
+        </div>"""
+        assert parse_page_step(html, fallback=30) == 30
 
 
 class TestSiteStructure:

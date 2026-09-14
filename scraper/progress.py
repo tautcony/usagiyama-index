@@ -265,8 +265,22 @@ class ProgressStore:
     def mark_failed(self, key: str, error: str, *, stage: str = "") -> None:
         self.mark(key, ItemStatus.FAILED, stage=stage, detail=truncate(error, 200))
 
-    def mark_unavailable(self, key: str, detail: str = "", *, stage: str = "") -> None:
-        self.mark(key, ItemStatus.UNAVAILABLE, stage=stage, detail=truncate(detail, 200))
+    def mark_unavailable(
+        self, key: str, detail: str = "", *, stage: str = "", url: str = ""
+    ) -> None:
+        """标记为不可得。
+
+        ``url`` 会随记录一起落盘，供 ``data/unavailable.md`` 列出页面地址：
+        进度条目本身只有内部键（如 ``photo:13431950:2321232981``），
+        清单拿它是拼不出可点击链接的。
+        """
+        self.mark(
+            key,
+            ItemStatus.UNAVAILABLE,
+            stage=stage,
+            detail=truncate(detail, 200),
+            **({"url": url} if url else {}),
+        )
 
     def mark_skipped(self, key: str, reason: str = "", *, stage: str = "") -> None:
         self.mark(key, ItemStatus.SKIPPED, stage=stage, detail=truncate(reason, 200))

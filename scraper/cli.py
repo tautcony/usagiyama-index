@@ -36,7 +36,7 @@ from . import auth
 from .archive import WaybackClient
 from .browser import BrowserFetcher, detect_chrome_ua
 from .config import CONFIG, Config, ensure_dirs
-from .discover import SiteDiscovery, SiteStructure
+from .discover import SiteDiscovery, SiteStructure, enumerate_album_photos
 from .emit import EmitContext, SiteEmitter
 from .http_client import CircuitBreakerOpen, Fetcher, estimate_duration
 from .transport import Transport
@@ -70,7 +70,6 @@ from .parsers import (
     parse_miniblog,
     parse_note,
     parse_photo_detail,
-    parse_photo_list,
 )
 from .progress import ItemStatus, ProgressStore, StageResult, StageRunner
 from .resolver import PageResolver, UnavailableRecord
@@ -417,7 +416,12 @@ class SyncContext:
         )
 
     def _restore_structure(self, payload: dict[str, Any]) -> None:
-        """从 ``data/structure.json`` 恢复站点结构（离线模式下使用）。"""
+        """从 ``data/structure.json`` 恢复站点结构（离线模式下使用）。
+
+        ``build_manifest`` 会把结构原样写回 ``structure.json``，所以这里
+        必须把 ``to_dict`` 产出的字段全部还原：漏还原哪个字段，跑一次
+        ``emit`` 就会把它从磁盘上抹掉。
+        """
         from .models import Room, Widget
 
         self.structure.meta = payload.get("meta") or {}
@@ -429,6 +433,7 @@ class SyncContext:
                 url=room_payload.get("url", ""),
                 is_home=bool(room_payload.get("is_home")),
             )
+            room.status = _status_from_dict(room_payload.get("status"))
             for widget_payload in room_payload.get("widgets") or []:
                 room.widgets.append(
                     Widget(
@@ -439,6 +444,14 @@ class SyncContext:
                     )
                 )
             self.structure.rooms.append(room)
+
+        self.structure.bulletins = [
+            _bulletin_from_dict(str(item.get("bulletin_id", "")), item)
+            for item in payload.get("bulletins") or []
+        ]
+        self.structure.videos = [
+            _video_from_dict(item) for item in payload.get("videos") or []
+        ]
 
         from .parsers import NoteListEntry
 
@@ -464,6 +477,113 @@ class SyncContext:
             str(k): [(str(a), str(b)) for a, b in v]
             for k, v in (payload.get("forumTopics") or {}).items()
         }
+
+    # ------------------------------------------------------------ 渲染前准备
+
+    def refresh_album_media(self) -> None:
+        """以磁盘为准，刷新每个相册照片的本地路径。
+
+        ``local`` 记录的是"图片在不在本地"这一磁盘事实，会随下载与清理而变。
+        图片完全可能在上一次相册阶段之后才落盘（例如本次只跑了 ``photos``
+        阶段），而 ``load_existing`` 发生在所有抓取阶段之前，读到的必然是
+        运行前的旧值。因此统一挪到渲染前重推一次：否则已归档的相册会被
+        整页报成"未能归档"。
+        """
+        for album in self.albums.values():
+            for photo in album.photos:
+                found = self.media.find_album_image(album.album_id, photo.photo_id)
+                photo.local = found[1] if found is not None else ""
+
+    def refresh_unavailable(self) -> None:
+        """汇总「当前仍不可得」的条目，供 ``data/unavailable.md`` 与清单文件使用。
+
+        清单必须跨运行累积、且以进度库为准，因为**绝大多数失败条目本次根本
+        不会被重新抓取**：它们在进度里已是终态，``StageRunner`` 直接跳过；
+        ``emit`` 更是只读本地产物，一个请求都不发。早先直接拿 resolver 本次
+        的失败列表当全量清单，于是每次重新生成都把清单清空成
+        「全部内容均已成功归档」，而进度里明明还躺着十几条抓不到的条目。
+
+        合并规则：
+
+        * 磁盘上的历史记录保留，除非本次运行已成功取回该地址
+          （``PageResolver.resolved_ok``）或本次产生了同一地址的新记录；
+        * 进度里仍标记为不可得的条目，若没有对应的明细记录就按进度补一条
+          ——进度是"还缺什么"的唯一事实源，补这一笔清单才不会漏项。
+        """
+        prior = [
+            _unavailable_from_dict(item)
+            for item in read_json(self.cfg.data_dir / "unavailable.json", default=[]) or []
+        ]
+        fresh = list(self.resolver.unavailable)
+        recovered = self.resolver.resolved_ok
+        superseded = {record.url for record in fresh}
+
+        records = [
+            record
+            for record in prior
+            if record.url not in recovered and record.url not in superseded
+        ]
+        records.extend(fresh)
+
+        known = {record.url for record in records}
+        for item in self.progress.unavailable():
+            # 还原不出地址时退回显示内部键，总好过整条丢掉
+            url = self._page_url_of(item) or item.key
+            if url in known:
+                continue
+            known.add(url)
+            records.append(
+                UnavailableRecord(
+                    url=url,
+                    availability=Availability.UNAVAILABLE,
+                    detail=item.detail,
+                    context=_STAGE_LABELS.get(item.stage, item.stage),
+                )
+            )
+
+        self.unavailable = records
+        log.info("不可访问条目：%d 条", len(records))
+
+    def _page_url_of(self, item: Any) -> str:
+        """还原一条进度记录对应的页面地址（仅用于清单展示）。
+
+        新写入的进度条目自带 ``meta["url"]``；这个改动之前的老条目只有
+        内部键（``note:314598362``、``photo:13431950:2321232981``……），
+        这里按各阶段的键格式尽力还原。
+        """
+        url = str((item.meta or {}).get("url", ""))
+        if url:
+            return url
+
+        cfg = self.cfg
+        kind, _, rest = str(item.key).partition(":")
+        if kind == "photo":
+            album_id, _, photo_id = rest.partition(":")
+            if album_id and photo_id:
+                return cfg.photo_url(album_id, photo_id)
+        elif kind == "note":
+            entry = self.structure.entry_by_note_id().get(rest)
+            if entry is not None and entry.url:
+                return entry.url
+        elif kind == "room":
+            for room in self.structure.rooms:
+                if room.room_id == rest:
+                    return room.url
+        elif kind == "bulletin":
+            for widget in self.structure.widgets_of("bulletin"):
+                if widget.widget_id == rest:
+                    return f"{cfg.base_url}/room/{widget.room_id}/"
+        elif kind == "discussion":
+            for widget_id, topics in self.structure.forum_topics.items():
+                if any(topic[0] == rest for topic in topics):
+                    return cfg.discussion_url(widget_id, rest)
+        elif kind == "miniblog":
+            return cfg.miniblog_url(rest)
+        elif kind == "main":
+            page = self.external.get(rest)
+            if page is not None:
+                return page.url
+        return ""
 
     # -------------------------------------------------------------- 索引分组
 
@@ -491,6 +611,18 @@ class SyncContext:
             sum(len(g.entries) for g in self.index_groups),
         )
         return self.index_groups
+
+    def persist_products(self) -> None:
+        """把本次抓到的内容落盘（不渲染站点时也要做）。
+
+        ``--no-emit`` 只是"不生成站点产物"，抓到的内容仍然必须保存：
+        解析结果一旦不落盘、进度却已记为 done，下次运行就会跳过这些条目，
+        数据再没有第二次机会进 ``data/``。索引分组同理——它由 ``save_data``
+        写进 ``data/index.json``，所以必须先重建，否则会把索引写空，
+        sidebar 跟着空掉。
+        """
+        self.build_index_groups()
+        self.save_data()
 
     # ---------------------------------------------------------------- 路由
 
@@ -609,6 +741,35 @@ def _status_from_dict(payload: Any) -> SourceStatus:
         detail=payload.get("detail", ""),
         wayback_url=payload.get("waybackUrl"),
         wayback_timestamp=payload.get("waybackTimestamp"),
+    )
+
+
+#: 进度阶段 → 不可访问清单「上下文」列的中文名
+_STAGE_LABELS = {
+    "rooms": "房间",
+    "bulletins": "公告栏",
+    "notes": "日记",
+    "photos": "照片",
+    "albums": "相册",
+    "videos": "视频",
+    "forum": "讨论帖",
+    "miniblog": "广播室",
+    "main": "站外页面",
+}
+
+
+def _unavailable_from_dict(payload: Any) -> UnavailableRecord:
+    """还原 ``data/unavailable.json`` 里的一条记录。"""
+    if not isinstance(payload, dict):
+        return UnavailableRecord(url="", availability=Availability.UNAVAILABLE)
+    return UnavailableRecord(
+        url=str(payload.get("url", "")),
+        availability=Availability(payload.get("availability", str(Availability.UNAVAILABLE))),
+        http_status=payload.get("http_status"),
+        detail=str(payload.get("detail", "")),
+        wayback_url=payload.get("wayback_url"),
+        wayback_timestamp=payload.get("wayback_timestamp"),
+        context=str(payload.get("context", "")),
     )
 
 
@@ -780,7 +941,7 @@ def stage_rooms(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> Sta
                 key, stage="rooms", detail=f"{room.title}（{len(room.widgets)} 个模块）"
             )
         else:
-            ctx.progress.mark_unavailable(key, room.status.label, stage="rooms")
+            ctx.progress.mark_unavailable(key, room.status.label, stage="rooms", url=room.url)
 
     result = StageResult(stage="rooms", total=len(rooms), processed=len(rooms))
     ctx.results.append(result)
@@ -806,7 +967,7 @@ def stage_bulletins(ctx: SyncContext, *, show_progress: bool, limit: int = 0) ->
         page = ctx.resolver.resolve(url, context=f"公告栏 {widget.title}")
         if not page.has_content:
             ctx.progress.mark_unavailable(
-                key_of(widget), page.status.label, stage="bulletins"
+                key_of(widget), page.status.label, stage="bulletins", url=url
             )
             return
         bulletin = parse_bulletin(page.html, widget.widget_id, url, widget.room_id, cfg)
@@ -895,7 +1056,7 @@ def stage_notes(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
                 status=page.status,
             )
             ctx.notes[entry.note_id] = note
-            ctx.progress.mark_unavailable(key, page.status.label, stage="notes")
+            ctx.progress.mark_unavailable(key, page.status.label, stage="notes", url=url)
             return
 
         note = parse_note(page.html, entry.widget_id, entry.note_id, url, cfg)
@@ -961,11 +1122,15 @@ def stage_photos(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
         url = cfg.photo_url(album_id, photo_id)
         page = ctx.resolver.resolve(url, context=f"照片 {photo_id}")
         if not page.has_content:
-            ctx.progress.mark_unavailable(key_of(pair), page.status.label, stage="photos")
+            ctx.progress.mark_unavailable(
+                key_of(pair), page.status.label, stage="photos", url=url
+            )
             return
         meta = parse_photo_detail(page.html, album_id, photo_id, url, cfg)
         if not meta.large_url:
-            ctx.progress.mark_unavailable(key_of(pair), "未找到大图", stage="photos")
+            ctx.progress.mark_unavailable(
+                key_of(pair), "未找到大图", stage="photos", url=url
+            )
             return
         dest, local = ctx.media.album_image_path(album_id, photo_id, meta.large_url)
         outcome = ctx.media.download(
@@ -977,7 +1142,9 @@ def stage_photos(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
             meta.local = local
             ctx.progress.mark_done(key_of(pair), stage="photos", detail=meta.caption[:40])
         else:
-            ctx.progress.mark_unavailable(key_of(pair), outcome.error, stage="photos")
+            ctx.progress.mark_unavailable(
+                key_of(pair), outcome.error, stage="photos", url=url
+            )
 
     items = pairs[:limit] if limit else pairs
     result = runner.run(items, handler, key_of, desc="照片")
@@ -1009,17 +1176,18 @@ def stage_albums(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> St
             status=page.status,
         )
         if page.has_content:
-            album.photos = parse_photo_list(page.html, album_id, cfg)
+            # 列表页分页：只读第一页会把后面的照片整批漏掉
+            album.photos = enumerate_album_photos(ctx.resolver, album_id, cfg, first_html=page.html)
 
-        # 复用 stage_photos 已解析的描述与已下载的本地路径，避免重复请求
+        # 复用 stage_photos 已解析的描述，避免重复请求；本地路径则以磁盘为准
         for photo in album.photos:
             pair = (album_id, photo.photo_id)
             cached_meta = ctx.photo_meta.get(pair)
             if cached_meta is not None and cached_meta.caption:
                 photo.caption = cached_meta.caption
-            dest, local = ctx.media.album_image_path(album_id, photo.photo_id, photo.thumb_url)
-            if dest.exists():
-                photo.local = local
+            found = ctx.media.find_album_image(album_id, photo.photo_id)
+            if found is not None:
+                photo.local = found[1]
 
         ctx.albums[album_id] = album
         ctx.progress.mark_done(key, stage="albums", detail=f"{album.title}（{len(album.photos)} 张）")
@@ -1080,7 +1248,9 @@ def stage_forum(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> Sta
         url = cfg.discussion_url(forum_id, discussion_id)
         page = ctx.resolver.resolve(url, context=f"讨论帖 {title}")
         if not page.has_content:
-            ctx.progress.mark_unavailable(key_of(topic), page.status.label, stage="forum")
+            ctx.progress.mark_unavailable(
+                key_of(topic), page.status.label, stage="forum", url=url
+            )
             return
         discussion = parse_discussion(page.html, forum_id, discussion_id, url, cfg)
         if not discussion.title:
@@ -1113,7 +1283,9 @@ def stage_miniblog(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> 
             room_url = f"{cfg.base_url}/room/{widget.room_id}/"
             page = ctx.resolver.resolve(room_url, context=f"广播室 {widget.title}")
         if not page.has_content:
-            ctx.progress.mark_unavailable(key, page.status.label, stage="miniblog")
+            ctx.progress.mark_unavailable(
+                key, page.status.label, stage="miniblog", url=url
+            )
             continue
         statuses = parse_miniblog(page.html, cfg)
         merge_by(ctx.miniblog, statuses, lambda s: s.status_id)
@@ -1193,7 +1365,9 @@ def stage_main(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
             ctx.external[page_id] = ExternalPage(
                 page_id=page_id, url=url, origin=origin, status=page.status
             )
-            ctx.progress.mark_unavailable(key_of(target), page.status.label, stage="main")
+            ctx.progress.mark_unavailable(
+                key_of(target), page.status.label, stage="main", url=url
+            )
             return
         external = parse_external_page(page.html, url, page_id, origin, cfg)
         external.status = page.status
@@ -1228,6 +1402,8 @@ STAGE_FUNCS = {
 def generate_site(ctx: SyncContext, *, verbose: bool = False) -> dict[str, Any]:
     """把抓取结果渲染成 VitePress 站点产物。"""
     cfg = ctx.cfg
+    ctx.refresh_album_media()
+    ctx.refresh_unavailable()
     ctx.rebuild_context()
     ctx.build_index_groups()
 
@@ -1432,13 +1608,15 @@ def cmd_sync(args: argparse.Namespace) -> int:
             log.warning("进度已保存，重新执行同一命令即可续跑。")
             return 130
 
-        ctx.unavailable = list(ctx.resolver.unavailable)
+        ctx.refresh_unavailable()
 
         if not args.no_emit:
             log.info("生成站点产物…")
             generate_site(ctx)
             report = write_sync_report(ctx, mode="sync")
             log.info("同步报告：%s", report)
+        else:
+            ctx.persist_products()
 
         ctx.progress.save(force=True)
         _print_summary(ctx)

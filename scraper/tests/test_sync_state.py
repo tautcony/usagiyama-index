@@ -16,7 +16,17 @@ import json
 
 from scraper.cli import SyncContext, merge_by
 from scraper.config import ensure_dirs
-from scraper.models import Bulletin, Comment, Discussion, Note, SourceStatus
+from scraper.models import (
+    Album,
+    Availability,
+    Bulletin,
+    Comment,
+    Discussion,
+    Note,
+    PhotoMeta,
+    SourceStatus,
+    Video,
+)
 from scraper.util import write_json
 
 INDEX_HTML = (
@@ -28,16 +38,51 @@ INDEX_HTML = (
 )
 
 
-def _seed_data(cfg, *, bulletins=None, notes=None, structure=None) -> None:
+def _seed_data(cfg, *, bulletins=None, notes=None, albums=None, structure=None) -> None:
     ensure_dirs(cfg)
     write_json(cfg.data_dir / "bulletins.json", bulletins or {})
     write_json(cfg.data_dir / "notes.json", notes or {})
-    write_json(cfg.data_dir / "albums.json", {})
+    write_json(cfg.data_dir / "albums.json", albums or {})
     write_json(cfg.data_dir / "videos.json", [])
     write_json(cfg.data_dir / "forum.json", [])
     write_json(cfg.data_dir / "miniblog.json", [])
     if structure is not None:
         write_json(cfg.data_dir / "structure.json", structure)
+
+
+def _album_payload(album_id: str, *photo_ids: str) -> dict:
+    """构造一个相册产物，图片一律记为未归档（``local`` 为空）。"""
+    album = Album(album_id=album_id, title="相册", source_url=f"https://x/{album_id}/")
+    album.photos = [
+        PhotoMeta(
+            photo_id=pid,
+            album_id=album_id,
+            thumb_url=f"https://img3.doubanio.com/view/photo/thumb/public/p{pid}.webp",
+        )
+        for pid in photo_ids
+    ]
+    album.status = SourceStatus(availability=Availability.OK)
+    return album.to_dict()
+
+
+def _write_album_image(cfg, album_id: str, photo_id: str, suffix: str = ".webp") -> None:
+    """在相册目录里放一个真图片文件。"""
+    directory = cfg.media_dir / "albums" / album_id
+    directory.mkdir(parents=True, exist_ok=True)
+    (directory / f"{photo_id}{suffix}").write_bytes(b"RIFF\x00\x00\x00\x00WEBP" + b"\x00" * 40)
+
+
+def _video_payload(video_id: str, title: str = "视频一") -> dict:
+    video = Video(
+        video_id=video_id,
+        widget_id="15222929",
+        title=title,
+        thumb_url="https://vthumb.ykimg.com/abc.jpg",
+        external_url="https://v.youku.com/v_show/id_x.html",
+        source_url="https://site.douban.com/211330/",
+    )
+    video.status = SourceStatus(availability=Availability.OK)
+    return video.to_dict()
 
 
 def _bulletin_payload(bulletin_id: str, title: str, content: str) -> dict:
@@ -135,6 +180,258 @@ class TestLoadExisting:
             assert ctx.notes == {}
             assert ctx.bulletins == {}
             assert ctx.structure.note_entries == []
+
+
+class TestAlbumLocalRefreshedFromDisk:
+    """回归：``photo.local`` 记的是磁盘事实，渲染前必须重新推导。
+
+    图片可能在上一次相册阶段之后才落盘（例如只跑了 ``--stages photos``），
+    而 ``load_existing`` 发生在全部抓取阶段之前，读到的必然是运行前的旧值。
+    此时 ``data/albums.json`` 里留的还是空路径，直接渲染会把整页报成
+    「N 张图片未能归档」，而文件其实都在。
+    """
+
+    def _render(self, cfg) -> str:
+        """跑一遍真正的渲染入口（``emit`` 走的就是它）。"""
+        from scraper.cli import generate_site
+
+        with SyncContext(cfg, use_archive=False) as ctx:
+            ctx.load_existing()
+            generate_site(ctx)
+            photos = ctx.albums["13431474"].photos
+        return (cfg.albums_dir / "13431474.md").read_text(encoding="utf-8"), photos
+
+    def test_local_filled_from_disk(self, cfg) -> None:
+        _seed_data(
+            cfg,
+            albums={"13431474": _album_payload("13431474", "1957277283", "1959844738")},
+        )
+        _write_album_image(cfg, "13431474", "1957277283")
+
+        text, photos = self._render(cfg)
+        assert photos[0].local == "/media/albums/13431474/1957277283.webp"
+        assert photos[1].local == ""
+        # 已归档的那张出图，未归档的那张进缺失清单
+        assert 'src="/media/albums/13431474/1957277283.webp"' in text
+        assert "有 1 张图片未能归档" in text
+
+    def test_local_cleared_when_file_missing(self, cfg) -> None:
+        """产物里记着路径、磁盘上却没有文件，必须清空，否则渲染出死链。"""
+        payload = _album_payload("13431474", "1957277283")
+        payload["photos"][0]["local"] = "/media/albums/13431474/1957277283.webp"
+        _seed_data(cfg, albums={"13431474": payload})
+
+        text, photos = self._render(cfg)
+        assert photos[0].local == ""
+        assert "未能归档" in text
+
+    def test_suffix_taken_from_disk_not_from_thumb_url(self, cfg) -> None:
+        """落盘后缀取自大图，未必等于列表页缩略图的后缀，不能按 URL 反推。"""
+        _seed_data(cfg, albums={"13431474": _album_payload("13431474", "1957277283")})
+        _write_album_image(cfg, "13431474", "1957277283", suffix=".jpg")
+
+        text, photos = self._render(cfg)
+        assert photos[0].local.endswith("1957277283.jpg")
+        assert 'src="/media/albums/13431474/1957277283.jpg"' in text
+
+
+def _unavailable_payload(url: str, availability: Availability, **kwargs) -> dict:
+    from dataclasses import asdict
+
+    from scraper.resolver import UnavailableRecord
+
+    return asdict(UnavailableRecord(url=url, availability=availability, **kwargs))
+
+
+def _progress_item(
+    key: str, *, stage: str, detail: str = "原站不可访问", url: str = ""
+) -> dict:
+    item = {
+        "stage": stage,
+        "status": "unavailable",
+        "attempts": 1,
+        "updatedAt": "2026-09-14T11:50:44+08:00",
+        "detail": detail,
+        "meta": {"url": url} if url else {},
+    }
+    return dict(item, key=key)
+
+
+def _seed_progress(cfg, *items: dict) -> None:
+    from scraper.progress import PARSER_REVISION
+
+    write_json(
+        cfg.progress_path,
+        {
+            "version": 3,
+            "parserRevision": PARSER_REVISION,
+            "items": {item["key"]: item for item in items},
+        },
+    )
+
+
+class TestUnavailableReport:
+    """回归：``data/unavailable.md`` 曾经永远是空的。
+
+    清单原本只取「本次运行抓失败的页面」，可失败条目在进度里已是终态、
+    后续运行一律跳过它；``emit`` 更是一个请求都不发。于是每次重新生成
+    都把清单清空成「全部内容均已成功归档」，而进度里明明还躺着十几条
+    抓不到的条目，清单文件也随之被覆盖成空。
+    """
+
+    def _render(self, cfg) -> tuple[str, list]:
+        from scraper.cli import generate_site
+
+        with SyncContext(cfg, use_archive=False) as ctx:
+            ctx.load_existing()
+            generate_site(ctx)
+            records = list(ctx.unavailable)
+        return (cfg.data_dir / "unavailable.md").read_text(encoding="utf-8"), records
+
+    def test_progress_item_with_url_listed(self, cfg) -> None:
+        _seed_data(cfg)
+        _seed_progress(
+            cfg,
+            _progress_item(
+                "photo:13432051:9",
+                stage="photos",
+                detail="未找到大图",
+                url="https://site.douban.com/211330/widget/photos/13432051/photo/9/",
+            ),
+        )
+
+        text, records = self._render(cfg)
+        assert "widget/photos/13432051/photo/9/" in text
+        assert "未找到大图" in text
+        assert "| 照片 |" in text
+        assert len(records) == 1
+
+    def test_legacy_progress_item_url_derived_from_structure(self, cfg) -> None:
+        """改动之前落盘的进度条目只有内部键，地址要能按结构还原出来。"""
+        _seed_data(cfg, structure=STRUCTURE_PAYLOAD)
+        _seed_progress(cfg, _progress_item("note:111", stage="notes"))
+
+        text, _ = self._render(cfg)
+        assert "widget/notes/17565710/note/111/" in text
+        assert "日记" in text
+
+    def test_records_survive_offline_emit(self, cfg) -> None:
+        """已补足的条目必须跨运行留存，否则 ``emit`` 一次就抹掉历史。"""
+        _seed_data(cfg, structure=STRUCTURE_PAYLOAD)
+        write_json(
+            cfg.data_dir / "unavailable.json",
+            [
+                _unavailable_payload(
+                    "https://www.douban.com/note/1/",
+                    Availability.ARCHIVED,
+                    http_status=403,
+                    detail="已用 archive.org 快照补足",
+                    wayback_url="https://web.archive.org/web/2020/http://x/",
+                )
+            ],
+        )
+
+        text, records = self._render(cfg)
+        assert "已补足" in text
+        assert "web.archive.org" in text
+
+        written = json.loads((cfg.data_dir / "unavailable.json").read_text(encoding="utf-8"))
+        assert len(written) == 1
+        assert len(records) == 1
+
+    def test_recovered_page_dropped(self, cfg) -> None:
+        """本次运行已成功取回的页面，旧记录要撤掉，否则清单永远只增不减。"""
+        url = "https://site.douban.com/211330/widget/photos/13432051/photo/9/"
+        _seed_data(cfg)
+        write_json(
+            cfg.data_dir / "unavailable.json",
+            [_unavailable_payload(url, Availability.UNAVAILABLE, detail="原站不可访问")],
+        )
+
+        from scraper.cli import generate_site
+
+        with SyncContext(cfg, use_archive=False) as ctx:
+            ctx.load_existing()
+            ctx.resolver.resolved_ok.add(url)  # 本次运行把它抓回来了
+            generate_site(ctx)
+
+        text = (cfg.data_dir / "unavailable.md").read_text(encoding="utf-8")
+        assert "photo/9/" not in text
+        assert "全部内容均已成功归档" in text
+
+    def test_record_wins_over_progress_row(self, cfg) -> None:
+        """同一页面既有明细记录又有进度条目时只列一行，且保留明细。"""
+        url = "https://site.douban.com/211330/widget/photos/13432051/photo/9/"
+        _seed_data(cfg)
+        write_json(
+            cfg.data_dir / "unavailable.json",
+            [
+                _unavailable_payload(
+                    url, Availability.UNAVAILABLE, http_status=404, detail="源站返回 HTTP 404"
+                )
+            ],
+        )
+        _seed_progress(cfg, _progress_item("photo:13432051:9", stage="photos", url=url))
+
+        text, records = self._render(cfg)
+        assert text.count(url) == 1
+        assert "404" in text
+        assert len(records) == 1
+
+
+class TestNoEmitStillPersists:
+    """``--no-emit`` 只表示"不渲染站点"，抓到的东西必须照样落盘。
+
+    进度一旦记为 done，下次运行就会跳过这些条目——解析结果若没写进
+    ``data/``，就再没有第二次机会，站点会永远缺这批内容。
+    """
+
+    def test_products_written_and_index_not_wiped(self, cfg) -> None:
+        _seed_data(
+            cfg,
+            bulletins={"16095492": _bulletin_payload("16095492", "索引①", INDEX_HTML)},
+        )
+
+        with SyncContext(cfg, use_archive=False) as ctx:
+            ctx.load_existing()
+            ctx.persist_products()
+
+        index = json.loads((cfg.data_dir / "index.json").read_text(encoding="utf-8"))
+        assert [group["title"] for group in index] == ["聲之形", "轻音！系列"]
+        assert (cfg.data_dir / "notes.json").exists()
+        assert (cfg.data_dir / "unavailable.json").exists()
+
+
+class TestStructureFullyRestored:
+    """回归：``build_manifest`` 会把结构原样写回 ``structure.json``。
+
+    因此漏还原哪个字段，跑一次 ``emit`` 就等于把它从磁盘上删掉——
+    ``bulletins`` / ``videos`` / 房间状态都曾被这样抹掉过。
+    """
+
+    def test_bulletins_videos_and_room_status_survive_roundtrip(self, cfg) -> None:
+        rooms = [dict(room) for room in STRUCTURE_PAYLOAD["rooms"]]
+        rooms[0]["status"] = SourceStatus(availability=Availability.OK, http_status=200).to_dict()
+        payload = dict(
+            STRUCTURE_PAYLOAD,
+            rooms=rooms,
+            bulletins=[_bulletin_payload("16095492", "索引①", INDEX_HTML)],
+            videos=[_video_payload("1")],
+        )
+        _seed_data(cfg, structure=payload)
+
+        with SyncContext(cfg, use_archive=False) as ctx:
+            ctx.load_existing()
+            assert len(ctx.structure.bulletins) == 1
+            assert len(ctx.structure.videos) == 1
+            assert ctx.structure.videos[0].title == "视频一"
+            assert ctx.structure.rooms[0].status.availability == Availability.OK
+
+            ctx.build_manifest()
+            written = json.loads((cfg.data_dir / "structure.json").read_text(encoding="utf-8"))
+            assert len(written["bulletins"]) == 1
+            assert len(written["videos"]) == 1
+            assert written["rooms"][0]["status"]["availability"] == "ok"
 
 
 class TestIndexGroupsRebuiltFromRestoredBulletins:

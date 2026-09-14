@@ -210,6 +210,36 @@ def parse_total_pages(html: str) -> int:
     return int(match.group(1)) if match else 1
 
 
+#: 分页链接里的页偏移，形如 ``?start=30``
+_PAGE_START_RE = re.compile(r"[?&]start=(\d+)")
+
+
+def parse_page_step(html: str, cfg: Config = CONFIG, fallback: int = 1) -> int:
+    """从分页链接推导「每页条数」。
+
+    站点用 ``?start=N`` 标记页偏移，相邻页码之差就是每页条数。
+
+    取**最小**间距是有意的：分页器里可能混着跨页跳转（如「首页」直接跳回
+    ``start=0``），而步长只要不超过真实页容量就不会漏抓（多走一页只是
+    重复解析、按 ID 去重后无害）；一旦大于页容量，每个列表尾部都会有
+    若干条目永远枚举不到——相册曾按 26 计算，而实际每页 30 张。
+    """
+    soup = make_soup(html, cfg)
+    starts = sorted(
+        {
+            int(match.group(1))
+            for anchor in soup.select(".paginator a[href]")
+            if (match := _PAGE_START_RE.search(str(anchor.get("href", ""))))
+        }
+    )
+    steps = [b - a for a, b in zip(starts, starts[1:]) if b > a]
+    if not steps:
+        return fallback
+    step = min(steps)
+    # 步长 1（或 0）必然是误读，照做会把列表页逐条翻一遍
+    return step if step > 1 else fallback
+
+
 class NoteListEntry:
     """日记列表页的一条摘要。"""
 

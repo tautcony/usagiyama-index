@@ -810,7 +810,7 @@ class SiteEmitter:
 
     # -------------------------------------------------- 不可访问清单
 
-    def emit_unavailable_report(self, records: Iterable[Any], progress: Any = None) -> Path:
+    def emit_unavailable_report(self, records: Iterable[Any]) -> Path:
         """产出不可访问内容清单，便于人工核对与后续补抓。"""
         records = list(records)
         lines = [

@@ -26,7 +26,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from urllib.parse import urlparse, urlunparse
 
-from bs4 import BeautifulSoup, Tag
+from bs4 import BeautifulSoup
 
 from .archive import WaybackClient
 from .config import CONFIG, Config
@@ -179,6 +179,20 @@ class MediaArchive:
             self.cfg.media_dir / "albums" / album_id / name,
             f"{ALBUM_MEDIA_PREFIX}/{album_id}/{name}",
         )
+
+    def find_album_image(self, album_id: str, photo_id: str) -> tuple[Path, str] | None:
+        """在已归档目录中查找某张照片的落盘文件，找不到返回 ``None``。
+
+        文件名后缀取自下载时使用的大图 URL，而相册列表页只给得出缩略图 URL，
+        两者后缀未必一致，因此不能按 URL 反推路径，只能按 ``<photo_id>.*`` 查找。
+        """
+        directory = self.cfg.media_dir / "albums" / album_id
+        if not directory.is_dir():
+            return None
+        for path in sorted(directory.glob(f"{photo_id}.*")):
+            if path.is_file():
+                return path, f"{ALBUM_MEDIA_PREFIX}/{album_id}/{path.name}"
+        return None
 
     def video_thumb_path(self, video_id: str, url: str = "") -> tuple[Path, str]:
         suffix = Path(urlparse(url).path).suffix or ".jpg"
