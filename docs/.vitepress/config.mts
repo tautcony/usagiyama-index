@@ -76,7 +76,7 @@ export default defineConfig({
 
     outline: { level: [2, 3], label: '本页目录' },
     docFooter: { prev: '上一篇', next: '下一篇' },
-    lastUpdated: { text: '最后更新于' },
+    lastUpdated: { text: '最后同步于' },
 
     search: {
       provider: 'local',
@@ -106,7 +106,7 @@ export default defineConfig({
     socialLinks: [{ icon: 'github', link: 'https://site.douban.com/211330/' }],
 
     footer: {
-      message: '本站为原豆瓣小站的本地归档，内容版权归原作者所有',
+      message: '本站为兔子山的小站的本地归档，内容版权归原作者所有',
       copyright: '原站由 羽音 于 2013-05-01 创建',
     },
 

@@ -500,8 +500,7 @@ class SiteEmitter:
 
         blocks.append(
             f"::: info 关于本站\n"
-            f"本站在 [原豆瓣小站]({self.cfg.site_url}) 内容的基础上做了完整本地化归档，"
-            f"所有正文与图片均已离线保存，以便长期访问。\n"
+            f"本站为 [兔子山的小站]({self.cfg.site_url}) 的本地归档，内容版权归原作者所有。"
             f"原站由 **{self.cfg.owner}** 于 {self.cfg.owner_created} 创建。\n"
             f":::"
         )
