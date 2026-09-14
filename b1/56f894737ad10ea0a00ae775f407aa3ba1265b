@@ -1,0 +1,86 @@
+README.md
+  h_3705811fa4502c 1-178
+.gitignore
+  h_3705811fa4502c 1-21
+.python-version
+  h_3705811fa4502c 1
+package-lock.json
+  h_3705811fa4502c 1-2564
+package.json
+  h_3705811fa4502c 1-20
+pyproject.toml
+  h_3705811fa4502c 1-33
+scraper/README.md
+  h_3705811fa4502c 1-282
+scraper/__init__.py
+  h_3705811fa4502c 1-19
+scraper/archive.py
+  h_3705811fa4502c 1-275
+scraper/cli.py
+  h_3705811fa4502c 1-1374
+scraper/config.py
+  h_3705811fa4502c 1-220
+scraper/discover.py
+  h_3705811fa4502c 1-301
+scraper/emit.py
+  h_3705811fa4502c 1-794
+scraper/html2md.py
+  h_3705811fa4502c 1-261
+scraper/http_client.py
+  h_3705811fa4502c 1-495
+scraper/index_map.py
+  h_3705811fa4502c 1-179
+scraper/media.py
+  h_3705811fa4502c 1-316
+scraper/models.py
+  h_3705811fa4502c 1-332
+scraper/parsers.py
+  h_3705811fa4502c 1-581
+scraper/progress.py
+  h_3705811fa4502c 1-474
+scraper/resolver.py
+  h_3705811fa4502c 1-234
+scraper/state/manifest.json
+  h_3705811fa4502c 1-2572
+scraper/state/progress.json
+  h_3705811fa4502c 1-213
+scraper/tests/__init__.py
+  h_3705811fa4502c 1
+scraper/tests/conftest.py
+  h_3705811fa4502c 1-34
+scraper/tests/test_emit.py
+  h_3705811fa4502c 1-440
+scraper/tests/test_html2md.py
+  h_3705811fa4502c 1-214
+scraper/tests/test_http_client.py
+  h_3705811fa4502c 1-511
+scraper/tests/test_index_map.py
+  h_3705811fa4502c 1-109
+scraper/tests/test_media.py
+  h_3705811fa4502c 1-182
+scraper/tests/test_parsers.py
+  h_3705811fa4502c 1-401
+scraper/tests/test_progress.py
+  h_3705811fa4502c 1-384
+scraper/tests/test_sync_state.py
+  h_3705811fa4502c 1-345
+scraper/tests/test_verify.py
+  h_3705811fa4502c 1-236
+scraper/util.py
+  h_3705811fa4502c 1-106
+scraper/verify.py
+  h_3705811fa4502c 1-458
+uv.lock
+  h_3705811fa4502c 1-425
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "b156f894737ad10ea0a00ae775f407aa3ba1265b",
+  "prompts": {},
+  "humans": {
+    "h_3705811fa4502c": {
+      "author": "TautCony <i@tautcony.xyz>"
+    }
+  }
+}
