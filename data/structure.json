@@ -47,6 +47,7 @@
         "label": "已归档",
         "httpStatus": 200,
         "detail": "缓存命中",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -88,6 +89,7 @@
         "label": "已归档",
         "httpStatus": 200,
         "detail": "缓存命中",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -135,6 +137,7 @@
         "label": "已归档",
         "httpStatus": 200,
         "detail": "缓存命中",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -182,6 +185,7 @@
         "label": "已归档",
         "httpStatus": 200,
         "detail": "缓存命中",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -223,6 +227,7 @@
         "label": "已归档",
         "httpStatus": 200,
         "detail": "缓存命中",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -246,6 +251,7 @@
         "label": "已归档",
         "httpStatus": 200,
         "detail": "缓存命中",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -269,6 +275,7 @@
         "label": "已归档",
         "httpStatus": 200,
         "detail": "缓存命中",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -287,6 +294,7 @@
         "label": "已归档",
         "httpStatus": 200,
         "detail": "缓存命中",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -303,6 +311,7 @@
         "label": "已归档",
         "httpStatus": 200,
         "detail": "缓存命中",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -319,6 +328,7 @@
         "label": "已归档",
         "httpStatus": 200,
         "detail": "缓存命中",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -335,6 +345,7 @@
         "label": "已归档",
         "httpStatus": 200,
         "detail": "缓存命中",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -351,6 +362,7 @@
         "label": "已归档",
         "httpStatus": 200,
         "detail": "缓存命中",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -367,6 +379,7 @@
         "label": "已归档",
         "httpStatus": 200,
         "detail": "缓存命中",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -383,6 +396,7 @@
         "label": "已归档",
         "httpStatus": 200,
         "detail": "缓存命中",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -2251,6 +2265,7 @@
         "label": "已归档",
         "httpStatus": null,
         "detail": "",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -2270,6 +2285,7 @@
         "label": "已归档",
         "httpStatus": null,
         "detail": "",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -2289,6 +2305,7 @@
         "label": "已归档",
         "httpStatus": null,
         "detail": "",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -2308,6 +2325,7 @@
         "label": "已归档",
         "httpStatus": null,
         "detail": "",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -2327,6 +2345,7 @@
         "label": "已归档",
         "httpStatus": null,
         "detail": "",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -2346,6 +2365,7 @@
         "label": "已归档",
         "httpStatus": null,
         "detail": "",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -2365,6 +2385,7 @@
         "label": "已归档",
         "httpStatus": null,
         "detail": "",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -2384,6 +2405,7 @@
         "label": "已归档",
         "httpStatus": null,
         "detail": "",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -2403,6 +2425,7 @@
         "label": "已归档",
         "httpStatus": null,
         "detail": "",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -2422,6 +2445,7 @@
         "label": "已归档",
         "httpStatus": null,
         "detail": "",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -2441,6 +2465,7 @@
         "label": "已归档",
         "httpStatus": null,
         "detail": "",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -2460,6 +2485,7 @@
         "label": "已归档",
         "httpStatus": null,
         "detail": "",
+        "retryable": false,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null

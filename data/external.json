@@ -11,6 +11,7 @@
       "label": "需要登录，无法归档",
       "httpStatus": 403,
       "detail": "源站拒绝访问：缓存记录为被拦截 [403] https://www.douban.com/topic/499780453/",
+      "retryable": false,
       "waybackUrl": null,
       "waybackTimestamp": null,
       "waybackStatus": null
