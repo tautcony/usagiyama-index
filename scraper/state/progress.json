@@ -3,9 +3,9 @@
   "parserRevision": 3,
   "site": "https://site.douban.com/211330/",
   "startedAt": "2026-09-14T15:25:17+08:00",
-  "updatedAt": "2026-09-14T15:39:54+08:00",
+  "updatedAt": "2026-09-14T15:51:55+08:00",
   "totals": {
-    "done": 371,
+    "done": 431,
     "unavailable": 11,
     "failed": 0,
     "skipped": 0
@@ -1842,6 +1842,46 @@
       "detail": "> 返回相册 第19张 / 共24张 上一张 / 下一张 【青鸟】 查看原图 投",
       "meta": {}
     },
+    "photo:13431474:2181572252": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:40:06+08:00",
+      "detail": "> 返回相册 第20张 / 共24张 上一张 / 下一张 【青鸟】 查看原图 投",
+      "meta": {}
+    },
+    "photo:13431474:2181572254": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:40:18+08:00",
+      "detail": "> 返回相册 第21张 / 共24张 上一张 / 下一张 【青鸟】 查看原图 投",
+      "meta": {}
+    },
+    "photo:13431474:2182628193": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:40:30+08:00",
+      "detail": "> 返回相册 第22张 / 共24张 上一张 / 下一张 Newtype (ニュ",
+      "meta": {}
+    },
+    "photo:13431474:2205779176": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:40:42+08:00",
+      "detail": "> 返回相册 第23张 / 共24张 上一张 / 下一张 【场刊最后一页】两人牵",
+      "meta": {}
+    },
+    "photo:13431474:2364483332": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:40:53+08:00",
+      "detail": "> 返回相册 第24张 / 共24张 上一张 / 下一张 桝形商店街に見に行った",
+      "meta": {}
+    },
     "photo:13432051:2163288734": {
       "stage": "photos",
       "status": "done",
@@ -2048,6 +2088,446 @@
       "attempts": 1,
       "updatedAt": "2026-09-14T12:58:30+08:00",
       "detail": "> 返回相册 第1张 / 共26张 上一张 / 下一张 诸行无常，唯有祈福方能克",
+      "meta": {}
+    },
+    "photo:13433748:2184841837": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:51:55+08:00",
+      "detail": "> 返回相册 第55张 / 共179张 上一张 / 下一张 （茶話 アニメ）「た",
+      "meta": {}
+    },
+    "photo:13433748:2185505482": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:51:43+08:00",
+      "detail": "> 返回相册 第54张 / 共179张 上一张 / 下一张 新宿ピカデリー前のア",
+      "meta": {}
+    },
+    "photo:13433748:2185568017": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:51:31+08:00",
+      "detail": "> 返回相册 第53张 / 共179张 上一张 / 下一张 映画「たまこラブスト",
+      "meta": {}
+    },
+    "photo:13433748:2185568022": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:51:18+08:00",
+      "detail": "> 返回相册 第52张 / 共179张 上一张 / 下一张 映画「たまこラブスト",
+      "meta": {}
+    },
+    "photo:13433748:2185637201": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:51:08+08:00",
+      "detail": "> 返回相册 第51张 / 共179张 上一张 / 下一张 洲崎、小川、山田、瀬",
+      "meta": {}
+    },
+    "photo:13433748:2185890606": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:50:54+08:00",
+      "detail": "> 返回相册 第50张 / 共179张 上一张 / 下一张 【山田尚子、小川太一",
+      "meta": {}
+    },
+    "photo:13433748:2185942759": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:50:41+08:00",
+      "detail": "> 返回相册 第49张 / 共179张 上一张 / 下一张 LAWSON映画前売",
+      "meta": {}
+    },
+    "photo:13433748:2186455095": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:50:30+08:00",
+      "detail": "> 返回相册 第48张 / 共179张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13433748:2190430562": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:50:18+08:00",
+      "detail": "> 返回相册 第47张 / 共179张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13433748:2203776223": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:50:05+08:00",
+      "detail": "> 返回相册 第46张 / 共179张 上一张 / 下一张 【10月4日 新宿P",
+      "meta": {}
+    },
+    "photo:13433748:2204080047": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:49:53+08:00",
+      "detail": "> 返回相册 第45张 / 共179张 上一张 / 下一张 http://ame",
+      "meta": {}
+    },
+    "photo:13433748:2204080048": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:49:41+08:00",
+      "detail": "> 返回相册 第44张 / 共179张 上一张 / 下一张 http://ame",
+      "meta": {}
+    },
+    "photo:13433748:2204080220": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:49:29+08:00",
+      "detail": "> 返回相册 第43张 / 共179张 上一张 / 下一张 http://ame",
+      "meta": {}
+    },
+    "photo:13433748:2204080222": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:49:17+08:00",
+      "detail": "> 返回相册 第42张 / 共179张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13433748:2204081056": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:49:05+08:00",
+      "detail": "> 返回相册 第41张 / 共179张 上一张 / 下一张 http://ame",
+      "meta": {}
+    },
+    "photo:13433748:2204081057": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:48:54+08:00",
+      "detail": "> 返回相册 第40张 / 共179张 上一张 / 下一张 http://ame",
+      "meta": {}
+    },
+    "photo:13433748:2204429331": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:48:43+08:00",
+      "detail": "> 返回相册 第39张 / 共179张 上一张 / 下一张 https://tw",
+      "meta": {}
+    },
+    "photo:13433748:2206404740": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:48:31+08:00",
+      "detail": "> 返回相册 第38张 / 共179张 上一张 / 下一张 致雏子：玉子有了心爱",
+      "meta": {}
+    },
+    "photo:13433748:2206404958": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:48:19+08:00",
+      "detail": "> 返回相册 第37张 / 共179张 上一张 / 下一张 【BD/DVD附赠照",
+      "meta": {}
+    },
+    "photo:13433748:2206405013": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:48:06+08:00",
+      "detail": "> 返回相册 第36张 / 共179张 上一张 / 下一张 【BD/DVD附赠照",
+      "meta": {}
+    },
+    "photo:13433748:2206405443": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:47:55+08:00",
+      "detail": "> 返回相册 第35张 / 共179张 上一张 / 下一张 【BD/DVD附赠照",
+      "meta": {}
+    },
+    "photo:13433748:2207525773": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:47:43+08:00",
+      "detail": "> 返回相册 第34张 / 共179张 上一张 / 下一张 from 《玉子爱情",
+      "meta": {}
+    },
+    "photo:13433748:2207525948": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:47:30+08:00",
+      "detail": "> 返回相册 第33张 / 共179张 上一张 / 下一张 from 《玉子爱情",
+      "meta": {}
+    },
+    "photo:13433748:2207526020": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:47:19+08:00",
+      "detail": "> 返回相册 第32张 / 共179张 上一张 / 下一张 from 《玉子爱情",
+      "meta": {}
+    },
+    "photo:13433748:2210407586": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:47:07+08:00",
+      "detail": "> 返回相册 第31张 / 共179张 上一张 / 下一张 【11/8 ～11/",
+      "meta": {}
+    },
+    "photo:13433748:2215597959": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:46:55+08:00",
+      "detail": "> 返回相册 第30张 / 共179张 上一张 / 下一张 祝「たまこラブストー",
+      "meta": {}
+    },
+    "photo:13433748:2216984177": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:46:43+08:00",
+      "detail": "> 返回相册 第29张 / 共179张 上一张 / 下一张 藤森疎水 查看原图 ",
+      "meta": {}
+    },
+    "photo:13433748:2226685443": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:46:32+08:00",
+      "detail": "> 返回相册 第28张 / 共179张 上一张 / 下一张 http://www",
+      "meta": {}
+    },
+    "photo:13433748:2226685457": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:46:21+08:00",
+      "detail": "> 返回相册 第27张 / 共179张 上一张 / 下一张 http://www",
+      "meta": {}
+    },
+    "photo:13433748:2226685464": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:46:09+08:00",
+      "detail": "> 返回相册 第26张 / 共179张 上一张 / 下一张 http://www",
+      "meta": {}
+    },
+    "photo:13433748:2231972989": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:45:57+08:00",
+      "detail": "> 返回相册 第25张 / 共179张 上一张 / 下一张 【P's Live!",
+      "meta": {}
+    },
+    "photo:13433748:2231973028": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:45:45+08:00",
+      "detail": "> 返回相册 第24张 / 共179张 上一张 / 下一张 【P's Live!",
+      "meta": {}
+    },
+    "photo:13433748:2256254826": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:45:32+08:00",
+      "detail": "> 返回相册 第23张 / 共179张 上一张 / 下一张 昨晚#玉子爱情故事#",
+      "meta": {}
+    },
+    "photo:13433748:2258428255": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:45:19+08:00",
+      "detail": "> 返回相册 第22张 / 共179张 上一张 / 下一张 底座是软的，年糕般的",
+      "meta": {}
+    },
+    "photo:13433748:2278942566": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:45:06+08:00",
+      "detail": "> 返回相册 第21张 / 共179张 上一张 / 下一张 【第2回 京アニ＆D",
+      "meta": {}
+    },
+    "photo:13433748:2278942575": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:44:53+08:00",
+      "detail": "> 返回相册 第20张 / 共179张 上一张 / 下一张 【第2回 京アニ＆D",
+      "meta": {}
+    },
+    "photo:13433748:2279302962": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:44:41+08:00",
+      "detail": "> 返回相册 第19张 / 共179张 上一张 / 下一张 【第2回 京アニ＆D",
+      "meta": {}
+    },
+    "photo:13433748:2279302965": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:44:30+08:00",
+      "detail": "> 返回相册 第18张 / 共179张 上一张 / 下一张 【第2回 京アニ＆D",
+      "meta": {}
+    },
+    "photo:13433748:2279302968": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:44:17+08:00",
+      "detail": "> 返回相册 第17张 / 共179张 上一张 / 下一张 【第2回 京アニ＆D",
+      "meta": {}
+    },
+    "photo:13433748:2279302969": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:44:06+08:00",
+      "detail": "> 返回相册 第16张 / 共179张 上一张 / 下一张 【第2回 京アニ＆D",
+      "meta": {}
+    },
+    "photo:13433748:2279313783": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:43:54+08:00",
+      "detail": "> 返回相册 第15张 / 共179张 上一张 / 下一张 【第2回 京アニ＆D",
+      "meta": {}
+    },
+    "photo:13433748:2279315466": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:43:42+08:00",
+      "detail": "> 返回相册 第14张 / 共179张 上一张 / 下一张 【第2回 京アニ＆D",
+      "meta": {}
+    },
+    "photo:13433748:2279470609": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:43:29+08:00",
+      "detail": "> 返回相册 第13张 / 共179张 上一张 / 下一张 【第2回 京アニ＆D",
+      "meta": {}
+    },
+    "photo:13433748:2279781610": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:43:15+08:00",
+      "detail": "> 返回相册 第12张 / 共179张 上一张 / 下一张 【第2回 京アニ＆D",
+      "meta": {}
+    },
+    "photo:13433748:2279781621": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:43:03+08:00",
+      "detail": "> 返回相册 第11张 / 共179张 上一张 / 下一张 【第2回 京アニ＆D",
+      "meta": {}
+    },
+    "photo:13433748:2293999747": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:42:52+08:00",
+      "detail": "> 返回相册 第10张 / 共179张 上一张 / 下一张 第二届京阿尼＆Do答",
+      "meta": {}
+    },
+    "photo:13433748:2293999753": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:42:40+08:00",
+      "detail": "> 返回相册 第9张 / 共179张 上一张 / 下一张 第二届京阿尼＆Do答谢",
+      "meta": {}
+    },
+    "photo:13433748:2298686205": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:42:29+08:00",
+      "detail": "> 返回相册 第8张 / 共179张 上一张 / 下一张 出自桝形商店街交流笔记",
+      "meta": {}
+    },
+    "photo:13433748:2314125077": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:42:17+08:00",
+      "detail": "> 返回相册 第7张 / 共179张 上一张 / 下一张 http://www.",
+      "meta": {}
+    },
+    "photo:13433748:2322535656": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:42:06+08:00",
+      "detail": "> 返回相册 第6张 / 共179张 上一张 / 下一张 第二届京阿尼＆Do答谢",
+      "meta": {}
+    },
+    "photo:13433748:2322535712": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:41:53+08:00",
+      "detail": "> 返回相册 第5张 / 共179张 上一张 / 下一张 《玉子爱情故事》的原画",
+      "meta": {}
+    },
+    "photo:13433748:2374719315": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:41:41+08:00",
+      "detail": "> 返回相册 第4张 / 共179张 上一张 / 下一张 【金子有希@kanek",
+      "meta": {}
+    },
+    "photo:13433748:2378929645": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:41:29+08:00",
+      "detail": "> 返回相册 第3张 / 共179张 上一张 / 下一张 【「洲崎綾の7.6」公",
+      "meta": {}
+    },
+    "photo:13433748:2378929647": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:41:16+08:00",
+      "detail": "> 返回相册 第2张 / 共179张 上一张 / 下一张 【「洲崎綾の7.6」公",
+      "meta": {}
+    },
+    "photo:13433748:2378951041": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T15:41:03+08:00",
+      "detail": "> 返回相册 第1张 / 共179张 上一张 / 下一张 9/8「たまこまーけっ",
       "meta": {}
     },
     "photo:190597061:2274635572": {
