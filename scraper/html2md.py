@@ -261,10 +261,17 @@ def html_to_plain_text(html: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
+#: 链接/图片的方括号文字，容许一层嵌套方括号。
+#: 豆瓣评论里有人手写 ``[img]…[/img]``，写坏的 URL 里也带着 ``[/img]``，
+#: 而 ``[^\]]*`` 一碰到这种 ``]`` 就止步，整条链接匹配不上 —— 于是链接目标
+#: 会以 ``](https://…)`` 的形式漏进比对文本，凭空压低相似度。
+_BRACKET_TEXT = r"(?:[^\[\]]|\[[^\]]*\])*"
+
+
 def markdown_to_plain_text(markdown: str) -> str:
     """从 Markdown 还原纯文本，用于与原始 HTML 的纯文本比对。"""
-    text = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", markdown)   # 图片
-    text = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", text)    # 链接保留文字
+    text = re.sub(r"!\[" + _BRACKET_TEXT + r"\]\([^)]*\)", "", markdown)   # 图片
+    text = re.sub(r"\[(" + _BRACKET_TEXT + r")\]\([^)]*\)", r"\1", text)    # 链接保留文字
     text = re.sub(r"[`*_>#]+", "", text)                     # 强调/引用/标题符号
     text = re.sub(r"^\s*[-+*]\s+", "", text, flags=re.MULTILINE)
     text = text.replace("\\", "")

@@ -10,6 +10,8 @@
 5. **图片重复**    按内容哈希分组，报告重复文件
 6. **frontmatter** 每篇 md 必含 title / source / noteId 等字段
 7. **内容抽查**    随机抽 N 篇，与缓存中的原始 HTML 做纯文本相似度比对
+                   （正文对 ``#link-report``，评论对 ``#comments``——
+                   评论容器在正文容器之外，两侧都得带上才谈得上比对）
 8. **构建检查**    由 ``npm run docs:build`` 承担（``ignoreDeadLinks: false``）
 
 最后写入 ``data/verify-report.md``。
@@ -28,6 +30,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from .config import CONFIG, Config
+from .emit import COMMENT_HEADING_RE
 from .html2md import html_to_plain_text, markdown_to_plain_text
 from .media import SUFFIX_FOR_KIND, is_valid_image, read_kind, sniff_image
 from .util import atomic_write_text, human_size, now_iso, read_json
@@ -401,7 +404,7 @@ class Verifier:
 
     @staticmethod
     def _markdown_body(path: Path) -> str:
-        """取出 md 的正文部分。
+        """取出 md 的内容部分（正文 + 评论）。
 
         必须在**原始 Markdown 文本**上剥离 frontmatter / 提示块 / 来源标注：
         一旦先转成纯文本，换行会被压平，frontmatter 的 ``---`` 边界就失去意义，
@@ -413,6 +416,34 @@ class Verifier:
         raw = NOTICE_BLOCK_RE.sub("", raw)
         raw = FOOTER_RE.sub("", raw)
         return raw
+
+    @staticmethod
+    def _markdown_parts(path: Path) -> tuple[str, str]:
+        """把 md 拆成 ``(正文, 评论)`` 两段原始 Markdown。
+
+        切在 ``## 评论（N）`` 标题行**之后**：标题是 emit 生成的脚手架，原文
+        里没有对应物，两侧都不该带上，否则每篇都比出一个凭空插入的"评论（N）"。
+        """
+        raw = Verifier._markdown_body(path)
+        match = COMMENT_HEADING_RE.search(raw)
+        if match is None:
+            return raw, ""
+        return raw[: match.start()], raw[match.end() :]
+
+    @staticmethod
+    def _comment_text(comments: Iterable[Any]) -> str:
+        """把评论摊成纯文本，字段顺序与兜底文案对齐 emit 的渲染。
+
+        内容抽查要求两侧同口径：md 侧的评论由 ``emit._render_comments`` 渲染
+        （作者 · 日期 + 引用块正文），这里必须复刻它的字段顺序，以及"无作者写
+        匿名、无正文写（空）"两条兜底，否则每次比对都会凭空多出差异。
+        """
+        parts: list[str] = []
+        for comment in comments:
+            head = " · ".join(part for part in (comment.author, comment.date) if part)
+            parts.append(head or "匿名")
+            parts.append(html_to_plain_text(comment.content_html) or "（空）")
+        return " ".join(parts)
 
     def check_content_sample(self, *, sample: int = 5) -> CheckResult:
         result = CheckResult(name="内容抽查")
@@ -447,22 +478,42 @@ class Verifier:
 
             from bs4 import BeautifulSoup
 
-            from .parsers import _link_report
+            from .parsers import _link_report, parse_note_comments
 
+            # 原文侧：正文对 `#link-report`，评论对 `#comments`。两个容器在页面里
+            # 是兄弟节点，评论不在正文里，只能各自取出来配对
             original_html = _link_report(BeautifulSoup(cached, "lxml"), note_id)
-            original_text = html_to_plain_text(original_html)
-            md_text = markdown_to_plain_text(self._markdown_body(md_path))
+            original_parts = (
+                html_to_plain_text(original_html),
+                self._comment_text(parse_note_comments(cached, self.cfg)),
+            )
 
-            if not original_text:
+            # 归档侧：按同样的切分取出正文与评论
+            md_body, md_comments = self._markdown_parts(md_path)
+            md_parts = (
+                markdown_to_plain_text(md_body),
+                markdown_to_plain_text(md_comments),
+            )
+
+            if not any(original_parts):
                 result.notes.append(f"抽查 {note_id}：原文为空，跳过")
                 continue
 
-            ratio = SequenceMatcher(None, original_text, md_text).ratio()
+            # 正文与评论**各自算比值**，取较差的一段判定。合成一整段再比会把
+            # 局部丢失稀释掉：评论偏少的长文里，整段评论全丢也只掉到 0.93，
+            # 够不着阈值，等于没查。
+            ratios = [
+                (label, SequenceMatcher(None, original, archived).ratio())
+                for label, original, archived in zip(("正文", "评论"), original_parts, md_parts)
+                if original or archived
+            ]
+            worst = min(ratio for _, ratio in ratios)
+            detail = " / ".join(f"{label} {ratio:.3f}" for label, ratio in ratios)
             title = str(payload.get("title", ""))[:30]
-            if ratio < 0.9:
-                result.add_problem(f"抽查 {note_id}（{title}）相似度仅 {ratio:.3f}")
+            if worst < 0.9:
+                result.add_problem(f"抽查 {note_id}（{title}）相似度仅 {worst:.3f}（{detail}）")
             else:
-                result.notes.append(f"抽查 {note_id}（{title}）相似度 {ratio:.3f} ✓")
+                result.notes.append(f"抽查 {note_id}（{title}）相似度 {worst:.3f} ✓")
 
         return result
 

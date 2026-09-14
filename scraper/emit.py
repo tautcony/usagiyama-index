@@ -41,6 +41,16 @@ NOTICE_LEVEL = {
     Availability.ARCHIVED: "info",
 }
 
+#: 评论区块的标题行模式。内容抽查（:mod:`scraper.verify`）按它把 md 切成
+#: 「正文」与「评论」两段，好拿评论去和原始 HTML 里的 ``#comments`` 比。
+#: 评论不在 ``#link-report`` 里，只比对正文会让 md 侧凭空多出一大段评论。
+COMMENT_HEADING_RE = re.compile(r"^## 评论（\d+）$", re.MULTILINE)
+
+
+def comment_heading(count: int) -> str:
+    """评论区块的小标题。生成与匹配共用，避免两边写歪。"""
+    return f"## 评论（{count}）"
+
 
 # ------------------------------------------------------------------ 基础工具
 
@@ -265,7 +275,7 @@ class SiteEmitter:
             album_routes=self.ctx.album_routes,
             external_routes=self.ctx.external_routes,
         )
-        blocks = [f"## 评论（{len(comments)}）"]
+        blocks = [comment_heading(len(comments))]
         for comment in comments:
             head = " · ".join(part for part in (comment.author, comment.date) if part)
             body = html_to_markdown(comment.content_html, context, self.cfg)

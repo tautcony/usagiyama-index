@@ -2,12 +2,19 @@
 
 重点覆盖 ``_markdown_body``：它曾经因为"先转纯文本再剥 frontmatter"
 而把 ``title: ...`` 等元数据当成正文，把相似度从 1.000 错压到 0.673。
+
+内容抽查另有一条同等重要的口径：评论在页面里位于 ``#comments``，不在正文
+容器 ``#link-report`` 里，而 md 侧带评论区块。只比正文会让 md 凭空多出一大
+段评论，把带评论的日记全部误判成"相似度低"（实测最低 0.594）。
 """
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
+from scraper.http_client import cache_paths
+from scraper.models import Comment
 from scraper.verify import Verifier
 
 NOTE_MD = '''---
@@ -262,6 +269,136 @@ class TestCheckFrontmatter:
         result = Verifier(cfg).check_frontmatter()
         assert not result.passed
         assert any("缺少 frontmatter" in problem for problem in result.problems)
+
+
+NOTE_WITH_COMMENTS = '''---
+title: "带评论的日记"
+noteId: "575615184"
+source: "https://site.douban.com/211330/widget/notes/1/note/575615184/"
+---
+
+正文第一段。
+
+## 评论（2）
+
+**甲 · 2016-08-12 10:00:00**
+
+> 第一条评论
+
+**乙 · 2016-08-13 11:00:00**
+
+> 第二条评论
+
+*本页归档自 [原站页面](https://site.douban.com/211330/widget/notes/1/note/575615184/)*
+'''
+
+#: 详情页缓存：正文在 #link-report，评论在兄弟节点 #comments
+NOTE_HTML = '''<html><body>
+<div id="link-report">正文第一段。</div>
+<div id="comments">
+  <div class="comment-item" data-cid="c1">
+    <div class="pic"><img src="a.jpg"></div>
+    <div class="content">
+      <div class="author"><a href="/people/x/">甲</a> 2016-08-12 10:00:00</div>
+      <p>第一条评论</p>
+    </div>
+  </div>
+  <div class="comment-item" data-cid="c2">
+    <div class="content">
+      <div class="author"><a href="/people/y/">乙</a> 2016-08-13 11:00:00</div>
+      <p>第二条评论</p>
+    </div>
+  </div>
+</div>
+</body></html>'''
+
+
+class TestMarkdownParts:
+    def test_splits_comments_off(self, cfg, tmp_path: Path) -> None:
+        path = tmp_path / "a.md"
+        path.write_text(NOTE_WITH_COMMENTS, encoding="utf-8")
+        body, comments = Verifier(cfg)._markdown_parts(path)
+        assert "正文第一段" in body
+        assert "第一条评论" not in body
+        assert "第一条评论" in comments
+
+    def test_heading_is_excluded_from_both_sides(self, cfg, tmp_path: Path) -> None:
+        """标题是 emit 生成的脚手架，原文没有对应物，不该参与比对。"""
+        path = tmp_path / "a.md"
+        path.write_text(NOTE_WITH_COMMENTS, encoding="utf-8")
+        _, comments = Verifier(cfg)._markdown_parts(path)
+        assert "评论（2）" not in comments
+
+    def test_note_without_comments(self, cfg, tmp_path: Path) -> None:
+        path = tmp_path / "a.md"
+        path.write_text(NOTE_MD, encoding="utf-8")
+        body, comments = Verifier(cfg)._markdown_parts(path)
+        assert "正文第一段" in body
+        assert comments == ""
+
+
+class TestCommentText:
+    def test_matches_emit_field_order(self, cfg) -> None:
+        text = Verifier(cfg)._comment_text(
+            [Comment(author="甲", date="2016-08-12 10:00:00", content_html="<p>第一条评论</p>")]
+        )
+        assert text == "甲 · 2016-08-12 10:00:00 第一条评论"
+
+    def test_fallbacks_match_emit(self, cfg) -> None:
+        """无作者写匿名、无正文写（空），否则每次比对都凭空多出差异。"""
+        assert Verifier(cfg)._comment_text([Comment(content_html="<p>x</p>")]).startswith("匿名")
+        assert Verifier(cfg)._comment_text([Comment(author="甲")]).endswith("（空）")
+
+
+class TestContentSample:
+    """评论必须在两侧都参与比对。"""
+
+    def _prepare(self, cfg, md_text: str, note_id: str = "575615184"):
+        cfg.notes_dir.mkdir(parents=True, exist_ok=True)
+        (cfg.notes_dir / f"{note_id}.md").write_text(md_text, encoding="utf-8")
+
+        widget_id = "1"
+        manifest = {
+            "notes": {
+                note_id: {
+                    "title": "带评论的日记",
+                    "widget_id": widget_id,
+                    "content_html": "<p>正文第一段。</p>",
+                    "status": {"availability": "ok"},
+                }
+            }
+        }
+        cfg.manifest_path.parent.mkdir(parents=True, exist_ok=True)
+        cfg.manifest_path.write_text(json.dumps(manifest, ensure_ascii=False), encoding="utf-8")
+
+        body, meta = cache_paths(cfg, cfg.note_url(widget_id, note_id))
+        body.parent.mkdir(parents=True, exist_ok=True)
+        body.write_text(NOTE_HTML, encoding="utf-8")
+        meta.write_text(json.dumps({"contentType": "text/html; charset=utf-8"}), encoding="utf-8")
+
+    def test_archived_note_with_comments_scores_high(self, cfg) -> None:
+        self._prepare(cfg, NOTE_WITH_COMMENTS)
+        result = Verifier(cfg).check_content_sample(sample=5)
+        assert result.passed, result.problems
+        assert any("相似度 1.000" in note for note in result.notes)
+
+    def test_lost_comments_are_detected(self, cfg) -> None:
+        """回归：整段评论丢失必须判失败。
+
+        合成一整段再比会把它稀释掉——评论偏少的长文里只掉到 0.934，
+        够不着 0.9 的阈值，所以正文与评论得各自算比值。
+        """
+        self._prepare(cfg, NOTE_MD)  # 同一篇，但 md 里没有评论区块
+        result = Verifier(cfg).check_content_sample(sample=5)
+        assert not result.passed
+        assert any("评论 0.000" in problem for problem in result.problems)
+
+    def test_missing_md_is_reported(self, cfg) -> None:
+        self._prepare(cfg, NOTE_WITH_COMMENTS)
+        (cfg.notes_dir / "575615184.md").unlink()
+        result = Verifier(cfg).check_content_sample(sample=5)
+        assert not result.passed
+        assert any("md 文件不存在" in problem for problem in result.problems)
 
 
 class TestReport:
