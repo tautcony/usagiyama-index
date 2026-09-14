@@ -1,0 +1,20 @@
+data/unavailable.md
+  h_3705811fa4502c 3
+scraper/SCRAPER.md
+  h_3705811fa4502c 1-490
+scraper/state/manifest.json
+  h_3705811fa4502c 4
+scraper/state/progress.json
+  h_3705811fa4502c 6,8,2093-2892
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "3ec4193e0dbd9d66b9425b70d129fdec4ac1e17a",
+  "prompts": {},
+  "humans": {
+    "h_3705811fa4502c": {
+      "author": "TautCony <i@tautcony.xyz>"
+    }
+  }
+}
