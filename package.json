@@ -1,0 +1,20 @@
+{
+  "name": "usagiyama-index",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "「兔子山的小站」内容归档站点",
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "sync": "uv run python -m scraper.cli sync",
+    "sync:dry": "uv run python -m scraper.cli sync --dry-run",
+    "report": "uv run python -m scraper.cli report",
+    "verify": "uv run python -m scraper.cli verify"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.3",
+    "vue": "^3.5.13"
+  }
+}

@@ -1,0 +1,332 @@
+"""数据模型与"可访问性"标记。
+
+设计要点：**每一个抓取对象都带 `status` 字段**，用于标记源站不可访问的情况，
+以及是否已通过 Internet Archive 补足。这是"页面无法访问的需要标记"要求的落点。
+"""
+
+from __future__ import annotations
+
+from dataclasses import asdict, dataclass, field
+from enum import StrEnum
+from typing import Any
+
+
+class Availability(StrEnum):
+    """抓取对象的可访问性状态。"""
+
+    OK = "ok"
+    """源站正常返回，内容已归档。"""
+
+    UNAVAILABLE = "unavailable"
+    """源站返回 403/404/410 等，无法直接归档，且未找到 archive.org 快照。"""
+
+    ARCHIVED = "archived"
+    """源站不可访问，但已从 Internet Archive 取到快照并归档。"""
+
+    ARCHIVE_MISSING = "archive_missing"
+    """源站不可访问，且 archive.org 也没有可用快照。内容缺失，仅保留元信息。"""
+
+    LOGIN_REQUIRED = "login_required"
+    """需要登录才能访问（如 www.douban.com 的日记/话题页）。"""
+
+    EXTERNAL = "external"
+    """站外链接，不在归档范围内，仅保留外链。"""
+
+    NOT_FETCHED = "not_fetched"
+    """尚未抓取。"""
+
+    @property
+    def is_ok(self) -> bool:
+        return self is Availability.OK
+
+    @property
+    def needs_notice(self) -> bool:
+        """是否需要在渲染出的页面上显示提示块。"""
+        return self in {
+            Availability.UNAVAILABLE,
+            Availability.ARCHIVED,
+            Availability.ARCHIVE_MISSING,
+            Availability.LOGIN_REQUIRED,
+        }
+
+
+# 状态 → 页面提示文案
+STATUS_LABELS: dict[Availability, str] = {
+    Availability.OK: "已归档",
+    Availability.UNAVAILABLE: "原站不可访问",
+    Availability.ARCHIVED: "原站不可访问，已从 Internet Archive 补足",
+    Availability.ARCHIVE_MISSING: "原站与 Internet Archive 均无法获取",
+    Availability.LOGIN_REQUIRED: "需要登录，无法归档",
+    Availability.EXTERNAL: "站外链接",
+    Availability.NOT_FETCHED: "尚未抓取",
+}
+
+
+@dataclass
+class SourceStatus:
+    """一个对象的来源与可访问性记录。"""
+
+    availability: Availability = Availability.NOT_FETCHED
+    http_status: int | None = None
+    detail: str = ""
+    wayback_url: str | None = None
+    wayback_timestamp: str | None = None
+    wayback_status: int | None = None
+
+    @property
+    def label(self) -> str:
+        return STATUS_LABELS.get(self.availability, str(self.availability))
+
+    @property
+    def needs_notice(self) -> bool:
+        """是否需要在渲染出的页面上显示提示块。"""
+        return self.availability.needs_notice
+
+    @property
+    def needs_notice(self) -> bool:
+        """是否需要在渲染出的页面上显示提示块。"""
+        return self.availability.needs_notice
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "availability": str(self.availability),
+            "label": self.label,
+            "httpStatus": self.http_status,
+            "detail": self.detail,
+            "waybackUrl": self.wayback_url,
+            "waybackTimestamp": self.wayback_timestamp,
+            "waybackStatus": self.wayback_status,
+        }
+
+
+@dataclass
+class ImageRef:
+    """一张待归档的图片。"""
+
+    src: str
+    """源站原始 URL。"""
+
+    local: str = ""
+    """站点内相对路径，如 /media/notes/575615184/p36410176.jpg"""
+
+    alt: str = ""
+    archived: bool = False
+    archive_url: str | None = None
+    bytes: int = 0
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass
+class Note:
+    """一篇日记（文章正文）。"""
+
+    note_id: str
+    widget_id: str
+    title: str = ""
+    date: str = ""
+    content_html: str = ""
+    comment_count: int = 0
+    source_url: str = ""
+    also_in: list[str] = field(default_factory=list)
+    images: list[ImageRef] = field(default_factory=list)
+    status: SourceStatus = field(default_factory=SourceStatus)
+    category: str = ""
+    index_order: int = 0
+    content_hash: str = ""
+
+    @property
+    def route(self) -> str:
+        return f"/notes/{self.note_id}"
+
+    def to_dict(self) -> dict[str, Any]:
+        d = asdict(self)
+        d["status"] = self.status.to_dict()
+        d["route"] = self.route
+        return d
+
+
+@dataclass
+class PhotoMeta:
+    """相册中的一张照片。"""
+
+    photo_id: str
+    album_id: str
+    caption: str = ""
+    thumb_url: str = ""
+    large_url: str = ""
+    source_url: str = ""
+    local: str = ""
+    status: SourceStatus = field(default_factory=SourceStatus)
+
+    def to_dict(self) -> dict[str, Any]:
+        d = asdict(self)
+        d["status"] = self.status.to_dict()
+        return d
+
+
+@dataclass
+class Album:
+    """一个相册。"""
+
+    album_id: str
+    title: str = ""
+    room_id: str = ""
+    source_url: str = ""
+    photos: list[PhotoMeta] = field(default_factory=list)
+    status: SourceStatus = field(default_factory=SourceStatus)
+
+    def to_dict(self) -> dict[str, Any]:
+        d = asdict(self)
+        d["status"] = self.status.to_dict()
+        return d
+
+
+@dataclass
+class Bulletin:
+    """公告栏 / 索引。"""
+
+    bulletin_id: str
+    room_id: str = ""
+    title: str = ""
+    content_html: str = ""
+    source_url: str = ""
+    status: SourceStatus = field(default_factory=SourceStatus)
+
+    def to_dict(self) -> dict[str, Any]:
+        d = asdict(self)
+        d["status"] = self.status.to_dict()
+        return d
+
+
+@dataclass
+class Video:
+    """一个视频条目（正片在优酷，仅归档缩略图与元信息）。"""
+
+    video_id: str
+    widget_id: str
+    title: str = ""
+    thumb_url: str = ""
+    external_url: str = ""
+    date: str = ""
+    source_url: str = ""
+    local_thumb: str = ""
+    status: SourceStatus = field(default_factory=SourceStatus)
+
+    def to_dict(self) -> dict[str, Any]:
+        d = asdict(self)
+        d["status"] = self.status.to_dict()
+        return d
+
+
+@dataclass
+class Comment:
+    """一条评论（仅论坛讨论帖的评论是静态渲染、可归档）。"""
+
+    author: str = ""
+    date: str = ""
+    content_html: str = ""
+    avatar_url: str = ""
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass
+class Discussion:
+    """论坛讨论帖。"""
+
+    discussion_id: str
+    forum_id: str
+    title: str = ""
+    author: str = ""
+    date: str = ""
+    content_html: str = ""
+    source_url: str = ""
+    comments: list[Comment] = field(default_factory=list)
+    status: SourceStatus = field(default_factory=SourceStatus)
+
+    def to_dict(self) -> dict[str, Any]:
+        d = asdict(self)
+        d["status"] = self.status.to_dict()
+        return d
+
+
+@dataclass
+class MiniblogStatus:
+    """广播室的一条动态。"""
+
+    status_id: str
+    date: str = ""
+    text: str = ""
+    link_url: str = ""
+    link_title: str = ""
+    image_url: str = ""
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass
+class Widget:
+    """小站房间内的一个功能模块。"""
+
+    kind: str
+    widget_id: str
+    room_id: str = ""
+    title: str = ""
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass
+class Room:
+    """小站的一个房间。"""
+
+    room_id: str
+    title: str = ""
+    url: str = ""
+    is_home: bool = False
+    widgets: list[Widget] = field(default_factory=list)
+    status: SourceStatus = field(default_factory=SourceStatus)
+
+    def to_dict(self) -> dict[str, Any]:
+        d = asdict(self)
+        d["status"] = self.status.to_dict()
+        return d
+
+
+@dataclass
+class IndexEntry:
+    """索引中的一个条目。"""
+
+    title: str
+    url: str = ""
+    note_id: str | None = None
+    status: Availability = Availability.NOT_FETCHED
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "title": self.title,
+            "url": self.url,
+            "noteId": self.note_id,
+            "status": str(self.status),
+        }
+
+
+@dataclass
+class IndexGroup:
+    """索引中的一个分组（如 ☆【聲之形】）。"""
+
+    title: str
+    doulist_url: str | None = None
+    entries: list[IndexEntry] = field(default_factory=list)
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "title": self.title,
+            "doulistUrl": self.doulist_url,
+            "entries": [e.to_dict() for e in self.entries],
+        }

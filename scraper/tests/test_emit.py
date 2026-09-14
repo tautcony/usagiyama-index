@@ -1,0 +1,440 @@
+"""产物生成测试：frontmatter 转义、提示块、sidebar、清单。"""
+
+from __future__ import annotations
+
+import json
+import re
+
+from scraper.emit import (
+    EmitContext,
+    SiteEmitter,
+    frontmatter,
+    html_attr,
+    html_text,
+    slug_anchor,
+    status_notice,
+)
+from scraper.models import (
+    Album,
+    Availability,
+    IndexEntry,
+    IndexGroup,
+    Note,
+    PhotoMeta,
+    SourceStatus,
+)
+
+
+class TestFrontmatter:
+    def test_basic(self) -> None:
+        out = frontmatter({"title": "标题", "noteId": "123"})
+        assert out.startswith("---\n")
+        assert out.endswith("\n---")
+        assert 'title: "标题"' in out
+
+    def test_quotes_escaped(self) -> None:
+        """标题里常有中文引号与英文引号，必须安全转义。"""
+        out = frontmatter({"title": '他说"你好"'})
+        assert '\\"' in out
+
+    def test_colon_in_value_safe(self) -> None:
+        out = frontmatter({"source": "https://site.douban.com/211330/"})
+        assert 'source: "https://site.douban.com/211330/"' in out
+
+    def test_empty_values_dropped(self) -> None:
+        out = frontmatter({"title": "x", "date": "", "commentCount": None})
+        assert "date" not in out
+        assert "commentCount" not in out
+
+    def test_boolean_and_int(self) -> None:
+        out = frontmatter({"aside": False, "count": 3})
+        assert "aside: false" in out
+        assert "count: 3" in out
+
+    def test_output_is_valid_yaml(self) -> None:
+        import yaml  # 若未安装则跳过
+
+        out = frontmatter({"title": '含"引号"与:冒号', "count": 5, "aside": False})
+        body = out.strip("-\n")
+        parsed = yaml.safe_load(body)
+        assert parsed["title"] == '含"引号"与:冒号'
+        assert parsed["count"] == 5
+        assert parsed["aside"] is False
+
+
+class TestStatusNotice:
+    def test_ok_has_no_notice(self) -> None:
+        assert status_notice(SourceStatus(availability=Availability.OK)) == ""
+
+    def test_archived_notice_includes_wayback(self) -> None:
+        status = SourceStatus(
+            availability=Availability.ARCHIVED,
+            http_status=403,
+            wayback_url="https://web.archive.org/web/20210101000000/http://x/",
+            wayback_timestamp="20210101000000",
+        )
+        notice = status_notice(status)
+        assert "::: info" in notice
+        assert "Internet Archive" in notice
+        assert "2021-01-01" in notice
+        assert "web.archive.org" in notice
+
+    def test_login_required_notice(self) -> None:
+        notice = status_notice(
+            SourceStatus(availability=Availability.LOGIN_REQUIRED, http_status=403)
+        )
+        assert "::: warning" in notice
+        assert "登录" in notice
+
+    def test_archive_missing_notice(self) -> None:
+        notice = status_notice(SourceStatus(availability=Availability.ARCHIVE_MISSING, http_status=404))
+        assert "::: danger" in notice
+        assert "正文缺失" in notice
+
+
+class TestSlugAnchor:
+    def test_chinese_kept(self) -> None:
+        assert slug_anchor("聲之形") == "聲之形"
+
+    def test_spaces_become_dashes(self) -> None:
+        assert slug_anchor("Papico 日志") == "papico-日志"
+
+
+def _note(note_id: str = "1", **kwargs) -> Note:
+    note = Note(
+        note_id=note_id,
+        widget_id="190597056",
+        title=kwargs.pop("title", "测试标题"),
+        date=kwargs.pop("date", "2016-08-11 21:06:31"),
+        content_html=kwargs.pop("content_html", "正文<br>第二行"),
+        source_url=f"https://site.douban.com/211330/widget/notes/1/note/{note_id}/",
+        **kwargs,
+    )
+    return note
+
+
+class TestEmitNote:
+    def test_writes_file_with_frontmatter(self, cfg) -> None:
+        emitter = SiteEmitter(cfg, EmitContext(route_map={"1": "/notes/1"}))
+        path = emitter.emit_note(_note())
+        assert path.exists()
+        text = path.read_text(encoding="utf-8")
+        assert text.startswith("---\n")
+        assert "正文" in text
+        assert "本页归档自" in text
+
+    def test_note_id_and_source_present(self, cfg) -> None:
+        emitter = SiteEmitter(cfg)
+        path = emitter.emit_note(_note("575615184"))
+        text = path.read_text(encoding="utf-8")
+        assert 'noteId: "575615184"' in text
+        assert "note/575615184/" in text
+
+    def test_unavailable_note_gets_notice(self, cfg) -> None:
+        note = _note(content_html="")
+        note.status = SourceStatus(availability=Availability.ARCHIVE_MISSING, http_status=404)
+        emitter = SiteEmitter(cfg)
+        text = emitter.emit_note(note).read_text(encoding="utf-8")
+        assert "::: danger" in text
+        assert "正文未能归档" in text
+
+    def test_comment_count_mentioned(self, cfg) -> None:
+        note = _note(comment_count=3)
+        text = SiteEmitter(cfg).emit_note(note).read_text(encoding="utf-8")
+        assert "3 条评论" in text
+        assert "commentCount: 3" in text
+
+    def test_links_rewritten_using_route_map(self, cfg) -> None:
+        note = _note(
+            content_html=(
+                '见<a href="https://site.douban.com/211330/widget/notes/1/note/999/">后文</a>'
+            )
+        )
+        emitter = SiteEmitter(cfg, EmitContext(route_map={"999": "/notes/999"}))
+        text = emitter.emit_note(note).read_text(encoding="utf-8")
+        assert "[后文](/notes/999)" in text
+
+    def test_archived_images_use_local_path(self, cfg) -> None:
+        from scraper.models import ImageRef
+
+        note = _note(content_html='<img src="https://img9.doubanio.com/view/note/raw/public/p1.jpg"/>')
+        note.images = [
+            ImageRef(
+                src="https://img9.doubanio.com/view/note/raw/public/p1.jpg",
+                local="/media/notes/1/p1.jpg",
+                archived=True,
+            )
+        ]
+        text = SiteEmitter(cfg).emit_note(note).read_text(encoding="utf-8")
+        assert "![](/media/notes/1/p1.jpg)" in text
+        assert "img9.doubanio.com" not in text
+
+    def test_unarchived_images_dropped(self, cfg) -> None:
+        """图片没下下来就丢弃，不要留一个会裂图的外链。"""
+        note = _note(content_html='<img src="https://img9.doubanio.com/view/note/raw/public/p1.jpg"/>')
+        text = SiteEmitter(cfg).emit_note(note).read_text(encoding="utf-8")
+        assert "img9.doubanio.com" not in text
+
+
+class TestEmitAlbum:
+    def _album(self) -> Album:
+        album = Album(album_id="13432051", title="海报墙", source_url="https://x/")
+        album.photos = [
+            PhotoMeta(
+                photo_id="1", album_id="13432051", caption="描述一",
+                local="/media/albums/13432051/1.jpg",
+            ),
+            PhotoMeta(photo_id="2", album_id="13432051", caption="", local=""),
+        ]
+        return album
+
+    def test_grid_and_missing_notice(self, cfg) -> None:
+        text = SiteEmitter(cfg).emit_album(self._album()).read_text(encoding="utf-8")
+        assert "photo-grid" in text
+        assert "/media/albums/13432051/1.jpg" in text
+        assert "有 1 张图片未能归档" in text
+        assert "`2`" in text
+
+    def test_caption_rendered(self, cfg) -> None:
+        text = SiteEmitter(cfg).emit_album(self._album()).read_text(encoding="utf-8")
+        assert "描述一" in text
+
+    def test_quotes_in_caption_escaped(self, cfg) -> None:
+        album = Album(album_id="1", title="t")
+        album.photos = [
+            PhotoMeta(photo_id="1", album_id="1", caption='含"引号"', local="/media/1.jpg")
+        ]
+        text = SiteEmitter(cfg).emit_album(album).read_text(encoding="utf-8")
+        assert "&quot;" in text
+
+
+class TestEmitSidebar:
+    def test_generates_valid_ts_object(self, cfg) -> None:
+        groups = [
+            IndexGroup(
+                title="聲之形",
+                doulist_url="https://www.douban.com/doulist/1/",
+                entries=[IndexEntry(title="文章A", url="u", note_id="1")],
+            )
+        ]
+        notes = {"1": _note("1", title="文章A")}
+        path = SiteEmitter(cfg).emit_sidebar(groups, notes)
+        text = path.read_text(encoding="utf-8")
+        assert "export const sidebar" in text
+        assert "DefaultTheme.Sidebar" in text
+        # 提取 JSON 部分验证可解析
+        payload = text.split("= ", 1)[1].rsplit(" as DefaultTheme.Sidebar", 1)[0]
+        data = json.loads(payload)
+        assert data["/notes/"][0]["text"] == "聲之形"
+        assert data["/notes/"][0]["items"][0]["link"] == "/notes/1"
+
+    def test_unavailable_entry_has_no_link(self, cfg) -> None:
+        """未归档条目在 sidebar 里保留文字但**不能**有 link。
+
+        VitePress 的 sidebar link 必须是站内路由：外站 URL 会让构建期报
+        "Invalid route component: undefined"，而指向 /notes/{id} 又会制造死链
+        （构建期 dead link 检查会直接失败）。外链统一放在 /notes/ 索引页里给出。
+        """
+        groups = [
+            IndexGroup(
+                title="穹庐下的魔女",
+                entries=[
+                    IndexEntry(title="未归档访谈", url="https://www.douban.com/topic/1/", note_id=None)
+                ],
+            )
+        ]
+        path = SiteEmitter(cfg).emit_sidebar(groups, {})
+        text = path.read_text(encoding="utf-8")
+        assert "https://www.douban.com/topic/1/" not in text
+        assert "/notes/1" not in text
+        payload = json.loads(
+            text.split("= ", 1)[1].rsplit(" as DefaultTheme.Sidebar", 1)[0]
+        )
+        item = payload["/notes/"][0]["items"][0]
+        assert item["text"] == "未归档访谈（未归档）"
+        assert "link" not in item
+
+    def test_fallback_group_collapsed(self, cfg) -> None:
+        notes = {"2": _note("2", title="日志", date="2018-01-01")}
+        path = SiteEmitter(cfg).emit_sidebar([], {}, fallback_notes=list(notes.values()))
+        payload = json.loads(
+            path.read_text(encoding="utf-8").split("= ", 1)[1].rsplit(" as DefaultTheme.Sidebar", 1)[0]
+        )
+        group = payload["/notes/"][0]
+        assert group["text"] == "Papico 日志"
+        assert group["collapsed"] is True
+
+
+class TestEmitUnavailableReport:
+    def test_report_lists_records(self, cfg) -> None:
+        from scraper.resolver import UnavailableRecord
+
+        records = [
+            UnavailableRecord(
+                url="https://www.douban.com/topic/1/",
+                availability=Availability.LOGIN_REQUIRED,
+                http_status=403,
+                detail="需要登录",
+                context="穹庐下的魔女",
+            ),
+            UnavailableRecord(
+                url="https://www.douban.com/note/2/",
+                availability=Availability.ARCHIVED,
+                http_status=403,
+                detail="已补足",
+                wayback_url="https://web.archive.org/web/2020/http://x/",
+            ),
+        ]
+        text = SiteEmitter(cfg).emit_unavailable_report(records).read_text(encoding="utf-8")
+        assert "需登录" in text
+        assert "已补足" in text
+        assert "web.archive.org" in text
+
+    def test_empty_report(self, cfg) -> None:
+        text = SiteEmitter(cfg).emit_unavailable_report([]).read_text(encoding="utf-8")
+        assert "全部内容均已成功归档" in text
+
+    def test_pipe_in_detail_escaped(self, cfg) -> None:
+        from scraper.resolver import UnavailableRecord
+
+        records = [
+            UnavailableRecord(
+                url="u", availability=Availability.UNAVAILABLE, detail="含|竖线"
+            )
+        ]
+        text = SiteEmitter(cfg).emit_unavailable_report(records).read_text(encoding="utf-8")
+        assert "含\\|竖线" in text
+
+
+class TestEmitHome:
+    def test_home_page_generated(self, cfg) -> None:
+        groups = [
+            IndexGroup(title="聲之形", entries=[IndexEntry(title="A", url="u", note_id="1")])
+        ]
+        album = Album(album_id="13432051", title="海报墙")
+        album.photos = [PhotoMeta(photo_id="1", album_id="13432051", local="/media/a.jpg")]
+        emitter = SiteEmitter(cfg, EmitContext(album_routes={"13432051": "/albums/13432051"}))
+        text = emitter.emit_home(
+            {"name": "兔子山的小站", "description": "描述", "avatar": "https://x/a.jpg"},
+            groups,
+            [album],
+            avatar_local="/media/site/avatar.jpg",
+            stats={"notes": 1, "photos": 1, "albums": 1, "videos": 0},
+        ).read_text(encoding="utf-8")
+        assert "layout: home" in text
+        assert "poster-wall" in text
+        assert "/albums/13432051" in text
+        assert "/media/site/avatar.jpg" in text
+        assert "聲之形" in text
+
+
+class TestEmitNotesIndex:
+    def test_index_lists_entries_with_badges(self, cfg) -> None:
+        groups = [
+            IndexGroup(
+                title="聲之形",
+                entries=[
+                    IndexEntry(title="A", url="u", note_id="1"),
+                    IndexEntry(title="B", url="u2", note_id="2"),
+                ],
+            )
+        ]
+        notes = {"1": _note("1", title="A")}
+        notes["2"] = _note("2", title="B")
+        notes["2"].status = SourceStatus(availability=Availability.LOGIN_REQUIRED)
+        emitter = SiteEmitter(cfg, EmitContext(route_map={"1": "/notes/1", "2": "/notes/2"}))
+        text = emitter.emit_notes_index(groups, notes).read_text(encoding="utf-8")
+        assert "[A](/notes/1)" in text
+        assert "badge-unavailable" in text
+        assert "需要登录" in text
+
+
+class TestHtmlEscaping:
+    """相册描述里常有字面换行与引号，必须转义后才安全。"""
+
+    def test_newlines_collapsed(self) -> None:
+        assert html_attr("第一行\n\n第二行") == "第一行 第二行"
+
+    def test_quotes_escaped(self) -> None:
+        assert html_attr('含"引号"') == "含&quot;引号&quot;"
+
+    def test_ampersand_first(self) -> None:
+        """& 必须最先替换，否则会把实体二次转义。"""
+        assert html_attr("a & <b>") == "a &amp; &lt;b&gt;"
+
+    def test_ampersand_not_double_escaped(self) -> None:
+        assert "&amp;amp;" not in html_attr("a & b")
+
+    def test_text_does_not_escape_quotes(self) -> None:
+        """文本节点里引号无需转义。"""
+        assert html_text('含"引号"') == '含"引号"'
+
+    def test_text_escapes_angle_brackets(self) -> None:
+        assert html_text("<script>") == "&lt;script&gt;"
+
+    def test_empty_input(self) -> None:
+        assert html_attr("") == ""
+        assert html_text("") == ""
+
+    def test_tabs_and_spaces_normalised(self) -> None:
+        assert html_attr("a\t\t b   c") == "a b c"
+
+
+class TestAlbumCaptionEscaping:
+    def test_newline_in_caption_does_not_break_html(self, cfg) -> None:
+        """回归：含换行的描述曾让 VitePress 构建直接失败。"""
+        album = Album(album_id="1", title="相册")
+        album.photos = [
+            PhotoMeta(
+                photo_id="1",
+                album_id="1",
+                caption="第一行\n\n第二行，含\"引号\"",
+                local="/media/1.jpg",
+            )
+        ]
+        text = SiteEmitter(cfg).emit_album(album).read_text(encoding="utf-8")
+        # 属性值内不能有裸换行
+        for line in text.splitlines():
+            if "photo-card" in line:
+                assert line.count('"') % 2 == 0
+        assert "&quot;" in text
+        assert "第一行 第二行" in text
+
+    def test_angle_brackets_in_caption_escaped(self, cfg) -> None:
+        album = Album(album_id="1", title="相册")
+        album.photos = [
+            PhotoMeta(photo_id="1", album_id="1", caption="<b>粗</b>", local="/media/1.jpg")
+        ]
+        text = SiteEmitter(cfg).emit_album(album).read_text(encoding="utf-8")
+        assert "<b>粗</b>" not in text
+        assert "&lt;b&gt;" in text
+
+
+class TestVideoEscaping:
+    def test_video_title_escaped(self, cfg) -> None:
+        from scraper.models import Video
+
+        video = Video(
+            video_id="1",
+            widget_id="w",
+            title='标题含"引号"与<标签>',
+            external_url="https://v.youku.com/x",
+        )
+        text = SiteEmitter(cfg).emit_videos([video]).read_text(encoding="utf-8")
+        # 标题落在文本节点里：尖括号必须转义，引号无需转义
+        assert "&lt;标签&gt;" in text
+        assert "<标签>" not in text
+        assert '标题含"引号"' in text
+
+    def test_video_external_url_in_attribute_escaped(self, cfg) -> None:
+        from scraper.models import Video
+
+        video = Video(
+            video_id="1",
+            widget_id="w",
+            title="正常标题",
+            external_url='https://x/?a=1&b="2"',
+        )
+        text = SiteEmitter(cfg).emit_videos([video]).read_text(encoding="utf-8")
+        assert "&amp;" in text
+        assert "&quot;2&quot;" in text

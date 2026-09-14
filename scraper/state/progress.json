@@ -1,0 +1,213 @@
+{
+  "version": 1,
+  "parserRevision": 2,
+  "site": "https://site.douban.com/211330/",
+  "startedAt": "2026-09-14T11:07:16+08:00",
+  "updatedAt": "2026-09-14T11:07:16+08:00",
+  "totals": {
+    "done": 24,
+    "unavailable": 0,
+    "failed": 0,
+    "skipped": 0
+  },
+  "items": {
+    "album:13431474": {
+      "stage": "albums",
+      "status": "done",
+      "attempts": 2,
+      "updatedAt": "2026-09-14T11:07:16+08:00",
+      "detail": "商店街日常（24 张）",
+      "meta": {}
+    },
+    "album:13432051": {
+      "stage": "albums",
+      "status": "done",
+      "attempts": 2,
+      "updatedAt": "2026-09-14T11:07:16+08:00",
+      "detail": "海报墙（26 张）",
+      "meta": {}
+    },
+    "album:190597061": {
+      "stage": "albums",
+      "status": "done",
+      "attempts": 2,
+      "updatedAt": "2026-09-14T11:07:16+08:00",
+      "detail": "相册（30 张）",
+      "meta": {}
+    },
+    "bulletin:13430830": {
+      "stage": "bulletins",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T11:00:37+08:00",
+      "detail": "About PPK",
+      "meta": {}
+    },
+    "bulletin:16095492": {
+      "stage": "bulletins",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T11:00:37+08:00",
+      "detail": "索引①",
+      "meta": {}
+    },
+    "bulletin:17754656": {
+      "stage": "bulletins",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T11:00:37+08:00",
+      "detail": "索引②",
+      "meta": {}
+    },
+    "discussion:58596553": {
+      "stage": "forum",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T11:00:41+08:00",
+      "detail": "5 条回应",
+      "meta": {}
+    },
+    "miniblog:13430546": {
+      "stage": "miniblog",
+      "status": "done",
+      "attempts": 2,
+      "updatedAt": "2026-09-14T11:07:16+08:00",
+      "detail": "20 条动态",
+      "meta": {}
+    },
+    "note:666011890": {
+      "stage": "notes",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T11:00:41+08:00",
+      "detail": "丽兹与青鸟☆Papico · 5 图",
+      "meta": {
+        "images": 5
+      }
+    },
+    "note:669962541": {
+      "stage": "notes",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T11:00:41+08:00",
+      "detail": "丽兹亦青鸟☆Papico · 0 图",
+      "meta": {
+        "images": 0
+      }
+    },
+    "note:673585518": {
+      "stage": "notes",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T11:00:41+08:00",
+      "detail": "谈谈丽兹☆喜欢的场景☆Papico · 0 图",
+      "meta": {
+        "images": 0
+      }
+    },
+    "photo:13432051:2500516321": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T11:00:41+08:00",
+      "detail": "> 返回相册 第3张 / 共26张 上一张 / 下一张 《吹响悠风号》新作电影霙",
+      "meta": {}
+    },
+    "photo:13432051:2507748862": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T11:00:41+08:00",
+      "detail": "> 返回相册 第2张 / 共26张 上一张 / 下一张 查看原图",
+      "meta": {}
+    },
+    "photo:13432051:2770778841": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T11:00:41+08:00",
+      "detail": "> 返回相册 第1张 / 共26张 上一张 / 下一张 诸行无常，唯有祈福方能克",
+      "meta": {}
+    },
+    "room:2793793": {
+      "stage": "rooms",
+      "status": "done",
+      "attempts": 2,
+      "updatedAt": "2026-09-14T11:07:16+08:00",
+      "detail": "宇宙的入口（5 个模块）",
+      "meta": {}
+    },
+    "room:2794117": {
+      "stage": "rooms",
+      "status": "done",
+      "attempts": 2,
+      "updatedAt": "2026-09-14T11:07:16+08:00",
+      "detail": "☆ 悠风 etc.（4 个模块）",
+      "meta": {}
+    },
+    "room:2794121": {
+      "stage": "rooms",
+      "status": "done",
+      "attempts": 2,
+      "updatedAt": "2026-09-14T11:07:16+08:00",
+      "detail": "☆ 玉子（5 个模块）",
+      "meta": {}
+    },
+    "room:2794136": {
+      "stage": "rooms",
+      "status": "done",
+      "attempts": 2,
+      "updatedAt": "2026-09-14T11:07:16+08:00",
+      "detail": "☆ 轻音（5 个模块）",
+      "meta": {}
+    },
+    "room:2794240": {
+      "stage": "rooms",
+      "status": "done",
+      "attempts": 2,
+      "updatedAt": "2026-09-14T11:07:16+08:00",
+      "detail": "留言板（1 个模块）",
+      "meta": {}
+    },
+    "room:3598399": {
+      "stage": "rooms",
+      "status": "done",
+      "attempts": 2,
+      "updatedAt": "2026-09-14T11:07:16+08:00",
+      "detail": "☆ 聲之形（4 个模块）",
+      "meta": {}
+    },
+    "room:3598411": {
+      "stage": "rooms",
+      "status": "done",
+      "attempts": 2,
+      "updatedAt": "2026-09-14T11:07:16+08:00",
+      "detail": "广播室（1 个模块）",
+      "meta": {}
+    },
+    "video:771903": {
+      "stage": "videos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T11:00:41+08:00",
+      "detail": "电影《聲之形》热映答谢见面会（2016.10.01）",
+      "meta": {}
+    },
+    "video:780374": {
+      "stage": "videos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T11:00:41+08:00",
+      "detail": "《聲之形》ZIP!特集（20161027）",
+      "meta": {}
+    },
+    "video:783649": {
+      "stage": "videos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T11:00:41+08:00",
+      "detail": "瑞穗金融集团 CM 电影《聲之形》篇 30秒",
+      "meta": {}
+    }
+  }
+}

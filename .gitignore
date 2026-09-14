@@ -1,0 +1,21 @@
+# ---- Node / VitePress ----
+node_modules/
+docs/.vitepress/dist/
+docs/.vitepress/cache/
+# 从仓库根误运行 vitepress 时会生成（正确入口是 docs/）
+/.vitepress/
+
+# ---- Python / uv ----
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# ---- 抓取运行状态（可重新生成，不入库）----
+# 原始 HTML 缓存体积大且可由源站重新获取；manifest 与 checkpoint 需要入库以便增量同步
+scraper/state/cache/
+scraper/state/*.tmp
+
+# ---- 系统文件 ----
+.DS_Store

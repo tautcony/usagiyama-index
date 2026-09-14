@@ -1,0 +1,1374 @@
+"""命令行入口：把各模块编排成一条可重复运行、可断点续接的流水线。
+
+子命令
+------
+
+``sync``    抓取 + 生成站点（增量；已完成的单元自动跳过）
+``emit``    仅根据已有数据重新生成产物（离线，零网络请求）
+``discover`` 只枚举站点结构，不抓详情（用于 ``--dry-run`` 预估规模）
+``report``  输出进度报告
+``verify``  校验归档结果
+``test``    跑 HTML→Markdown 转换的回归测试
+
+断点续接
+--------
+
+任何阶段被中断（Ctrl-C / 断网 / 熔断）后，直接重新执行同样的命令即可：
+已完成单元由 ``state/progress.json`` 跳过，已抓内容由 ``state/cache/`` 命中，
+已下载图片按文件存在性 + magic bytes 校验跳过。
+"""
+
+from __future__ import annotations
+
+import argparse
+import logging
+import signal
+import sys
+from collections.abc import Callable, Iterable
+from dataclasses import asdict
+from pathlib import Path
+from typing import Any, Sequence
+
+from .archive import WaybackClient
+from .config import CONFIG, Config, ensure_dirs
+from .discover import SiteDiscovery, SiteStructure
+from .emit import EmitContext, SiteEmitter
+from .http_client import CircuitBreakerOpen, Fetcher, estimate_duration
+from .index_map import (
+    FALLBACK_CATEGORY,
+    build_note_to_group,
+    group_by_category,
+    parse_index,
+)
+from .media import MediaArchive, album_image_variants
+from .models import (
+    Album,
+    Availability,
+    Bulletin,
+    Discussion,
+    MiniblogStatus,
+    Note,
+    SourceStatus,
+    Video,
+)
+from .parsers import (
+    parse_album_title,
+    parse_bulletin,
+    parse_discussion,
+    parse_miniblog,
+    parse_note,
+    parse_photo_detail,
+    parse_photo_list,
+)
+from .progress import ItemStatus, ProgressStore, StageResult, StageRunner
+from .resolver import PageResolver, UnavailableRecord
+from .util import human_duration, human_size, now_iso, read_json, truncate, write_json
+
+log = logging.getLogger("usagi")
+
+# 索引公告的标题关键字（用于识别索引①/②）
+INDEX_BULLETIN_KEYWORDS = ("索引",)
+
+# 全部阶段（按依赖顺序）
+ALL_STAGES = (
+    "rooms",
+    "bulletins",
+    "notes",
+    "photos",
+    "albums",
+    "videos",
+    "forum",
+    "miniblog",
+)
+
+ROBOTS_NOTICE = """
+⚠️  抓取前请确认你已阅读目标站点的 robots.txt：
+
+    https://site.douban.com/robots.txt  →  User-agent: * / Disallow: /
+    https://www.douban.com/robots.txt   →  部分禁止，并注明 Crawl-delay: 5
+
+本工具以「单线程 + 最小间隔 {delay:.0f}s + 指数退避 + 熔断」的方式运行，
+不轮换 UA、不轮换代理、不做指纹伪装，仅使用固定的浏览器指纹
+（curl_cffi impersonate={impersonate}）以通过服务端的 TLS 校验。
+
+请仅将归档结果用于个人保存与阅读。确认理解后，加上 --i-have-read-robots 重新运行。
+"""
+
+
+# ------------------------------------------------------------------ 日志
+
+
+def setup_logging(verbose: bool, quiet: bool = False) -> None:
+    level = logging.DEBUG if verbose else (logging.WARNING if quiet else logging.INFO)
+    logging.basicConfig(
+        level=level,
+        format="%(asctime)s %(levelname)-7s %(name)-14s %(message)s",
+        datefmt="%H:%M:%S",
+        stream=sys.stderr,
+    )
+    # 第三方库日志降噪
+    for name in ("curl_cffi", "urllib3", "chardet"):
+        logging.getLogger(name).setLevel(logging.WARNING)
+
+
+# ------------------------------------------------------------------ 参数
+
+
+def add_common_args(
+    parser: argparse.ArgumentParser, *, suppress_defaults: bool = False
+) -> None:
+    """注册全局参数。
+
+    同时挂到主解析器与各子命令上（见 ``_common_parent``），
+    这样 ``--limit 3`` 无论放在子命令前还是后都能识别 —— 用户自然会两种写法都试。
+
+    :param suppress_defaults: 挂到**子命令**时必须为 ``True``。
+        argparse 的子解析器会在解析完子命令后用自己的默认值覆盖同名属性，
+        于是 ``--archive sync``（参数写在子命令前）会被子命令的默认值重置，
+        表现为"参数不生效"。用 ``argparse.SUPPRESS`` 让子命令副本在未显式
+        传参时不写入属性，主解析器已解析的值就能保留下来。
+        读取端统一用 ``getattr(args, name, fallback)`` 兜底。
+    """
+    d_true = argparse.SUPPRESS if suppress_defaults else False
+    d_none = argparse.SUPPRESS if suppress_defaults else None
+    d_zero = argparse.SUPPRESS if suppress_defaults else 0
+
+    parser.add_argument("-v", "--verbose", action="store_true", default=d_true, help="输出调试日志")
+    parser.add_argument("-q", "--quiet", action="store_true", default=d_true, help="只输出警告与错误")
+    parser.add_argument(
+        "--impersonate",
+        default=d_none,
+        help=f"curl_cffi 浏览器指纹（默认 {CONFIG.impersonate}，可换 chrome136 / safari18_0 等）",
+    )
+    parser.add_argument(
+        "--offline", action="store_true", default=d_true, help="只读本地缓存，绝不联网"
+    )
+    # 用 BooleanOptionalAction 自动生成 --archive / --no-archive 两个选项。
+    # （不要手写 "--no-archive"：Python 3.13 的 argparse 会把它重写成 "--archive"，
+    #   导致传参时报 "unrecognized arguments"。）
+    # default=False：Internet Archive 补足是**可选项，默认关闭**。
+    # 开启后仅对抓取失败的页面额外查询 archive.org，单次可能耗时 10~60s。
+    parser.add_argument(
+        "--archive",
+        action=argparse.BooleanOptionalAction,
+        default=argparse.SUPPRESS if suppress_defaults else False,
+        help="启用 Internet Archive 补足（默认关闭；用 --no-archive 显式关闭）",
+    )
+    parser.add_argument(
+        "--delay", type=float, default=d_none, help="请求间隔下限（秒），默认 5"
+    )
+    parser.add_argument(
+        "--limit", type=int, default=d_zero, help="每阶段最多处理 N 项（冒烟测试用）"
+    )
+
+
+def _common_parent() -> argparse.ArgumentParser:
+    """构造只含全局参数、供子命令继承的父解析器。
+
+    用 ``suppress_defaults=True``：子命令未显式传参时不覆盖主解析器的值。
+    """
+    parent = argparse.ArgumentParser(add_help=False)
+    add_common_args(parent, suppress_defaults=True)
+    return parent
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        prog="python -m scraper.cli",
+        description="「兔子山的小站」内容归档工具",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=(
+            "示例：\n"
+            "  python -m scraper.cli sync --dry-run\n"
+            "  python -m scraper.cli sync --i-have-read-robots\n"
+            "  python -m scraper.cli sync --limit 3 --delay 0.5     # 冒烟测试\n"
+            "  python -m scraper.cli emit                           # 离线重新生成\n"
+            "  python -m scraper.cli verify\n"
+        ),
+    )
+    add_common_args(parser)
+
+    sub = parser.add_subparsers(dest="command", required=True)
+
+    p_sync = sub.add_parser("sync", help="抓取并生成站点（增量）", parents=[_common_parent()])
+    p_sync.add_argument("--dry-run", action="store_true", help="只预估规模与耗时，不抓取")
+    p_sync.add_argument("--force", action="store_true", help="忽略进度，强制重抓")
+    p_sync.add_argument(
+        "--recheck-unavailable",
+        action="store_true",
+        help="重新探测此前标记为不可访问的页面",
+    )
+    p_sync.add_argument(
+        "--stages",
+        default=",".join(ALL_STAGES),
+        help=f"要执行的阶段，逗号分隔。可选：{','.join(ALL_STAGES)}",
+    )
+    p_sync.add_argument("--no-emit", action="store_true", help="只抓取，不生成站点产物")
+    p_sync.add_argument(
+        "--i-have-read-robots",
+        action="store_true",
+        help="确认已阅读目标站点 robots.txt 并理解抓取策略",
+    )
+    p_sync.add_argument(
+        "--progress",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="显示进度条（用 --no-progress 关闭）",
+    )
+
+    sub.add_parser("emit", help="仅根据已有数据重新生成产物（离线）", parents=[_common_parent()])
+    sub.add_parser("discover", help="只枚举站点结构", parents=[_common_parent()])
+    sub.add_parser("report", help="输出进度报告", parents=[_common_parent()])
+
+    p_verify = sub.add_parser("verify", help="校验归档结果", parents=[_common_parent()])
+    p_verify.add_argument("--sample", type=int, default=5, help="内容抽查篇数")
+
+    sub.add_parser("test", help="跑 HTML→Markdown 转换回归测试", parents=[_common_parent()])
+
+    return parser
+
+
+def resolve_stages(raw: str) -> list[str]:
+    stages = [item.strip() for item in raw.split(",") if item.strip()]
+    unknown = [s for s in stages if s not in ALL_STAGES]
+    if unknown:
+        raise SystemExit(f"未知阶段：{', '.join(unknown)}。可选：{', '.join(ALL_STAGES)}")
+    return stages
+
+
+# ------------------------------------------------------------------ 上下文
+
+
+class SyncContext:
+    """一次同步运行的全部依赖与累积结果。"""
+
+    def __init__(self, cfg: Config, *, use_archive: bool = True) -> None:
+        self.cfg = cfg
+        self.fetcher = Fetcher(cfg)
+        # 默认不构造 WaybackClient，避免任何 archive.org 请求
+        self.wayback = WaybackClient(cfg) if use_archive else None
+        self.resolver = PageResolver(self.fetcher, self.wayback, cfg)
+        self.media = MediaArchive(self.fetcher, self.wayback, cfg)
+        self.progress = ProgressStore(cfg=cfg)
+        self.emitter = SiteEmitter(cfg, EmitContext())
+        self.discovery = SiteDiscovery(self.resolver, cfg)
+        self.structure = SiteStructure()
+        self.notes: dict[str, Note] = {}
+        # 照片详情在 stage_photos 抓过一次，stage_albums 直接复用，避免重复请求
+        self.photo_meta: dict[tuple[str, str], Any] = {}
+        self.albums: dict[str, Album] = {}
+        self.bulletins: dict[str, Bulletin] = {}
+        self.videos: list[Video] = []
+        self.discussions: list[Discussion] = []
+        self.miniblog: list[MiniblogStatus] = []
+        self.index_groups: list[Any] = []
+        self.results: list[StageResult] = []
+        self.unavailable: list[UnavailableRecord] = []
+        self._prev_manifest: dict[str, Any] = read_json(cfg.manifest_path, default={}) or {}
+
+    # ------------------------------------------------------------------ 收尾
+
+    def close(self) -> None:
+        self.fetcher.close()
+        if self.wayback is not None:
+            self.wayback.close()
+
+    def __enter__(self) -> "SyncContext":
+        return self
+
+    def __exit__(self, *exc: object) -> None:
+        self.close()
+
+    # ---------------------------------------------------------------- 数据
+
+    def load_existing(self) -> None:
+        """从上次的中间产物恢复全部状态。
+
+        断点续接的关键一环：某个阶段被跳过（已完成）或本次没运行时，
+        它此前产出的数据必须能从 ``data/`` 恢复，否则会出现
+        「索引分组为空 → sidebar 全空」「只跑 notes 阶段时结构丢失」这类问题。
+        """
+        notes = read_json(self.cfg.data_dir / "notes.json", default={}) or {}
+        for note_id, payload in notes.items():
+            self.notes[note_id] = _note_from_dict(note_id, payload)
+
+        albums = read_json(self.cfg.data_dir / "albums.json", default={}) or {}
+        for album_id, payload in albums.items():
+            self.albums[album_id] = _album_from_dict(album_id, payload)
+
+        bulletins = read_json(self.cfg.data_dir / "bulletins.json", default={}) or {}
+        for bid, payload in bulletins.items():
+            self.bulletins[bid] = _bulletin_from_dict(bid, payload)
+
+        for payload in read_json(self.cfg.data_dir / "videos.json", default=[]) or []:
+            self.videos.append(_video_from_dict(payload))
+
+        for payload in read_json(self.cfg.data_dir / "forum.json", default=[]) or []:
+            self.discussions.append(_discussion_from_dict(payload))
+
+        for payload in read_json(self.cfg.data_dir / "miniblog.json", default=[]) or []:
+            self.miniblog.append(MiniblogStatus(**payload))
+
+        index_payload = read_json(self.cfg.data_dir / "index.json", default=None)
+        if index_payload:
+            from .models import IndexEntry, IndexGroup
+
+            for group in index_payload:
+                entries = [
+                    IndexEntry(
+                        title=e.get("title", ""),
+                        url=e.get("url", ""),
+                        note_id=e.get("noteId"),
+                        status=Availability(e.get("status", "not_fetched")),
+                    )
+                    for e in group.get("entries", [])
+                ]
+                self.index_groups.append(
+                    IndexGroup(
+                        title=group.get("title", ""),
+                        doulist_url=group.get("doulistUrl"),
+                        entries=entries,
+                    )
+                )
+
+        structure = read_json(self.cfg.data_dir / "structure.json", default=None)
+        if structure:
+            self._restore_structure(structure)
+
+        log.info(
+            "已从本地产物恢复：%d 篇日记、%d 个相册、%d 个公告、%d 条视频、"
+            "%d 条日记摘要、%d 张照片",
+            len(self.notes),
+            len(self.albums),
+            len(self.bulletins),
+            len(self.videos),
+            len(self.structure.note_entries),
+            self.structure.photo_count,
+        )
+
+    def _restore_structure(self, payload: dict[str, Any]) -> None:
+        """从 ``data/structure.json`` 恢复站点结构（离线模式下使用）。"""
+        from .models import Room, Widget
+
+        self.structure.meta = payload.get("meta") or {}
+
+        for room_payload in payload.get("rooms") or []:
+            room = Room(
+                room_id=str(room_payload.get("room_id", "")),
+                title=room_payload.get("title", ""),
+                url=room_payload.get("url", ""),
+                is_home=bool(room_payload.get("is_home")),
+            )
+            for widget_payload in room_payload.get("widgets") or []:
+                room.widgets.append(
+                    Widget(
+                        kind=widget_payload.get("kind", ""),
+                        widget_id=str(widget_payload.get("widget_id", "")),
+                        room_id=room.room_id,
+                        title=widget_payload.get("title", ""),
+                    )
+                )
+            self.structure.rooms.append(room)
+
+        from .parsers import NoteListEntry
+
+        for entry in payload.get("noteEntries") or []:
+            self.structure.note_entries.append(
+                NoteListEntry(
+                    note_id=str(entry.get("noteId", "")),
+                    widget_id=str(entry.get("widgetId", "")),
+                    title=entry.get("title", ""),
+                    date=entry.get("date", ""),
+                    comment_count=int(entry.get("commentCount", 0) or 0),
+                    url=entry.get("url", ""),
+                )
+            )
+
+        self.structure.photo_ids = {
+            str(k): [str(x) for x in v] for k, v in (payload.get("photoIds") or {}).items()
+        }
+        self.structure.album_titles = {
+            str(k): str(v) for k, v in (payload.get("albumTitles") or {}).items()
+        }
+        self.structure.forum_topics = {
+            str(k): [(str(a), str(b)) for a, b in v]
+            for k, v in (payload.get("forumTopics") or {}).items()
+        }
+
+    # -------------------------------------------------------------- 索引分组
+
+    def build_index_groups(self) -> list[Any]:
+        """从已归档的公告栏内容重建索引①/② 的分类结构。
+
+        刻意放在"生成"而非"抓取"阶段：抓取阶段可能因断点续接而整体跳过，
+        但索引结构任何时候都必须能从已归档内容里重建出来。
+        按分组标题去重，避免同一分组在 sidebar 里出现两次。
+        """
+        self.index_groups = []
+        seen: set[str] = set()
+        for bulletin in self.bulletins.values():
+            if not any(kw in bulletin.title for kw in INDEX_BULLETIN_KEYWORDS):
+                continue
+            for group in parse_index(bulletin.content_html, self.cfg):
+                if group.title in seen:
+                    log.debug("跳过分组重复：%s", group.title)
+                    continue
+                seen.add(group.title)
+                self.index_groups.append(group)
+        log.info(
+            "索引分组：%d 个（%d 条目）",
+            len(self.index_groups),
+            sum(len(g.entries) for g in self.index_groups),
+        )
+        return self.index_groups
+
+    # ---------------------------------------------------------------- 路由
+
+    def rebuild_context(self) -> None:
+        """重建链接重写所需的映射表。"""
+        self.emitter.ctx.route_map = {nid: f"/notes/{nid}" for nid in self.notes}
+        self.emitter.ctx.album_routes = {aid: f"/albums/{aid}" for aid in self.albums}
+
+    def save_data(self) -> None:
+        """把中间产物写入 ``data/``（供 ``emit`` 与人工查看）。"""
+        cfg = self.cfg
+        write_json(
+            cfg.data_dir / "notes.json",
+            {nid: n.to_dict() for nid, n in sorted(self.notes.items())},
+        )
+        write_json(
+            cfg.data_dir / "albums.json",
+            {aid: a.to_dict() for aid, a in sorted(self.albums.items())},
+        )
+        write_json(
+            cfg.data_dir / "bulletins.json",
+            {bid: b.to_dict() for bid, b in sorted(self.bulletins.items())},
+        )
+        write_json(cfg.data_dir / "videos.json", [v.to_dict() for v in self.videos])
+        write_json(cfg.data_dir / "forum.json", [d.to_dict() for d in self.discussions])
+        write_json(cfg.data_dir / "miniblog.json", [m.to_dict() for m in self.miniblog])
+        write_json(
+            cfg.data_dir / "index.json",
+            [g.to_dict() for g in self.index_groups],
+        )
+        write_json(cfg.data_dir / "structure.json", self.structure.to_dict())
+        write_json(
+            cfg.data_dir / "unavailable.json",
+            [asdict(record) for record in self.unavailable],
+        )
+
+    def build_manifest(self) -> dict[str, Any]:
+        """内容级单一事实源。"""
+        return {
+            "site": self.cfg.site_url,
+            "siteName": self.cfg.site_name,
+            "generatedAt": now_iso(),
+            "siteMeta": self.structure.meta,
+            "counts": {
+                "notes": len(self.notes),
+                "albums": len(self.albums),
+                "photos": sum(len(a.photos) for a in self.albums.values()),
+                "videos": len(self.videos),
+                "bulletins": len(self.bulletins),
+                "discussions": len(self.discussions),
+                "miniblog": len(self.miniblog),
+                "unavailable": len(self.unavailable),
+            },
+            "rooms": [r.to_dict() for r in self.structure.rooms],
+            "bulletins": {bid: b.to_dict() for bid, b in sorted(self.bulletins.items())},
+            "index": [g.to_dict() for g in self.index_groups],
+            "notes": {nid: n.to_dict() for nid, n in sorted(self.notes.items())},
+            "albums": {aid: a.to_dict() for aid, a in sorted(self.albums.items())},
+            "videos": [v.to_dict() for v in self.videos],
+        }
+
+
+# ------------------------------------------------------------ 反序列化辅助
+
+
+def merge_by(
+    target: list[Any],
+    incoming: Iterable[Any],
+    key: Callable[[Any], str],
+) -> None:
+    """按 ID 把 ``incoming`` 合并进 ``target``，同 ID 覆盖而非追加。
+
+    完全幂等：不仅防止新增重复，还会**修复 target 里已有的重复**。
+    这一点是必需的 —— 早期版本产生的 ``data/*.json`` 里可能已经存了
+    重复条目（实测广播动态被存成 40 条，唯一 ID 只有 20 个），
+    如果只防新增，重复会一直留在产物里。
+
+    顺序按首次出现的位置保留，值取最后一次写入的。
+    """
+    merged: dict[str, Any] = {}
+    for item in target:
+        merged[key(item)] = item
+    for item in incoming:
+        merged[key(item)] = item
+    target[:] = list(merged.values())
+
+
+def _status_from_dict(payload: Any) -> SourceStatus:
+    if not isinstance(payload, dict):
+        return SourceStatus()
+    return SourceStatus(
+        availability=Availability(payload.get("availability", "not_fetched")),
+        http_status=payload.get("httpStatus"),
+        detail=payload.get("detail", ""),
+        wayback_url=payload.get("waybackUrl"),
+        wayback_timestamp=payload.get("waybackTimestamp"),
+    )
+
+
+def _note_from_dict(note_id: str, payload: dict[str, Any]) -> Note:
+    from .models import ImageRef
+
+    note = Note(
+        note_id=note_id,
+        widget_id=str(payload.get("widget_id", "")),
+        title=payload.get("title", ""),
+        date=payload.get("date", ""),
+        content_html=payload.get("content_html", ""),
+        comment_count=int(payload.get("comment_count", 0) or 0),
+        source_url=payload.get("source_url", ""),
+        also_in=list(payload.get("also_in") or []),
+        category=payload.get("category", ""),
+        index_order=int(payload.get("index_order", 0) or 0),
+        content_hash=payload.get("content_hash", ""),
+    )
+    note.status = _status_from_dict(payload.get("status"))
+    for img in payload.get("images") or []:
+        note.images.append(ImageRef(**img))
+    return note
+
+
+def _album_from_dict(album_id: str, payload: dict[str, Any]) -> Album:
+    from .models import PhotoMeta
+
+    album = Album(
+        album_id=album_id,
+        title=payload.get("title", ""),
+        room_id=str(payload.get("room_id", "")),
+        source_url=payload.get("source_url", ""),
+    )
+    album.status = _status_from_dict(payload.get("status"))
+    for item in payload.get("photos") or []:
+        photo = PhotoMeta(
+            photo_id=str(item.get("photo_id", "")),
+            album_id=album_id,
+            caption=item.get("caption", ""),
+            thumb_url=item.get("thumb_url", ""),
+            large_url=item.get("large_url", ""),
+            source_url=item.get("source_url", ""),
+            local=item.get("local", ""),
+        )
+        photo.status = _status_from_dict(item.get("status"))
+        album.photos.append(photo)
+    return album
+
+
+def _bulletin_from_dict(bulletin_id: str, payload: dict[str, Any]) -> Bulletin:
+    bulletin = Bulletin(
+        bulletin_id=bulletin_id,
+        room_id=str(payload.get("room_id", "")),
+        title=payload.get("title", ""),
+        content_html=payload.get("content_html", ""),
+        source_url=payload.get("source_url", ""),
+    )
+    bulletin.status = _status_from_dict(payload.get("status"))
+    return bulletin
+
+
+def _video_from_dict(payload: dict[str, Any]) -> Video:
+    video = Video(
+        video_id=str(payload.get("video_id", "")),
+        widget_id=str(payload.get("widget_id", "")),
+        title=payload.get("title", ""),
+        thumb_url=payload.get("thumb_url", ""),
+        external_url=payload.get("external_url", ""),
+        date=payload.get("date", ""),
+        source_url=payload.get("source_url", ""),
+        local_thumb=payload.get("local_thumb", ""),
+    )
+    video.status = _status_from_dict(payload.get("status"))
+    return video
+
+
+def _discussion_from_dict(payload: dict[str, Any]) -> Discussion:
+    from .models import Comment
+
+    discussion = Discussion(
+        discussion_id=str(payload.get("discussion_id", "")),
+        forum_id=str(payload.get("forum_id", "")),
+        title=payload.get("title", ""),
+        author=payload.get("author", ""),
+        date=payload.get("date", ""),
+        content_html=payload.get("content_html", ""),
+        source_url=payload.get("source_url", ""),
+    )
+    discussion.status = _status_from_dict(payload.get("status"))
+    for item in payload.get("comments") or []:
+        discussion.comments.append(
+            Comment(
+                author=item.get("author", ""),
+                date=item.get("date", ""),
+                content_html=item.get("content_html", ""),
+                avatar_url=item.get("avatar_url", ""),
+            )
+        )
+    return discussion
+
+
+# ------------------------------------------------------------------ 各阶段
+
+
+def prepare_structure(ctx: SyncContext, stages: Sequence[str]) -> SiteStructure:
+    """按需发现站点结构（房间 → 模块 → 内容 ID 全集）。
+
+    所有列表页都会被 HTTP 磁盘缓存，因此重复运行不会产生额外请求，
+    这也让中断后的续跑几乎零成本。
+    """
+    discovery = ctx.discovery
+    log.info("发现站点结构…")
+    discovery.discover_rooms()
+
+    if "bulletins" in stages:
+        discovery.discover_bulletins()
+    if "notes" in stages:
+        discovery.discover_notes()
+    if "photos" in stages or "albums" in stages:
+        discovery.discover_photos()
+    if "videos" in stages:
+        discovery.discover_videos()
+    if "forum" in stages:
+        discovery.discover_forum()
+
+    ctx.structure = discovery.structure
+    return ctx.structure
+
+
+def stage_rooms(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> StageResult:
+    """阶段 1：房间与模块清单（结构已在 prepare_structure 中获取）。"""
+    rooms = ctx.structure.rooms
+    if not rooms:
+        raise SystemExit("未能发现任何房间，请检查网络或首页是否可访问")
+
+    for room in rooms:
+        key = f"room:{room.room_id}"
+        if room.widgets:
+            ctx.progress.mark_done(
+                key, stage="rooms", detail=f"{room.title}（{len(room.widgets)} 个模块）"
+            )
+        else:
+            ctx.progress.mark_unavailable(key, room.status.label, stage="rooms")
+
+    result = StageResult(stage="rooms", total=len(rooms), processed=len(rooms))
+    ctx.results.append(result)
+    log.info(
+        "房间 %d 个，模块 %d 个",
+        len(rooms),
+        sum(len(r.widgets) for r in rooms),
+    )
+    return result
+
+
+def stage_bulletins(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> StageResult:
+    """阶段 2：公告栏 / 索引①/②。"""
+    cfg = ctx.cfg
+    widgets = ctx.structure.widgets_of("bulletin")
+    runner = StageRunner(ctx.progress, "bulletins", cfg=cfg, show_progress=show_progress)
+
+    def key_of(widget: Any) -> str:
+        return f"bulletin:{widget.widget_id}"
+
+    def handler(widget: Any) -> None:
+        url = f"{cfg.base_url}/room/{widget.room_id}/"
+        page = ctx.resolver.resolve(url, context=f"公告栏 {widget.title}")
+        if not page.has_content:
+            ctx.progress.mark_unavailable(
+                key_of(widget), page.status.label, stage="bulletins"
+            )
+            return
+        bulletin = parse_bulletin(page.html, widget.widget_id, url, widget.room_id, cfg)
+        if not bulletin.title:
+            bulletin.title = widget.title
+        bulletin.status = page.status
+        ctx.bulletins[widget.widget_id] = bulletin
+        ctx.progress.mark_done(
+            key_of(widget), stage="bulletins", detail=truncate(bulletin.title, 40)
+        )
+
+    items = widgets[:limit] if limit else widgets
+    result = runner.run(items, handler, key_of, desc="公告栏")
+    ctx.results.append(result)
+
+    # 索引分组在 generate_site() 里统一重建，见 SyncContext.build_index_groups
+    return result
+
+
+def stage_notes(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
+                recheck_unavailable: bool = False, force: bool = False) -> StageResult:
+    """阶段 3：日记详情 + 配图归档。"""
+    cfg = ctx.cfg
+    entries = ctx.structure.note_entries
+    if not entries:
+        log.warning("没有发现日记列表，跳过")
+        return StageResult(stage="notes")
+
+    runner = StageRunner(
+        ctx.progress,
+        "notes",
+        cfg=cfg,
+        show_progress=show_progress,
+        recheck_unavailable=recheck_unavailable,
+        recheck_done=force,
+    )
+
+    def key_of(entry: Any) -> str:
+        return f"note:{entry.note_id}"
+
+    def handler(entry: Any) -> None:
+        key = key_of(entry)
+        url = cfg.note_url(entry.widget_id, entry.note_id)
+        page = ctx.resolver.resolve(url, context=f"日记 {entry.title}")
+
+        if not page.has_content:
+            # 正文拿不到，但仍保留标题/日期等元信息，页面会带提示块
+            note = Note(
+                note_id=entry.note_id,
+                widget_id=entry.widget_id,
+                title=entry.title,
+                date=entry.date,
+                comment_count=entry.comment_count,
+                source_url=url,
+                status=page.status,
+            )
+            ctx.notes[entry.note_id] = note
+            ctx.progress.mark_unavailable(key, page.status.label, stage="notes")
+            return
+
+        note = parse_note(page.html, entry.widget_id, entry.note_id, url, cfg)
+        if not note.title:
+            note.title = entry.title
+        if not note.date:
+            note.date = entry.date
+        if not note.comment_count:
+            note.comment_count = entry.comment_count
+        note.status = page.status
+
+        # 归档配图并建立重写映射
+        refs = ctx.media.collect_note_images(note.content_html, note.note_id)
+        if refs:
+            ctx.media.archive_note_images(refs, note.note_id)
+        note.images = refs
+
+        ctx.notes[note.note_id] = note
+        ctx.progress.mark_done(
+            key,
+            stage="notes",
+            detail=f"{truncate(note.title, 40)} · {len(refs)} 图",
+            images=len(refs),
+        )
+
+    items = entries[:limit] if limit else entries
+    result = runner.run(items, handler, key_of, desc="日记")
+    ctx.results.append(result)
+    return result
+
+
+def stage_photos(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
+                 recheck_unavailable: bool = False, force: bool = False) -> StageResult:
+    """阶段 4：相册图片归档。"""
+    cfg = ctx.cfg
+    pairs: list[tuple[str, str]] = []
+    for album_id, photo_ids in ctx.structure.photo_ids.items():
+        pairs.extend((album_id, pid) for pid in photo_ids)
+
+    if not pairs:
+        log.warning("没有发现相册图片，跳过")
+        return StageResult(stage="photos")
+
+    runner = StageRunner(
+        ctx.progress,
+        "photos",
+        cfg=cfg,
+        show_progress=show_progress,
+        recheck_unavailable=recheck_unavailable,
+        recheck_done=force,
+    )
+
+    def key_of(pair: tuple[str, str]) -> str:
+        return f"photo:{pair[0]}:{pair[1]}"
+
+    def handler(pair: tuple[str, str]) -> None:
+        album_id, photo_id = pair
+        url = cfg.photo_url(album_id, photo_id)
+        page = ctx.resolver.resolve(url, context=f"照片 {photo_id}")
+        if not page.has_content:
+            ctx.progress.mark_unavailable(key_of(pair), page.status.label, stage="photos")
+            return
+        meta = parse_photo_detail(page.html, album_id, photo_id, url, cfg)
+        if not meta.large_url:
+            ctx.progress.mark_unavailable(key_of(pair), "未找到大图", stage="photos")
+            return
+        dest, local = ctx.media.album_image_path(album_id, photo_id, meta.large_url)
+        outcome = ctx.media.download(
+            meta.large_url, dest, local, variants=album_image_variants(meta.large_url)
+        )
+        # 无论下载成败都记住描述，供 stage_albums 复用
+        ctx.photo_meta[pair] = meta
+        if outcome.ok:
+            meta.local = local
+            ctx.progress.mark_done(key_of(pair), stage="photos", detail=meta.caption[:40])
+        else:
+            ctx.progress.mark_unavailable(key_of(pair), outcome.error, stage="photos")
+
+    items = pairs[:limit] if limit else pairs
+    result = runner.run(items, handler, key_of, desc="照片")
+    ctx.results.append(result)
+    return result
+
+
+def stage_albums(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> StageResult:
+    """阶段 5：汇总相册元信息（图片已在上一阶段归档）。"""
+    cfg = ctx.cfg
+    album_ids = list(ctx.structure.photo_ids.keys())
+    if not album_ids:
+        return StageResult(stage="albums")
+    if limit:
+        album_ids = album_ids[:limit]
+
+    for album_id in album_ids:
+        key = f"album:{album_id}"
+        url = cfg.photos_list_url(album_id)
+        page = ctx.resolver.resolve(url, context=f"相册 {album_id}")
+        title = ctx.structure.album_titles.get(album_id, "")
+        if page.has_content and not title:
+            title = parse_album_title(page.html, cfg)
+
+        album = Album(
+            album_id=album_id,
+            title=title or f"相册 {album_id}",
+            source_url=url,
+            status=page.status,
+        )
+        if page.has_content:
+            album.photos = parse_photo_list(page.html, album_id, cfg)
+
+        # 复用 stage_photos 已解析的描述与已下载的本地路径，避免重复请求
+        for photo in album.photos:
+            pair = (album_id, photo.photo_id)
+            cached_meta = ctx.photo_meta.get(pair)
+            if cached_meta is not None and cached_meta.caption:
+                photo.caption = cached_meta.caption
+            dest, local = ctx.media.album_image_path(album_id, photo.photo_id, photo.thumb_url)
+            if dest.exists():
+                photo.local = local
+
+        ctx.albums[album_id] = album
+        ctx.progress.mark_done(key, stage="albums", detail=f"{album.title}（{len(album.photos)} 张）")
+
+    result = StageResult(
+        stage="albums",
+        total=len(album_ids),
+        processed=len(album_ids),
+    )
+    ctx.results.append(result)
+    log.info("相册：%d 个，照片：%d 张", len(ctx.albums), sum(len(a.photos) for a in ctx.albums.values()))
+    return result
+
+
+def stage_videos(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> StageResult:
+    """阶段 6：视频条目（缩略图归档，正片在优酷）。"""
+    cfg = ctx.cfg
+    videos = ctx.structure.videos
+    if not videos:
+        return StageResult(stage="videos")
+
+    runner = StageRunner(ctx.progress, "videos", cfg=cfg, show_progress=show_progress)
+
+    def key_of(video: Video) -> str:
+        return f"video:{video.video_id}"
+
+    def handler(video: Video) -> None:
+        if video.thumb_url:
+            dest, local = ctx.media.video_thumb_path(video.video_id, video.thumb_url)
+            outcome = ctx.media.download(video.thumb_url, dest, local)
+            if outcome.ok:
+                video.local_thumb = local
+        merge_by(ctx.videos, [video], lambda v: v.video_id)
+        ctx.progress.mark_done(key_of(video), stage="videos", detail=truncate(video.title, 40))
+
+    items = videos[:limit] if limit else videos
+    result = runner.run(items, handler, key_of, desc="视频")
+    ctx.results.append(result)
+    return result
+
+
+def stage_forum(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> StageResult:
+    """阶段 7：论坛讨论帖（评论为静态渲染，可完整归档）。"""
+    cfg = ctx.cfg
+    topics: list[tuple[str, str, str]] = []
+    for forum_id, items in ctx.structure.forum_topics.items():
+        topics.extend((forum_id, did, title) for did, title in items)
+    if not topics:
+        return StageResult(stage="forum")
+
+    runner = StageRunner(ctx.progress, "forum", cfg=cfg, show_progress=show_progress)
+
+    def key_of(topic: tuple[str, str, str]) -> str:
+        return f"discussion:{topic[1]}"
+
+    def handler(topic: tuple[str, str, str]) -> None:
+        forum_id, discussion_id, title = topic
+        url = cfg.discussion_url(forum_id, discussion_id)
+        page = ctx.resolver.resolve(url, context=f"讨论帖 {title}")
+        if not page.has_content:
+            ctx.progress.mark_unavailable(key_of(topic), page.status.label, stage="forum")
+            return
+        discussion = parse_discussion(page.html, forum_id, discussion_id, url, cfg)
+        if not discussion.title:
+            discussion.title = title
+        discussion.status = page.status
+        merge_by(ctx.discussions, [discussion], lambda d: d.discussion_id)
+        ctx.progress.mark_done(
+            key_of(topic), stage="forum", detail=f"{len(discussion.comments)} 条回应"
+        )
+
+    items = topics[:limit] if limit else topics
+    result = runner.run(items, handler, key_of, desc="讨论帖")
+    ctx.results.append(result)
+    return result
+
+
+def stage_miniblog(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> StageResult:
+    """阶段 8：广播室动态流。"""
+    cfg = ctx.cfg
+    widgets = ctx.structure.widgets_of("miniblog")
+    if not widgets:
+        return StageResult(stage="miniblog")
+
+    for widget in widgets:
+        key = f"miniblog:{widget.widget_id}"
+        url = cfg.miniblog_url(widget.widget_id)
+        page = ctx.resolver.resolve(url, context=f"广播室 {widget.title}")
+        if not page.has_content:
+            # 广播室列表页可能 302，回退到房间页
+            room_url = f"{cfg.base_url}/room/{widget.room_id}/"
+            page = ctx.resolver.resolve(room_url, context=f"广播室 {widget.title}")
+        if not page.has_content:
+            ctx.progress.mark_unavailable(key, page.status.label, stage="miniblog")
+            continue
+        statuses = parse_miniblog(page.html, cfg)
+        merge_by(ctx.miniblog, statuses, lambda s: s.status_id)
+        ctx.progress.mark_done(key, stage="miniblog", detail=f"{len(statuses)} 条动态")
+
+    result = StageResult(stage="miniblog", total=len(widgets), processed=len(widgets))
+    ctx.results.append(result)
+    return result
+
+
+STAGE_FUNCS = {
+    "rooms": stage_rooms,
+    "bulletins": stage_bulletins,
+    "notes": stage_notes,
+    "photos": stage_photos,
+    "albums": stage_albums,
+    "videos": stage_videos,
+    "forum": stage_forum,
+    "miniblog": stage_miniblog,
+}
+
+
+# ------------------------------------------------------------------ 生成产物
+
+
+def generate_site(ctx: SyncContext, *, verbose: bool = False) -> dict[str, Any]:
+    """把抓取结果渲染成 VitePress 站点产物。"""
+    cfg = ctx.cfg
+    ctx.rebuild_context()
+    ctx.build_index_groups()
+
+    # 分类归属：索引①/② 优先，未覆盖的归入 Papico 日志
+    mapping = build_note_to_group(ctx.index_groups)
+    categories = group_by_category(list(ctx.notes.keys()), mapping)
+    for note_id, note in ctx.notes.items():
+        group_title, order = mapping.get(note_id, (FALLBACK_CATEGORY, 0))
+        note.category = group_title
+        note.index_order = order
+
+    notes_by_category = categories
+    fallback_ids = notes_by_category.get(FALLBACK_CATEGORY, [])
+    fallback_notes = [ctx.notes[nid] for nid in fallback_ids if nid in ctx.notes]
+
+    # 站点素材（头像）
+    avatar_local = ""
+    avatar_url = ctx.structure.meta.get("avatar", "")
+    if avatar_url:
+        avatar_local = ctx.media.archive_site_asset(avatar_url, "avatar.jpg")
+
+    albums = sorted(ctx.albums.values(), key=lambda a: a.album_id)
+    notes = ctx.notes
+
+    # 逐篇渲染
+    for note in notes.values():
+        ctx.emitter.emit_note(note)
+
+    for album in albums:
+        ctx.emitter.emit_album(album)
+
+    # 索引公告里的"关于"页（About PPK）
+    about_bulletin = next(
+        (b for b in ctx.bulletins.values() if "About" in b.title or "PPK" in b.title),
+        None,
+    )
+
+    ctx.emitter.emit_home(
+        ctx.structure.meta,
+        ctx.index_groups,
+        albums,
+        avatar_local=avatar_local,
+        stats={
+            "notes": len(notes),
+            "photos": sum(len(a.photos) for a in albums),
+            "albums": len(albums),
+            "videos": len(ctx.videos),
+        },
+    )
+    ctx.emitter.emit_notes_index(ctx.index_groups, notes, fallback_notes=fallback_notes)
+    ctx.emitter.emit_albums_index(albums)
+    ctx.emitter.emit_about(about_bulletin, ctx.structure.meta)
+    ctx.emitter.emit_videos(ctx.videos)
+    ctx.emitter.emit_board(ctx.discussions)
+    ctx.emitter.emit_broadcast(ctx.miniblog)
+    ctx.emitter.emit_sidebar(
+        ctx.index_groups,
+        notes,
+        fallback_notes=fallback_notes,
+        albums=albums,
+        videos_count=len(ctx.videos),
+    )
+
+    ctx.emitter.emit_unavailable_report(ctx.unavailable)
+    manifest = ctx.build_manifest()
+    ctx.emitter.emit_manifest(manifest)
+
+    ctx.save_data()
+    return manifest
+
+
+def write_sync_report(ctx: SyncContext, *, mode: str) -> Path:
+    """产出同步报告。"""
+    stats = ctx.fetcher.finalize().to_dict()
+    summary = {
+        "模式": mode,
+        "日记": len(ctx.notes),
+        "相册": len(ctx.albums),
+        "照片": sum(len(a.photos) for a in ctx.albums.values()),
+        "视频": len(ctx.videos),
+        "公告栏": len(ctx.bulletins),
+        "讨论帖": len(ctx.discussions),
+        "广播动态": len(ctx.miniblog),
+        "不可访问页面": len(ctx.unavailable),
+        "图片下载": ctx.media.summary()["downloaded"],
+        "图片跳过（已存在）": ctx.media.summary()["skipped"],
+        "图片失败": ctx.media.summary()["failed"],
+        "图片字节": human_size(int(ctx.media.summary()["bytesTotal"])),
+    }
+    payload = {
+        "generatedAt": now_iso(),
+        "summary": summary,
+        "stages": [
+            {
+                "stage": r.stage,
+                "processed": r.processed,
+                "total": r.total,
+                "skipped": r.skipped,
+                "failed": r.failed,
+                "elapsed": human_duration(r.elapsed),
+            }
+            for r in ctx.results
+        ],
+        "http": stats,
+    }
+    return ctx.emitter.emit_sync_report(payload)
+
+
+# ------------------------------------------------------------------ 子命令
+
+
+def cmd_discover(args: argparse.Namespace) -> int:
+    cfg = _config_from_args(args)
+    with SyncContext(cfg, use_archive=cfg.archive_enabled) as ctx:
+        discovery = SiteDiscovery(ctx.resolver, cfg)
+        structure = discovery.crawl_structure()
+        write_json(cfg.data_dir / "structure.json", structure.to_dict())
+        print()
+        print(f"房间：{len(structure.rooms)}")
+        for kind in ("bulletin", "notes", "photos", "videos", "forum", "miniblog"):
+            widgets = structure.widgets_of(kind)
+            if widgets:
+                print(f"  {kind:9s} {len(widgets):2d} 个模块")
+        print(f"日记：{structure.note_count} 篇")
+        print(f"照片：{structure.photo_count} 张")
+        print(f"视频：{len(structure.videos)} 条")
+        print(f"讨论帖：{sum(len(v) for v in structure.forum_topics.values())} 个")
+        stats = ctx.fetcher.finalize()
+        print(f"\n请求 {stats.requests} 次，缓存命中 {stats.cache_hits} 次，"
+              f"耗时 {human_duration(stats.elapsed)}")
+    return 0
+
+
+def cmd_sync(args: argparse.Namespace) -> int:
+    cfg = _config_from_args(args)
+    stages = resolve_stages(args.stages)
+
+    if not args.i_have_read_robots and not cfg.offline and not args.dry_run:
+        print(ROBOTS_NOTICE.format(delay=cfg.delay_min, impersonate=cfg.impersonate))
+        return 2
+
+    ensure_dirs(cfg)
+
+    with SyncContext(cfg, use_archive=cfg.archive_enabled) as ctx:
+        # 总是先恢复既有产物：断点续接时被跳过的阶段（已完成）
+        # 产出的数据仍然需要参与最终生成。
+        ctx.load_existing()
+        if args.offline:
+            log.info("离线模式：只读本地缓存与已抓取产物")
+
+        if args.dry_run:
+            return _dry_run(ctx, stages, args)
+
+        log.info("=" * 68)
+        log.info("开始同步：阶段 = %s", ", ".join(stages))
+        log.info("请求间隔 %.1f~%.1f 秒 · 指纹 %s · archive.org 补足 %s",
+                 cfg.delay_min, cfg.delay_max, cfg.impersonate,
+                 "开" if (ctx.wayback and ctx.wayback.enabled) else "关（默认）")
+        log.info("=" * 68)
+
+        try:
+            prepare_structure(ctx, stages)
+            for name in stages:
+                func = STAGE_FUNCS[name]
+                if name in {"notes", "photos"}:
+                    func(
+                        ctx,
+                        show_progress=args.progress,
+                        limit=args.limit,
+                        recheck_unavailable=args.recheck_unavailable,
+                        force=args.force,
+                    )
+                else:
+                    func(ctx, show_progress=args.progress, limit=args.limit)
+        except CircuitBreakerOpen as exc:
+            log.error("已熔断停止：%s", exc)
+            ctx.progress.save(force=True)
+            ctx.save_data()
+            log.error(
+                "进度已保存。建议等待一段时间后重新执行同一命令续跑（已完成内容不会重复请求）。"
+            )
+            return 3
+        except KeyboardInterrupt:
+            log.warning("收到中断信号，正在保存进度…")
+            ctx.progress.save(force=True)
+            ctx.save_data()
+            log.warning("进度已保存，重新执行同一命令即可续跑。")
+            return 130
+
+        ctx.unavailable = list(ctx.resolver.unavailable)
+
+        if not args.no_emit:
+            log.info("生成站点产物…")
+            generate_site(ctx)
+            report = write_sync_report(ctx, mode="sync")
+            log.info("同步报告：%s", report)
+
+        ctx.progress.save(force=True)
+        _print_summary(ctx)
+    return 0
+
+
+def _dry_run(ctx: SyncContext, stages: list[str], args: argparse.Namespace) -> int:
+    """预演：只枚举结构并估算请求数与耗时。"""
+    cfg = ctx.cfg
+    print("预演模式：只枚举站点结构，不抓取详情。\n")
+    structure = prepare_structure(ctx, stages)
+
+    page_requests = 0
+    if "rooms" in stages:
+        page_requests += 1 + len(structure.rooms)
+    if "bulletins" in stages:
+        page_requests += len(structure.widgets_of("bulletin"))
+    if "notes" in stages:
+        widgets = structure.widgets_of("notes")
+        page_requests += len(widgets) * 5 + structure.note_count  # 列表页按平均 5 页估
+    if "photos" in stages:
+        page_requests += structure.photo_count + len(structure.photo_ids)
+    if "albums" in stages:
+        page_requests += len(structure.photo_ids)
+    if "videos" in stages:
+        page_requests += len(structure.widgets_of("videos"))
+    if "forum" in stages:
+        page_requests += sum(len(v) for v in structure.forum_topics.values()) + 1
+    if "miniblog" in stages:
+        page_requests += len(structure.widgets_of("miniblog"))
+
+    image_requests = 0
+    if "notes" in stages:
+        image_requests += structure.note_count * 2   # 每篇平均约 2 张配图
+    if "photos" in stages:
+        image_requests += structure.photo_count
+    if "videos" in stages:
+        image_requests += len(structure.videos)
+
+    total = page_requests + image_requests
+    cached = 0
+    try:
+        from .http_client import count_cached
+
+        urls: list[str] = [cfg.site_url]
+        cached = count_cached(cfg, urls)
+    except Exception:  # noqa: BLE001
+        pass
+
+    print(f"计划抓取：")
+    print(f"  页面请求  约 {page_requests:5d} 次")
+    print(f"  图片请求  约 {image_requests:5d} 次")
+    print(f"  合计      约 {total:5d} 次")
+    print(f"  预估耗时  约 {estimate_duration(total, cfg)}（间隔 {cfg.delay_min:.0f}~{cfg.delay_max:.0f}s）")
+    print()
+    print(f"内容规模：")
+    print(f"  房间       {len(structure.rooms)}")
+    print(f"  日记       {structure.note_count} 篇")
+    print(f"  相册       {len(structure.photo_ids)} 个 / {structure.photo_count} 张")
+    print(f"  视频       {len(structure.videos)} 条")
+    print(f"  讨论帖     {sum(len(v) for v in structure.forum_topics.values())} 个")
+    print()
+    print("确认无误后执行：npm run sync -- --i-have-read-robots")
+    write_json(cfg.data_dir / "structure.json", structure.to_dict())
+    return 0
+
+
+def cmd_emit(args: argparse.Namespace) -> int:
+    cfg = _config_from_args(args)
+    ensure_dirs(cfg)
+    with SyncContext(cfg, use_archive=False) as ctx:
+        ctx.load_existing()
+        if not ctx.notes and not ctx.albums:
+            print("没有找到已抓取的数据，请先运行 sync。", file=sys.stderr)
+            return 1
+        manifest = generate_site(ctx)
+        print(f"已生成站点产物：{len(manifest['notes'])} 篇日记、"
+              f"{len(manifest['albums'])} 个相册")
+    return 0
+
+
+def cmd_report(args: argparse.Namespace) -> int:
+    cfg = _config_from_args(args)
+    store = ProgressStore(cfg=cfg)
+    print(store.report())
+    path = cfg.data_dir / "progress-report.md"
+    from .util import atomic_write_text
+
+    atomic_write_text(path, store.report())
+    print(f"（已写入 {path}）")
+    return 0
+
+
+def cmd_verify(args: argparse.Namespace) -> int:
+    cfg = _config_from_args(args)
+    from .verify import Verifier
+
+    verifier = Verifier(cfg)
+    ok = verifier.run(sample=args.sample)
+    print(verifier.report_text())
+    return 0 if ok else 1
+
+
+def cmd_test(args: argparse.Namespace) -> int:
+    import subprocess
+
+    result = subprocess.run(
+        [sys.executable, "-m", "pytest", "scraper/tests", "-q"],
+        cwd=str(CONFIG.root),
+    )
+    return result.returncode
+
+
+# ------------------------------------------------------------------ 辅助
+
+
+def _config_from_args(args: argparse.Namespace) -> Config:
+    import dataclasses
+
+    overrides: dict[str, Any] = {}
+    if getattr(args, "offline", False):
+        overrides["offline"] = True
+    # 显式跟随命令行：默认 False（关闭），--archive 打开，--no-archive 关闭
+    overrides["archive_enabled"] = bool(getattr(args, "archive", False))
+    if getattr(args, "delay", None):
+        overrides["delay_min"] = args.delay
+        overrides["delay_max"] = args.delay + 2.0
+    if getattr(args, "impersonate", None):
+        overrides["impersonate"] = args.impersonate
+    cfg = dataclasses.replace(CONFIG, **overrides) if overrides else CONFIG
+    ensure_dirs(cfg)
+    return cfg
+
+
+def _print_summary(ctx: SyncContext) -> None:
+    stats = ctx.fetcher.finalize()
+    media = ctx.media.summary()
+    print()
+    print("=" * 68)
+    print("同步完成")
+    print("=" * 68)
+    print(f"  日记        {len(ctx.notes):5d} 篇")
+    print(f"  相册        {len(ctx.albums):5d} 个（{sum(len(a.photos) for a in ctx.albums.values())} 张）")
+    print(f"  视频        {len(ctx.videos):5d} 条")
+    print(f"  讨论帖      {len(ctx.discussions):5d} 个")
+    print(f"  广播动态    {len(ctx.miniblog):5d} 条")
+    print(f"  不可访问    {len(ctx.unavailable):5d} 个（详见 data/unavailable.md）")
+    print(f"  图片下载    {int(media['downloaded']):5d} 张"
+          f"（跳过 {int(media['skipped'])}，失败 {int(media['failed'])}，"
+          f"{human_size(int(media['bytesTotal']))}）")
+    if int(media["archivedFromWayback"]):
+        print(f"  其中 archive.org 补足 {int(media['archivedFromWayback'])} 张")
+    print(f"  网络请求    {stats.requests:5d} 次（缓存命中 {stats.cache_hits}，"
+          f"重试 {stats.retries}，被拦截 {stats.blocked}）")
+    print(f"  耗时        {human_duration(stats.elapsed)}")
+    print()
+    print("下一步：npm run docs:dev 预览，npm run verify 校验")
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    setup_logging(args.verbose, args.quiet)
+
+    # Ctrl-C 时不打印 traceback
+    def _sigint(signum: int, frame: Any) -> None:
+        raise KeyboardInterrupt
+
+    signal.signal(signal.SIGINT, _sigint)
+
+    handlers = {
+        "sync": cmd_sync,
+        "emit": cmd_emit,
+        "discover": cmd_discover,
+        "report": cmd_report,
+        "verify": cmd_verify,
+        "test": cmd_test,
+    }
+    handler = handlers[args.command]
+    try:
+        return handler(args)
+    except SystemExit:
+        raise
+    except Exception as exc:  # noqa: BLE001 - 顶层兜底，给出可读错误
+        log.error("执行失败：%s", exc, exc_info=args.verbose)
+        return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())
