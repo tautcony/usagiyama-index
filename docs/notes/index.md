@@ -140,7 +140,7 @@ aside: false
 - [所以人们才会彼此寻求——《境界的彼方》第5话演出小析](/notes/314598362) <small>2013-11-06</small>
 - [《Free! Eternal Summer》第12话演出分析](/notes/425866593) <small>2014-09-19</small>
 
-## Papico 日志
+## 尚子的房间
 
 
 - [谈谈丽兹☆喜欢的场景☆Papico](/notes/673585518) <small>2018-06-14</small>

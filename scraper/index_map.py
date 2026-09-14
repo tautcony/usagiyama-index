@@ -38,7 +38,7 @@ SECTION_MARKER_RE = re.compile(r"[○●]\s*([^：:（(\n]+?)\s*[：:（(]?\s*$"
 DOULIST_LABEL = "豆列"
 
 # 未在索引中出现的日记归入此分区
-FALLBACK_CATEGORY = "Papico 日志"
+FALLBACK_CATEGORY = "尚子的房间"
 LINKS_CATEGORY = "常用链接"
 
 

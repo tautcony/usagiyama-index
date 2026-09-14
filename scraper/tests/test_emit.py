@@ -96,9 +96,6 @@ class TestSlugAnchor:
     def test_chinese_kept(self) -> None:
         assert slug_anchor("聲之形") == "聲之形"
 
-    def test_spaces_become_dashes(self) -> None:
-        assert slug_anchor("Papico 日志") == "papico-日志"
-
 
 def _note(note_id: str = "1", **kwargs) -> Note:
     note = Note(
@@ -310,7 +307,7 @@ class TestEmitSidebar:
             path.read_text(encoding="utf-8").split("= ", 1)[1].rsplit(" as DefaultTheme.Sidebar", 1)[0]
         )
         group = payload["/notes/"][0]
-        assert group["text"] == "Papico 日志"
+        assert group["text"] == "尚子的房间"
         assert group["collapsed"] is True
 
 

@@ -421,7 +421,7 @@ export const sidebar: DefaultTheme.Sidebar = {
       ]
     },
     {
-      "text": "Papico 日志",
+      "text": "尚子的房间",
       "collapsed": true,
       "items": [
         {

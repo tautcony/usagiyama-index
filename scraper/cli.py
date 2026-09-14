@@ -1549,7 +1549,7 @@ def generate_site(ctx: SyncContext, *, verbose: bool = False) -> dict[str, Any]:
     ctx.rebuild_context()
     ctx.build_index_groups()
 
-    # 分类归属：索引①/② 优先，未覆盖的归入 Papico 日志
+    # 分类归属：索引①/② 优先，未覆盖的归入 尚子的房间
     mapping = build_note_to_group(ctx.index_groups)
     categories = group_by_category(list(ctx.notes.keys()), mapping)
     for note_id, note in ctx.notes.items():
