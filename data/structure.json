@@ -43,10 +43,10 @@
         }
       ],
       "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": 200,
-        "detail": "缓存命中",
+        "availability": "not_fetched",
+        "label": "尚未抓取",
+        "httpStatus": null,
+        "detail": "",
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -84,10 +84,10 @@
         }
       ],
       "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": 200,
-        "detail": "缓存命中",
+        "availability": "not_fetched",
+        "label": "尚未抓取",
+        "httpStatus": null,
+        "detail": "",
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -131,10 +131,10 @@
         }
       ],
       "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": 200,
-        "detail": "缓存命中",
+        "availability": "not_fetched",
+        "label": "尚未抓取",
+        "httpStatus": null,
+        "detail": "",
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -178,10 +178,10 @@
         }
       ],
       "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": 200,
-        "detail": "缓存命中",
+        "availability": "not_fetched",
+        "label": "尚未抓取",
+        "httpStatus": null,
+        "detail": "",
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -219,10 +219,10 @@
         }
       ],
       "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": 200,
-        "detail": "缓存命中",
+        "availability": "not_fetched",
+        "label": "尚未抓取",
+        "httpStatus": null,
+        "detail": "",
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -242,10 +242,10 @@
         }
       ],
       "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": 200,
-        "detail": "缓存命中",
+        "availability": "not_fetched",
+        "label": "尚未抓取",
+        "httpStatus": null,
+        "detail": "",
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
@@ -265,130 +265,17 @@
         }
       ],
       "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": 200,
-        "detail": "缓存命中",
+        "availability": "not_fetched",
+        "label": "尚未抓取",
+        "httpStatus": null,
+        "detail": "",
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null
       }
     }
   ],
-  "bulletins": [
-    {
-      "bulletin_id": "16095492",
-      "room_id": "2793793",
-      "title": "索引①",
-      "content_html": "☆【穹庐下的魔女】<br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fwww.douban.com%2Ftopic%2F499780453%2F\" rel=\"nofollow\">“珍视角色”——唯有这一点，无论创作什么作品，我都会绝不动摇地坚守下去——《穹庐下的魔女》总导演山田尚子访谈（CREA）</a><br/>☆【聲之形】（<a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fwww.douban.com%2Fdoulist%2F44247823%2F\" rel=\"nofollow\">豆列</a>）<br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F520557685%2F\" rel=\"nofollow\" target=\"_blank\">《聲之形》原作者大今良时＆导演山田尚子寄语</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F575910736%2F\" rel=\"nofollow\" target=\"_blank\">电影《聲之形》配乐牛尾宪辅＆主题歌演唱者aiko寄语</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F569110361%2F\" rel=\"nofollow\" target=\"_blank\">电影《聲之形》导演山田尚子谈选角理由</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F569286438%2F\" rel=\"nofollow\" target=\"_blank\">电影《聲之形》配音演员获选感言</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F572997848%2F\" rel=\"nofollow\" target=\"_blank\">电影《聲之形》配音完成感想</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F575615184%2F\" rel=\"nofollow\" target=\"_blank\">电影《聲之形》导演山田尚子创作感言（《Animedia》2016年9月号）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F575811208%2F\" rel=\"nofollow\" target=\"_blank\">诚实用心地面对作品——导演山田尚子谈电影《聲之形》（《Newtype》2016年9月号）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F576189949%2F\" rel=\"nofollow\" target=\"_blank\">难能可贵，惹人怜爱——导演山田尚子谈电影《聲之形》（《Animage》2016年9月号）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F581099972%2F\" rel=\"nofollow\" target=\"_blank\">肯定世界的电影——《聲之形》导演山田尚子访谈（《Quick Japan》Vol.127）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F581373515%2F\" rel=\"nofollow\" target=\"_blank\">“约定”的手语，在缠绕的手指中展现“表情”——导演山田尚子谈电影《聲之形》（《朝日新闻》）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F581617831%2F\" rel=\"nofollow\" target=\"_blank\">描绘人的“真心”——电影《聲之形》导演山田尚子访谈（《周刊少年Magazine》2016年42号）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F581837681%2F\" rel=\"nofollow\" target=\"_blank\">通过“存在于世上”的他们传达的东西——电影《聲之形》导演山田尚子访谈（Comic Natalie）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F581998436%2F\" rel=\"nofollow\" target=\"_blank\">耳朵听不见是硝子的一种个性——电影《聲之形》导演山田尚子访谈（excite专访前篇）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F582222645%2F\" rel=\"nofollow\" target=\"_blank\">让将也发出使他好好活下去的第一声啼哭——电影《聲之形》导演山田尚子访谈（excite专访后篇）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F582498318%2F\" rel=\"nofollow\" target=\"_blank\">与山田尚子导演面对面创作的音乐——电影《聲之形》配乐牛尾宪辅访谈（Anime! Anime!）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F583425563%2F\" rel=\"nofollow\" target=\"_blank\">想让观众觉得作品中的世界就在身边——电影《聲之形》导演山田尚子访谈（Real Sound）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F583976644%2F\" rel=\"nofollow\" target=\"_blank\">电影《聲之形》首映见面会报告摘要汇总</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F584217092%2F\" rel=\"nofollow\" target=\"_blank\">电影《聲之形》映后座谈会报告1（登台者：山田尚子）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F585518914%2F\" rel=\"nofollow\" target=\"_blank\">电影《聲之形》映后座谈会报告2（登台者：山田尚子、西屋太志）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F586529041%2F\" rel=\"nofollow\" target=\"_blank\">通过添加声音、色彩与动作，描写痛苦前方的出口——电影《聲之形》导演山田尚子访谈（琵雅关西版WEB）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F586749537%2F\" rel=\"nofollow\" target=\"_blank\">相信观众的感性与想象力——电影《聲之形》导演山田尚子访谈（Lmaga.jp）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F586870147%2F\" rel=\"nofollow\" target=\"_blank\">山田尚子导演是位名副其实的“电影作家”——分析电影《聲之形》的演出法（Real Sound）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F620299921%2F\" rel=\"nofollow\" target=\"_blank\">这部作品能让我直面创作的根源——电影《聲之形》导演山田尚子访谈（《Animestyle 010》）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F620639436%2F\" rel=\"nofollow\" target=\"_blank\">电影《聲之形》制作笔记（场刊）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F620796838%2F\" rel=\"nofollow\" target=\"_blank\">电影《聲之形》导演山田尚子×配乐牛尾宪辅对谈（场刊）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F621091894%2F\" rel=\"nofollow\" target=\"_blank\">结尾的曲子是在京都动画附近的河滩上边哭边想到的——电影《聲之形》配乐牛尾宪辅访谈（excite映后访谈)</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F621342820%2F\" rel=\"nofollow\" target=\"_blank\">电影《聲之形》初感：一部温柔到骨子里的电影</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F621946123%2F\" rel=\"nofollow\" target=\"_blank\">影像与音乐的反复结构／引用重松清《咖喱饭》的意义——记者饭田一史谈电影《聲之形》</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F623079239%2F\" rel=\"nofollow\" target=\"_blank\">希望做成一部能让观众觉得自己得到原谅的作品——电影《聲之形》编剧吉田玲子访谈（Making Book）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F623264433%2F\" rel=\"nofollow\" target=\"_blank\">通过画面与声音给予观众影像体验——电影《聲之形》导演山田尚子访谈（Making Book）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F623421008%2F\" rel=\"nofollow\" target=\"_blank\">《聲之形》原作者大今良时问答摘录（漫画FANBOOK）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F623887272%2F\" rel=\"nofollow\" target=\"_blank\">欺凌与听障并非本作的主题，这是一个描写沟通的故事——《聲之形》原作者大今良时访谈摘录（漫画FANBOOK）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F624120737%2F\" rel=\"nofollow\" target=\"_blank\">她真的是个表里如一的好孩子——电影《聲之形》川井美树CV潘惠美访谈（Making Book）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F190597056%2Fnote%2F624442255%2F\" rel=\"nofollow\" target=\"_blank\">起用的理由与意外的发现——松冈茉优×山田尚子导演《聲之形》对谈（mynavi）</a>",
-      "source_url": "https://site.douban.com/211330/room/2793793/",
-      "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": 200,
-        "detail": "缓存命中",
-        "waybackUrl": null,
-        "waybackTimestamp": null,
-        "waybackStatus": null
-      }
-    },
-    {
-      "bulletin_id": "17754656",
-      "room_id": "2793793",
-      "title": "索引②",
-      "content_html": "☆【轻音！系列】（<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fwww.douban.com%2Fdoulist%2F43094828%2F\" rel=\"nofollow\">豆列</a>）<br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F15416684%2Fnote%2F519165447%2F\" rel=\"nofollow\" target=\"_blank\">《轻音！！》片尾“Listen!!”解析</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F15416684%2Fnote%2F519006182%2F\" rel=\"nofollow\" target=\"_blank\">《轻音！！》剧情结构解析——决定将来与前路的故事</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F15416684%2Fnote%2F319279183%2F\" rel=\"nofollow\" target=\"_blank\">《电影 轻音！》全程解说</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F15416684%2Fnote%2F429473097%2F\" rel=\"nofollow\" target=\"_blank\">《电影 轻音！》片尾与The Who及电影《四重人格》</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F15416684%2Fnote%2F429716807%2F\" rel=\"nofollow\" target=\"_blank\">通过电影《四重人格》解读《电影 轻音！》片尾</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F15416684%2Fnote%2F521041733%2F\" rel=\"nofollow\" target=\"_blank\">通过电影《纯真》解读《电影 轻音！》片尾</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F15416684%2Fnote%2F520941015%2F\" rel=\"nofollow\" target=\"_blank\">想让她们再穿一次校服——山田尚子导演谈《电影 轻音！》（《电影旬报》2011/12上旬号）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F15416684%2Fnote%2F577308827%2F\" rel=\"nofollow\" target=\"_blank\">《电影 轻音！》英国首映见面会导演问答</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F15416684%2Fnote%2F326223685%2F\" rel=\"nofollow\" target=\"_blank\">《电影 轻音！》与《玉子》中的“宇宙”</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F15416684%2Fnote%2F820543319%2F\" rel=\"nofollow\" target=\"_blank\">《轻音》小彩蛋：漫画卷数与纯和忧加入轻音部的暗示</a><br/>☆【玉子市场＆玉子爱情故事】（<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fwww.douban.com%2Fdoulist%2F13935160%2F\" rel=\"nofollow\">豆列</a>）<br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13430893%2Fnote%2F274238773%2F\" rel=\"nofollow\" target=\"_blank\">《玉子市场》的人物魅力</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13430893%2Fnote%2F323771540%2F\" rel=\"nofollow\" target=\"_blank\">《玉子爱情故事》导演寄语</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13430893%2Fnote%2F332912954%2F\" rel=\"nofollow\" target=\"_blank\">《玉子爱情故事》特报2解读——蒲公英与咖啡</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13430893%2Fnote%2F348784334%2F\" rel=\"nofollow\" target=\"_blank\">《玉子爱情故事》官网山田尚子导演访谈（前篇）</a><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13430893%2Fnote%2F350255703%2F\" rel=\"nofollow\" target=\"_blank\">（后篇）</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13430893%2Fnote%2F338329832%2F\" rel=\"nofollow\" target=\"_blank\">《玉子爱情故事》预告片考察汇总及作品展望</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13430893%2Fnote%2F347460778%2F\" rel=\"nofollow\" target=\"_blank\">《玉子市场》温习上映会＆制作人员漫谈会（4/19）活动报告</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13430893%2Fnote%2F400308340%2F\" rel=\"nofollow\" target=\"_blank\">《玉子爱情故事》excite山田尚子导演访谈（前篇）</a><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13430893%2Fnote%2F409767702%2F\" rel=\"nofollow\" target=\"_blank\">（后篇）</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13430893%2Fnote%2F412701420%2F\" rel=\"nofollow\" target=\"_blank\">兔子山商店街・天使之歌——《玉子爱情故事》试论</a>（《电影 轻音！》相关 ）<br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13430893%2Fnote%2F433039361%2F\" rel=\"nofollow\" target=\"_blank\">《玉子爱情故事》初感——喜爱山田作品的理由</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13430893%2Fnote%2F433188862%2F\" rel=\"nofollow\" target=\"_blank\">《玉子爱情故事》解读：By always thinking unto them.</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13430893%2Fnote%2F433207087%2F\" rel=\"nofollow\" target=\"_blank\">《玉子爱情故事》解读：月球与地球，火星♂与金星♀</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13430893%2Fnote%2F433237635%2F\" rel=\"nofollow\" target=\"_blank\">《玉子爱情故事》解读：雏子的回忆与玉子手中的年糕石的消失</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13430893%2Fnote%2F433476997%2F\" rel=\"nofollow\" target=\"_blank\">《玉子爱情故事》解读：新干线=倒计时，接住传声筒=终点</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13430893%2Fnote%2F433804876%2F\" rel=\"nofollow\" target=\"_blank\">《玉子爱情故事》解读：踏脚石=电影胶片，新干线=电影胶片=踏脚石</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13430893%2Fnote%2F433821101%2F\" rel=\"nofollow\" target=\"_blank\">《玉子爱情故事》解读：感情的传播方向</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13430893%2Fnote%2F434075254%2F\" rel=\"nofollow\" target=\"_blank\">《玉子爱情故事》总论：感情架起桥梁</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13430893%2Fnote%2F434258171%2F\" rel=\"nofollow\" target=\"_blank\">《玉子爱情故事》解读：磁极，反转的磁带与传声筒</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13430893%2Fnote%2F434498947%2F\" rel=\"nofollow\" target=\"_blank\">《玉子爱情故事》解读：河川的彼方与此方，小绿的成长</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13430893%2Fnote%2F434874102%2F\" rel=\"nofollow\" target=\"_blank\">《玉子爱情故事》解读：雏子的三次帮助，玉子的重生</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13430893%2Fnote%2F435337731%2F\" rel=\"nofollow\" target=\"_blank\">《玉子爱情故事》ED解读：真苹果与假苹果，熊猫与狗</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13430893%2Fnote%2F464638733%2F\" rel=\"nofollow\" target=\"_blank\">“过桥的故事”与“架桥的故事”——对比《电影 轻音！》与《玉子爱情故事》</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13430893%2Fnote%2F460892811%2F\" rel=\"nofollow\" target=\"_blank\">《玉子爱情故事》获第18届文化厅媒体艺术节动画部门新人奖</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13430893%2Fnote%2F525677843%2F\" rel=\"nofollow\" target=\"_blank\">第二届京阿尼＆Do答谢会：导演对谈＆山田尚子导演签名会活动报告</a><br/>☆【吹响悠风号】（<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fwww.douban.com%2Fdoulist%2F39014187%2F\" rel=\"nofollow\">豆列</a>）<br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F493628625%2F\" rel=\"nofollow\" target=\"_blank\">《吹响悠风号》演出小析 ①</a> <a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F494796780%2F\" rel=\"nofollow\" target=\"_blank\">②</a> <a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F496259160%2F\" rel=\"nofollow\" target=\"_blank\">③</a> <a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F497257959%2F\" rel=\"nofollow\" target=\"_blank\">④</a> <a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F498486997%2F\" rel=\"nofollow\" target=\"_blank\">⑤</a> <a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F499646004%2F\" rel=\"nofollow\" target=\"_blank\">⑥</a> <a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F500779951%2F\" rel=\"nofollow\" target=\"_blank\">⑦</a> <a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F501830142%2F\" rel=\"nofollow\" target=\"_blank\">⑧</a> <a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F502853776%2F\" rel=\"nofollow\" target=\"_blank\">⑨</a> <a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F503910662%2F\" rel=\"nofollow\" target=\"_blank\">⑩</a> <a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F504870376%2F\" rel=\"nofollow\" target=\"_blank\">⑪</a> <a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F505913072%2F\" rel=\"nofollow\" target=\"_blank\">⑫</a> <a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F506916664%2F\" rel=\"nofollow\" target=\"_blank\">⑬</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F506758234%2F\" rel=\"nofollow\" target=\"_blank\">《吹响悠风号》评论音轨笔记 ①</a> <a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F516700383%2F\" rel=\"nofollow\" target=\"_blank\">②</a> <a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F518061571%2F\" rel=\"nofollow\" target=\"_blank\">③</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F511734232%2F\" rel=\"nofollow\" target=\"_blank\">《吹响悠风号》石原立也导演访谈（《Animedia》2015年8月号）</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F511505892%2F\" rel=\"nofollow\" target=\"_blank\">《吹响悠风号》石原立也×山田尚子对谈（《Megami Special!》2015年9月号）</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F519468055%2F\" rel=\"nofollow\" target=\"_blank\">《吹响悠风号 Official Fan Book》石原立也×山田尚子×武田绫乃座谈会</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F520173919%2F\" rel=\"nofollow\" target=\"_blank\">《吹响悠风号 Official Fan Book》每集精彩看点评说（石原立也×山田尚子×武田绫乃）</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F531685883%2F\" rel=\"nofollow\" target=\"_blank\">抱着正面决胜负的态度制作的“青春动画”——《吹响悠风号》石原立也×山田尚子访谈（《Animestyle 007》）</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F580950328%2F\" rel=\"nofollow\" target=\"_blank\">《剧场版 吹响悠风号》特别上映（电影《聲之形》公映纪念）见面会报告</a><br/>☆【其他作品】<br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F326639941%2F\" rel=\"nofollow\" target=\"_blank\">《中二病也要谈恋爱！》片尾解读</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F314598362%2F\" rel=\"nofollow\" target=\"_blank\">所以人们才会彼此寻求——《境界的彼方》第5话演出小析</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F425866593%2F\" rel=\"nofollow\" target=\"_blank\">《Free! Eternal Summer》第12话演出分析</a><br/>○ 常用链接：<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fwww.kyotoanimation.co.jp%2F\" rel=\"nofollow\" target=\"_blank\">【京アニHP】</a><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fkyoanishop.com%2F\" rel=\"nofollow\" target=\"_blank\">【KyoaniShop!】</a><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fwww.hanakotoba.name%2F\" rel=\"nofollow\" target=\"_blank\">【花言葉事典】</a><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fwww.nao.ac.jp%2Fastro%2F\" rel=\"nofollow\" target=\"_blank\">【天文情報】</a><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Feco.mtk.nao.ac.jp%2Fkoyomi%2F\" rel=\"nofollow\" target=\"_blank\">【暦計算室】</a>",
-      "source_url": "https://site.douban.com/211330/room/2793793/",
-      "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": 200,
-        "detail": "缓存命中",
-        "waybackUrl": null,
-        "waybackTimestamp": null,
-        "waybackStatus": null
-      }
-    },
-    {
-      "bulletin_id": "13430830",
-      "room_id": "2793793",
-      "title": "About PPK",
-      "content_html": "　　山田尚子（Yamada Naoko，1984年11月28日—）<br/>　　<a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fja.wikipedia.org%2Fwiki%2F%25E5%25B1%25B1%25E7%2594%25B0%25E5%25B0%259A%25E5%25AD%2590\" rel=\"nofollow\" target=\"_blank\">Wikipedia</a>　<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fwww.kyotoanimation.co.jp%2Fstaff%2Fanibaka%2Fblog%2F%3Fauthor%3D18\" rel=\"nofollow\" target=\"_blank\">THE☆アニメバカ一代</a>（<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F17565710%2F\" rel=\"nofollow\" target=\"_blank\">翻译</a>）<br/>　　日本动画演出家、导演。爱称“Papico（Papiko）”。毕业于京都造型艺术大学美术造型专业西洋画科。毕业后进入京都动画作为一名原画师开始工作。在《CLANNAD》中首次出任演出一职。2009年在《轻音！》中初次担任导演。<br/>　　被鹤冈阳太与石原立也称为<a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fsite.douban.com%2F211330%2Fwidget%2Fnotes%2F13431979%2Fnote%2F518061571%2F\" rel=\"nofollow\" target=\"_blank\">“青春的巨匠”</a>。<br/>　○ 作品特征、创作信念：<br/>　　用肯定的态度去描绘事物。肯定世界，肯定每一个角色。找出人物的优点用积极的方式去表现。<br/>　　爱用实拍的手法，喜欢能感受到第三者视线的影像。将每个角色当作真实存在的人去拍摄。<br/>　○ 执导作品：<br/>　　<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmovie.douban.com%2Fsubject_search%3Fsearch_text%3D%25E8%25BD%25BB%25E9%259F%25B3%25E5%25B0%2591%25E5%25A5%25B3%26cat%3D1002\" rel=\"nofollow\" target=\"_blank\">《轻音！》系列</a>、<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmovie.douban.com%2Fsubject%2F20514713%2F\" rel=\"nofollow\" target=\"_blank\">《玉子市场》</a>、<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmovie.douban.com%2Fsubject%2F25796222%2F\" rel=\"nofollow\" target=\"_blank\">《玉子爱情故事》</a>、<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fkoenokatachi-movie.com%2F\" rel=\"nofollow\" target=\"_blank\">《聲之形》</a>、<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fliz-bluebird.com%2F\" rel=\"nofollow\" target=\"_blank\">《丽兹与青鸟》</a>、<a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fheike-anime.asmik-ace.co.jp%2F\" rel=\"nofollow\" target=\"_blank\">《平家物语》</a><br/>　○ 喜欢的导演（<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fwww.douban.com%2Fdoulist%2F43095035%2F\" rel=\"nofollow\">豆列</a>）：<br/>　　<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmovie.douban.com%2Fcelebrity%2F1054506%2F\" rel=\"nofollow\" target=\"_blank\">杨·史云梅耶</a>、<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmovie.douban.com%2Fcelebrity%2F1014248%2F\" rel=\"nofollow\" target=\"_blank\">谢尔盖·帕拉杰诺夫</a>、<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmovie.douban.com%2Fcelebrity%2F1036727%2F\" rel=\"nofollow\" target=\"_blank\">小津安二郎</a>、<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmovie.douban.com%2Fcelebrity%2F1000561%2F\" rel=\"nofollow\" target=\"_blank\">罗伊·安德森</a>、<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmovie.douban.com%2Fcelebrity%2F1054399%2F\" rel=\"nofollow\" target=\"_blank\">索菲亚·科波拉</a>、<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmovie.douban.com%2Fcelebrity%2F1004767%2F\" rel=\"nofollow\" target=\"_blank\">亚历桑德罗·佐杜洛夫斯基</a><br/>　○ 喜欢的电影（<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fwww.douban.com%2Fdoulist%2F43094984%2F\" rel=\"nofollow\">豆列</a>）：<br/>　　<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmovie.douban.com%2Fsubject%2F1305817%2F\" rel=\"nofollow\" target=\"_blank\">《爱丽丝》</a>、<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmovie.douban.com%2Fsubject%2F1401905%2F\" rel=\"nofollow\" target=\"_blank\">《圣山》</a>、<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmovie.douban.com%2Fsubject%2F1303542%2F\" rel=\"nofollow\" target=\"_blank\">《石榴的颜色》</a>、<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmovie.douban.com%2Fsubject%2F1444232%2F\" rel=\"nofollow\" target=\"_blank\">《纯真》</a>、<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmovie.douban.com%2Fsubject%2F1291835%2F\" rel=\"nofollow\" target=\"_blank\">《迷失东京》</a>、<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmovie.douban.com%2Fsubject%2F1463934%2F\" rel=\"nofollow\" target=\"_blank\">《瑞典爱情故事》</a>、<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmovie.douban.com%2Fsubject%2F2222954%2F\" rel=\"nofollow\" target=\"_blank\">《CHECKERS in TANTAN たぬき》</a>、<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmovie.douban.com%2Fsubject%2F11527487%2F\" rel=\"nofollow\" target=\"_blank\">《弗兰西丝·哈》</a>、<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmovie.douban.com%2Fsubject%2F1301678%2F\" rel=\"nofollow\" target=\"_blank\">《坏血》</a>、<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmovie.douban.com%2Fsubject%2F1291560%2F\" rel=\"nofollow\" target=\"_blank\">《龙猫》</a>、<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmovie.douban.com%2Fsubject%2F1291585%2F\" rel=\"nofollow\" target=\"_blank\">《风之谷》</a>、<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fmovie.douban.com%2Fsubject%2F3744753%2F\" rel=\"nofollow\" target=\"_blank\">《赫伯和多乐茜》</a>、<a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fmovie.douban.com%2Fsubject%2F25855071%2F\" rel=\"nofollow\" target=\"_blank\">《Sing Street》</a><br/>　○ 喜欢的电视剧：<br/>　　<a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fmovie.douban.com%2Fsubject%2F26266666%2F\" rel=\"nofollow\" target=\"_blank\">《问题餐厅》</a><br/>　○ 喜欢的漫画家・插画家：<br/>　　<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fwww.recosuke.com%2F\" rel=\"nofollow\" target=\"_blank\">本秀康</a><br/>　○ 喜欢的音乐类型：<br/>　　Techno、New Wave、Punk、Progressive Rock<br/>　○ 喜欢的音乐艺人：<br/>　　<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fja.wikipedia.org%2Fwiki%2F%25E9%259B%25BB%25E6%25B0%2597%25E3%2582%25B0%25E3%2583%25AB%25E3%2583%25BC%25E3%2583%25B4\" rel=\"nofollow\" target=\"_blank\">電気グルーヴ</a>、<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fja.wikipedia.org%2Fwiki%2F%25E3%2582%25A4%25E3%2582%25A8%25E3%2583%25AD%25E3%2583%25BC%25E3%2583%25BB%25E3%2583%259E%25E3%2582%25B8%25E3%2583%2583%25E3%2582%25AF%25E3%2583%25BB%25E3%2582%25AA%25E3%2583%25BC%25E3%2582%25B1%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25A9\" rel=\"nofollow\" target=\"_blank\">YMO</a>、<a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fzh.wikipedia.org%2Fwiki%2F%25E5%25A4%25A7%25E5%258D%25AB%25C2%25B7%25E9%25B2%258D%25E4%25BC%258A\" rel=\"nofollow\" target=\"_blank\">大卫·鲍伊</a>、<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fja.wikipedia.org%2Fwiki%2FBUCK-TICK\" rel=\"nofollow\" target=\"_blank\">BUCK-TICK</a>、<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fqrion.net%2F\" rel=\"nofollow\" target=\"_blank\">Qrion</a><br/>　○ 喜欢的建筑师・设计师：<br/>　　<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fbaike.baidu.com%2Fview%2F6785272.htm\" rel=\"nofollow\" target=\"_blank\">麦金托什</a><br/>　○ 学生时代的社团活动：<br/>　　排球部（小学・初中）、网球部・摄影部（高中）、特摄部（大学）<br/>　○ 大学时期的艺术演变：<br/>　　山田尚子原本在大学中专攻油画，到三年级时她发现“画布无法表现自己想创作的东西”，于是开始制作立体造型。正当大家专心致力于绘画时，她却在削泡沫塑料。毕业设计则制作了齿轮在马达的带动下无限转动的艺术作品。前来参观的祖母说“小尚你不是为了学画画才读大学的吗…”，本人因此很沮丧。——也就是说，原本专攻二维（油画）的她为更接近真实而到达了三维（立体造型），并且在毕业设计时又进化成四维（在立体造型中加入旋转的齿轮=添加了时间轴）。",
-      "source_url": "https://site.douban.com/211330/room/2793793/",
-      "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": 200,
-        "detail": "缓存命中",
-        "waybackUrl": null,
-        "waybackTimestamp": null,
-        "waybackStatus": null
-      }
-    },
-    {
-      "bulletin_id": "190597046",
-      "room_id": "3598399",
-      "title": "公告栏",
-      "content_html": "《聲之形》（Movie 2016）　<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fkoenokatachi-movie.com%2F\" rel=\"nofollow\" target=\"_blank\">官网</a><br/>想要并尝试去了解他人——这份想法和意愿的表达方式形形色色，因人而异。<br/>我想在这部作品中与将也他们一起去寻找通往明天的希望。——山田尚子",
-      "source_url": "https://site.douban.com/211330/room/3598399/",
-      "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": 200,
-        "detail": "缓存命中",
-        "waybackUrl": null,
-        "waybackTimestamp": null,
-        "waybackStatus": null
-      }
-    },
-    {
-      "bulletin_id": "13432767",
-      "room_id": "2794121",
-      "title": "公告栏",
-      "content_html": "《玉子市场》（TV 2013）　<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Ftamakomarket.com%2F\" rel=\"nofollow\" target=\"_blank\">官网</a>　<a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fja.wikipedia.org%2Fwiki%2F%25E3%2581%259F%25E3%2581%25BE%25E3%2581%2593%25E3%2581%25BE%25E3%2583%25BC%25E3%2581%2591%25E3%2581%25A3%25E3%2581%25A8\" rel=\"nofollow\" target=\"_blank\">Wikipedia</a><br/>《玉子爱情故事》（Movie 2014）　<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Ftamakolovestory.com%2F\" rel=\"nofollow\" target=\"_blank\">官网</a><br/>我想去肯定这个世界。——山田尚子<br/>【站外推荐】<br/>TV<br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fnazism.cocolog-nifty.com%2Fblog%2F2013%2F01%2Fpost-f272.html\" rel=\"nofollow\" target=\"_blank\">『たまこまーけっと』各話感想</a>（<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fwww.douban.com%2Fnote%2F261864994%2F\" rel=\"nofollow\">笔记</a>）<br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fch.nicovideo.jp%2Fwagwag%2Fblomaga%2Far121434\" rel=\"nofollow\" target=\"_blank\">『たまこまーけっと』の魅力を語る</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fch.nicovideo.jp%2Fwagwag%2Fblomaga%2Far183809\" rel=\"nofollow\" target=\"_blank\">『京都アニメーション』と『総合舞台芸術』</a><br/>Movie（上映前）<br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1766.html\" rel=\"nofollow\" target=\"_blank\">【考察】「けいおん！」のその先を描く物語としての「たまこラブストーリー」</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1769.html\" rel=\"nofollow\" target=\"_blank\">【たまこラ】　PV第一弾解禁！ここまでの作品考察、推察のまとめ</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fd.hatena.ne.jp%2Flos_endos%2F20140425%2F1398352708\" rel=\"nofollow\" target=\"_blank\">【小論】映画「たまこラブストーリー」公開によせて ～フィルムと糸電話、時間と空間をつなぐもの</a><br/>Movie（上映后）<br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1777.html\" rel=\"nofollow\" target=\"_blank\">【たまこラブストーリー】初見感想 『まずは総論みたいなのｗ』</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1776.html\" rel=\"nofollow\" target=\"_blank\">【たまこラブストーリー】読解メモ 01</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1778.html\" rel=\"nofollow\" target=\"_blank\">【たまこラブストーリー】読解メモ 01追補</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1779.html\" rel=\"nofollow\" target=\"_blank\">【たまこラブストーリー】読解メモ 02</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1780.html\" rel=\"nofollow\" target=\"_blank\">【たまこラブストーリー】読解メモ 02追補</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1781.html\" rel=\"nofollow\" target=\"_blank\">【たまこラブストーリー】読解メモ 03</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1782.html\" rel=\"nofollow\" target=\"_blank\">【たまこラブストーリー】読解メモ 03追補</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1784.html\" rel=\"nofollow\" target=\"_blank\">【たまこラブストーリー】読解メモ 04追補</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1785.html\" rel=\"nofollow\" target=\"_blank\">【たまこラブストーリー】読解メモ 05</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1786.html\" rel=\"nofollow\" target=\"_blank\">「たまこラブストーリー」総論：「橋」の物語としてのたまラブ</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1787.html\" rel=\"nofollow\" target=\"_blank\">【たまこラブストーリー】読解メモ 06</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1788.html\" rel=\"nofollow\" target=\"_blank\">【たまこラブストーリー】読解メモ 07</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1789.html\" rel=\"nofollow\" target=\"_blank\">【たまこラブストーリー】読解メモ 08</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1790.html\" rel=\"nofollow\" target=\"_blank\">【たまこラブストーリー】読解メモ 09</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1791.html\" rel=\"nofollow\" target=\"_blank\">【山田尚子作品考】「映画けいおん！」「たまこラブストーリー」そして…</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1795.html\" rel=\"nofollow\" target=\"_blank\">【たまこラブストーリー】感想その２　『本作の作劇はいかにして携帯を克服したかｗ』</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1796.html\" rel=\"nofollow\" target=\"_blank\">【たまこラブストーリー】読解メモ 10</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1841.html\" rel=\"nofollow\" target=\"_blank\">「たまラブ」のフィルム演出の意図について～「映画けいおん！」の写真を踏まえて～</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1844.html\" rel=\"nofollow\" target=\"_blank\">【たまラブ】　「タンポポ」を補助線にした読解について…とその他(笑)</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fch.nicovideo.jp%2Fanimaimchan%2Fblomaga%2Far477417\" rel=\"nofollow\" target=\"_blank\">たまこラブストーリーレビュー　～鴨川のうねりは流れゆく～（前編）</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fch.nicovideo.jp%2Fanimaimchan%2Fblomaga%2Far580045\" rel=\"nofollow\" target=\"_blank\">たまこラブストーリーレビュー　～鴨川の流れはうねりゆく～（後編）</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fchusingura.hatenablog.jp%2Fentry%2F2014%2F04%2F30%2F222041\" rel=\"nofollow\" target=\"_blank\">『たまこラブストーリー』に見た「映画」へのこだわり</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fcycle-junrei.hatenablog.jp%2Fentry%2F2014%2F06%2F16%2F225425\" rel=\"nofollow\" target=\"_blank\">「たまこラブストーリー」の現実世界における時間軸の考察</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fkeisukeyuki.blogspot.jp%2F2014%2F05%2Fblog-post.html\" rel=\"nofollow\" target=\"_blank\">雑記　たまこラブストーリー</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fd.hatena.ne.jp%2Flos_endos%2F20140429%2F1398701112\" rel=\"nofollow\" target=\"_blank\">映画「たまこラブストーリー」で「星とピエロ」店内に登場するレコード・ジャケットのご紹介＋α</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Ftehepero-tini.hatenablog.jp%2Fentry%2F2014%2F12%2F07%2F220120\" rel=\"nofollow\" target=\"_blank\">【たまこラブストーリー『星とピエロ』に登場する実在レコードの紹介】〜邦夫さんの言葉にしないメッセージ〜</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Ftehepero-tini.hatenablog.jp%2Fentry%2F2015%2F01%2F01%2F232746\" rel=\"nofollow\" target=\"_blank\">【山田尚子監督からのデラちゃん直筆年賀状】</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fanimeanime.jp%2Farticle%2F2015%2F01%2F29%2F21773.html\" rel=\"nofollow\" target=\"_blank\">「たまこラブストーリー」山田尚子監督インタビュー 第18回文化庁メディア芸術祭アニメーション部門新人賞受賞</a><br/>Music<br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Frdm.ne.jp%2Fsound%2Fcolumn%2Ftamacomanu\" rel=\"nofollow\" target=\"_blank\">マニュエラだから作れた『たまこまーけっと』の音楽</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fblog.livedoor.jp%2Ftapiokasan%2Farchives%2F53077277.html\" rel=\"nofollow\" target=\"_blank\">「たまこラブストーリー」ひなこの歌の秘密について</a><br/>Event<br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1729.html\" rel=\"nofollow\" target=\"_blank\">たまこまーけっと　もちもちトーク＆ライブイベント　簡易レポ!!</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fd.hatena.ne.jp%2Flos_endos%2F20131201%2F1385905981\" rel=\"nofollow\" target=\"_blank\">「京アニ&amp;Do C･T･F･K 2013」～監督対談！レポート（石原立也・武本康弘・山田尚子3監督）</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fhttesora.blog.fc2.com%2Fblog-entry-14.html\" rel=\"nofollow\" target=\"_blank\">☆ 京アニ&amp;Do CTFK2013 感想・レポ ★</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fd.hatena.ne.jp%2Flos_endos%2F20140420%2F1398003204\" rel=\"nofollow\" target=\"_blank\">「たまこまーけっと」おさらい上映会＆制作スタッフ・トークイベント（山田尚子監督・小川太一さん・竹田明代さん）レポート</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1772.html\" rel=\"nofollow\" target=\"_blank\">【4.19】「たまこまーけっと」おさらい上映会＆スタッフトークショーレポ【京都文博】</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fd.hatena.ne.jp%2Flos_endos%2F20140601%2F1401549063%2320140601f1\" rel=\"nofollow\" target=\"_blank\">映画「たまこラブストーリー」大ヒット御礼 スタッフ舞台挨拶（山田尚子監督・小川太一さん・瀬波里梨P）レポート</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fd.hatena.ne.jp%2Flos_endos%2F20141013%2F1413126122\" rel=\"nofollow\" target=\"_blank\">映画『たまこラブストーリー』パッケージ発売記念上映&amp;スタッフ舞台挨拶レポート（山田尚子監督・中村伸一P・瀬波里梨P）</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fd.hatena.ne.jp%2Flos_endos%2F20150215%2F1424009846\" rel=\"nofollow\" target=\"_blank\">映画『たまこラブストーリー』第18回文化庁メディア芸術祭新人賞受賞記念：高橋良輔監督×山田尚子監督対談レポート</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fd.hatena.ne.jp%2Flos_endos%2F20151114%2F1447511739\" rel=\"nofollow\" target=\"_blank\">第２回京アニ＆Ｄｏファン感謝イベント：監督対談！＆山田尚子監督サイン会レポート</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fhtt123.blog.jp%2Farchives%2F1060754985.html\" rel=\"nofollow\" target=\"_blank\">「たまこまーけっと」セレクション上映 スタッフ舞台挨拶レポート(登壇者：山田尚子、西屋太志、小川太一)</a><br/>Other<br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fwww.bilibili.com%2Fvideo%2Fav1603077%2F\" rel=\"nofollow\" target=\"_blank\">【声优广播】洲崎绫和林原惠美的童话故事【微笑背后的辛酸】</a>",
-      "source_url": "https://site.douban.com/211330/room/2794121/",
-      "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": 200,
-        "detail": "缓存命中",
-        "waybackUrl": null,
-        "waybackTimestamp": null,
-        "waybackStatus": null
-      }
-    },
-    {
-      "bulletin_id": "13432819",
-      "room_id": "2794136",
-      "title": "公告栏",
-      "content_html": "《轻音！》（TV第1期 2009）　<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fwww.tbs.co.jp%2Fanime%2Fk-on%2Fk-on_tv%2Findex-j.html\" rel=\"nofollow\" target=\"_blank\">官网</a>　<a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fja.wikipedia.org%2Fwiki%2F%25E3%2581%2591%25E3%2581%2584%25E3%2581%258A%25E3%2582%2593%21\" rel=\"nofollow\" target=\"_blank\">Wikipedia</a>　<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fwww42.atwiki.jp%2Fkeionbu%2F\" rel=\"nofollow\" target=\"_blank\">まとめwiki</a><br/>《轻音！！》（TV第2期 2010）<br/>《电影 轻音！》（Movie 2011）<br/>能否传达至你心中呢？虽然现在我还没有信心<br/>但是请听我唱不要笑，这首歌饱含着我的感情<br/>我想通过歌声，表达心中所有的感谢<br/>我会将这份感恩之心铭记于心，永生不忘<br/>——《U&amp;I》<br/>【站外推荐】<br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-category-3.html\" rel=\"nofollow\" target=\"_blank\">TV第二期感想</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-444.html\" rel=\"nofollow\" target=\"_blank\">作品への簡単な総括と、最終回へのいくつかの私見</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-450.html\" rel=\"nofollow\" target=\"_blank\">＜構造解析＞　将来・進路決定の物語</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1498.html\" rel=\"nofollow\" target=\"_blank\">【映画感想・読解・考察】 過去の関連記事のインデックス</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1758.html\" rel=\"nofollow\" target=\"_blank\">映画けいおん！時系列順作品解説（2013ver.）</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1674.html\" rel=\"nofollow\" target=\"_blank\">映画「さらば青春の光」を通してのED解釈</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1677.html\" rel=\"nofollow\" target=\"_blank\">映画「エコール」を通してのED解釈</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1759.html\" rel=\"nofollow\" target=\"_blank\">【映画読解】　空の向こう、星の彼方</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1760.html\" rel=\"nofollow\" target=\"_blank\">【考察】　続・空の向こう、星の彼方</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fd.hatena.ne.jp%2Flos_endos%2F20130212%2F1360679189\" rel=\"nofollow\" target=\"_blank\">音楽視点で見る「けいおん！」の世界1～「映画けいおん！」BGMの元ネタ集あれこれ</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fd.hatena.ne.jp%2Flos_endos%2F20130217%2F1361107173\" rel=\"nofollow\" target=\"_blank\">音楽視点で見る「けいおん！」の世界2～TVシリーズ・映画に登場した音楽ネタの徹底紹介！</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fd.hatena.ne.jp%2FSomeCameRunning%2Ftouch%2F20111203\" rel=\"nofollow\" target=\"_blank\">少女たちの小さな秘密——山田尚子監督『映画 けいおん！』</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fameblo.jp%2Fcola-tea%2Fentry-11136952940.html\" rel=\"nofollow\" target=\"_blank\">映画「けいおん！」のポストカードについて考察</a><br/><a href=\"https://www.douban.com/link2/?url=https%3A%2F%2Fshimirubon.jp%2Fseries%2F3\" rel=\"nofollow\" target=\"_blank\">放課後という生（ライブ）ティータイムのための世界</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fwww.nicovideo.jp%2Fmylist%2F21479054\" rel=\"nofollow\" target=\"_blank\">けいおん学</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fwww.nicovideo.jp%2Fmylist%2F24488341%23%2Bsort%3D7\" rel=\"nofollow\" target=\"_blank\">もぶおん学</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fdic.nicovideo.jp%2Fid%2F4349661\" rel=\"nofollow\" target=\"_blank\">「けいおん！モブキャラ」ニコニコ大百科</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fdic.pixiv.net%2Fa%2F%25E3%2581%2591%25E3%2581%2584%25E3%2581%258A%25E3%2582%2593%21%213%25E5%25B9%25B42%25E7%25B5%2584\" rel=\"nofollow\" target=\"_blank\">「けいおん！！3年2組」ピクシブ百科事典</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fameblo.jp%2Fmangatimekirara%2F\" rel=\"nofollow\" target=\"_blank\">3年2組の女の子たち</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fch.nicovideo.jp%2Fmobonsociety%2Fblomaga%2Far140012\" rel=\"nofollow\" target=\"_blank\">ブロマガ版もぶおん学～けいおん！モブキャラ？</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fch.nicovideo.jp%2Fmobonsociety%2Fblomaga%2Far227153%23comment_area\" rel=\"nofollow\" target=\"_blank\">ブロマガ版もぶおん学～岡田春菜</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fch.nicovideo.jp%2Fmobonsociety%2Fblomaga%2Far344666\" rel=\"nofollow\" target=\"_blank\">けいおん！3年2組クラスメイト登場回数の分析</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fch.nicovideo.jp%2Fwagwag%2Fblomaga%2Far580871\" rel=\"nofollow\" target=\"_blank\">日常アニメの中のニーチェ</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fhatenanews.com%2Farticles%2F201010%2F1809\" rel=\"nofollow\" target=\"_blank\">京アニ八田社長が語る“ヒットの理由”とは？「けいおん！」監督も登場した講演レポート</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-560.html\" rel=\"nofollow\" target=\"_blank\">アニメーション神戸授賞式に山田監督ご登壇！</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1600.html\" rel=\"nofollow\" target=\"_blank\">【イベントレポ】　グラスゴー＆ロンドン遠征レポ　（１）準備編</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1601.html\" rel=\"nofollow\" target=\"_blank\">【イベントレポ】　グラスゴー＆ロンドン遠征レポ　（２）初日</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1602.html\" rel=\"nofollow\" target=\"_blank\">【イベントレポ】　グラスゴー＆ロンドン遠征レポ　（３）２日目</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1603.html\" rel=\"nofollow\" target=\"_blank\">【イベントレポ】　グラスゴー＆ロンドン遠征レポ　（４）３日日</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1604.html\" rel=\"nofollow\" target=\"_blank\">【イベントレポ】　グラスゴー＆ロンドン遠征レポ　（５）最終日</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1620.html\" rel=\"nofollow\" target=\"_blank\">【学園祭】鶴岡陽太音響監督講演会レポート！</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fblog.livedoor.jp%2Fht29_mymr%2Farchives%2F65685595.html\" rel=\"nofollow\" target=\"_blank\">けいおん！＠MOVIX京都</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1641.html\" rel=\"nofollow\" target=\"_blank\">第17回アニメーション神戸授賞式簡易レポ＆お花企画ギリギリ仔細ｗ</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1740.html\" rel=\"nofollow\" target=\"_blank\">山田尚子監督からキャスト５人へのお手紙書き起こし</a>",
-      "source_url": "https://site.douban.com/211330/room/2794136/",
-      "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": 200,
-        "detail": "缓存命中",
-        "waybackUrl": null,
-        "waybackTimestamp": null,
-        "waybackStatus": null
-      }
-    },
-    {
-      "bulletin_id": "190150869",
-      "room_id": "2794117",
-      "title": "公告栏",
-      "content_html": "山田尚子参与演出的其他动画作品：<br/>【2007】CLANNAD 第17回 不在の空間——演出<br/>【2007】CLANNAD 番外編 夏休みの出来事——分镜、演出<br/>【2008】らき☆すたOVA チャプター5 道に迷った4人——演出<br/>【2008】CLANNAD 〜AFTER STORY〜 第3回 すれちがう心——分镜、演出<br/>【2008】CLANNAD 〜AFTER STORY〜 第10回 始まりの季節——分镜、演出<br/>【2008】CLANNAD 〜AFTER STORY〜 第16回 白い闇——分镜、演出<br/>【2008】CLANNAD 〜AFTER STORY〜 最終回 小さな手のひら——分镜、演出<br/>【2009】涼宮ハルヒの憂鬱 第20話 涼宮ハルヒの溜息 I——分镜、演出<br/>【2010】涼宮ハルヒの消失——演出<br/>【2011】日常 #5 日常の第五話——分镜、演出<br/>【2011】日常 #17 日常の第十七話——分镜、演出<br/>【2012】氷菓 第9話 古丘廃村殺人事件——分镜、演出<br/>【2012】氷菓 第14話 ワイルド・ファイア——分镜、演出<br/>【2012】中二病でも恋がしたい！ ED——分镜、演出<br/>【2013】Free! 7Fr 決戦のスタイルワン！——分镜、演出<br/>【2013】境界の彼方 #5 萌黄の灯——分镜、演出<br/>【2014】中二病でも恋がしたい！戀 ED——分镜、演出<br/>【2014】中二病でも恋がしたい！戀 第5話 幻想の… 昼寝迷宮——分镜（A-part）<br/>【2014】Free! Eternal Summer OP&amp;ED——演出辅佐<br/>【2014】Free! Eternal Summer 12Fr 異郷のスイムオフ！——分镜、演出<br/>【2015】<a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fanime-eupho.com%2F\" rel=\"nofollow\" target=\"_blank\">響け！ユーフォニアム</a>——系列演出<br/>【2015】響け！ユーフォニアム ED——分镜、演出<br/>【2015】響け！ユーフォニアム 第一回 ようこそハイスクール——分镜、演出<br/>【2015】響け！ユーフォニアム 第四回 うたうよソルフェージュ——分镜（B-part）<br/>【2015】響け！ユーフォニアム 最終回 さよならコンクール——分镜<br/>【2015】響け！ユーフォニアム 吹奏楽部の日常 その④ チューバ君は王子様なのバス！——分镜、演出<br/>【2016】劇場版 響け！ユーフォニアム〜北宇治高校吹奏楽部へようこそ〜——系列演出<br/>【2016】無彩限のファントム・ワールド 第6話 久瑠美とぬいぐるみ王国——分镜<br/>【2016】響け！ユーフォニアム2——系列演出<br/>【2016】響け！ユーフォニアム2 第十二回 さいごのコンクール——分镜（A-part）<br/>【2017】劇場版 響け！ユーフォニアム〜届けたいメロディ〜——系列演出<br/>【2017】小林さんちのメイドラゴン #8 新たなるドラゴン、エルマ！（やっと出てきましたか）——分镜、演出<br/>【2018】ヴァイオレット・エヴァーガーデン 第5話 「人を結ぶ手紙を書くのか？」——分镜<br/>【2018】ツルネ -風舞高校弓道部- 第6話 弓引く理由——分镜、演出<br/>【2019】劇場版 響け!ユーフォニアム〜誓いのフィナーレ〜——主任演出<br/>【站外推荐】<br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fnuruwota.blog4.fc2.com%2Fblog-entry-1443.html\" rel=\"nofollow\" target=\"_blank\">「けいおん」の山田尚子監督のダンサー三部作を君は見たか</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fd.hatena.ne.jp%2Ftatsu2%2F20120724%2Fp1\" rel=\"nofollow\" target=\"_blank\">「氷菓」14話を観て――山田尚子のカッティング・イン・マジック</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1744.html\" rel=\"nofollow\" target=\"_blank\">「Free!」第7話！絵コンテ・演出／山田尚子を堪能する!!</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fd.hatena.ne.jp%2Fukkah%2F20131105%2Fp1\" rel=\"nofollow\" target=\"_blank\">『境界の彼方』5話 山田尚子演出を見る</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fpriority1.blog51.fc2.com%2Fblog-entry-1807.html\" rel=\"nofollow\" target=\"_blank\">「Free!ES」第12話！絵コンテ・演出／山田尚子を堪能する!!　その２</a><br/><a href=\"https://www.douban.com/link2/?url=http%3A%2F%2Fshine.web.wox.cc%2Fblog%2Fentry14.html\" rel=\"nofollow\" target=\"_blank\">山田尚子とソフィア・コッポラ</a>",
-      "source_url": "https://site.douban.com/211330/room/2794117/",
-      "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": 200,
-        "detail": "缓存命中",
-        "waybackUrl": null,
-        "waybackTimestamp": null,
-        "waybackStatus": null
-      }
-    }
-  ],
+  "bulletins": [],
   "noteCount": 144,
   "noteIds": [
     "673585518",
@@ -2211,236 +2098,7 @@
     "13431950": "相册"
   },
   "photoCount": 498,
-  "videos": [
-    {
-      "video_id": "783649",
-      "widget_id": "191513700",
-      "title": "瑞穗金融集团 CM 电影《聲之形》篇 30秒",
-      "thumb_url": "https://vthumb.ykimg.com/05420408581EFA5E6A0A4C0468D66385",
-      "external_url": "http://v.youku.com/v_show/id_XMTgwODE3Mjg5Ng==.html",
-      "date": "2016-11-06",
-      "source_url": "https://site.douban.com/211330/widget/videos/191513700/video/783649/",
-      "local_thumb": "",
-      "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": null,
-        "detail": "",
-        "waybackUrl": null,
-        "waybackTimestamp": null,
-        "waybackStatus": null
-      }
-    },
-    {
-      "video_id": "780374",
-      "widget_id": "191513700",
-      "title": "《聲之形》ZIP!特集（20161027）",
-      "thumb_url": "https://m.ykimg.com/054204085811D3126A0A420454718129",
-      "external_url": "http://v.youku.com/v_show/id_XMTc3NjcwOTA0MA==.html",
-      "date": "2016-10-27",
-      "source_url": "https://site.douban.com/211330/widget/videos/191513700/video/780374/",
-      "local_thumb": "",
-      "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": null,
-        "detail": "",
-        "waybackUrl": null,
-        "waybackTimestamp": null,
-        "waybackStatus": null
-      }
-    },
-    {
-      "video_id": "771903",
-      "widget_id": "191513700",
-      "title": "电影《聲之形》热映答谢见面会（2016.10.01）",
-      "thumb_url": "",
-      "external_url": "http://www.bilibili.com/video/av6489116/",
-      "date": "2016-10-02",
-      "source_url": "https://site.douban.com/211330/widget/videos/191513700/video/771903/",
-      "local_thumb": "",
-      "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": null,
-        "detail": "",
-        "waybackUrl": null,
-        "waybackTimestamp": null,
-        "waybackStatus": null
-      }
-    },
-    {
-      "video_id": "567344",
-      "widget_id": "13431492",
-      "title": "TVアニメ『たまこまーけっと』Blu-ray Box PV",
-      "thumb_url": "https://m.ykimg.com/054201015497BF8D6A0A4409237174F5",
-      "external_url": "http://v.youku.com/v_show/id_XODU0MTY1OTI0.html",
-      "date": "2014-12-22",
-      "source_url": "https://site.douban.com/211330/widget/videos/13431492/video/567344/",
-      "local_thumb": "",
-      "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": null,
-        "detail": "",
-        "waybackUrl": null,
-        "waybackTimestamp": null,
-        "waybackStatus": null
-      }
-    },
-    {
-      "video_id": "563408",
-      "widget_id": "13431492",
-      "title": "TAMAKO MEMORY'S NOTE PV",
-      "thumb_url": "https://m.ykimg.com/0542040854896F9E6A0A4A046565C9F2",
-      "external_url": "http://v.youku.com/v_show/id_XODQ2NTM5OTQw.html",
-      "date": "2014-12-11",
-      "source_url": "https://site.douban.com/211330/widget/videos/13431492/video/563408/",
-      "local_thumb": "",
-      "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": null,
-        "detail": "",
-        "waybackUrl": null,
-        "waybackTimestamp": null,
-        "waybackStatus": null
-      }
-    },
-    {
-      "video_id": "537786",
-      "widget_id": "13431492",
-      "title": "【たまこラブストーリー】出町桝形商店街“標語”再現メイキング映像",
-      "thumb_url": "https://m.ykimg.com/054204085437317B6A0A4331710B0FE2",
-      "external_url": "http://v.youku.com/v_show/id_XODAwMjc5MTEy.html",
-      "date": "2014-10-10",
-      "source_url": "https://site.douban.com/211330/widget/videos/13431492/video/537786/",
-      "local_thumb": "",
-      "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": null,
-        "detail": "",
-        "waybackUrl": null,
-        "waybackTimestamp": null,
-        "waybackStatus": null
-      }
-    },
-    {
-      "video_id": "536849",
-      "widget_id": "13431215",
-      "title": "【画像90枚】けいおん！ラッピング電車 HO-KAGO TEA TIME TRAIN",
-      "thumb_url": "https://m.ykimg.com/054204085434016B6A0A42045A3AE79D",
-      "external_url": "http://v.youku.com/v_show/id_XNzk4NzI0NTc2.html",
-      "date": "2014-10-08",
-      "source_url": "https://site.douban.com/211330/widget/videos/13431215/video/536849/",
-      "local_thumb": "",
-      "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": null,
-        "detail": "",
-        "waybackUrl": null,
-        "waybackTimestamp": null,
-        "waybackStatus": null
-      }
-    },
-    {
-      "video_id": "428467",
-      "widget_id": "13431215",
-      "title": "【けいおん!!】けいおん学講義 第５回～広がる世界と変わらぬ心",
-      "thumb_url": "https://m.ykimg.com/0542040852F5EABA6A0A40636E7433B4",
-      "external_url": "http://v.youku.com/v_show/id_XNjcwNTM1MjI4.html",
-      "date": "2014-02-08",
-      "source_url": "https://site.douban.com/211330/widget/videos/13431215/video/428467/",
-      "local_thumb": "",
-      "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": null,
-        "detail": "",
-        "waybackUrl": null,
-        "waybackTimestamp": null,
-        "waybackStatus": null
-      }
-    },
-    {
-      "video_id": "287857",
-      "widget_id": "13431215",
-      "title": "【けいおん!!】けいおん学講義 第６回～輝く未来へ～",
-      "thumb_url": "https://m.ykimg.com/05420408519AE9A56A0A45045C87E9F7",
-      "external_url": "http://v.youku.com/v_show/id_XNTU5ODkxMTg0.html",
-      "date": "2013-05-21",
-      "source_url": "https://site.douban.com/211330/widget/videos/13431215/video/287857/",
-      "local_thumb": "",
-      "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": null,
-        "detail": "",
-        "waybackUrl": null,
-        "waybackTimestamp": null,
-        "waybackStatus": null
-      }
-    },
-    {
-      "video_id": "763778",
-      "widget_id": "15768770",
-      "title": "《吹响悠风号2》PV第2弹",
-      "thumb_url": "https://m.ykimg.com/0542040857D3F3C76A0A4304C4A16C02",
-      "external_url": "http://v.youku.com/v_show/id_XMTcyMDYyODA3Ng==.html",
-      "date": "2016-09-10",
-      "source_url": "https://site.douban.com/211330/widget/videos/15768770/video/763778/",
-      "local_thumb": "",
-      "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": null,
-        "detail": "",
-        "waybackUrl": null,
-        "waybackTimestamp": null,
-        "waybackStatus": null
-      }
-    },
-    {
-      "video_id": "634910",
-      "widget_id": "15768770",
-      "title": "ボルヴィックCM『飲む自然』篇",
-      "thumb_url": "https://m.ykimg.com/0542040851B489BC6A0A480452EBB651",
-      "external_url": "http://v.youku.com/v_show/id_XNTY4NzUwNjU2.html",
-      "date": "2015-07-10",
-      "source_url": "https://site.douban.com/211330/widget/videos/15768770/video/634910/",
-      "local_thumb": "",
-      "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": null,
-        "detail": "",
-        "waybackUrl": null,
-        "waybackTimestamp": null,
-        "waybackStatus": null
-      }
-    },
-    {
-      "video_id": "597741",
-      "widget_id": "15768770",
-      "title": "TVアニメ『響け！ユーフォニアム』PV第2弾",
-      "thumb_url": "https://m.ykimg.com/05420408550F7B106A0A48154BAD3893",
-      "external_url": "http://v.youku.com/v_show/id_XOTE4MDMzODE2.html",
-      "date": "2015-03-23",
-      "source_url": "https://site.douban.com/211330/widget/videos/15768770/video/597741/",
-      "local_thumb": "",
-      "status": {
-        "availability": "ok",
-        "label": "已归档",
-        "httpStatus": null,
-        "detail": "",
-        "waybackUrl": null,
-        "waybackTimestamp": null,
-        "waybackStatus": null
-      }
-    }
-  ],
+  "videos": [],
   "forumTopics": {
     "13466509": [
       [

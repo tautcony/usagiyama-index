@@ -6,7 +6,7 @@ aside: false
 山田尚子（Yamada Naoko，1984年11月28日—）
 　　[Wikipedia](https://ja.wikipedia.org/wiki/%E5%B1%B1%E7%94%B0%E5%B0%9A%E5%AD%90)　[THE☆アニメバカ一代](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?author=18)（[翻译](http://site.douban.com/211330/widget/notes/17565710/)）
 　　日本动画演出家、导演。爱称“Papico（Papiko）”。毕业于京都造型艺术大学美术造型专业西洋画科。毕业后进入京都动画作为一名原画师开始工作。在《CLANNAD》中首次出任演出一职。2009年在《轻音！》中初次担任导演。
-　　被鹤冈阳太与石原立也称为[“青春的巨匠”](https://site.douban.com/211330/widget/notes/13431979/note/518061571/)。
+　　被鹤冈阳太与石原立也称为[“青春的巨匠”](/notes/518061571)。
 　○ 作品特征、创作信念：
 　　用肯定的态度去描绘事物。肯定世界，肯定每一个角色。找出人物的优点用积极的方式去表现。
 　　爱用实拍的手法，喜欢能感受到第三者视线的影像。将每个角色当作真实存在的人去拍摄。

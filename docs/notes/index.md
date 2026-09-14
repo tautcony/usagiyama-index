@@ -6,7 +6,7 @@ aside: false
 # 文章索引
 
 
-共收录 **3** 篇文章，分组沿用原站站长手工编排的索引①/②。
+共收录 **132** 篇文章，分组沿用原站站长手工编排的索引①/②。
 
 
 ## 穹庐下的魔女
@@ -20,40 +20,40 @@ aside: false
 [豆瓣豆列](https://www.douban.com/doulist/44247823/)
 
 
-- [《聲之形》原作者大今良时＆导演山田尚子寄语](http://site.douban.com/211330/widget/notes/190597056/note/520557685/) <small class="badge-unavailable">未归档</small>
-- [电影《聲之形》配乐牛尾宪辅＆主题歌演唱者aiko寄语](https://site.douban.com/211330/widget/notes/190597056/note/575910736/) <small class="badge-unavailable">未归档</small>
-- [电影《聲之形》导演山田尚子谈选角理由](https://site.douban.com/211330/widget/notes/190597056/note/569110361/) <small class="badge-unavailable">未归档</small>
-- [电影《聲之形》配音演员获选感言](https://site.douban.com/211330/widget/notes/190597056/note/569286438/) <small class="badge-unavailable">未归档</small>
-- [电影《聲之形》配音完成感想](https://site.douban.com/211330/widget/notes/190597056/note/572997848/) <small class="badge-unavailable">未归档</small>
+- [《聲之形》原作者大今良时＆导演山田尚子寄语](/notes/520557685) <small>2015-10-14</small>
+- [电影《聲之形》配乐牛尾宪辅＆主题歌演唱者aiko寄语](/notes/575910736) <small>2016-08-13</small>
+- [电影《聲之形》导演山田尚子谈选角理由](/notes/569110361) <small>2016-07-08</small>
+- [电影《聲之形》配音演员获选感言](/notes/569286438) <small>2016-07-09</small>
+- [电影《聲之形》配音完成感想](/notes/572997848) <small>2016-07-28</small>
 - [电影《聲之形》导演山田尚子创作感言（《Animedia》2016年9月号）](https://site.douban.com/211330/widget/notes/190597056/note/575615184/) <small class="badge-unavailable">未归档</small>
-- [诚实用心地面对作品——导演山田尚子谈电影《聲之形》（《Newtype》2016年9月号）](https://site.douban.com/211330/widget/notes/190597056/note/575811208/) <small class="badge-unavailable">未归档</small>
-- [难能可贵，惹人怜爱——导演山田尚子谈电影《聲之形》（《Animage》2016年9月号）](https://site.douban.com/211330/widget/notes/190597056/note/576189949/) <small class="badge-unavailable">未归档</small>
-- [肯定世界的电影——《聲之形》导演山田尚子访谈（《Quick Japan》Vol.127）](https://site.douban.com/211330/widget/notes/190597056/note/581099972/) <small class="badge-unavailable">未归档</small>
-- [“约定”的手语，在缠绕的手指中展现“表情”——导演山田尚子谈电影《聲之形》（《朝日新闻》）](https://site.douban.com/211330/widget/notes/190597056/note/581373515/) <small class="badge-unavailable">未归档</small>
-- [描绘人的“真心”——电影《聲之形》导演山田尚子访谈（《周刊少年Magazine》2016年42号）](https://site.douban.com/211330/widget/notes/190597056/note/581617831/) <small class="badge-unavailable">未归档</small>
-- [通过“存在于世上”的他们传达的东西——电影《聲之形》导演山田尚子访谈（Comic Natalie）](https://site.douban.com/211330/widget/notes/190597056/note/581837681/) <small class="badge-unavailable">未归档</small>
-- [耳朵听不见是硝子的一种个性——电影《聲之形》导演山田尚子访谈（excite专访前篇）](https://site.douban.com/211330/widget/notes/190597056/note/581998436/) <small class="badge-unavailable">未归档</small>
-- [让将也发出使他好好活下去的第一声啼哭——电影《聲之形》导演山田尚子访谈（excite专访后篇）](https://site.douban.com/211330/widget/notes/190597056/note/582222645/) <small class="badge-unavailable">未归档</small>
-- [与山田尚子导演面对面创作的音乐——电影《聲之形》配乐牛尾宪辅访谈（Anime! Anime!）](https://site.douban.com/211330/widget/notes/190597056/note/582498318/) <small class="badge-unavailable">未归档</small>
-- [想让观众觉得作品中的世界就在身边——电影《聲之形》导演山田尚子访谈（Real Sound）](https://site.douban.com/211330/widget/notes/190597056/note/583425563/) <small class="badge-unavailable">未归档</small>
-- [电影《聲之形》首映见面会报告摘要汇总](https://site.douban.com/211330/widget/notes/190597056/note/583976644/) <small class="badge-unavailable">未归档</small>
-- [电影《聲之形》映后座谈会报告1（登台者：山田尚子）](https://site.douban.com/211330/widget/notes/190597056/note/584217092/) <small class="badge-unavailable">未归档</small>
-- [电影《聲之形》映后座谈会报告2（登台者：山田尚子、西屋太志）](https://site.douban.com/211330/widget/notes/190597056/note/585518914/) <small class="badge-unavailable">未归档</small>
-- [通过添加声音、色彩与动作，描写痛苦前方的出口——电影《聲之形》导演山田尚子访谈（琵雅关西版WEB）](https://site.douban.com/211330/widget/notes/190597056/note/586529041/) <small class="badge-unavailable">未归档</small>
-- [相信观众的感性与想象力——电影《聲之形》导演山田尚子访谈（Lmaga.jp）](https://site.douban.com/211330/widget/notes/190597056/note/586749537/) <small class="badge-unavailable">未归档</small>
-- [山田尚子导演是位名副其实的“电影作家”——分析电影《聲之形》的演出法（Real Sound）](https://site.douban.com/211330/widget/notes/190597056/note/586870147/) <small class="badge-unavailable">未归档</small>
-- [这部作品能让我直面创作的根源——电影《聲之形》导演山田尚子访谈（《Animestyle 010》）](https://site.douban.com/211330/widget/notes/190597056/note/620299921/) <small class="badge-unavailable">未归档</small>
-- [电影《聲之形》制作笔记（场刊）](https://site.douban.com/211330/widget/notes/190597056/note/620639436/) <small class="badge-unavailable">未归档</small>
-- [电影《聲之形》导演山田尚子×配乐牛尾宪辅对谈（场刊）](https://site.douban.com/211330/widget/notes/190597056/note/620796838/) <small class="badge-unavailable">未归档</small>
-- [结尾的曲子是在京都动画附近的河滩上边哭边想到的——电影《聲之形》配乐牛尾宪辅访谈（excite映后访谈)](https://site.douban.com/211330/widget/notes/190597056/note/621091894/) <small class="badge-unavailable">未归档</small>
-- [电影《聲之形》初感：一部温柔到骨子里的电影](https://site.douban.com/211330/widget/notes/190597056/note/621342820/) <small class="badge-unavailable">未归档</small>
-- [影像与音乐的反复结构／引用重松清《咖喱饭》的意义——记者饭田一史谈电影《聲之形》](https://site.douban.com/211330/widget/notes/190597056/note/621946123/) <small class="badge-unavailable">未归档</small>
-- [希望做成一部能让观众觉得自己得到原谅的作品——电影《聲之形》编剧吉田玲子访谈（Making Book）](https://site.douban.com/211330/widget/notes/190597056/note/623079239/) <small class="badge-unavailable">未归档</small>
-- [通过画面与声音给予观众影像体验——电影《聲之形》导演山田尚子访谈（Making Book）](https://site.douban.com/211330/widget/notes/190597056/note/623264433/) <small class="badge-unavailable">未归档</small>
-- [《聲之形》原作者大今良时问答摘录（漫画FANBOOK）](https://site.douban.com/211330/widget/notes/190597056/note/623421008/) <small class="badge-unavailable">未归档</small>
-- [欺凌与听障并非本作的主题，这是一个描写沟通的故事——《聲之形》原作者大今良时访谈摘录（漫画FANBOOK）](https://site.douban.com/211330/widget/notes/190597056/note/623887272/) <small class="badge-unavailable">未归档</small>
-- [她真的是个表里如一的好孩子——电影《聲之形》川井美树CV潘惠美访谈（Making Book）](https://site.douban.com/211330/widget/notes/190597056/note/624120737/) <small class="badge-unavailable">未归档</small>
-- [起用的理由与意外的发现——松冈茉优×山田尚子导演《聲之形》对谈（mynavi）](https://site.douban.com/211330/widget/notes/190597056/note/624442255/) <small class="badge-unavailable">未归档</small>
+- [诚实用心地面对作品——导演山田尚子谈电影《聲之形》（《Newtype》2016年9月号）](/notes/575811208) <small>2016-08-12</small>
+- [难能可贵，惹人怜爱——导演山田尚子谈电影《聲之形》（《Animage》2016年9月号）](/notes/576189949) <small>2016-08-15</small>
+- [肯定世界的电影——《聲之形》导演山田尚子访谈（《Quick Japan》Vol.127）](/notes/581099972) <small>2016-09-11</small>
+- [“约定”的手语，在缠绕的手指中展现“表情”——导演山田尚子谈电影《聲之形》（《朝日新闻》）](/notes/581373515) <small>2016-09-13</small>
+- [描绘人的“真心”——电影《聲之形》导演山田尚子访谈（《周刊少年Magazine》2016年42号）](/notes/581617831) <small>2016-09-14</small>
+- [通过“存在于世上”的他们传达的东西——电影《聲之形》导演山田尚子访谈（Comic Natalie）](/notes/581837681) <small>2016-09-16</small>
+- [耳朵听不见是硝子的一种个性——电影《聲之形》导演山田尚子访谈（excite专访前篇）](/notes/581998436) <small>2016-09-17</small>
+- [让将也发出使他好好活下去的第一声啼哭——电影《聲之形》导演山田尚子访谈（excite专访后篇）](/notes/582222645) <small>2016-09-18</small>
+- [与山田尚子导演面对面创作的音乐——电影《聲之形》配乐牛尾宪辅访谈（Anime! Anime!）](/notes/582498318) <small>2016-09-20</small>
+- [想让观众觉得作品中的世界就在身边——电影《聲之形》导演山田尚子访谈（Real Sound）](/notes/583425563) <small>2016-09-25</small>
+- [电影《聲之形》首映见面会报告摘要汇总](/notes/583976644) <small>2016-09-28</small>
+- [电影《聲之形》映后座谈会报告1（登台者：山田尚子）](/notes/584217092) <small>2016-09-29</small>
+- [电影《聲之形》映后座谈会报告2（登台者：山田尚子、西屋太志）](/notes/585518914) <small>2016-10-08</small>
+- [通过添加声音、色彩与动作，描写痛苦前方的出口——电影《聲之形》导演山田尚子访谈（琵雅关西版WEB）](/notes/586529041) <small>2016-10-13</small>
+- [相信观众的感性与想象力——电影《聲之形》导演山田尚子访谈（Lmaga.jp）](/notes/586749537) <small>2016-10-14</small>
+- [山田尚子导演是位名副其实的“电影作家”——分析电影《聲之形》的演出法（Real Sound）](/notes/586870147) <small>2016-10-15</small>
+- [这部作品能让我直面创作的根源——电影《聲之形》导演山田尚子访谈（《Animestyle 010》）](/notes/620299921) <small>2017-05-14</small>
+- [电影《聲之形》制作笔记（场刊）](/notes/620639436) <small>2017-05-16</small>
+- [电影《聲之形》导演山田尚子×配乐牛尾宪辅对谈（场刊）](/notes/620796838) <small>2017-05-17</small>
+- [结尾的曲子是在京都动画附近的河滩上边哭边想到的——电影《聲之形》配乐牛尾宪辅访谈（excite映后访谈)](/notes/621091894) <small>2017-05-19</small>
+- [电影《聲之形》初感：一部温柔到骨子里的电影](/notes/621342820) <small>2017-05-21</small>
+- [影像与音乐的反复结构／引用重松清《咖喱饭》的意义——记者饭田一史谈电影《聲之形》](/notes/621946123) <small>2017-05-25</small>
+- [希望做成一部能让观众觉得自己得到原谅的作品——电影《聲之形》编剧吉田玲子访谈（Making Book）](/notes/623079239) <small>2017-06-03</small>
+- [通过画面与声音给予观众影像体验——电影《聲之形》导演山田尚子访谈（Making Book）](/notes/623264433) <small>2017-06-04</small>
+- [《聲之形》原作者大今良时问答摘录（漫画FANBOOK）](/notes/623421008) <small>2017-06-05</small>
+- [欺凌与听障并非本作的主题，这是一个描写沟通的故事——《聲之形》原作者大今良时访谈摘录（漫画FANBOOK）](/notes/623887272) <small>2017-06-08</small>
+- [她真的是个表里如一的好孩子——电影《聲之形》川井美树CV潘惠美访谈（Making Book）](/notes/624120737) <small>2017-06-10</small>
+- [起用的理由与意外的发现——松冈茉优×山田尚子导演《聲之形》对谈（mynavi）](/notes/624442255) <small>2017-06-12</small>
 
 ## 轻音！系列
 
@@ -61,16 +61,16 @@ aside: false
 [豆瓣豆列](http://www.douban.com/doulist/43094828/)
 
 
-- [《轻音！！》片尾“Listen!!”解析](http://site.douban.com/211330/widget/notes/15416684/note/519165447/) <small class="badge-unavailable">未归档</small>
-- [《轻音！！》剧情结构解析——决定将来与前路的故事](http://site.douban.com/211330/widget/notes/15416684/note/519006182/) <small class="badge-unavailable">未归档</small>
-- [《电影 轻音！》全程解说](http://site.douban.com/211330/widget/notes/15416684/note/319279183/) <small class="badge-unavailable">未归档</small>
-- [《电影 轻音！》片尾与The Who及电影《四重人格》](http://site.douban.com/211330/widget/notes/15416684/note/429473097/) <small class="badge-unavailable">未归档</small>
-- [通过电影《四重人格》解读《电影 轻音！》片尾](http://site.douban.com/211330/widget/notes/15416684/note/429716807/) <small class="badge-unavailable">未归档</small>
-- [通过电影《纯真》解读《电影 轻音！》片尾](http://site.douban.com/211330/widget/notes/15416684/note/521041733/) <small class="badge-unavailable">未归档</small>
-- [想让她们再穿一次校服——山田尚子导演谈《电影 轻音！》（《电影旬报》2011/12上旬号）](http://site.douban.com/211330/widget/notes/15416684/note/520941015/) <small class="badge-unavailable">未归档</small>
-- [《电影 轻音！》英国首映见面会导演问答](https://site.douban.com/211330/widget/notes/15416684/note/577308827/) <small class="badge-unavailable">未归档</small>
-- [《电影 轻音！》与《玉子》中的“宇宙”](http://site.douban.com/211330/widget/notes/15416684/note/326223685/) <small class="badge-unavailable">未归档</small>
-- [《轻音》小彩蛋：漫画卷数与纯和忧加入轻音部的暗示](https://site.douban.com/211330/widget/notes/15416684/note/820543319/) <small class="badge-unavailable">未归档</small>
+- [《轻音！！》片尾“Listen!!”解析](/notes/519165447) <small>2015-10-01</small>
+- [《轻音！！》剧情结构解析——决定将来与前路的故事](/notes/519006182) <small>2015-09-29</small>
+- [《电影 轻音！》全程解说](/notes/319279183) <small>2013-12-03</small>
+- [《电影 轻音！》片尾与The Who及电影《四重人格》](/notes/429473097) <small>2014-09-27</small>
+- [通过电影《四重人格》解读《电影 轻音！》片尾](/notes/429716807) <small>2014-09-28</small>
+- [通过电影《纯真》解读《电影 轻音！》片尾](/notes/521041733) <small>2015-10-17</small>
+- [想让她们再穿一次校服——山田尚子导演谈《电影 轻音！》（《电影旬报》2011年12月上旬号）](/notes/520941015) <small>2015-10-16</small>
+- [《电影 轻音！》英国首映见面会导演问答](/notes/577308827) <small>2016-08-21</small>
+- [《电影 轻音！》与《玉子》中的“宇宙”](/notes/326223685) <small>2014-01-12</small>
+- [《轻音》小彩蛋：漫画卷数与纯和忧加入轻音部的暗示](/notes/820543319) <small>2021-11-26</small>
 
 ## 玉子市场＆玉子爱情故事
 
@@ -78,31 +78,31 @@ aside: false
 [豆瓣豆列](http://www.douban.com/doulist/13935160/)
 
 
-- [《玉子市场》的人物魅力](http://site.douban.com/211330/widget/notes/13430893/note/274238773/) <small class="badge-unavailable">未归档</small>
-- [《玉子爱情故事》导演寄语](http://site.douban.com/211330/widget/notes/13430893/note/323771540/) <small class="badge-unavailable">未归档</small>
-- [《玉子爱情故事》特报2解读——蒲公英与咖啡](http://site.douban.com/211330/widget/notes/13430893/note/332912954/) <small class="badge-unavailable">未归档</small>
-- [《玉子爱情故事》官网山田尚子导演访谈（前篇）](http://site.douban.com/211330/widget/notes/13430893/note/348784334/) <small class="badge-unavailable">未归档</small>
-- [（后篇）](http://site.douban.com/211330/widget/notes/13430893/note/350255703/) <small class="badge-unavailable">未归档</small>
-- [《玉子爱情故事》预告片考察汇总及作品展望](http://site.douban.com/211330/widget/notes/13430893/note/338329832/) <small class="badge-unavailable">未归档</small>
-- [《玉子市场》温习上映会＆制作人员漫谈会（4/19）活动报告](http://site.douban.com/211330/widget/notes/13430893/note/347460778/) <small class="badge-unavailable">未归档</small>
-- [《玉子爱情故事》excite山田尚子导演访谈（前篇）](http://site.douban.com/211330/widget/notes/13430893/note/400308340/) <small class="badge-unavailable">未归档</small>
-- [（后篇）](http://site.douban.com/211330/widget/notes/13430893/note/409767702/) <small class="badge-unavailable">未归档</small>
-- [兔子山商店街・天使之歌——《玉子爱情故事》试论](http://site.douban.com/211330/widget/notes/13430893/note/412701420/) <small class="badge-unavailable">未归档</small>
-- [《玉子爱情故事》初感——喜爱山田作品的理由](http://site.douban.com/211330/widget/notes/13430893/note/433039361/) <small class="badge-unavailable">未归档</small>
-- [《玉子爱情故事》解读：By always thinking unto them.](http://site.douban.com/211330/widget/notes/13430893/note/433188862/) <small class="badge-unavailable">未归档</small>
-- [《玉子爱情故事》解读：月球与地球，火星♂与金星♀](http://site.douban.com/211330/widget/notes/13430893/note/433207087/) <small class="badge-unavailable">未归档</small>
-- [《玉子爱情故事》解读：雏子的回忆与玉子手中的年糕石的消失](http://site.douban.com/211330/widget/notes/13430893/note/433237635/) <small class="badge-unavailable">未归档</small>
-- [《玉子爱情故事》解读：新干线=倒计时，接住传声筒=终点](http://site.douban.com/211330/widget/notes/13430893/note/433476997/) <small class="badge-unavailable">未归档</small>
-- [《玉子爱情故事》解读：踏脚石=电影胶片，新干线=电影胶片=踏脚石](http://site.douban.com/211330/widget/notes/13430893/note/433804876/) <small class="badge-unavailable">未归档</small>
-- [《玉子爱情故事》解读：感情的传播方向](http://site.douban.com/211330/widget/notes/13430893/note/433821101/) <small class="badge-unavailable">未归档</small>
-- [《玉子爱情故事》总论：感情架起桥梁](http://site.douban.com/211330/widget/notes/13430893/note/434075254/) <small class="badge-unavailable">未归档</small>
-- [《玉子爱情故事》解读：磁极，反转的磁带与传声筒](http://site.douban.com/211330/widget/notes/13430893/note/434258171/) <small class="badge-unavailable">未归档</small>
-- [《玉子爱情故事》解读：河川的彼方与此方，小绿的成长](http://site.douban.com/211330/widget/notes/13430893/note/434498947/) <small class="badge-unavailable">未归档</small>
-- [《玉子爱情故事》解读：雏子的三次帮助，玉子的重生](http://site.douban.com/211330/widget/notes/13430893/note/434874102/) <small class="badge-unavailable">未归档</small>
-- [《玉子爱情故事》ED解读：真苹果与假苹果，熊猫与狗](http://site.douban.com/211330/widget/notes/13430893/note/435337731/) <small class="badge-unavailable">未归档</small>
-- [“过桥的故事”与“架桥的故事”——对比《电影 轻音！》与《玉子爱情故事》](http://site.douban.com/211330/widget/notes/13430893/note/464638733/) <small class="badge-unavailable">未归档</small>
-- [《玉子爱情故事》获第18届文化厅媒体艺术节动画部门新人奖](http://site.douban.com/211330/widget/notes/13430893/note/460892811/) <small class="badge-unavailable">未归档</small>
-- [第二届京阿尼＆Do答谢会：导演对谈＆山田尚子导演签名会活动报告](http://site.douban.com/211330/widget/notes/13430893/note/525677843/) <small class="badge-unavailable">未归档</small>
+- [《玉子市场》的人物魅力](/notes/274238773) <small>2013-05-01</small>
+- [《玉子爱情故事》导演寄语](/notes/323771540) <small>2013-12-29</small>
+- [蒲公英与咖啡——《玉子爱情故事》特报2解读](/notes/332912954) <small>2014-02-27</small>
+- [《玉子爱情故事》官网山田尚子导演访谈（前篇）](/notes/348784334) <small>2014-05-03</small>
+- [《玉子爱情故事》官网山田尚子导演访谈（后篇）](/notes/350255703) <small>2014-05-10</small>
+- [《玉子爱情故事》预告片考察汇总及作品展望](/notes/338329832) <small>2014-03-23</small>
+- [4/19《玉子市场》温习上映会&制作人员漫谈会活动报告](/notes/347460778) <small>2014-04-25</small>
+- [《玉子爱情故事》excite山田尚子导演访谈（前篇）](/notes/400308340) <small>2014-08-21</small>
+- [《玉子爱情故事》excite山田尚子导演访谈（后篇）](/notes/409767702) <small>2014-08-30</small>
+- [兔子山商店街・天使之歌——《玉子爱情故事》试论](/notes/412701420) <small>2014-09-02</small>
+- [《玉子爱情故事》初感——喜爱山田作品的理由](/notes/433039361) <small>2014-10-11</small>
+- [《玉子爱情故事》解读：By always thinking unto them.](/notes/433188862) <small>2014-10-12</small>
+- [《玉子爱情故事》解读：月球与地球，火星♂与金星♀](/notes/433207087) <small>2014-10-12</small>
+- [《玉子爱情故事》解读：雏子的回忆与玉子手中的年糕石的消失](/notes/433237635) <small>2014-10-12</small>
+- [《玉子爱情故事》解读：新干线=倒计时，接住传声筒=终点](/notes/433476997) <small>2014-10-13</small>
+- [《玉子爱情故事》解读：踏脚石=电影胶片，新干线=电影胶片=踏脚石](/notes/433804876) <small>2014-10-14</small>
+- [《玉子爱情故事》解读：感情的传播方向](/notes/433821101) <small>2014-10-14</small>
+- [《玉子爱情故事》总论：感情架起桥梁](/notes/434075254) <small>2014-10-15</small>
+- [《玉子爱情故事》解读：磁极，反转的磁带与传声筒](/notes/434258171) <small>2014-10-16</small>
+- [《玉子爱情故事》解读：河川的彼方与此方，小绿的成长](/notes/434498947) <small>2014-10-17</small>
+- [《玉子爱情故事》解读：雏子的三次帮助，玉子的重生](/notes/434874102) <small>2014-10-19</small>
+- [《玉子爱情故事》ED解读：真苹果与假苹果，熊猫与狗](/notes/435337731) <small>2014-10-21</small>
+- [“过桥的故事”与“架桥的故事”——对比《电影 轻音！》与《玉子爱情故事》](/notes/464638733) <small>2014-12-03</small>
+- [《玉子爱情故事》获第18届文化厅媒体艺术节动画部门新人奖](/notes/460892811) <small>2014-11-28</small>
+- [第二届京阿尼＆Do答谢会：导演对谈＆山田尚子导演签名会活动报告](/notes/525677843) <small>2015-11-21</small>
 
 ## 吹响悠风号
 
@@ -118,20 +118,20 @@ aside: false
 - [⑥](http://site.douban.com/211330/widget/notes/13431979/note/499646004/) <small class="badge-unavailable">未归档</small>
 - [⑦](http://site.douban.com/211330/widget/notes/13431979/note/500779951/) <small class="badge-unavailable">未归档</small>
 - [⑧](http://site.douban.com/211330/widget/notes/13431979/note/501830142/) <small class="badge-unavailable">未归档</small>
-- [⑨](http://site.douban.com/211330/widget/notes/13431979/note/502853776/) <small class="badge-unavailable">未归档</small>
-- [⑩](http://site.douban.com/211330/widget/notes/13431979/note/503910662/) <small class="badge-unavailable">未归档</small>
-- [⑪](http://site.douban.com/211330/widget/notes/13431979/note/504870376/) <small class="badge-unavailable">未归档</small>
-- [⑫](http://site.douban.com/211330/widget/notes/13431979/note/505913072/) <small class="badge-unavailable">未归档</small>
-- [⑬](http://site.douban.com/211330/widget/notes/13431979/note/506916664/) <small class="badge-unavailable">未归档</small>
-- [《吹响悠风号》评论音轨笔记 ①](http://site.douban.com/211330/widget/notes/13431979/note/506758234/) <small class="badge-unavailable">未归档</small>
-- [②](http://site.douban.com/211330/widget/notes/13431979/note/516700383/) <small class="badge-unavailable">未归档</small>
-- [③](http://site.douban.com/211330/widget/notes/13431979/note/518061571/) <small class="badge-unavailable">未归档</small>
-- [《吹响悠风号》石原立也导演访谈（《Animedia》2015年8月号）](http://site.douban.com/211330/widget/notes/13431979/note/511734232/) <small class="badge-unavailable">未归档</small>
-- [《吹响悠风号》石原立也×山田尚子对谈（《Megami Special!》2015年9月号）](http://site.douban.com/211330/widget/notes/13431979/note/511505892/) <small class="badge-unavailable">未归档</small>
-- [《吹响悠风号 Official Fan Book》石原立也×山田尚子×武田绫乃座谈会](http://site.douban.com/211330/widget/notes/13431979/note/519468055/) <small class="badge-unavailable">未归档</small>
-- [《吹响悠风号 Official Fan Book》每集精彩看点评说（石原立也×山田尚子×武田绫乃）](http://site.douban.com/211330/widget/notes/13431979/note/520173919/) <small class="badge-unavailable">未归档</small>
-- [抱着正面决胜负的态度制作的“青春动画”——《吹响悠风号》石原立也×山田尚子访谈（《Animestyle 007》）](http://site.douban.com/211330/widget/notes/13431979/note/531685883/) <small class="badge-unavailable">未归档</small>
-- [《剧场版 吹响悠风号》特别上映（电影《聲之形》公映纪念）见面会报告](https://site.douban.com/211330/widget/notes/13431979/note/580950328/) <small class="badge-unavailable">未归档</small>
+- [《吹响悠风号》第九回演出小析](/notes/502853776) <small>2015-06-07</small>
+- [《吹响悠风号》第十回演出小析](/notes/503910662) <small>2015-06-14</small>
+- [《吹响悠风号》第十一回演出小析](/notes/504870376) <small>2015-06-21</small>
+- [《吹响悠风号》第十二回演出小析](/notes/505913072) <small>2015-06-28</small>
+- [《吹响悠风号》最终回演出小析](/notes/506916664) <small>2015-07-05</small>
+- [《吹响悠风号》评论音轨笔记1](/notes/506758234) <small>2015-07-04</small>
+- [《吹响悠风号》评论音轨笔记2](/notes/516700383) <small>2015-09-12</small>
+- [《吹响悠风号》评论音轨笔记3](/notes/518061571) <small>2015-09-22</small>
+- [《吹响悠风号》石原立也导演访谈（《Animedia》2015年8月号）](/notes/511734232) <small>2015-08-07</small>
+- [《吹响悠风号》导演石原立也×系列演出山田尚子对谈（《Megami Magazine Special!》2015年9月号）](/notes/511505892) <small>2015-08-05</small>
+- [《吹响悠风号 Official Fan Book》石原立也×山田尚子×武田绫乃座谈会](/notes/519468055) <small>2015-10-05</small>
+- [《吹响悠风号 Official Fan Book》每集精彩看点评说（石原立也×山田尚子×武田绫乃）](/notes/520173919) <small>2015-10-11</small>
+- [抱着正面决胜负的态度制作的“青春动画”——《吹响悠风号》石原立也×山田尚子访谈（《Animestyle 007》）](/notes/531685883) <small>2015-12-29</small>
+- [《剧场版 吹响悠风号》特别上映（电影《聲之形》公映纪念）见面会报告](/notes/580950328) <small>2016-09-10</small>
 
 ## 其他作品
 
@@ -146,3 +146,50 @@ aside: false
 - [谈谈丽兹☆喜欢的场景☆Papico](/notes/673585518) <small>2018-06-14</small>
 - [丽兹亦青鸟☆Papico](/notes/669962541) <small>2018-05-17</small>
 - [丽兹与青鸟☆Papico](/notes/666011890) <small>2018-04-17</small>
+- [丽兹与青鸟☆Papico](/notes/661229588) <small>2018-03-16</small>
+- [丽兹与青鸟☆Papico](/notes/657510394) <small>2018-02-16</small>
+- [玉子与青鸟☆Papico](/notes/653967636) <small>2018-01-18</small>
+- [丽兹与青鸟☆Papico](/notes/649190492) <small>2017-12-15</small>
+- [红色夹克衫☆Papico](/notes/645545220) <small>2017-11-17</small>
+- [哇～☆Papico](/notes/641740675) <small>2017-10-19</small>
+- [创作☆Papico](/notes/638128887) <small>2017-09-20</small>
+- [夏天……☆Papico](/notes/634384397) <small>2017-08-23</small>
+- [梦境☆Papico](/notes/630626923) <small>2017-07-26</small>
+- [电影☆Papico](/notes/626780778) <small>2017-06-28</small>
+- [出来啦☆Papico](/notes/622694100) <small>2017-05-31</small>
+- [玉子☆Papico](/notes/617677191) <small>2017-04-26</small>
+- [春☆Papico](/notes/614170395) <small>2017-04-03</small>
+- [3月1日☆Papico](/notes/608843975) <small>2017-03-01</small>
+- [聲之形☆Papico](/notes/604396376) <small>2017-01-31</small>
+- [极音☆Papico](/notes/599081646) <small>2016-12-27</small>
+- [喜爱的东西☆Papico](/notes/594375309) <small>2016-11-29</small>
+- [聲之形☆Papico](/notes/589189219) <small>2016-10-28</small>
+- [电影《聲之形》☆Papico](/notes/583640613) <small>2016-09-26</small>
+- [聲之形☆Papico](/notes/578163214) <small>2016-08-25</small>
+- [薯片☆Papico](/notes/572029004) <small>2016-07-23</small>
+- [兔子与新月☆Papico](/notes/560290293) <small>2016-05-26</small>
+- [电影《聲之形》首张宣传画浅谈](/notes/550509861) <small>2016-04-09</small>
+- [再过不久☆Papico](/notes/547187777) <small>2016-03-24</small>
+- [创作者☆Papico](/notes/541065079) <small>2016-02-23</small>
+- [新星★Papico](/notes/536415117) <small>2016-01-22</small>
+- [2015年☆Papico](/notes/529201220) <small>2015-12-15</small>
+- [Tutti☆Papico](/notes/524707046) <small>2015-11-14</small>
+- [星星与音乐☆Papico](/notes/520501904) <small>2015-10-13</small>
+- [秋意渐露☆Papico](/notes/515999854) <small>2015-09-07</small>
+- [牙医☆Papico](/notes/512288929) <small>2015-08-11</small>
+- [庆祝☆Papico](/notes/507086258) <small>2015-07-06</small>
+- [高中生☆Papico](/notes/502324234) <small>2015-06-03</small>
+- [电影☆上映☆悠风☆Papico](/notes/496648491) <small>2015-04-28</small>
+- [玉子与饼藏☆Papico](/notes/490420693) <small>2015-03-24</small>
+- [烤肉☆Papico](/notes/485196288) <small>2015-02-18</small>
+- [羊☆Papico](/notes/480506533) <small>2015-01-20</small>
+- [一步一个脚印☆Papico](/notes/467449573) <small>2014-12-08</small>
+- [米饭☆Papico](/notes/441842568) <small>2014-10-30</small>
+- [By always thinking…☆Papico](/notes/430242140) <small>2014-09-29</small>
+- [电影充☆Papico](/notes/410464332) <small>2014-08-31</small>
+- [电影☆Papico](/notes/410095370) <small>2014-08-30</small>
+- [玉子爱情故事☆Papico](/notes/410073605) <small>2014-08-30</small>
+- [《玉子爱情故事》官网故事简介](/notes/325869921) <small>2014-01-10</small>
+- [轻音学讲义笔记 第3回 角色与关键道具（前篇）](/notes/291753270) <small>2013-07-30</small>
+- [轻音学讲义笔记 第2回 《轻音》与暗喻](/notes/274768174) <small>2013-05-04</small>
+- [轻音学讲义笔记 第1回 《轻音》的主题](/notes/274371246) <small>2013-05-02</small>
