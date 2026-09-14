@@ -1,0 +1,16 @@
+scraper/state/manifest.json
+  h_3705811fa4502c 4
+scraper/state/progress.json
+  h_3705811fa4502c 6,8,1845-1884,2093-2532
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "9da101d9a21b88da3dd3183b24ee5965f203fba4",
+  "prompts": {},
+  "humans": {
+    "h_3705811fa4502c": {
+      "author": "TautCony <i@tautcony.xyz>"
+    }
+  }
+}
