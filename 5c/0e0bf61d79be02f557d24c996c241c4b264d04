@@ -1,0 +1,16 @@
+data/structure.json
+  h_3705811fa4502c 46-49,87-90,134-137,181-184,222-225,245-248,268-385,2214-2443
+scraper/state/progress.json
+  h_3705811fa4502c 6,8-9,1693-1868,2061-2612,2821-2860
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "5c0e0bf61d79be02f557d24c996c241c4b264d04",
+  "prompts": {},
+  "humans": {
+    "h_3705811fa4502c": {
+      "author": "TautCony <i@tautcony.xyz>"
+    }
+  }
+}
