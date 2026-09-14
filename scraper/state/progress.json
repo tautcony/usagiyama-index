@@ -3,10 +3,10 @@
   "parserRevision": 3,
   "site": "https://site.douban.com/211330/",
   "startedAt": "2026-09-14T15:25:17+08:00",
-  "updatedAt": "2026-09-14T16:12:32+08:00",
+  "updatedAt": "2026-09-14T17:20:53+08:00",
   "totals": {
-    "done": 531,
-    "unavailable": 11,
+    "done": 621,
+    "unavailable": 17,
     "failed": 0,
     "skipped": 0
   },
@@ -1690,6 +1690,182 @@
         "comments": 4
       }
     },
+    "photo:13431373:1958678825": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:36:10+08:00",
+      "detail": "> 返回相册 第22张 / 共22张 上一张 / 下一张 【2期OP2】紬那双脚",
+      "meta": {}
+    },
+    "photo:13431373:2166387472": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:35:58+08:00",
+      "detail": "> 返回相册 第21张 / 共22张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431373:2166387484": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:35:45+08:00",
+      "detail": "> 返回相册 第20张 / 共22张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431373:2169506384": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:35:34+08:00",
+      "detail": "> 返回相册 第19张 / 共22张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431373:2169647140": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:35:22+08:00",
+      "detail": "> 返回相册 第18张 / 共22张 上一张 / 下一张 【5周年&BD-BOX",
+      "meta": {}
+    },
+    "photo:13431373:2169647195": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:35:09+08:00",
+      "detail": "> 返回相册 第17张 / 共22张 上一张 / 下一张 【5周年&BD-BOX",
+      "meta": {}
+    },
+    "photo:13431373:2169647247": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:34:54+08:00",
+      "detail": "> 返回相册 第16张 / 共22张 上一张 / 下一张 【5周年&BD-BOX",
+      "meta": {}
+    },
+    "photo:13431373:2202354528": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:34:39+08:00",
+      "detail": "> 返回相册 第15张 / 共22张 上一张 / 下一张 出自《Animedia",
+      "meta": {}
+    },
+    "photo:13431373:2202354598": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:34:18+08:00",
+      "detail": "> 返回相册 第14张 / 共22张 上一张 / 下一张 出自《Animage》",
+      "meta": {}
+    },
+    "photo:13431373:2205213756": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:34:04+08:00",
+      "detail": "> 返回相册 第13张 / 共22张 上一张 / 下一张 出自《Animedia",
+      "meta": {}
+    },
+    "photo:13431373:2210410720": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:33:50+08:00",
+      "detail": "> 返回相册 第12张 / 共22张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431373:2210410765": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:33:37+08:00",
+      "detail": "> 返回相册 第11张 / 共22张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431373:2210410788": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:33:24+08:00",
+      "detail": "> 返回相册 第10张 / 共22张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431373:2212412958": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:33:12+08:00",
+      "detail": "> 返回相册 第9张 / 共22张 上一张 / 下一张 アニメ『けいおん！』5周",
+      "meta": {}
+    },
+    "photo:13431373:2212784068": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:33:02+08:00",
+      "detail": "> 返回相册 第8张 / 共22张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431373:2258785557": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:32:51+08:00",
+      "detail": "> 返回相册 第7张 / 共22张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431373:2258821711": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:32:39+08:00",
+      "detail": "> 返回相册 第6张 / 共22张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431373:2258821723": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:32:26+08:00",
+      "detail": "> 返回相册 第5张 / 共22张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431373:2258821729": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:32:13+08:00",
+      "detail": "> 返回相册 第4张 / 共22张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431373:2258821734": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:31:54+08:00",
+      "detail": "> 返回相册 第3张 / 共22张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431373:2258821745": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:31:42+08:00",
+      "detail": "> 返回相册 第2张 / 共22张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431373:2365804009": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:31:12+08:00",
+      "detail": "> 返回相册 第1张 / 共22张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
     "photo:13431474:1957277283": {
       "stage": "photos",
       "status": "done",
@@ -1880,6 +2056,558 @@
       "attempts": 1,
       "updatedAt": "2026-09-14T15:40:53+08:00",
       "detail": "> 返回相册 第24张 / 共24张 上一张 / 下一张 桝形商店街に見に行った",
+      "meta": {}
+    },
+    "photo:13431950:2258494535": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:20:43+08:00",
+      "detail": "> 返回相册 第69张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2262703581": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:16:50+08:00",
+      "detail": "> 返回相册 第68张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2262703604": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:16:39+08:00",
+      "detail": "> 返回相册 第67张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2262703673": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:16:27+08:00",
+      "detail": "> 返回相册 第66张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2262703730": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:16:15+08:00",
+      "detail": "> 返回相册 第65张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2262703792": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:16:02+08:00",
+      "detail": "> 返回相册 第64张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2262703845": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:15:51+08:00",
+      "detail": "> 返回相册 第63张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2262703901": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:15:38+08:00",
+      "detail": "> 返回相册 第62张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2262703945": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:15:26+08:00",
+      "detail": "> 返回相册 第61张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2262703966": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:15:14+08:00",
+      "detail": "> 返回相册 第60张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2263305171": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:15:03+08:00",
+      "detail": "> 返回相册 第59张 / 共114张 上一张 / 下一张 https://tw",
+      "meta": {}
+    },
+    "photo:13431950:2264797199": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:14:51+08:00",
+      "detail": "> 返回相册 第58张 / 共114张 上一张 / 下一张 Drama CD 查",
+      "meta": {}
+    },
+    "photo:13431950:2264797201": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:14:40+08:00",
+      "detail": "> 返回相册 第57张 / 共114张 上一张 / 下一张 ED 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2264797203": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:14:29+08:00",
+      "detail": "> 返回相册 第56张 / 共114张 上一张 / 下一张 OP 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2264797205": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:14:17+08:00",
+      "detail": "> 返回相册 第55张 / 共114张 上一张 / 下一张 OST 查看原图 投",
+      "meta": {}
+    },
+    "photo:13431950:2264797207": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:14:04+08:00",
+      "detail": "> 返回相册 第54张 / 共114张 上一张 / 下一张 Radio CD 查",
+      "meta": {}
+    },
+    "photo:13431950:2264797316": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:13:53+08:00",
+      "detail": "> 返回相册 第53张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2264797318": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:13:36+08:00",
+      "detail": "> 返回相册 第52张 / 共114张 上一张 / 下一张 Fan Book 2",
+      "meta": {}
+    },
+    "photo:13431950:2266578809": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:13:23+08:00",
+      "detail": "> 返回相册 第51张 / 共114张 上一张 / 下一张 《Animedia》",
+      "meta": {}
+    },
+    "photo:13431950:2269884360": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:13:10+08:00",
+      "detail": "> 返回相册 第50张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2271176194": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:12:58+08:00",
+      "detail": "> 返回相册 第49张 / 共114张 上一张 / 下一张 Megami MAG",
+      "meta": {}
+    },
+    "photo:13431950:2271176239": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:12:47+08:00",
+      "detail": "> 返回相册 第48张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2271176294": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:12:35+08:00",
+      "detail": "> 返回相册 第47张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2279774924": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:12:23+08:00",
+      "detail": "> 返回相册 第46张 / 共114张 上一张 / 下一张 悠风CV四人组 by",
+      "meta": {}
+    },
+    "photo:13431950:2290788805": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:12:13+08:00",
+      "detail": "> 返回相册 第45张 / 共114张 上一张 / 下一张 《剧场版 吹响悠风号",
+      "meta": {}
+    },
+    "photo:13431950:2292502413": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:12:01+08:00",
+      "detail": "> 返回相册 第44张 / 共114张 上一张 / 下一张 《剧场版 吹响悠风号",
+      "meta": {}
+    },
+    "photo:13431950:2292502446": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:11:49+08:00",
+      "detail": "> 返回相册 第43张 / 共114张 上一张 / 下一张 《剧场版 吹响悠风号",
+      "meta": {}
+    },
+    "photo:13431950:2303994470": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:11:38+08:00",
+      "detail": "> 返回相册 第42张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2303994623": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:11:27+08:00",
+      "detail": "> 返回相册 第41张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2303994754": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:11:13+08:00",
+      "detail": "> 返回相册 第40张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2303994881": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:11:03+08:00",
+      "detail": "> 返回相册 第39张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2303995009": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:10:50+08:00",
+      "detail": "> 返回相册 第38张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2303995199": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:10:39+08:00",
+      "detail": "> 返回相册 第37张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2303995398": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:10:28+08:00",
+      "detail": "> 返回相册 第36张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2303995473": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:10:16+08:00",
+      "detail": "> 返回相册 第35张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2303995496": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:10:03+08:00",
+      "detail": "> 返回相册 第34张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2316880432": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:09:52+08:00",
+      "detail": "> 返回相册 第33张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2316880434": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:09:40+08:00",
+      "detail": "> 返回相册 第32张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2316880441": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:09:26+08:00",
+      "detail": "> 返回相册 第31张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2316880468": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:09:16+08:00",
+      "detail": "> 返回相册 第30张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2316880487": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:09:03+08:00",
+      "detail": "> 返回相册 第29张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2316880514": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:08:51+08:00",
+      "detail": "> 返回相册 第28张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2316880539": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:08:38+08:00",
+      "detail": "> 返回相册 第27张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2321232981": {
+      "stage": "photos",
+      "status": "unavailable",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:08:11+08:00",
+      "detail": "原站不可访问",
+      "meta": {}
+    },
+    "photo:13431950:2321232996": {
+      "stage": "photos",
+      "status": "unavailable",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:08:01+08:00",
+      "detail": "原站不可访问",
+      "meta": {}
+    },
+    "photo:13431950:2321233051": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:07:52+08:00",
+      "detail": "> 返回相册 第24张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2325379522": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:07:38+08:00",
+      "detail": "> 返回相册 第23张 / 共114张 上一张 / 下一张 摄影前后对比。上面是",
+      "meta": {}
+    },
+    "photo:13431950:2325379526": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:06:59+08:00",
+      "detail": "> 返回相册 第22张 / 共114张 上一张 / 下一张 乐器设定（by 高桥",
+      "meta": {}
+    },
+    "photo:13431950:2325379527": {
+      "stage": "photos",
+      "status": "unavailable",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:06:36+08:00",
+      "detail": "未找到大图",
+      "meta": {}
+    },
+    "photo:13431950:2325379531": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:06:23+08:00",
+      "detail": "> 返回相册 第20张 / 共114张 上一张 乐器设定（by 高桥博行） 查看",
+      "meta": {}
+    },
+    "photo:13431950:2325379532": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T17:06:04+08:00",
+      "detail": "> 返回相册 第19张 / 共114张 下一张 乐器设定（by 高桥博行） 查看",
+      "meta": {}
+    },
+    "photo:13431950:2325379540": {
+      "stage": "photos",
+      "status": "unavailable",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:59:52+08:00",
+      "detail": "原站不可访问",
+      "meta": {}
+    },
+    "photo:13431950:2325379541": {
+      "stage": "photos",
+      "status": "unavailable",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:59:10+08:00",
+      "detail": "原站不可访问",
+      "meta": {}
+    },
+    "photo:13431950:2325379542": {
+      "stage": "photos",
+      "status": "unavailable",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:57:56+08:00",
+      "detail": "原站不可访问",
+      "meta": {}
+    },
+    "photo:13431950:2325379543": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:39:14+08:00",
+      "detail": "> 返回相册 第15张 / 共114张 上一张 / 下一张 第八集山顶场景的分镜",
+      "meta": {}
+    },
+    "photo:13431950:2331045721": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:39:03+08:00",
+      "detail": "> 返回相册 第14张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2331045937": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:38:52+08:00",
+      "detail": "> 返回相册 第13张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2336465998": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:38:39+08:00",
+      "detail": "> 返回相册 第12张 / 共114张 上一张 / 下一张 【《剧场版 吹响悠风",
+      "meta": {}
+    },
+    "photo:13431950:2357622184": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:38:28+08:00",
+      "detail": "> 返回相册 第11张 / 共114张 上一张 / 下一张 TVシリーズ２期新ビ",
+      "meta": {}
+    },
+    "photo:13431950:2358848019": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:38:16+08:00",
+      "detail": "> 返回相册 第10张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2358848056": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:38:02+08:00",
+      "detail": "> 返回相册 第9张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2358848102": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:37:51+08:00",
+      "detail": "> 返回相册 第8张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2358848124": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:37:39+08:00",
+      "detail": "> 返回相册 第7张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2366783722": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:37:27+08:00",
+      "detail": "> 返回相册 第6张 / 共114张 上一张 / 下一张 『劇場版 響け！ユーフ",
+      "meta": {}
+    },
+    "photo:13431950:2370025986": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:37:13+08:00",
+      "detail": "> 返回相册 第5张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2370624737": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:37:01+08:00",
+      "detail": "> 返回相册 第4张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2370624739": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:36:48+08:00",
+      "detail": "> 返回相册 第3张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2370624740": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:36:35+08:00",
+      "detail": "> 返回相册 第2张 / 共114张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:13431950:2378691234": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:36:23+08:00",
+      "detail": "> 返回相册 第1张 / 共114张 上一张 / 下一张 映画「聲の形」公開記念",
       "meta": {}
     },
     "photo:13432051:2163288734": {
@@ -2088,6 +2816,46 @@
       "attempts": 1,
       "updatedAt": "2026-09-14T12:58:30+08:00",
       "detail": "> 返回相册 第1张 / 共26张 上一张 / 下一张 诸行无常，唯有祈福方能克",
+      "meta": {}
+    },
+    "photo:13433748:2179894025": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:13:33+08:00",
+      "detail": "> 返回相册 第160张 / 共179张 上一张 / 下一张 新宿駅 查看原图 ",
+      "meta": {}
+    },
+    "photo:13433748:2179894029": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:13:20+08:00",
+      "detail": "> 返回相册 第159张 / 共179张 上一张 / 下一张 新宿駅 查看原图 ",
+      "meta": {}
+    },
+    "photo:13433748:2179894031": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:13:07+08:00",
+      "detail": "> 返回相册 第158张 / 共179张 上一张 / 下一张 新宿駅 查看原图 ",
+      "meta": {}
+    },
+    "photo:13433748:2180152368": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:12:56+08:00",
+      "detail": "> 返回相册 第157张 / 共179张 上一张 / 下一张 アニメイト新宿 查",
+      "meta": {}
+    },
+    "photo:13433748:2180208471": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T16:12:46+08:00",
+      "detail": "> 返回相册 第156张 / 共179张 上一张 / 下一张 【4/19 たまこ",
       "meta": {}
     },
     "photo:13433748:2180208477": {
