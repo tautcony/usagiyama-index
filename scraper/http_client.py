@@ -27,6 +27,9 @@ curl_cffi 维护着一套与真实浏览器逐字节一致的 TLS/HTTP2 指纹�
 * **指数退避**：由 tenacity 提供（指数增长 + 抖动）。
 * **熔断**：连续 N 次被拦截（403/418）立即停止，避免把 IP 拖进黑名单。
 * **不规避风控**：固定指纹、不轮换 UA、不轮换代理。
+
+**图片请求头另有一套**（见 :func:`image_request_headers`）：``impersonate`` 给的默认头
+是**顶层导航**的那一套，直接拿去要 ``.jpg`` 会自报"这是一次文档导航"。
 """
 
 from __future__ import annotations
@@ -89,6 +92,76 @@ CURL_RETRYABLE_EXCEPTIONS: tuple[type[BaseException], ...] = (
 
 # 兼容旧名字（外部可能已导入）
 RETRYABLE_EXCEPTIONS = CURL_RETRYABLE_EXCEPTIONS
+
+
+# ------------------------------------------------------------------ 请求头特征
+
+#: 浏览器加载图片时的 ``Accept``。
+#: 注意与导航用的 ``text/html,application/xhtml+xml,…`` 完全不同 —— 后者对图片请求
+#: 是个明显的错配信号。
+IMAGE_ACCEPT = "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8"
+
+#: 只属于导航、图片请求里不该出现的头。curl_cffi 的 impersonate 会注入它们，
+#: 传 ``None`` 作为值即可**真正删除**（见 curl_cffi ``set_curl_options``：
+#: ``v is None`` 时发的是 ``"Name:"``，libcurl 据此删掉该头）。
+NAVIGATION_ONLY_HEADERS: tuple[str, ...] = ("Sec-Fetch-User", "Upgrade-Insecure-Requests")
+
+
+def site_suffix(host: str) -> str:
+    """取可注册域名的近似值（最后两段），用于判定 same-site。
+
+    对本站用到的域名（``site.douban.com`` / ``img3.doubanio.com`` /
+    ``web.archive.org``）足够准确；不处理 ``foo.co.uk`` 这类多段公共后缀
+    —— 判错的后果只是 ``Sec-Fetch-Site`` 写成 ``cross-site``，与现状一致。
+    """
+    parts = [part for part in host.lower().split(".") if part]
+    return ".".join(parts[-2:]) if len(parts) >= 2 else host.lower()
+
+
+def fetch_site(url: str, referer: str | None) -> str:
+    """计算 ``Sec-Fetch-Site``：浏览器用来说明"发起方与目标是何关系"。
+
+    ``none``（用户直接输入/没有来源）、``same-origin``、``same-site``、``cross-site``
+    四选一。图片请求固定是 ``no-cors`` 模式，来源页与图片不在同一个域，
+    因此取值基本都是 ``cross-site``。
+    """
+    if not referer:
+        return "none"
+    target = urlparse(url).hostname or ""
+    origin = urlparse(referer).hostname or ""
+    if not target or not origin:
+        return "none"
+    if target.lower() == origin.lower():
+        return "same-origin"
+    if site_suffix(target) == site_suffix(origin):
+        return "same-site"
+    return "cross-site"
+
+
+def image_request_headers(url: str, referer: str | None) -> dict[str, str | None]:
+    """图片请求该带的头 —— 与真实浏览器加载 ``<img>`` 时发出的那一套逐项对齐。
+
+    ``impersonate`` 注入的默认头是**文档导航**的：``Accept: text/html,…``、
+    ``Sec-Fetch-Dest: document``、``Sec-Fetch-Mode: navigate``、
+    ``Sec-Fetch-Site: none``、``Sec-Fetch-User: ?1``、``Upgrade-Insecure-Requests: 1``。
+    实测（本地回显服务器）早先每个图片请求发的正是这六个，也就是说：**服务器收到的
+    是一个自报"我要加载一份 HTML 文档"的请求，而实际要的是一张 jpg**。
+    这与"请求像不像浏览器"直接相关，因此这里整组换掉，而不是只补 ``Referer``。
+
+    不做的事与项目原则一致：不伪造 UA、不轮换指纹，``Sec-Ch-Ua*`` 仍由 impersonate
+    提供（值与 TLS 指纹同源，改动反而会自相矛盾）。
+    """
+    headers: dict[str, str | None] = {
+        "Accept": IMAGE_ACCEPT,
+        "Sec-Fetch-Dest": "image",
+        "Sec-Fetch-Mode": "no-cors",
+        "Sec-Fetch-Site": fetch_site(url, referer),
+    }
+    for name in NAVIGATION_ONLY_HEADERS:
+        headers[name] = None
+    if referer:
+        headers["Referer"] = referer
+    return headers
 
 
 # ------------------------------------------------------------------ 404 的可信度
@@ -195,6 +268,9 @@ class FetchError(Exception):
         super().__init__(f"{message} [{status or '-'}] {url}")
         self.url = url
         self.status = status
+        #: 不含 URL 的裸消息。调用方常常已经在报错里带上了 URL，
+        #: 直接复用 ``str(exc)`` 会把它重复一遍。
+        self.message = message
 
 
 class BlockedError(FetchError):
@@ -360,7 +436,7 @@ class BaseFetcher:
 
     子类只需实现：
 
-    * ``_attempt(url, referer) -> RawResponse``：执行一次网络尝试，
+    * ``_attempt(url, referer, image=False) -> RawResponse``：执行一次网络尝试，
       可重试的错误以异常抛出交给 tenacity。
     * ``close()``：释放底层资源。
     * ``retryable_exceptions``：该传输方式下值得重试的异常类型。
@@ -393,7 +469,14 @@ class BaseFetcher:
 
     # -------------------------------------------------------------- 子类接口
 
-    def _attempt(self, url: str, referer: str | None) -> RawResponse:
+    def _attempt(
+        self, url: str, referer: str | None, image: bool = False
+    ) -> RawResponse:
+        """执行一次网络尝试。
+
+        :param image: 本次要的是图片（``<img>`` 子资源）而不是文档。
+            传输层据此选择请求头特征，见 :func:`image_request_headers`。
+        """
         raise NotImplementedError
 
     def close(self) -> None:  # pragma: no cover - 子类实现
@@ -444,6 +527,27 @@ class BaseFetcher:
     def cache_has(self, url: str) -> bool:
         return self._cache_paths(url)[0].exists()
 
+    def invalidate_cache(self, url: str) -> bool:
+        """丢弃某个 URL 的缓存条目（调用方判定缓存内容不可用时使用）。
+
+        给"缓存里的东西不可用"这类场景用：例如一份 200 的 HTML 错误页被当成图片
+        存了下来，不删掉的话每次运行都会重放同一份坏内容，只能靠 ``--force`` 自救。
+        删掉后下次运行会重新请求 —— 常规的失效仍由 :data:`NO_CACHE_STATUS` 负责。
+
+        返回是否真的删掉了条目；删除失败只记日志不抛异常（缓存清理不该让抓取流程失败）。
+        """
+        body_path, meta_path = self._cache_paths(url)
+        existed = body_path.exists() or meta_path.exists()
+        for path in (body_path, meta_path):
+            try:
+                path.unlink(missing_ok=True)
+            except OSError as exc:
+                log.warning("缓存条目删除失败 %s：%s", url, exc)
+                return False
+        if existed:
+            log.info("已丢弃不可用的缓存条目：%s", url)
+        return existed
+
     # -------------------------------------------------------------- 重试/熔断
 
     def _on_retry(self, state: RetryCallState) -> None:
@@ -482,9 +586,11 @@ class BaseFetcher:
             return BlockedError(url, "源站拒绝访问", raw.status)
         return None
 
-    def _fetch_network(self, url: str, referer: str | None) -> CachedResponse:
+    def _fetch_network(
+        self, url: str, referer: str | None, image: bool = False
+    ) -> CachedResponse:
         try:
-            raw = self._retryer()(self._attempt, url, referer)
+            raw = self._retryer()(self._attempt, url, referer, image=image)
         except _RetryableStatus as exc:
             raise FetchError(
                 url, f"重试 {self.cfg.max_retries} 次后仍为 HTTP {exc.status}", exc.status
@@ -527,8 +633,16 @@ class BaseFetcher:
             log.warning("源站返回 %d，但该域名上的 404 不可信，不写缓存：%s", raw.status, url)
             return resp
         # 4xx 视为确定性结果并缓存；429 与 5xx 是暂时性的，不缓存以便下次重试
-        if raw.status not in NO_CACHE_STATUS:
-            self._write_cache(resp)
+        if raw.status in NO_CACHE_STATUS:
+            return resp
+        # 2xx 却一个字节都没有：这不是可用内容，多半是源站出错或中间层拦截。
+        # 缓存下来会让这个 URL **永久失败** —— 后续运行连网络请求都不发，直接重放
+        # 那份空内容。空 404 不在其列：那是"这个地址没有内容"的确定性结论，
+        # 照旧缓存（多尺寸候选里"此尺寸不存在"是常态，每次重问一遍反而更像爬虫）。
+        if resp.ok and not raw.content:
+            log.warning("源站返回空响应（HTTP %d），不写缓存：%s", raw.status, url)
+            return resp
+        self._write_cache(resp)
         return resp
 
     # ------------------------------------------------------------------ 对外
@@ -540,21 +654,26 @@ class BaseFetcher:
         referer: str | None = None,
         force: bool = False,
         raise_for_blocked: bool = True,
+        image: bool = False,
     ) -> CachedResponse:
         """抓取一个 URL，优先命中磁盘缓存。
+
+        缓存命中即返回，**但两种条目除外**：429/5xx（暂时性失败），
+        以及 :meth:`_cache_is_stale` 认定"结论会被时间推翻"的条目
+        （403/418、不可信的 404）—— 联网时它们一律重新请求一次。
 
         :param referer: 部分资源（尤其 ``img*.doubanio.com``）需要 Referer 才返回 200。
         :param force: 忽略缓存强制重新请求。
         :param raise_for_blocked: 被拦截时是否抛 ``BlockedError``。
+        :param image: 这是图片子资源请求，改用图片的请求头特征
+            （见 :func:`image_request_headers`）。缓存命中时该参数无影响。
         """
         if not force:
             cached = self._read_cache(url)
             if cached is not None:
                 # 429/5xx 属于暂时性失败，历史缓存一律视为过期
                 if cached.status not in NO_CACHE_STATUS:
-                    # 不可信的 404 同理：本地这份缓存不能代表源站现状，
-                    # 联网时宁可重新请求一次。（离线时没有别的办法，照旧使用。）
-                    if not self.offline and is_untrusted_missing(url, cached.status, self.cfg):
+                    if not self.offline and self._cache_is_stale(cached, url):
                         log.info("缓存中的 %d 不可信，改为重新请求：%s", cached.status, url)
                     else:
                         self.stats.cache_hits += 1
@@ -565,7 +684,22 @@ class BaseFetcher:
         if self.offline:
             raise OfflineCacheMiss(url, "离线模式下缓存未命中")
 
-        return self._fetch_network(url, referer)
+        return self._fetch_network(url, referer, image)
+
+    def _cache_is_stale(self, cached: CachedResponse, url: str) -> bool:
+        """缓存里这份"拿不到"的结论是否可能已经被时间推翻（只在联网时问）。
+
+        两类缓存会在原地结成死结，联网时一律不信、重新请求一次：
+
+        * **403 / 418**。那是"此刻被拒绝"，不是"内容不存在"：登录态变了、
+          风控窗口过去了、防盗链的请求头修好了，它就不成立 —— 而它恰恰是最
+          需要重试的一类。写进缓存是有意的（避免同一 URL 反复冲击源站），
+          但**重放**它会让 ``--recheck-unavailable`` 变成一句空话：进度里把
+          条目重新选出来，请求还没出门就被磁盘上的 403 顶回去，日志与上一次
+          一模一样，只能靠手工删缓存文件才能重置。
+        * **不可信的 404**（小站 widget 抖动，见 :func:`is_untrusted_missing`）。
+        """
+        return cached.status in BLOCKED_STATUS or is_untrusted_missing(url, cached.status, self.cfg)
 
     def get_html(self, url: str, **kwargs: Any) -> str:
         return self.fetch(url, **kwargs).text
@@ -574,8 +708,12 @@ class BaseFetcher:
         return self.fetch(url, **kwargs).content
 
     def get_image(self, url: str, *, force: bool = False) -> CachedResponse:
-        """抓取图片，强制带 Referer（否则 doubanio 返回 418）。"""
-        return self.fetch(url, referer=self.cfg.image_referer, force=force)
+        """抓取图片。
+
+        两件事都不能少：带 ``Referer``（否则 doubanio 的防盗链返回 **418**），
+        以及换成图片的请求头特征（``image=True``，见 :func:`image_request_headers`）。
+        """
+        return self.fetch(url, referer=self.cfg.image_referer, force=force, image=True)
 
     # ------------------------------------------------------------------ 收尾
 
@@ -622,11 +760,18 @@ class Fetcher(BaseFetcher):
         session.trust_env = True
         return session
 
-    def _attempt(self, url: str, referer: str | None) -> RawResponse:
-        """单次网络尝试。可重试的错误以异常抛出交给 tenacity。"""
-        headers: dict[str, str] = {}
-        if referer:
-            headers["Referer"] = referer
+    def _attempt(
+        self, url: str, referer: str | None, image: bool = False
+    ) -> RawResponse:
+        """单次网络尝试。可重试的错误以异常抛出交给 tenacity。
+
+        文档导航只补 ``Referer``，其余头交给 ``impersonate`` 的默认值
+        （那本来就是导航的头）；图片则整组换掉，见 :func:`image_request_headers`。
+        """
+        if image:
+            headers: dict[str, str | None] = image_request_headers(url, referer)
+        else:
+            headers = {"Referer": referer} if referer else {}
 
         self._limiter.wait()
         self._limiter.mark()

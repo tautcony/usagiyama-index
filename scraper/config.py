@@ -37,6 +37,53 @@ def _env_bool(key: str, default: bool) -> bool:
     return raw.strip().lower() in {"1", "true", "yes", "on"}
 
 
+#: robots.txt 里注明的爬取间隔（``www.douban.com`` 的 ``Crawl-delay: 5``）。
+#: 低于它的档位会在启动提示里被明确点出来，而不是悄悄跑过去。
+ROBOTS_CRAWL_DELAY = 5.0
+
+#: 请求间隔档位：``名字 → (下限秒, 上限秒)``，实际间隔在其中随机抖动。
+#: 名字描述的是"有多客气"，不是"有多快"：默认档之所以慢，是因为它正好卡在
+#: ``Crawl-delay: 5`` 上，而不是因为技术上做不到更快。另外两档都是**明确
+#: 快于** robots.txt 建议值的选项，选之前请自行确认可以接受。
+SPEED_TIERS: dict[str, tuple[float, float]] = {
+    "cautious": (5.0, 7.0),
+    "normal": (2.0, 3.0),
+    "fast": (1.0, 2.0),
+}
+
+#: 默认档位（``--speed`` 不传时用的就是它）。
+DEFAULT_SPEED = "cautious"
+
+
+def speed_tier(name: str) -> tuple[float, float]:
+    """档位名 → ``(delay_min, delay_max)``；未知档位抛 :class:`ValueError`。"""
+    try:
+        return SPEED_TIERS[name]
+    except KeyError:
+        raise ValueError(
+            f"未知速度档位 {name!r}，可选：{'、'.join(SPEED_TIERS)}"
+        ) from None
+
+
+def speed_tier_name(delay_min: float, delay_max: float) -> str | None:
+    """``(delay_min, delay_max)`` 反查档位名；不是任何预设档时返回 ``None``。
+
+    单看 ``--delay 0.5`` 这种自定义间隔没法知道用户选了哪一档，
+    所以这里只是**回查**用于显示，配置里的真身始终是那两个秒数。
+    """
+    for name, bounds in SPEED_TIERS.items():
+        if (delay_min, delay_max) == bounds:
+            return name
+    return None
+
+
+def describe_delay(delay_min: float, delay_max: float) -> str:
+    """给人看的一行限速描述，如 ``5~7 秒（cautious 档）``。"""
+    name = speed_tier_name(delay_min, delay_max)
+    tier = f"{name} 档" if name else "自定义"
+    return f"{delay_min:g}~{delay_max:g} 秒（{tier}）"
+
+
 @dataclass(frozen=True)
 class Config:
     """抓取与生成的全部配置。"""
@@ -56,6 +103,8 @@ class Config:
     # ---------- 抓取礼貌参数 ----------
     # 豆瓣 www.douban.com/robots.txt 注明 Crawl-delay: 5。
     # site.douban.com 的 robots.txt 为全量 Disallow，本工具以更低频运行并支持熔断。
+    # 下面两个秒数是限速的**唯一真身**：``--speed`` 只是把 SPEED_TIERS 里的预设
+    # 写进来，``--delay`` 则是直接写。所有限速逻辑都读这里，不再有第二份状态。
     delay_min: float = field(default_factory=lambda: _env_float("USAGI_DELAY_MIN", 5.0))
     delay_max: float = field(default_factory=lambda: _env_float("USAGI_DELAY_MAX", 7.0))
     timeout: float = field(default_factory=lambda: _env_float("USAGI_TIMEOUT", 30.0))

@@ -249,6 +249,198 @@ class TestSizeVariantPrecision:
         assert all("/view/note/" in v for v in variants)
 
 
+RAW_URL = "https://img2.doubanio.com/view/photo/raw/public/p2500516321.jpg"
+LARGE_URL = "https://img2.doubanio.com/view/photo/large/public/p2500516321.jpg"
+
+
+class _ScriptedTransport:
+    """按脚本返回响应（或抛异常）的假传输层，并记录被丢弃的缓存条目。"""
+
+    def __init__(self, responses: dict[str, object]) -> None:
+        self.responses = responses
+        self.invalidated: list[str] = []
+
+    def get_image(self, url: str) -> CachedResponse:
+        outcome = self.responses[url]
+        if isinstance(outcome, Exception):
+            raise outcome
+        assert isinstance(outcome, CachedResponse)
+        return outcome
+
+    def invalidate_cache(self, url: str) -> bool:
+        self.invalidated.append(url)
+        return True
+
+
+def _response(
+    url: str,
+    status: int,
+    content: bytes = b"",
+    content_type: str = "text/html; charset=utf-8",
+    *,
+    from_cache: bool = False,
+    fetched_at: str = "",
+) -> CachedResponse:
+    return CachedResponse(
+        url=url,
+        status=status,
+        content=content,
+        content_type=content_type,
+        from_cache=from_cache,
+        fetched_at=fetched_at,
+    )
+
+
+class TestFailureDiagnostics:
+    """失败信息必须带错误码。
+
+    线上遇到过的怪事：日志里只有"返回内容不是图片（0B，疑似错误页）"，
+    既没有状态码也没有内容类型，只能手工重放请求才知道那是 **404**
+    —— 一个不存在的 ``raw`` 尺寸。状态码是排查的第一要素，不能省。
+    """
+
+    def test_non_image_message_carries_status(self, cfg) -> None:
+        transport = _ScriptedTransport({RAW_URL: _response(RAW_URL, 404)})
+        archive = MediaArchive(transport, cfg=cfg)
+
+        result = archive.download(
+            RAW_URL, cfg.media_dir / "albums" / "1" / "p.jpg", "/media/albums/1/p.jpg"
+        )
+
+        assert not result.ok
+        assert "HTTP 404" in result.error
+        assert "text/html" in result.error
+        assert "0B" in result.error
+        assert RAW_URL in result.error
+
+    def test_error_lists_every_candidate_with_its_code(self, cfg) -> None:
+        """多个候选都失败时，每个候选各自的状态码都要在，才能看出差在哪。"""
+        urls = album_original_variants(RAW_URL)
+        responses: dict[str, object] = {
+            url: _response(url, 404) for url in urls
+        }
+        archive = MediaArchive(_ScriptedTransport(responses), cfg=cfg, wayback=None)
+        archive.wayback.enabled = False
+
+        result = archive.download(
+            RAW_URL,
+            cfg.media_dir / "albums" / "1" / "p.jpg",
+            "/media/albums/1/p.jpg",
+            variants=urls,
+        )
+
+        assert not result.ok
+        for url in urls:
+            assert url in result.error
+        assert result.error.count("HTTP 404") == len(urls)
+
+    def test_blocked_error_reports_418(self, cfg) -> None:
+        from scraper.http_client import BlockedError
+
+        transport = _ScriptedTransport({RAW_URL: BlockedError(RAW_URL, "源站拒绝访问", 418)})
+        archive = MediaArchive(transport, cfg=cfg)
+        result = archive.download(
+            RAW_URL,
+            cfg.media_dir / "albums" / "1" / "p.jpg",
+            "/media/albums/1/p.jpg",
+            variants=[RAW_URL],
+        )
+        assert not result.ok
+        assert "HTTP 418" in result.error
+
+    def test_intermediate_failure_is_info_not_warning(self, cfg, caplog) -> None:
+        """某个候选不存在是预期内的：回退成功后不该留下 WARNING。"""
+        import logging
+
+        transport = _ScriptedTransport(
+            {
+                RAW_URL: _response(RAW_URL, 404),
+                LARGE_URL: _response(LARGE_URL, 200, JPEG, "image/jpeg"),
+            }
+        )
+        archive = MediaArchive(transport, cfg=cfg)
+
+        with caplog.at_level(logging.INFO, logger="usagi.media"):
+            result = archive.download(
+                RAW_URL,
+                cfg.media_dir / "albums" / "1" / "p.jpg",
+                "/media/albums/1/p.jpg",
+                variants=[RAW_URL, LARGE_URL],
+            )
+
+        assert result.ok, result.error
+        assert result.url == LARGE_URL
+        assert not [r for r in caplog.records if r.levelno >= logging.WARNING]
+        assert any("HTTP 404" in r.getMessage() for r in caplog.records)
+
+    def test_final_failure_is_warning_with_codes(self, cfg, caplog) -> None:
+        import logging
+
+        archive = MediaArchive(
+            _ScriptedTransport({RAW_URL: _response(RAW_URL, 404)}), cfg=cfg
+        )
+        with caplog.at_level(logging.WARNING, logger="usagi.media"):
+            archive.download(
+                RAW_URL,
+                cfg.media_dir / "albums" / "1" / "p.jpg",
+                "/media/albums/1/p.jpg",
+                variants=[RAW_URL],
+            )
+        warnings = [r.getMessage() for r in caplog.records if r.levelno >= logging.WARNING]
+        assert len(warnings) == 1
+        assert "HTTP 404" in warnings[0]
+
+    def test_cached_2xx_non_image_is_dropped(self, cfg) -> None:
+        """把错误页当成图片缓存下来的条目要当场丢弃，否则每次运行都重放它。"""
+        bad = _response(
+            LARGE_URL, 200, HTML_ERROR, "text/html", from_cache=True, fetched_at="2026-09-14T20:32:45+08:00"
+        )
+        transport = _ScriptedTransport({LARGE_URL: bad})
+        archive = MediaArchive(transport, cfg=cfg)
+
+        result = archive.download(
+            LARGE_URL,
+            cfg.media_dir / "albums" / "1" / "p.jpg",
+            "/media/albums/1/p.jpg",
+            variants=[LARGE_URL],
+        )
+
+        assert not result.ok
+        assert transport.invalidated == [LARGE_URL]
+        assert "来自缓存" in result.error
+
+    def test_cached_404_is_not_dropped(self, cfg) -> None:
+        """404 是确定性结论（候选确实不存在），留着它下次就不用再问一遍。"""
+        transport = _ScriptedTransport({RAW_URL: _response(RAW_URL, 404, from_cache=True)})
+        archive = MediaArchive(transport, cfg=cfg)
+
+        archive.download(
+            RAW_URL,
+            cfg.media_dir / "albums" / "1" / "p.jpg",
+            "/media/albums/1/p.jpg",
+            variants=[RAW_URL],
+        )
+
+        assert transport.invalidated == []
+
+    def test_describe_response_marks_source(self) -> None:
+        from scraper.media import describe_response
+
+        fresh = _response(RAW_URL, 404)
+        assert "本次网络请求" in describe_response(fresh)
+
+        cached = _response(RAW_URL, 404, from_cache=True, fetched_at="2026-09-14T20:32:45+08:00")
+        text = describe_response(cached)
+        assert "来自缓存" in text and "2026-09-14T20:32:45+08:00" in text
+
+    def test_describe_non_image_distinguishes_missing_from_error(self) -> None:
+        from scraper.media import describe_non_image
+
+        assert "源站无此尺寸" in describe_non_image(_response(RAW_URL, 404))
+        assert "疑似错误页" in describe_non_image(_response(RAW_URL, 200, HTML_ERROR, "text/html"))
+        assert "源站拒绝" in describe_non_image(_response(RAW_URL, 451))
+
+
 class TestDownloadTempFiles:
     """图片写入不得把临时文件留在 ``public/`` 里。
 

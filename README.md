@@ -59,6 +59,10 @@ npm run login
 npm run sync -- --i-have-read-robots
 ```
 
+请求间隔有三档可选：`--speed cautious`（5~7 秒，默认）、`normal`（2~3 秒）、
+`fast`（1~2 秒）。后两档明确快于原站 `robots.txt` 的 `Crawl-delay: 5`，
+选之前请看 [`scraper/README.md`](scraper/README.md) 的「采集频次与合规」。
+
 抓取默认走**无头浏览器**（Playwright 驱动系统已装的 Chrome），
 因为原站有反爬措施，纯 HTTP 会拿到 403 或跳转到风控页。
 图片仍走 HTTP —— 静态资源不需要执行 JS。
@@ -121,6 +125,17 @@ npm run emit
 ```bash
 npm run sync -- --i-have-read-robots --recheck-unavailable
 ```
+
+### 补抓"需要登录，无法归档"的页面
+
+```bash
+npm run login:check                                            # 确认会话有效
+npm run sync -- --i-have-read-robots --recheck-unavailable --stages main
+```
+
+`--recheck-unavailable` 会把进度里标为不可得的条目重新选出来，`--stages main`
+限定只跑需要登录的那个阶段。以前被拒绝（403/418）的响应虽然进了缓存，但联网时
+**不会重放**，所以不必手工删缓存文件。
 
 ### 改了抓取或转换逻辑之后
 

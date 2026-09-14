@@ -12,12 +12,7 @@ import pytest
 
 from scraper.http_client import (
     BLOCKED_STATUS,
-    cache_domain,
-    cache_paths,
-    migrate_flat_cache,
-    cache_domain,
-    cache_paths,
-    migrate_flat_cache,
+    IMAGE_ACCEPT,
     NO_CACHE_STATUS,
     RETRYABLE_STATUS,
     BlockedError,
@@ -25,9 +20,18 @@ from scraper.http_client import (
     FetchError,
     Fetcher,
     OfflineCacheMiss,
+    cache_domain,
+    cache_paths,
     decode_html,
+    fetch_site,
+    image_request_headers,
     is_untrusted_missing,
+    migrate_flat_cache,
+    site_suffix,
 )
+
+
+JPEG = b"\xff\xd8\xff\xe0" + b"\x00" * 40
 
 
 class FakeResponse:
@@ -244,6 +248,84 @@ class TestCircuitBreaker:
             fetcher.fetch("https://x/d")  # 仍只是 Blocked，未熔断
 
 
+class TestBlockedCache:
+    """被拦截（403/418）的缓存条目不能就地"结案"。
+
+    实测：``www.douban.com`` 的话题页未登录时返回 403「没有访问权限」，并被写进
+    缓存（写是有意的 —— 免得同一 URL 反复冲击源站）。但**重放**它会让
+    ``--recheck-unavailable`` 变成空话：条目会被重新选出来，请求却还没出门就被
+    磁盘上的 403 顶回去，日志跟上次一模一样。于是登录之后再想补抓，只能手工删掉
+    缓存文件 —— 一条 URL 一个 sha1 文件名，这不是使用者该做的事。
+    """
+
+    TOPIC = "https://www.douban.com/topic/499780453/"
+
+    def _seed_blocked_cache(self, cfg, sleeper, status: int = 403) -> None:
+        """先用一次真实请求把 403 写进缓存（网络路径**总是**抛，与缓存命中一样）。"""
+        fetcher = Fetcher(
+            cfg,
+            session=FakeSession([FakeResponse(status, b"<html>denied</html>")]),
+            sleep=sleeper.append,
+        )
+        with pytest.raises(BlockedError):
+            fetcher.fetch(self.TOPIC)
+        assert fetcher.cache_has(self.TOPIC)  # 前提：拒绝确实被缓存了
+
+    def test_cached_403_is_refetched(self, cfg, sleeper) -> None:
+        """登录后重跑：缓存里的 403 不作数，真的再请求一次。"""
+        self._seed_blocked_cache(cfg, sleeper)
+
+        session = FakeSession([FakeResponse(200, b"<html>topic</html>")])
+        result = Fetcher(cfg, session=session, sleep=sleeper.append).fetch(self.TOPIC)
+
+        assert result.content == b"<html>topic</html>"
+        assert not result.from_cache
+        assert len(session.calls) == 1  # 确实发了请求，而不是重放缓存
+
+    def test_cached_418_is_refetched(self, cfg, sleeper) -> None:
+        self._seed_blocked_cache(cfg, sleeper, status=418)
+        session = FakeSession([FakeResponse(200, JPEG, "image/jpeg")])
+        Fetcher(cfg, session=session, sleep=sleeper.append).fetch(self.TOPIC, image=True)
+        assert len(session.calls) == 1
+
+    def test_still_blocked_after_refetch(self, cfg, sleeper) -> None:
+        """源站这次还是拒绝：结论不变，但结论是**问过**之后才下的。"""
+        self._seed_blocked_cache(cfg, sleeper)
+        session = FakeSession([FakeResponse(403, b"<html>denied</html>")])
+
+        with pytest.raises(BlockedError):
+            Fetcher(cfg, session=session, sleep=sleeper.append).fetch(self.TOPIC)
+        assert len(session.calls) == 1
+
+    def test_offline_still_uses_cached_403(self, cfg, sleeper) -> None:
+        """离线时没有别的办法，缓存照用（否则离线渲染会凭空少掉"需登录"提示）。"""
+        self._seed_blocked_cache(cfg, sleeper)
+
+        offline_cfg = dataclasses.replace(cfg, offline=True)
+        result = Fetcher(offline_cfg, session=FakeSession(), sleep=sleeper.append).fetch(
+            self.TOPIC, raise_for_blocked=False
+        )
+        assert result.from_cache
+        assert result.status == 403
+
+    def test_force_still_bypasses_cache(self, cfg, sleeper) -> None:
+        """``force`` 与"缓存被认定为过期"是同一件事的两种入口，行为要一致。"""
+        self._seed_blocked_cache(cfg, sleeper)
+        session = FakeSession([FakeResponse(200, b"<html>topic</html>")])
+        result = Fetcher(cfg, session=session, sleep=sleeper.append).fetch(self.TOPIC, force=True)
+        assert result.content == b"<html>topic</html>"
+
+    def test_plain_200_cache_is_untouched(self, cfg, sleeper) -> None:
+        """别把"重新请求"扩大到普通缓存 —— 二次运行零请求是这套工具的基本盘。"""
+        session = FakeSession([FakeResponse(200, b"<html>cached</html>")])
+        Fetcher(cfg, session=session, sleep=sleeper.append).fetch(self.TOPIC)
+
+        session2 = FakeSession()
+        result = Fetcher(cfg, session=session2, sleep=sleeper.append).fetch(self.TOPIC)
+        assert result.from_cache
+        assert session2.calls == []
+
+
 class TestRetry:
     def test_retries_on_5xx_then_succeeds(self, cfg, sleeper) -> None:
         session = FakeSession([FakeResponse(503), FakeResponse(200, b"ok")])
@@ -305,6 +387,147 @@ class TestReferer:
         Fetcher(cfg, session=session, sleep=sleeper.append).fetch("https://x/a")
         _, headers = session.calls[0]
         assert "Referer" not in headers
+
+
+class TestImageRequestHeaders:
+    """图片请求必须发"图片的头"，而不是 impersonate 默认的"导航的头"。
+
+    背景：实测每个图片请求发的都是 ``Accept: text/html,…`` / ``Sec-Fetch-Dest:
+    document`` / ``Sec-Fetch-Mode: navigate`` / ``Sec-Fetch-Site: none`` /
+    ``Sec-Fetch-User: ?1`` / ``Upgrade-Insecure-Requests: 1`` —— 等于自报
+    "我要加载一份 HTML 文档"，实际要的却是一张 jpg。
+    """
+
+    RAW = "https://img2.doubanio.com/view/photo/raw/public/p2500516321.jpg"
+
+    def test_get_image_sends_image_profile(self, cfg, sleeper) -> None:
+        session = FakeSession([FakeResponse(200, JPEG, "image/jpeg")])
+        fetcher = Fetcher(cfg, session=session, sleep=sleeper.append)
+
+        fetcher.get_image(self.RAW)
+
+        assert session.calls[0][0] == self.RAW
+        headers = session.calls[0][1]
+        assert headers["Accept"] == IMAGE_ACCEPT
+        assert "text/html" not in headers["Accept"]
+        assert headers["Sec-Fetch-Dest"] == "image"
+        assert headers["Sec-Fetch-Mode"] == "no-cors"
+        assert headers["Sec-Fetch-Site"] == "cross-site"
+        assert headers["Referer"] == cfg.image_referer
+
+    def test_navigation_only_headers_are_deleted(self, cfg, sleeper) -> None:
+        """值为 ``None`` 时 curl_cffi 会真正删掉这两个头（否则自相矛盾）。"""
+        session = FakeSession([FakeResponse(200, JPEG, "image/jpeg")])
+        Fetcher(cfg, session=session, sleep=sleeper.append).get_image(self.RAW)
+        headers = session.calls[0][1]
+        assert headers["Sec-Fetch-User"] is None
+        assert headers["Upgrade-Insecure-Requests"] is None
+
+    def test_document_fetch_keeps_navigation_profile(self, cfg, sleeper) -> None:
+        """文档请求不做任何额外改动，只有 Referer。"""
+        session = FakeSession([FakeResponse(200)])
+        fetcher = Fetcher(cfg, session=session, sleep=sleeper.append)
+        fetcher.fetch("https://site.douban.com/211330/", referer="https://site.douban.com/")
+        assert session.calls[0][1] == {"Referer": "https://site.douban.com/"}
+
+    def test_cache_hit_does_not_re_request(self, cfg, sleeper) -> None:
+        session = FakeSession([FakeResponse(200, JPEG, "image/jpeg")])
+        fetcher = Fetcher(cfg, session=session, sleep=sleeper.append)
+        fetcher.get_image(self.RAW)
+        fetcher.get_image(self.RAW)
+        assert len(session.calls) == 1
+
+
+class TestFetchSite:
+    @pytest.mark.parametrize(
+        ("url", "referer", "expected"),
+        [
+            # 详情页与图片 CDN 的域名不同（douban.com vs doubanio.com）
+            ("https://img2.doubanio.com/p.jpg", "https://site.douban.com/211330/", "cross-site"),
+            # 同一注册域下的不同主机名则是 same-site（这正是该取值的定义）
+            ("https://www.douban.com/p.jpg", "https://site.douban.com/211330/", "same-site"),
+            # 同一注册域的图片分片
+            ("https://img1.doubanio.com/p.jpg", "https://img9.doubanio.com/p.jpg", "same-site"),
+            ("https://img1.doubanio.com/p.jpg", "https://img1.doubanio.com/page", "same-origin"),
+            # 没有来源页
+            ("https://img1.doubanio.com/p.jpg", None, "none"),
+            ("https://img1.doubanio.com/p.jpg", "", "none"),
+        ],
+    )
+    def test_values(self, url: str, referer: str | None, expected: str) -> None:
+        assert fetch_site(url, referer) == expected
+
+    def test_site_suffix_takes_registrable_domain(self) -> None:
+        assert site_suffix("img2.doubanio.com") == "doubanio.com"
+        assert site_suffix("site.douban.com") == "douban.com"
+        assert site_suffix("localhost") == "localhost"
+
+    def test_headers_helper_without_referer(self) -> None:
+        headers = image_request_headers("https://img1.doubanio.com/p.jpg", None)
+        assert headers["Sec-Fetch-Site"] == "none"
+        assert "Referer" not in headers
+
+
+class TestCacheHygiene:
+    def test_empty_2xx_is_not_cached(self, cfg, sleeper) -> None:
+        """空 200 不是可用内容，缓存下来会让这个 URL 永久失败。"""
+        session = FakeSession([FakeResponse(200, b"")])
+        fetcher = Fetcher(cfg, session=session, sleep=sleeper.append)
+
+        first = fetcher.fetch("https://x/empty")
+        second = fetcher.fetch("https://x/empty")
+
+        assert first.status == 200 and first.content == b""
+        assert not second.from_cache
+        assert len(session.calls) == 2
+
+    def test_empty_404_is_still_cached(self, cfg, sleeper) -> None:
+        """空 404 是确定性结论，照旧缓存 —— 否则每次运行都要重问一遍。"""
+        session = FakeSession([FakeResponse(404, b"", "text/html; charset=utf-8")])
+        fetcher = Fetcher(cfg, session=session, sleep=sleeper.append)
+
+        fetcher.fetch("https://img2.doubanio.com/view/photo/raw/public/p1.jpg")
+        second = fetcher.fetch("https://img2.doubanio.com/view/photo/raw/public/p1.jpg")
+
+        assert second.from_cache and second.status == 404
+        assert len(session.calls) == 1
+
+    def test_invalidate_cache_removes_both_files(self, cfg, sleeper) -> None:
+        session = FakeSession([FakeResponse(200, b"<html>error</html>")])
+        fetcher = Fetcher(cfg, session=session, sleep=sleeper.append)
+        url = "https://img2.doubanio.com/view/photo/raw/public/p1.jpg"
+        fetcher.fetch(url)
+
+        assert fetcher.cache_has(url)
+        assert fetcher.invalidate_cache(url) is True
+        assert not fetcher.cache_has(url)
+        body, meta = cache_paths(cfg, url)
+        assert not body.exists() and not meta.exists()
+
+    def test_invalidate_missing_entry_is_noop(self, cfg) -> None:
+        assert Fetcher(cfg, session=FakeSession()).invalidate_cache("https://x/none") is False
+
+    def test_invalidated_url_is_refetched_next_run(self, cfg, sleeper) -> None:
+        """坏缓存清掉之后，下一次运行会重新请求（无需 --force）。"""
+        url = "https://img1.doubanio.com/view/note/raw/public/p1.jpg"
+        first = FakeSession([FakeResponse(200, b"<html>challenge</html>")])
+        Fetcher(cfg, session=first, sleep=sleeper.append).fetch(url)
+
+        second = FakeSession([FakeResponse(200, JPEG, "image/jpeg")])
+        fetcher = Fetcher(cfg, session=second, sleep=sleeper.append)
+        assert fetcher.fetch(url).from_cache  # 坏内容仍在缓存里
+
+        fetcher.invalidate_cache(url)
+        assert fetcher.fetch(url).content == JPEG
+        assert len(second.calls) == 1
+
+
+class TestFetchErrorMessage:
+    def test_bare_message_kept_separate_from_url(self) -> None:
+        exc = FetchError("https://x/a", "源站拒绝访问", 418)
+        assert exc.message == "源站拒绝访问"
+        assert exc.status == 418
+        assert "源站拒绝访问 [418] https://x/a" == str(exc)
 
 
 class TestOffline:

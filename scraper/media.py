@@ -34,7 +34,13 @@ from bs4 import BeautifulSoup
 
 from .archive import WaybackClient
 from .config import CONFIG, Config
-from .http_client import BlockedError, FetchError, OfflineCacheMiss
+from .http_client import (
+    MISSING_STATUS,
+    BlockedError,
+    CachedResponse,
+    FetchError,
+    OfflineCacheMiss,
+)
 from .transport import Transport
 from .models import ImageRef
 from .util import atomic_write_bytes
@@ -102,6 +108,41 @@ def is_valid_image(path: Path) -> bool:
             return sniff_image(handle.read(32)) is not None
     except OSError:
         return False
+
+
+def describe_response(resp: CachedResponse) -> str:
+    """把一个响应压成一行诊断信息。
+
+    **错误码是排查的第一要素**：早先这里只报了字节数（"返回内容不是图片（0B）"），
+    拿到这样一条日志既不知道源站返回了什么状态码，也不知道内容类型与来源，
+    只能手工重放请求去猜（实测那一条是 404 —— 一个不存在的 ``raw`` 尺寸）。
+    """
+    parts = [f"HTTP {resp.status}", resp.content_type.split(";")[0].strip() or "无类型"]
+    parts.append(f"{len(resp.content)}B")
+    if resp.from_cache:
+        parts.append(f"来自缓存{f'（{resp.fetched_at}）' if resp.fetched_at else ''}")
+    else:
+        parts.append("本次网络请求")
+    return " · ".join(parts)
+
+
+def describe_non_image(resp: CachedResponse) -> str:
+    """非图片响应的诊断信息：状态码 + 内容类型 + 体积 + 来源，外加一句判读。"""
+    if resp.status == MISSING_STATUS:
+        guess = "源站无此尺寸"
+    elif resp.ok:
+        guess = "疑似错误页"
+    else:
+        guess = "源站拒绝"
+    return f"{describe_response(resp)}，{guess}"
+
+
+def describe_failure(exc: Exception) -> str:
+    """抓取异常的一行诊断：优先用带状态码的裸消息，避免把 URL 重复一遍。"""
+    status = getattr(exc, "status", None)
+    message = getattr(exc, "message", None) or str(exc)
+    code = f"HTTP {status}" if status else "无响应"
+    return f"{code} · {message}"
 
 
 def _size_variants(url: str, order: tuple[str, ...]) -> list[str]:
@@ -301,17 +342,29 @@ class MediaArchive:
             self.skipped += 1
             return result
 
+        # 逐个候选尝试。失败的候选在这里只记 INFO —— 多尺寸候选里的"这条不存在"
+        # 是**预期内**的（同一张图只有某一个尺寸/某一台 CDN 上有），
+        # 早先却按 WARNING 打出来，看起来像归档失败，实际上接着就成功了。
+        # 真正的失败由末尾那条 WARNING 一次性汇总，带上每个候选的状态码。
+        failures: list[str] = []
         for candidate in variants or [url]:
             try:
                 resp = self.fetcher.get_image(candidate)
             except (BlockedError, FetchError, OfflineCacheMiss) as exc:
-                result.error = str(exc)
+                note = describe_failure(exc)
+                failures.append(f"{candidate} → {note}")
+                log.info("图片候选不可用 %s：%s，尝试下一个候选", candidate, note)
                 continue
 
             kind = sniff_image(resp.content)
             if kind is None:
-                result.error = f"返回内容不是图片（{len(resp.content)}B，疑似错误页）"
-                log.warning("图片内容异常 %s：%s", candidate, result.error)
+                note = describe_non_image(resp)
+                failures.append(f"{candidate} → {note}")
+                log.info("图片候选不可用 %s：%s，尝试下一个候选", candidate, note)
+                # 缓存里存的 2xx 却不是图片 —— 这份缓存是坏的（源站出错时把错误页
+                # 当图片缓存了）。不清掉的话每次运行都会重放它，所以当场丢弃。
+                if resp.from_cache and resp.ok:
+                    self.fetcher.invalidate_cache(candidate)
                 continue
 
             dest.parent.mkdir(parents=True, exist_ok=True)
@@ -342,9 +395,12 @@ class MediaArchive:
                     self.bytes_total += result.size_bytes
                     log.info("图片已从 archive.org 补足：%s", url)
                     return result
+                failures.append(f"archive.org 快照 → {len(data)}B，不是图片")
 
         self.failed += 1
-        if not result.error:
+        if failures:
+            result.error = "；".join(failures)
+        elif not result.error:
             result.error = "所有尺寸变体与 archive.org 均不可得"
         log.warning("图片归档失败 %s：%s", url, result.error)
         return result

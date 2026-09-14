@@ -385,7 +385,15 @@ class BrowserFetcher(BaseFetcher):
 
     # ---------------------------------------------------------------- 抓取
 
-    def _attempt(self, url: str, referer: str | None) -> RawResponse:
+    def _attempt(
+        self, url: str, referer: str | None, image: bool = False
+    ) -> RawResponse:
+        """页面导航。
+
+        ``image`` 在这里恒为假：图片请求由内部的 curl ``Fetcher`` 负责
+        （见 :meth:`get_image`），浏览器页面导航本身就是文档请求。
+        保留该参数是为了与 :meth:`BaseFetcher._attempt` 的签名一致。
+        """
         driver = self._ensure_driver()
 
         self._limiter.wait()

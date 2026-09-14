@@ -35,7 +35,16 @@ from urllib.parse import urlparse
 from . import auth
 from .archive import WaybackClient
 from .browser import BrowserFetcher, detect_chrome_ua
-from .config import CONFIG, Config, ensure_dirs
+from .config import (
+    CONFIG,
+    DEFAULT_SPEED,
+    ROBOTS_CRAWL_DELAY,
+    SPEED_TIERS,
+    Config,
+    describe_delay,
+    ensure_dirs,
+    speed_tier,
+)
 from .discover import SiteDiscovery, SiteStructure, enumerate_album_photos
 from .emit import EmitContext, SiteEmitter
 from .http_client import CircuitBreakerOpen, Fetcher, estimate_duration
@@ -105,12 +114,38 @@ ROBOTS_NOTICE = """
     https://site.douban.com/robots.txt  →  User-agent: * / Disallow: /
     https://www.douban.com/robots.txt   →  部分禁止，并注明 Crawl-delay: 5
 
-本工具以「单线程 + 最小间隔 {delay:.0f}s + 指数退避 + 熔断」的方式运行，
+本工具以「单线程 + 请求间隔 {interval} + 指数退避 + 熔断」的方式运行，
 不轮换 UA、不轮换代理、不做指纹伪装，仅使用固定的浏览器指纹
 （curl_cffi impersonate={impersonate}）以通过服务端的 TLS 校验。
-
+{tier_note}
 请仅将归档结果用于个人保存与阅读。确认理解后，加上 --i-have-read-robots 重新运行。
 """
+
+
+def robots_notice(cfg: Config) -> str:
+    """填好当前限速档位的 robots 提示文本。"""
+    warning = crawl_delay_warning(cfg)
+    return ROBOTS_NOTICE.format(
+        interval=describe_delay(cfg.delay_min, cfg.delay_max),
+        impersonate=cfg.impersonate,
+        tier_note=f"\n⚠️  {warning}\n" if warning else "",
+    )
+
+
+def crawl_delay_warning(cfg: Config) -> str:
+    """比 ``robots.txt`` 的 ``Crawl-delay`` 更快的档位要明确说一句，否则返回空串。
+
+    默认档正好卡在 ``Crawl-delay: 5`` 上，是该守的线；另外两档是使用者**主动**
+    选择"更快"，工具照办，但不该让这件事无声发生：提示里点一次，抓取开始时
+    再记一条 WARNING，剩下的交给使用者自己判断。
+    """
+    if cfg.delay_min >= ROBOTS_CRAWL_DELAY:
+        return ""
+    return (
+        f"当前档位 {describe_delay(cfg.delay_min, cfg.delay_max)}快于 "
+        f"www.douban.com/robots.txt 的 Crawl-delay: {ROBOTS_CRAWL_DELAY:g}，"
+        "对源站的压力高于默认档位，请自行确认可以接受。"
+    )
 
 
 # ------------------------------------------------------------------ 日志
@@ -131,6 +166,12 @@ def setup_logging(verbose: bool, quiet: bool = False) -> None:
 
 
 # ------------------------------------------------------------------ 参数
+
+#: ``--speed`` 的帮助文本，由档位表生成 —— 改表就不用改文案，也就不会对不上。
+_SPEED_HELP = "请求间隔档位：" + "、".join(
+    f"{name}={lo:g}~{hi:g}s" + ("（默认）" if name == DEFAULT_SPEED else "")
+    for name, (lo, hi) in SPEED_TIERS.items()
+)
 
 
 def add_common_args(
@@ -181,8 +222,20 @@ def add_common_args(
         default=argparse.SUPPRESS if suppress_defaults else True,
         help="用无头浏览器抓取页面（默认启用；用 --no-browser 退回纯 HTTP）",
     )
-    parser.add_argument(
-        "--delay", type=float, default=d_none, help="请求间隔下限（秒），默认 5"
+    # 限速二选一：--speed 是档位预设，--delay 是精确覆盖。
+    # 两者同时给出时该听谁的，不该让使用者去猜，于是交给 argparse 直接报错。
+    # （参数分别写在子命令两侧时 argparse 拦不住 —— 主解析器与子解析器各管一段 ——
+    #   那种写法下由 _config_from_args 里更具体的 --delay 优先。）
+    rate = parser.add_mutually_exclusive_group()
+    rate.add_argument("--speed", choices=list(SPEED_TIERS), default=d_none, help=_SPEED_HELP)
+    rate.add_argument(
+        "--delay",
+        type=float,
+        default=d_none,
+        help=(
+            "请求间隔下限（秒），上限为下限 +2；精确覆盖档位，"
+            f"默认 {SPEED_TIERS[DEFAULT_SPEED][0]:g}"
+        ),
     )
     parser.add_argument(
         "--limit", type=int, default=d_zero, help="每阶段最多处理 N 项（冒烟测试用）"
@@ -209,6 +262,7 @@ def build_parser() -> argparse.ArgumentParser:
             "  python -m scraper.cli sync --dry-run\n"
             "  python -m scraper.cli sync --i-have-read-robots\n"
             "  python -m scraper.cli sync --limit 3 --delay 0.5     # 冒烟测试\n"
+            "  python -m scraper.cli sync --speed normal            # 换成 2~3 秒档\n"
             "  python -m scraper.cli emit                           # 离线重新生成\n"
             "  python -m scraper.cli verify\n"
         ),
@@ -1632,7 +1686,7 @@ def cmd_sync(args: argparse.Namespace) -> int:
     stages = resolve_stages(args.stages)
 
     if not args.i_have_read_robots and not cfg.offline and not args.dry_run:
-        print(ROBOTS_NOTICE.format(delay=cfg.delay_min, impersonate=cfg.impersonate))
+        print(robots_notice(cfg))
         return 2
 
     ensure_dirs(cfg)
@@ -1649,10 +1703,15 @@ def cmd_sync(args: argparse.Namespace) -> int:
 
         log.info("=" * 68)
         log.info("开始同步：阶段 = %s", ", ".join(stages))
-        log.info("请求间隔 %.1f~%.1f 秒 · 传输 %s · archive.org 补足 %s",
-                 cfg.delay_min, cfg.delay_max,
+        log.info("请求间隔 %s · 传输 %s · archive.org 补足 %s",
+                 describe_delay(cfg.delay_min, cfg.delay_max),
                  f"浏览器({cfg.browser_channel})" if cfg.browser_enabled else f"HTTP({cfg.impersonate})",
                  "开" if (ctx.wayback and ctx.wayback.enabled) else "关（默认）")
+        rate_note = crawl_delay_warning(cfg)
+        if rate_note:
+            # 快于 Crawl-delay 的档位在这里再记一次：上面那行 INFO 只说"是多少"，
+            # 这条说的是"这件事意味着什么"，免得跑完几个小时才发现选错了档。
+            log.warning(rate_note)
         log.info("=" * 68)
 
         try:
@@ -1752,7 +1811,8 @@ def _dry_run(ctx: SyncContext, stages: list[str], args: argparse.Namespace) -> i
     print(f"  页面请求  约 {page_requests:5d} 次")
     print(f"  图片请求  约 {image_requests:5d} 次")
     print(f"  合计      约 {total:5d} 次")
-    print(f"  预估耗时  约 {estimate_duration(total, cfg)}（间隔 {cfg.delay_min:.0f}~{cfg.delay_max:.0f}s）")
+    print(f"  预估耗时  约 {estimate_duration(total, cfg)}"
+          f"（间隔 {describe_delay(cfg.delay_min, cfg.delay_max)}，用 --speed 换档）")
     print()
     print(f"内容规模：")
     print(f"  房间       {len(structure.rooms)}")
@@ -1880,6 +1940,10 @@ def _config_from_args(args: argparse.Namespace) -> Config:
     overrides["archive_enabled"] = bool(getattr(args, "archive", False))
     # 浏览器传输：默认开启，--no-browser 关闭
     overrides["browser_enabled"] = bool(getattr(args, "browser", True))
+    # 限速：--speed 写入档位预设，--delay 写入精确值（更具体，故优先）。
+    # 两者互斥由 argparse 保证；参数写在子命令两侧时它拦不住，这里兜住。
+    if getattr(args, "speed", None):
+        overrides["delay_min"], overrides["delay_max"] = speed_tier(args.speed)
     if getattr(args, "delay", None):
         overrides["delay_min"] = args.delay
         overrides["delay_max"] = args.delay + 2.0

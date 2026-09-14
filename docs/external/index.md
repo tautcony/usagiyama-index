@@ -9,4 +9,4 @@ aside: false
 原站索引①/② 里有一部分条目直接指向豆瓣主站（需要登录才能访问），登录后已一并归档。
 
 
-- [](/external/topic-499780453) — <small>穹庐下的魔女</small> <small class="badge-unavailable">需要登录，无法归档</small>
+- [山田尚子：“珍视角色”——唯有这一点，无论创作什么作品，我都会绝不动摇地坚守下去（《穹庐下的魔女》总导演访谈）](/external/topic-499780453) — <small>穹庐下的魔女</small>

@@ -31,6 +31,13 @@ class Transport(Protocol):
         """该 URL 是否已有磁盘缓存（不发请求）。"""
         ...
 
+    def invalidate_cache(self, url: str) -> bool:
+        """丢弃某个 URL 的缓存条目，返回是否删掉了东西。
+
+        调用方发现"缓存里的内容不可用"时使用（例如缓存了一份非图片的 200）。
+        """
+        ...
+
     def fetch(
         self,
         url: str,
@@ -38,8 +45,11 @@ class Transport(Protocol):
         referer: str | None = None,
         force: bool = False,
         raise_for_blocked: bool = True,
+        image: bool = False,
     ) -> CachedResponse:
         """抓取一个 URL，优先命中磁盘缓存。
+
+        :param image: 图片子资源请求，改用图片的请求头特征。
 
         :raises BlockedError: 被源站拦截（403/418）或触发人机校验
         :raises CircuitBreakerOpen: 连续被拦截超阈值

@@ -246,7 +246,9 @@ class WaybackClient:
 
         raw_url = snapshot.image_url
         try:
-            resp = self._fetcher.fetch(raw_url, raise_for_blocked=False)
+            # 这同样是一次"要一张图片"的请求，用图片的请求头特征。
+            # 这里不带 Referer：archive.org 没有防盗链，也没必要把来源页告诉它。
+            resp = self._fetcher.fetch(raw_url, raise_for_blocked=False, image=True)
         except (BlockedError, FetchError, OfflineCacheMiss) as exc:
             log.debug("快照图片抓取失败 %s：%s", raw_url, exc)
             return None

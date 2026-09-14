@@ -29,7 +29,8 @@ uv run python -m scraper.cli <子命令> [参数]
 | `--offline` | 只读本地缓存，绝不联网 |
 | `--archive` / `--no-archive` | 启用 / 关闭 Internet Archive 补足（**默认关闭**） |
 | `--browser` / `--no-browser` | 用无头浏览器抓页面 / 退回纯 HTTP（**默认启用浏览器**） |
-| `--delay N` | 请求间隔下限（秒），默认 5 |
+| `--speed NAME` | 请求间隔档位：`cautious`(5~7s，默认) / `normal`(2~3s) / `fast`(1~2s) |
+| `--delay N` | 请求间隔下限（秒），上限为 `N+2`；精确覆盖档位（与 `--speed` 互斥），默认 5 |
 | `--limit N` | 每阶段最多处理 N 项（冒烟测试用） |
 | `-v` / `-q` | 详细 / 安静日志 |
 
@@ -80,6 +81,21 @@ Disallow: /
 | 缓存 | 同 URL 二次运行**零请求** |
 | 增量 | 只抓新增内容，存量不重抓 |
 
+请求间隔有三档可选（`--speed`）：
+
+| 档位 | 间隔 | 说明 |
+| --- | --- | --- |
+| `cautious` | `5 ~ 7` 秒 | **默认**，下限正好是 `Crawl-delay: 5` |
+| `normal` | `2 ~ 3` 秒 | 明确快于 robots.txt 的建议值 |
+| `fast` | `1 ~ 2` 秒 | 同上，更适合本地反复调试 |
+
+后两档会在 robots 提示与抓取开始的日志里**各提醒一次**（快于 `Crawl-delay`），
+然后照常执行 —— 选哪一档是使用者的判断，工具不替你做主，但也不让这件事无声发生。
+`--delay N` 是精确覆盖（间隔 `N ~ N+2` 秒），与 `--speed` 互斥；
+`USAGI_DELAY_MIN` / `USAGI_DELAY_MAX` 环境变量同样直接写入间隔，优先级低于命令行。
+
+`sync --dry-run` 会按当前档位给出耗时预估，换档前后可以先看一眼差多少。
+
 关于指纹与 UA：
 
 - 固定使用**一个** curl_cffi 指纹（`impersonate="chrome"`）。这不是规避手段 ——
@@ -88,6 +104,12 @@ Disallow: /
 - 浏览器模式下**不伪造版本号**：只在无头启动导致 UA 里出现 `HeadlessChrome`
   时，把它替换回浏览器**自己上报的真实版本**（`Chrome/152.0.7977.83`）。
 - `navigator.webdriver` **不做处理** —— 那是真正的自动化标记，不属于"还原成有头行为"的范畴。
+- 图片请求按**浏览器加载 `<img>` 时的样子**发：`Accept: image/avif,image/webp,…`、
+  `Sec-Fetch-Dest: image`、`Sec-Fetch-Mode: no-cors`、`Sec-Fetch-Site: cross-site`，
+  并去掉只属于导航的 `Sec-Fetch-User` / `Upgrade-Insecure-Requests`。
+  curl_cffi 的 `impersonate` 默认给的是**导航**的头（`Accept: text/html,…`、
+  `Sec-Fetch-Dest: document`），拿它要 jpg 属于自己写错了，与风控无关；
+  `User-Agent` / `Sec-Ch-Ua*` / TLS 指纹仍全部来自同一份 `impersonate` 配置，没有伪造。
 
 并且**明确不做**：不轮换 UA、不轮换代理、不并发轰炸、不做验证码绕过。
 
@@ -158,6 +180,22 @@ npm run login:check    # 只校验会话是否还有效
 登录后，`sync` 的 `main` 阶段会补抓索引①/② 里指向豆瓣主站的页面，
 归入 `/external/{page_id}` 路由，并接入侧边栏。
 
+**已经被标成「需要登录，无法归档」的，怎么重新补抓？** 登录一次，再让 `main` 阶段
+重新探测这一批：
+
+```bash
+npm run login:check                                            # 先确认会话还有效
+npm run sync -- --i-have-read-robots --recheck-unavailable --stages main
+```
+
+`--recheck-unavailable` 把进度里 `unavailable` 的条目重新选出来（已归档的照旧跳过），
+`--stages main` 限定只跑"需要登录"这一个阶段。**不需要手工删缓存**：被拒绝（403/418）
+的响应虽然写进了缓存，但联网时不会重放 —— 见上面「哪些响应不该进缓存」。
+补回来的条目会从 `data/unavailable.md` 与站点上的不可访问清单里消失。
+
+仍然拿不到的那些（话题已删除、被设为私密）会留在清单里、带着原来的标记 ——
+那不是没试，是源站不给。
+
 ---
 
 ## 断点续接
@@ -226,6 +264,18 @@ scraper/state/cache/
 每个条目由一对文件组成：`<sha1>.body`（原始响应体）与 `<sha1>.json`
 （meta：原始 URL、状态码、Content-Type、抓取时间、内容 sha1）。
 读取时会校验内容 sha1，损坏的缓存自动忽略并重新抓取。
+
+**哪些响应不该进缓存**：429/5xx 这类暂时性失败不写（否则一次抖动会被固化成永久结论）；
+**2xx 但零字节也不写** —— 空 200 不是可用内容，缓存下来会让这个 URL 变成"永久失败"：
+之后的运行连网络请求都不发，直接重放那份空内容，日志里只能看到「0B」而无从判断。
+反过来，调用方发现"缓存里的东西不可用"时（例如 2xx 却是一张 HTML 错误页），
+用 `invalidate_cache(url)` 丢掉该条目，下次运行自然重新请求，不需要 `--force`。
+
+**403/418 会被写进缓存，但不会被重放**。写是有意的 —— 免得同一个 URL 反复冲击源站；
+不重放也是必须的 —— "此刻被拒绝"不是"内容不存在"，登录态、风控窗口、防盗链请求头
+任一条变了它就不成立。联网时读到这类条目一律重新请求一次（离线时没有别的办法，
+照旧使用）。少了这条规则，`--recheck-unavailable` 会变成一句空话：条目被重新选出来，
+请求还没出门就被磁盘上的 403 顶回去，日志与上次一模一样，只能手工删缓存文件才能重置。
 
 旧版本把缓存平铺在 `state/cache/` 顶层；首次运行新版会自动迁移到
 上述布局（幂等，且会清理迁移中断留下的半截文件）。
@@ -457,7 +507,7 @@ Playwright 走独立子进程，**两者都绕过 Python 的 socket 模块** —
 
 | 变量 | 默认 | 说明 |
 | --- | --- | --- |
-| `USAGI_DELAY_MIN` / `USAGI_DELAY_MAX` | `5.0` / `7.0` | 请求间隔范围（秒） |
+| `USAGI_DELAY_MIN` / `USAGI_DELAY_MAX` | `5.0` / `7.0` | 请求间隔范围（秒），相当于默认档 |
 | `USAGI_MAX_RETRIES` | `5` | 最大重试次数 |
 | `USAGI_CIRCUIT_BREAK_AFTER` | `3` | 连续被拦截多少次后熔断 |
 | `USAGI_IMPERSONATE` | `chrome` | curl_cffi 指纹 |

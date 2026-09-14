@@ -90,17 +90,30 @@ magic bytes 校验链路）。
 `fetch(url)` 的执行顺序：
 
 1. **读缓存**：若 URL 已在 `state/cache/<域名>/` 命中且状态码不是「暂时性失败」
-   （429/5xx），直接返回，并 `cache_hits += 1`。
+   （429/5xx），直接返回，并 `cache_hits += 1`。**两类条目例外**（只在联网时例外，
+   离线时没有别的办法，照旧使用）：**403/418** —— "此刻被拒绝"会随登录态与风控窗口
+   变化，重放它会让 `--recheck-unavailable` 失效，只能手工删缓存才能重置；
+   **不可信的 404** —— 小站 widget 抖动，见 `untrusted_404_hosts`。
 2. **离线模式**：`--offline` 下缓存未命中则抛 `OfflineCacheMiss`（不让"本地没有"被
    误记为"源站不可访问"）。
 3. **上路**：经 `RateLimiter` 限速后发起网络请求：
    - **限速**：两次请求**开始**之间至少间隔 `delay_min ~ delay_max` 秒（随机抖动）。
      计时从上次请求开始算起，浏览器导航耗时会被吸收进间隔。
+     这两个秒数由 `--speed` 从 `config.SPEED_TIERS` 写入（`cautious` 5~7s 默认 /
+     `normal` 2~3s / `fast` 1~2s），或由 `--delay` 直接指定（`--delay 0.5` →
+     0.5~2.5s）。`RateLimiter` 只认配置里的秒数，不知道"档位"这回事 ——
+     档位只是给秒数起的一组名字，供命令行与日志使用。
    - **退避重试**：429/5xx 等可重试状态码、以及连接/超时/SSL 等网络异常，交给
      `tenacity` 做「指数退避 + 抖动」重试，最多 `max_retries` 次。
    - **熔断**：连续 `circuit_break_after`（默认 3）次被拦截（403/418 或人机校验）
      立即抛 `CircuitBreakerOpen` 停止，避免把 IP 拖进黑名单。
    - **缓存写入**：4xx 视为确定性结果并缓存；429/5xx 不缓存（避免永久失败）。
+     **2xx 但零字节也不缓存**——空 200 不是可用内容，缓存下来会让这个 URL 永久失败
+     （后续运行连请求都不发，直接重放空内容）。调用方若发现"缓存里的东西不可用"
+     （例如 2xx 却是一张 HTML 错误页），可用 `invalidate_cache(url)` 丢弃该条目，
+     下次运行即重新请求，无需 `--force`。
+   - **请求头特征**：文档导航与图片子资源用两套头，见
+     [3.5](#35-关于可探测性诚实说明它确实非浏览器) 第 2 条。
 
 ### 3.2 两种传输实现
 
@@ -132,7 +145,7 @@ magic bytes 校验链路）。
 > 任何指纹**。同时明确**不做**这些事：`navigator.webdriver` 不修改（那才是真正的自动化标记，
 > 改了反而违背"不规避风控"原则）、不轮换 UA、不轮换代理、不做指纹伪装。**这套方案刻意不伪装成
 > 真人浏览器**（详见 [3.5](#35-关于可探测性诚实说明它确实非浏览器)）——降低风险靠的是
-> 「真 Chrome 的 TLS 栈 + 真人登录 + 5~7s 间隔 + 单线程 + 熔断即停」的礼貌低频策略，而不是与风控对抗。
+> 「真 Chrome 的 TLS 栈 + 真人登录 + 5~7s 间隔（`--speed` 默认档）+ 单线程 + 熔断即停」的礼貌低频策略，而不是与风控对抗。
 
 ### 3.3 传输方式的选择：哪些用浏览器（HeadlessChrome）、哪些用 curl
 
@@ -146,7 +159,7 @@ magic bytes 校验链路）。
 | 请求类型 | 实际使用的客户端 | 说明 |
 | --- | --- | --- |
 | **HTML 页面抓取**（各阶段 `resolver.resolve` → `transport.fetch`） | **HeadlessChrome**（Playwright 导航 `domcontentloaded`，**无 curl 回退**，无头与否由 `USAGI_BROWSER_HEADLESS` 配置） | 日记/相册/照片/视频/论坛/广播/站外页/房间页等详情与列表页都走这里 |
-| **图片下载**（`media.download` → `transport.get_image`） | **curl_cffi** | 即便外层是浏览器，图片也**委托给内部独立的 `Fetcher`**（`browser.py`），不进浏览器 |
+| **图片下载**（`media.download` → `transport.get_image`） | **curl_cffi** | 即便外层是浏览器，图片也**委托给内部独立的 `Fetcher`**（`browser.py`），不进浏览器；请求头用"图片子资源"那一套（见 [3.5](#35-关于可探测性诚实说明它确实非浏览器) 第 2 条） |
 | **Internet Archive 查询/抓取**（`WaybackClient`） | **curl_cffi** | archive 客户端内部自建 `Fetcher(_archive_config)`，与外层传输无关 |
 | **会话校验**（`auth.check_session`） | **curl_cffi** | 直接用 curl_cffi `Session` 带 cookie 访问 `/mine/`，无需浏览器 |
 | **登录流程**（`auth.run_login_flow`） | **有头 Chrome**（headless=False） | 用户需要看到登录窗口；此时连路由拦截都不开（验证码本身是图片，拦掉会渲染不出来） |
@@ -195,6 +208,33 @@ magic bytes 校验链路）。
    图片来自 libcurl"是**两个不同的客户端栈**，对同一批内容做关联请求时本身就是一个 tell
    （不过豆瓣图床主要靠 Referer 防盗链，已在 `media.py` 用 `image_referer` 满足）。
 
+   **这里曾经还有一个纯属写错、与风控无关的 tell**：`impersonate` 注入的默认头是
+   **顶层导航**的那一套，而早先连图片请求也照发不误 —— 每个 jpg 请求实际上都是
+
+   ```
+   Accept: text/html,application/xhtml+xml,application/xml;q=0.9,…
+   Sec-Fetch-Dest: document      ← 我要加载一份 HTML 文档
+   Sec-Fetch-Mode: navigate
+   Sec-Fetch-Site: none
+   Sec-Fetch-User: ?1            ← 只有用户主动发起的导航才有这个头
+   Upgrade-Insecure-Requests: 1
+   ```
+
+   也就是说：**一个自称"用户点开了一份文档"的请求，来要一张 jpg**。真实浏览器加载
+   `<img>` 时发的是 `Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8`
+   + `Sec-Fetch-Dest: image` + `Sec-Fetch-Mode: no-cors` + `Sec-Fetch-Site: cross-site`，
+   并且**不带**上面那两行导航专属的头。现在图片请求由
+   `http_client.image_request_headers()` 整组发出（`get_image` → `image=True`），
+   `Sec-Fetch-Site` 由来源页与目标域名算出（详情页 → `img*.doubanio.com` 是 `cross-site`，
+   无 Referer 时是 `none`），导航请求保持原样。
+
+   这**不是**加伪装，而是把请求写成本来就该有的样子：`Accept` 与三个 `Sec-Fetch-*` 如实
+   描述"这是一个子资源请求"，另外两个头如实删掉（它们只可能出现在导航里）；
+   `User-Agent` / `Sec-Ch-Ua*` / TLS 指纹仍全部来自 `impersonate` 的同一份配置
+   （值互相自洽，自己改反而会矛盾）。仍然可识别：libcurl 不执行
+   JS、没有浏览器的 Cookie 容器与 HTTP/2 优先级帧，且"页面无头 Chrome + 图片 libcurl"
+   这个组合本身没变。
+
 **那为什么还能跑通？——看它真正在对抗什么。** 从代码可见，本工具实际面对的封锁是：
 
 - **TLS 指纹校验**：裸 `requests` 首请求连续 `SSLEOFError` → curl-impersonate / 真 Chrome 的 TLS 栈即可过。
@@ -207,7 +247,7 @@ magic bytes 校验链路）。
 `navigator.webdriver` 检测**。因此"匹配 TLS + 带 Referer + 真人登录 + 低频熔断"恰好够用。
 
 **但这是"故意不躲"，不是"躲得好"。** 项目立场是**不规避风控**：不遮 `webdriver`、不轮换 UA、
-不轮换代理、不做指纹伪装。它的风险模型是「真 Chrome TLS 栈 + 真人登录 + 5~7s 间隔 + 单线程 +
+不轮换代理、不做指纹伪装。它的风险模型是「真 Chrome TLS 栈 + 真人登录 + 5~7s 间隔（`--speed` 默认档）+ 单线程 +
 熔断即停」的**礼貌低频归档器**，而非 undetectable scraper。若豆瓣哪天上了基于 `webdriver` 的
 JS 挑战，浏览器路径会被抓——而本项目的应对是"停下、让人登录、重跑"，不是"加大伪装"。
 
@@ -293,6 +333,24 @@ JS 挑战，浏览器路径会被抓——而本项目的应对是"停下、让�
 `variants` 顺序逐个尝试 → 校验 magic bytes → 原子写入；全部源站失败 → 若 `--archive`
 开启则尝试 archive.org 图片快照；仍失败 → 标记 `failed`。
 
+**日志语义（每条都要带错误码）**：
+
+- 单个候选不可用 → **INFO**，格式
+  `图片候选不可用 <url>：HTTP 404 · text/html · 0B · 来自缓存（<抓取时间>），源站无此尺寸，尝试下一个候选`。
+  多候选里有候选不存在是**预期内**的（同一张图只有某一个尺寸/某一台 CDN 分片上才有），
+  所以不是 WARNING——早先按 WARNING 打，看起来像归档失败，实际上下一条候选就成功了。
+- 全部候选 + archive.org 都失败 → **WARNING**，一条汇总，列出**每个候选各自的状态码**，
+  写入 `MediaResult.error`。
+- 判读短语跟着状态码走：`404 → 源站无此尺寸`、`2xx 非图片 → 疑似错误页`、其他 → `源站拒绝`。
+
+> **这条规则来自一次真实误判**：日志只有「图片内容异常 …：返回内容不是图片（0B，疑似错误页）」，
+> 既没有状态码也没有内容类型，只能手工重放请求去猜。实测那一条是 **404** ——
+> `view/photo/raw/public/p2500516321.jpg` 这个 `raw` 尺寸**在源站根本不存在**
+> （同一张图的 `view/photo/large/public/` 是 200 / 221,858B），程序随后就按设计回退到
+> `large` 并成功归档。手工请求看到 **418** 是另一回事：`img*.doubanio.com` 不带 Referer
+> 时先过防盗链再查内容，418 只代表"没有 Referer"，**不代表文件存在**。
+> 也就是说：那次没有丢内容，只是日志不足以判断发生了什么。
+
 ### 4.4 生成站点（generate_site / emit.py）
 
 把抓取结果渲染成 VitePress 产物（以 `manifest` 为输入，幂等）：
@@ -353,7 +411,10 @@ JS 挑战，浏览器路径会被抓——而本项目的应对是"停下、让�
 
 - `DONE`：已成功抓取并归档。
 - `UNAVAILABLE`：源站与 archive 均不可得，已记录标记，不再重试（可用
-  `--recheck-unavailable` 重新探测）。
+  `--recheck-unavailable` 重新探测）。典型的补抓场景是"当时没登录"：
+  `npm run login` 之后跑
+  `npm run sync -- --i-have-read-robots --recheck-unavailable --stages main`，
+  被拒绝过的 URL 会真的重新请求一次（见 3.1 的缓存例外）。
 - `FAILED`：抓取出错，下次运行重试。
 - `SKIPPED`：按策略主动跳过。
 
@@ -373,7 +434,8 @@ JS 挑战，浏览器路径会被抓——而本项目的应对是"停下、让�
 | `--offline` | 只读本地缓存与已抓取产物，绝不联网 |
 | `--archive` / `--no-archive` | 启用 / 关闭 Internet Archive 补足（默认关闭） |
 | `--browser` / `--no-browser` | 用无头浏览器抓取 / 退回纯 HTTP（默认启用浏览器） |
-| `--delay N` | 请求间隔下限（秒），默认 5（豆瓣 Crawl-delay） |
+| `--speed NAME` | 请求间隔档位：`cautious`(5~7s，默认) / `normal`(2~3s) / `fast`(1~2s) |
+| `--delay N` | 请求间隔下限（秒），上限为 `N+2`；精确覆盖档位（与 `--speed` 互斥），默认 5（豆瓣 Crawl-delay） |
 | `--limit N` | 每阶段最多处理 N 项（冒烟测试用） |
 | `--force` | 忽略进度，强制重抓 |
 | `--recheck-unavailable` | 重新探测此前标记为不可访问的页面 |
@@ -471,7 +533,11 @@ flowchart TD
     B -- 否 --> D[按尺寸 variants 逐个尝试源站]
     D --> E{magic bytes 校验通过?}
     E -- 是 --> F[原子写入 / downloaded]
-    E -- 否 --> D
+    E -- 否 --> E2["记入失败清单（INFO，带状态码）"]
+    E2 --> E3{"缓存里的 2xx 却不是图片?"}
+    E3 -- 是 --> E4[invalidate_cache 丢弃该条目]
+    E3 -- 否 --> D
+    E4 --> D
     D --> G{全部源站失败?}
     G -- 是 --> H{--archive 开启?}
     H -- 是 --> I[Wayback 取图片快照]
@@ -482,6 +548,14 @@ flowchart TD
     F --> Z[MediaResult]
     K --> Z
     L --> Z
+```
+
+`L` 处的 WARNING 会带上整条失败清单（每个候选一行状态码），例如：
+
+```
+图片归档失败 https://img2.doubanio.com/view/photo/raw/public/p…jpg：
+https://img2.doubanio.com/view/photo/raw/public/p…jpg → HTTP 404 · text/html · 0B · 来自缓存，源站无此尺寸；
+https://img2.doubanio.com/view/photo/large/public/p…jpg → HTTP 403 · text/html · 1.2KB，源站拒绝
 ```
 
 ### 8.4 阶段执行器（StageRunner.run）
