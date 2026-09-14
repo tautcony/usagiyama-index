@@ -640,7 +640,7 @@ export const sidebar: DefaultTheme.Sidebar = {
           "link": "/albums/13431474"
         },
         {
-          "text": "相册（30）",
+          "text": "相册（114）",
           "link": "/albums/13431950"
         },
         {
@@ -648,11 +648,11 @@ export const sidebar: DefaultTheme.Sidebar = {
           "link": "/albums/13432051"
         },
         {
-          "text": "幕后&周边（30）",
+          "text": "幕后&周边（179）",
           "link": "/albums/13433748"
         },
         {
-          "text": "相册（30）",
+          "text": "相册（158）",
           "link": "/albums/190597061"
         }
       ]

@@ -7,7 +7,7 @@ features: [{"title": "穹庐下的魔女", "details": "1 篇", "link": "/notes/#
 ## 归档概况
 
 - 文章 **144** 篇
-- 照片 **162** 张
+- 照片 **523** 张
 - 相册 **6** 个
 - 视频 **12** 条
 
@@ -17,10 +17,10 @@ features: [{"title": "穹庐下的魔女", "details": "1 篇", "link": "/notes/#
 <div class="poster-wall">
 <a class="poster" href="/albums/13431373"><img src="/media/albums/13431373/2365804009.webp" alt="HTT纪念册" loading="lazy" /><span>HTT纪念册<em>22 张</em></span></a>
 <a class="poster" href="/albums/13431474"><img src="/media/albums/13431474/1957277283.webp" alt="商店街日常" loading="lazy" /><span>商店街日常<em>24 张</em></span></a>
-<a class="poster" href="/albums/13431950"><img src="/media/albums/13431950/2378691234.webp" alt="相册" loading="lazy" /><span>相册<em>30 张</em></span></a>
+<a class="poster" href="/albums/13431950"><img src="/media/albums/13431950/2378691234.webp" alt="相册" loading="lazy" /><span>相册<em>114 张</em></span></a>
 <a class="poster" href="/albums/13432051"><img src="/media/albums/13432051/2770778841.webp" alt="海报墙" loading="lazy" /><span>海报墙<em>26 张</em></span></a>
-<a class="poster" href="/albums/13433748"><img src="/media/albums/13433748/2378951041.webp" alt="幕后&amp;周边" loading="lazy" /><span>幕后&amp;周边<em>30 张</em></span></a>
-<a class="poster" href="/albums/190597061"><img src="/media/albums/190597061/2493478091.webp" alt="相册" loading="lazy" /><span>相册<em>30 张</em></span></a>
+<a class="poster" href="/albums/13433748"><img src="/media/albums/13433748/2378951041.webp" alt="幕后&amp;周边" loading="lazy" /><span>幕后&amp;周边<em>179 张</em></span></a>
+<a class="poster" href="/albums/190597061"><img src="/media/albums/190597061/2493478091.webp" alt="相册" loading="lazy" /><span>相册<em>158 张</em></span></a>
 </div>
 
 ::: info 关于本站

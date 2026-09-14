@@ -64,7 +64,7 @@
     "external_url": "http://v.youku.com/v_show/id_XODU0MTY1OTI0.html",
     "date": "2014-12-22",
     "source_url": "https://site.douban.com/211330/widget/videos/13431492/video/567344/",
-    "local_thumb": "",
+    "local_thumb": "/media/videos/567344.jpg",
     "status": {
       "availability": "ok",
       "label": "已归档",
@@ -83,7 +83,7 @@
     "external_url": "http://v.youku.com/v_show/id_XODQ2NTM5OTQw.html",
     "date": "2014-12-11",
     "source_url": "https://site.douban.com/211330/widget/videos/13431492/video/563408/",
-    "local_thumb": "",
+    "local_thumb": "/media/videos/563408.jpg",
     "status": {
       "availability": "ok",
       "label": "已归档",
@@ -102,7 +102,7 @@
     "external_url": "http://v.youku.com/v_show/id_XODAwMjc5MTEy.html",
     "date": "2014-10-10",
     "source_url": "https://site.douban.com/211330/widget/videos/13431492/video/537786/",
-    "local_thumb": "",
+    "local_thumb": "/media/videos/537786.jpg",
     "status": {
       "availability": "ok",
       "label": "已归档",
@@ -121,7 +121,7 @@
     "external_url": "http://v.youku.com/v_show/id_XNzk4NzI0NTc2.html",
     "date": "2014-10-08",
     "source_url": "https://site.douban.com/211330/widget/videos/13431215/video/536849/",
-    "local_thumb": "",
+    "local_thumb": "/media/videos/536849.jpg",
     "status": {
       "availability": "ok",
       "label": "已归档",
@@ -140,7 +140,7 @@
     "external_url": "http://v.youku.com/v_show/id_XNjcwNTM1MjI4.html",
     "date": "2014-02-08",
     "source_url": "https://site.douban.com/211330/widget/videos/13431215/video/428467/",
-    "local_thumb": "",
+    "local_thumb": "/media/videos/428467.jpg",
     "status": {
       "availability": "ok",
       "label": "已归档",
@@ -159,7 +159,7 @@
     "external_url": "http://v.youku.com/v_show/id_XNTU5ODkxMTg0.html",
     "date": "2013-05-21",
     "source_url": "https://site.douban.com/211330/widget/videos/13431215/video/287857/",
-    "local_thumb": "",
+    "local_thumb": "/media/videos/287857.jpg",
     "status": {
       "availability": "ok",
       "label": "已归档",
@@ -178,7 +178,7 @@
     "external_url": "http://v.youku.com/v_show/id_XMTcyMDYyODA3Ng==.html",
     "date": "2016-09-10",
     "source_url": "https://site.douban.com/211330/widget/videos/15768770/video/763778/",
-    "local_thumb": "",
+    "local_thumb": "/media/videos/763778.jpg",
     "status": {
       "availability": "ok",
       "label": "已归档",
@@ -197,7 +197,7 @@
     "external_url": "http://v.youku.com/v_show/id_XNTY4NzUwNjU2.html",
     "date": "2015-07-10",
     "source_url": "https://site.douban.com/211330/widget/videos/15768770/video/634910/",
-    "local_thumb": "",
+    "local_thumb": "/media/videos/634910.jpg",
     "status": {
       "availability": "ok",
       "label": "已归档",
@@ -216,7 +216,7 @@
     "external_url": "http://v.youku.com/v_show/id_XOTE4MDMzODE2.html",
     "date": "2015-03-23",
     "source_url": "https://site.douban.com/211330/widget/videos/15768770/video/597741/",
-    "local_thumb": "",
+    "local_thumb": "/media/videos/597741.jpg",
     "status": {
       "availability": "ok",
       "label": "已归档",

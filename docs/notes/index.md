@@ -110,13 +110,13 @@ aside: false
 [豆瓣豆列](http://www.douban.com/doulist/39014187/)
 
 
-- [《吹响悠风号》第一回演出小析](/notes/493628625) <small>2015-04-11</small> <small class="badge-unavailable">原站不可访问</small>
-- [《吹响悠风号》第二回演出小析](/notes/494796780) <small>2015-04-17</small> <small class="badge-unavailable">原站不可访问</small>
-- [《吹响悠风号》第三回演出小析](/notes/496259160) <small>2015-04-26</small> <small class="badge-unavailable">原站不可访问</small>
-- [《吹响悠风号》第四回演出小析](/notes/497257959) <small>2015-05-03</small> <small class="badge-unavailable">原站不可访问</small>
-- [《吹响悠风号》第五回演出小析](/notes/498486997) <small>2015-05-10</small> <small class="badge-unavailable">原站不可访问</small>
-- [《吹响悠风号》第六回演出小析](/notes/499646004) <small>2015-05-17</small> <small class="badge-unavailable">原站不可访问</small>
-- [《吹响悠风号》第七回演出小析](/notes/500779951) <small>2015-05-24</small> <small class="badge-unavailable">原站不可访问</small>
+- [《吹响悠风号》第一回演出小析](/notes/493628625) <small>2015-04-11</small>
+- [《吹响悠风号》第二回演出小析](/notes/494796780) <small>2015-04-17</small>
+- [《吹响悠风号》第三回演出小析](/notes/496259160) <small>2015-04-26</small>
+- [《吹响悠风号》第四回演出小析](/notes/497257959) <small>2015-05-03</small>
+- [《吹响悠风号》第五回演出小析](/notes/498486997) <small>2015-05-10</small>
+- [《吹响悠风号》第六回演出小析](/notes/499646004) <small>2015-05-17</small>
+- [《吹响悠风号》第七回演出小析](/notes/500779951) <small>2015-05-24</small>
 - [《吹响悠风号》第八回演出小析](/notes/501830142) <small>2015-05-31</small>
 - [《吹响悠风号》第九回演出小析](/notes/502853776) <small>2015-06-07</small>
 - [《吹响悠风号》第十回演出小析](/notes/503910662) <small>2015-06-14</small>
@@ -136,9 +136,9 @@ aside: false
 ## 其他作品
 
 
-- [《中二病也要谈恋爱！》片尾解读](/notes/326639941) <small>2014-01-14</small> <small class="badge-unavailable">原站不可访问</small>
-- [所以人们才会彼此寻求——《境界的彼方》第5话演出小析](/notes/314598362) <small>2013-11-06</small> <small class="badge-unavailable">原站不可访问</small>
-- [《Free! Eternal Summer》第12话演出分析](/notes/425866593) <small>2014-09-19</small> <small class="badge-unavailable">原站不可访问</small>
+- [《中二病也要谈恋爱！》片尾解读](/notes/326639941) <small>2014-01-14</small>
+- [所以人们才会彼此寻求——《境界的彼方》第5话演出小析](/notes/314598362) <small>2013-11-06</small>
+- [《Free! Eternal Summer》第12话演出分析](/notes/425866593) <small>2014-09-19</small>
 
 ## Papico 日志
 
