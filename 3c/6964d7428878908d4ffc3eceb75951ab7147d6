@@ -1,0 +1,63 @@
+scraper/emit.py
+  s_0c36dd3a2f6f1b::t_81b2c11f88fd2c 298-302
+scraper/resolver.py
+  s_0c36dd3a2f6f1b::t_a6496540304e34 117-122,125
+  s_0c36dd3a2f6f1b::t_ee88976997b0cc 215
+  s_0c36dd3a2f6f1b::t_370bec60bb238f 154-155,159
+  s_0c36dd3a2f6f1b::t_f437935aa24ec5 152,156-158
+  s_0c36dd3a2f6f1b::t_3b0519d624ca7b 185,214
+  s_0c36dd3a2f6f1b::t_0b0f0d0108bdaa 186
+  s_0c36dd3a2f6f1b::t_eb84fe9f5ccb47 123-124
+scraper/tests/test_sync_state.py
+  s_0c36dd3a2f6f1b::t_d7d64da733f354 382-403
+  s_0c36dd3a2f6f1b::t_f2c00eb153e713 404-433,435-441
+  s_0c36dd3a2f6f1b::t_be72709a9ae8f5 434
+scraper/tests/test_emit.py
+  s_0c36dd3a2f6f1b::t_e924cf62e97cd4 202-212
+scraper/tests/test_parsers.py
+  s_0c36dd3a2f6f1b::t_2bedc6260a0f61 82-87,89-121
+  s_0c36dd3a2f6f1b::t_6a2b59b030d439 327-335
+  s_0c36dd3a2f6f1b::t_662e0f7e023c30 132-133,135-167
+  s_0c36dd3a2f6f1b::t_aa85453096b6f9 63
+  s_0c36dd3a2f6f1b::t_91fe7d95406aa9 351-360,363
+  s_0c36dd3a2f6f1b::t_f139298bfccc47 379,383-405
+  s_0c36dd3a2f6f1b::t_3fba22e74923f7 79-81,88
+  s_0c36dd3a2f6f1b::t_b1c91aec7dc5c4 361-362
+  s_0c36dd3a2f6f1b::t_e5ee398ae4f146 406
+scraper/cli.py
+  s_0c36dd3a2f6f1b::t_a82cb37f36372b 1067-1069
+data/verify-report.md
+  s_0c36dd3a2f6f1b::t_a186a9e0747e31 9-10,30,36-46
+  s_0c36dd3a2f6f1b::t_b6bf121a26144b 8
+  s_0c36dd3a2f6f1b::t_3a3e5154bd83a2 11-12
+scraper/progress.py
+  s_0c36dd3a2f6f1b::t_fc60b6623c358e 48-51
+  s_0c36dd3a2f6f1b::t_5e7b71bd4845c3 45-47
+scraper/parsers.py
+  s_0c36dd3a2f6f1b::t_b5cf3817ebe57f 50-57
+  s_0c36dd3a2f6f1b::t_97ed6035ea0ce8 452-454
+  s_0c36dd3a2f6f1b::t_c58190f0d44699 420,425-429
+  s_0c36dd3a2f6f1b::t_9b94e96df4c8b8 472
+  s_0c36dd3a2f6f1b::t_b826f8a4149e14 298-300
+  s_0c36dd3a2f6f1b::t_ca022da774f16f 352-355
+  s_0c36dd3a2f6f1b::t_1612c1cb44190b 8
+  s_0c36dd3a2f6f1b::t_4390c01ba4e369 443-446,448-449
+  s_0c36dd3a2f6f1b::t_b34a9fed16e187 473-474
+  s_0c36dd3a2f6f1b::t_c7ccb0c1597947 421-424,430-442,447,450-451,455-456
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "3c6964d7428878908d4ffc3eceb75951ab7147d6",
+  "prompts": {},
+  "sessions": {
+    "s_0c36dd3a2f6f1b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cc74344b-3de0-4e92-86df-597b9bbc4e44",
+        "model": "deepseek-v4-flash"
+      },
+      "human_author": "TautCony <i@tautcony.xyz>"
+    }
+  }
+}
