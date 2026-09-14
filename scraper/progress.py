@@ -447,12 +447,16 @@ class StageRunner:
         iterator: Iterator[T] = iter(todo)
         bar = None
         if self.show_progress:
+            # 必须把真正要遍历的 todo 交给 tqdm。
+            # 只传 total 再迭代 bar 本身是不行的：tqdm.__iter__ 会去
+            # ``for obj in self.iterable``，而 iterable 是 None，
+            # 于是抛 ``TypeError: 'NoneType' object is not iterable``。
             bar = tqdm(
+                todo,
                 total=len(todo),
                 desc=desc or self.stage,
                 unit="项",
                 dynamic_ncols=True,
-                initial=0,
                 leave=True,
             )
             iterator = bar  # type: ignore[assignment]

@@ -419,3 +419,63 @@ class TestReadonlyStore:
         assert store.is_done("a")
         assert store.totals()["done"] == 1
         assert not cfg.progress_path.exists()
+
+
+class TestProgressBarDoesNotBreakIteration:
+    """进度条必须包住真正的迭代器，不能只传 ``total`` 再迭代 bar 自身。
+
+    历史缺陷：``tqdm(total=N)`` 的 ``self.iterable`` 是 ``None``，
+    而 ``tqdm.__iter__`` 会执行 ``for obj in self.iterable``，
+    于是每个"有活要干"的阶段都会抛
+    ``TypeError: 'NoneType' object is not iterable`` —— 默认开着进度条，
+    等于整个抓取根本跑不起来。
+
+    这里用**真实 tqdm**（只把输出关掉），这样断言的就是 tqdm 的真实契约，
+    而不是我自己编的假实现。
+    """
+
+    def _patch(self, monkeypatch) -> None:
+        from tqdm import tqdm
+
+        import scraper.progress as progress_module
+
+        monkeypatch.setattr(
+            progress_module, "tqdm", lambda *args, **kwargs: tqdm(*args, disable=True, **kwargs)
+        )
+
+    def test_all_items_processed_with_progress_bar(self, cfg, monkeypatch) -> None:
+        self._patch(monkeypatch)
+        store = ProgressStore(cfg=cfg)
+        runner = StageRunner(store, "s", cfg=cfg, show_progress=True)
+
+        seen: list[str] = []
+        result = runner.run(["a", "b", "c"], seen.append, lambda item: item)
+
+        assert seen == ["a", "b", "c"]
+        assert result.processed == 3
+        assert result.failed == 0
+
+    def test_handler_still_receives_items(self, cfg, monkeypatch) -> None:
+        """进度条不能把元素换成别的东西。"""
+        self._patch(monkeypatch)
+        store = ProgressStore(cfg=cfg)
+        runner = StageRunner(store, "s", cfg=cfg, show_progress=True)
+
+        seen: list[tuple[str, str]] = []
+        runner.run([("x", 1), ("y", 2)], seen.append, lambda item: item[0])
+
+        assert seen == [("x", 1), ("y", 2)]
+
+    def test_bar_closed_on_circuit_breaker(self, cfg, monkeypatch) -> None:
+        """熔断冒泡时进度条仍要关掉，否则终端会被残留的条卡住。"""
+        self._patch(monkeypatch)
+        from scraper.http_client import CircuitBreakerOpen
+
+        store = ProgressStore(cfg=cfg)
+        runner = StageRunner(store, "s", cfg=cfg, show_progress=True)
+
+        def handler(item: str) -> None:
+            raise CircuitBreakerOpen("https://x/", "熔断", 403)
+
+        with pytest.raises(CircuitBreakerOpen):
+            runner.run(["a"], handler, lambda item: item)
