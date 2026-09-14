@@ -1,0 +1,35 @@
+scraper/html2md.py
+  s_6838c1a24d0019::t_66a6fe075e5478 264-270,273-274
+scraper/tests/test_verify.py
+  s_6838c1a24d0019::t_b735c953541d91 274-403
+  s_6838c1a24d0019::t_6b774117d78c2b 5-8,13,16-17
+scraper/emit.py
+  s_6838c1a24d0019::t_9d429afee7886e 44-53
+  s_6838c1a24d0019::t_35b1db50a36980 278
+scraper/verify.py
+  s_6838c1a24d0019::t_5e96864de2c393 13-14
+  s_6838c1a24d0019::t_c9e778e2d8364b 481,489-490,492,496
+  s_6838c1a24d0019::t_ed31254efa9972 483-484,486-488,491,493-495,498,502-511,513-514,516
+  s_6838c1a24d0019::t_4321b22a0672ca 33
+  s_6838c1a24d0019::t_6d726871eb604f 407,420-446
+  s_6838c1a24d0019::t_369d2a61415b3f 447
+data/verify-report.md
+  s_6838c1a24d0019::t_ffa17693fe4c16 3,13,68,70-211
+  s_6838c1a24d0019::t_423e276f6f4e7c 213
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "f5fddf38f1f34c520130a36eb8ee293d67952396",
+  "prompts": {},
+  "sessions": {
+    "s_6838c1a24d0019": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dfe549b7-49df-4663-9faf-030ff0f5bd2a",
+        "model": "deepseek-v4-flash"
+      },
+      "human_author": "TautCony <i@tautcony.xyz>"
+    }
+  }
+}
