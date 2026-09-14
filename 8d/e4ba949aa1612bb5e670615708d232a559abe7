@@ -1,0 +1,18 @@
+docs/.vitepress/config.mts
+  h_3705811fa4502c 79,109
+docs/index.md
+  h_3705811fa4502c 27
+scraper/emit.py
+  h_3705811fa4502c 503
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "8de4ba949aa1612bb5e670615708d232a559abe7",
+  "prompts": {},
+  "humans": {
+    "h_3705811fa4502c": {
+      "author": "TautCony <i@tautcony.xyz>"
+    }
+  }
+}
