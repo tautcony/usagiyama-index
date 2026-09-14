@@ -10,6 +10,7 @@ import hashlib
 import json
 import os
 import tempfile
+from collections.abc import Iterable
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -125,3 +126,12 @@ def human_duration(seconds: float) -> str:
 def truncate(text: str, width: int = 60) -> str:
     text = " ".join((text or "").split())
     return text if len(text) <= width else text[: width - 1] + "…"
+
+
+def host_matches(host: str, patterns: Iterable[str]) -> bool:
+    """``host`` 是否等于 ``patterns`` 中的某一项（或其子域）。
+
+    子域也算命中：``img1.doubanio.com`` 应匹配 ``doubanio.com``。
+    """
+    host = (host or "").lower()
+    return any(host == pattern or host.endswith("." + pattern) for pattern in patterns)

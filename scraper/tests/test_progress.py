@@ -365,6 +365,65 @@ class TestTerminalOutcomesNotOverwritten:
         assert store.is_done("a")
 
 
+class TestRecordSourceFailure:
+    """源站抖动的记录策略：先重试，试满次数才认账（见 ``cli.record_source_failure``）。
+
+    小站的间歇性 404 会自愈，把它固化成"内容不存在"就再也补不回来了；
+    但无限重试同样不对 —— 真的是死链时，清单该把它列出来让人工看一眼。
+    """
+
+    def _status(self, *, retryable: bool, detail: str = ""):
+        from scraper.models import Availability, SourceStatus
+
+        return SourceStatus(
+            availability=Availability.UNAVAILABLE, detail=detail, retryable=retryable
+        )
+
+    def test_retryable_records_failed(self, cfg) -> None:
+        from scraper.cli import record_source_failure
+
+        store = ProgressStore(cfg=cfg)
+        record_source_failure(
+            store, "photo:1:2", self._status(retryable=True), stage="photos", url="https://x/"
+        )
+
+        assert store.status_of("photo:1:2") == str(ItemStatus.FAILED)
+        assert store.unavailable() == []
+        # 下次同步会自动重试
+        assert store.pending(["photo:1:2"]) == ["photo:1:2"]
+
+    def test_gives_up_after_max_attempts(self, cfg) -> None:
+        from scraper.cli import RETRYABLE_MAX_ATTEMPTS, record_source_failure
+
+        store = ProgressStore(cfg=cfg)
+        status = self._status(retryable=True)
+        for _ in range(RETRYABLE_MAX_ATTEMPTS):
+            record_source_failure(store, "photo:1:2", status, stage="photos", url="https://x/")
+        assert store.status_of("photo:1:2") == str(ItemStatus.FAILED)
+
+        record_source_failure(store, "photo:1:2", status, stage="photos", url="https://x/")
+
+        assert store.status_of("photo:1:2") == str(ItemStatus.UNAVAILABLE)
+        assert [record.key for record in store.unavailable()] == ["photo:1:2"]
+        assert store.get("photo:1:2").meta["url"] == "https://x/"
+
+    def test_plain_failure_records_unavailable_immediately(self, cfg) -> None:
+        """对照组：可信的失败（403/真死链）立刻进清单。"""
+        from scraper.cli import record_source_failure
+
+        store = ProgressStore(cfg=cfg)
+        record_source_failure(
+            store,
+            "note:1",
+            self._status(retryable=False, detail="源站返回 HTTP 404"),
+            stage="notes",
+            url="https://x/",
+        )
+
+        assert store.status_of("note:1") == str(ItemStatus.UNAVAILABLE)
+        assert store.get("note:1").detail == "源站返回 HTTP 404"
+
+
 class TestReadonlyStore:
     """``--offline`` 用的只读进度库：读得到，写不下去。
 

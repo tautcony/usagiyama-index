@@ -18,6 +18,7 @@ from .models import (
     Bulletin,
     Comment,
     Discussion,
+    ExternalPage,
     MiniblogStatus,
     Note,
     PhotoMeta,
@@ -45,8 +46,16 @@ DISCUSSION_PATH_RE = re.compile(r"/widget/forum/(\d+)/discussion/(\d+)/")
 COMMENT_COUNT_RE = re.compile(r"\(?\s*(\d+)\s*回应\s*\)?")
 # 标题后缀
 TITLE_SUFFIX_RE = re.compile(r"\s*[（(](?:兔子山的小站|豆瓣)[)）]\s*$")
-# 相册大图 URL
-PHOTO_SIZE_RE = re.compile(r"/view/photo/([a-z]+)/public/(p\d+\.\w+)$")
+# 相册（照片）图片 URL：``/view/photo/<尺寸>/public/p<照片ID>.<后缀>``
+PHOTO_IMG_RE = re.compile(r"/view/photo/([a-z]+)/public/(p\d+\.\w+)$")
+#: 页面里各尺寸的偏好顺序。``large``/``l`` 是豆瓣处理过的大图，
+#: ``photo`` 是页面上真正显示的那张（也是列表页链接的目标）。
+#: 原图（``raw``）不在这里出现 —— 它只藏在"查看原图"链接里，见 :func:`_photo_original_url`。
+PHOTO_IMG_SIZE_PREFERENCE = ("large", "l", "photo")
+#: "查看原图"链接
+PHOTO_ORIGINAL_SELECTORS = ("#original a[href]", "a[title='查看原图'][href]")
+# 原图 URL（``raw`` 尺寸）
+PHOTO_RAW_RE = re.compile(r"/view/photo/raw/public/p\d+\.\w+$")
 #: 相册照片描述容器。注意真实类名是 ``phodesc``（**没有**连字符），
 #: 它在 ``#link-report`` 里面；直接取 ``#link-report`` 会把整页的
 #: "> 返回相册 第N张 / 共M张 上一张 / 下一张 … 查看原图 投诉" 全带上。
@@ -454,20 +463,53 @@ def _photo_caption(soup: BeautifulSoup) -> str | None:
     return None
 
 
-def parse_photo_detail(html: str, album_id: str, photo_id: str, url: str,
-                       cfg: Config = CONFIG) -> PhotoMeta:
-    """解析相册详情页，提取大图 URL 与完整描述。"""
-    soup = make_soup(html, cfg)
-    large = ""
+def _photo_original_url(soup: BeautifulSoup, photo_id: str) -> str:
+    """提取"查看原图"链接（``raw`` 尺寸），没有则返回空串。
+
+    这是页面上**唯一**能拿到原始上传文件的地方。页面 ``<img>`` 里最大只到
+    ``large`` —— 那是豆瓣的处理版（长边 1600，比 1600 小的图还会被放大），
+    并非原图；原图只在 ``<span id="original"><a title="查看原图">`` 里。
+    """
+    candidates = [str(node.get("href", "")) for selector in PHOTO_ORIGINAL_SELECTORS
+                  for node in soup.select(selector)]
+    # 结构变了也不要紧：全页扫一遍指向 raw 尺寸的链接
+    candidates += [str(node["href"]) for node in soup.find_all("a", href=True)]
+    for href in candidates:
+        path = urlparse(href).path
+        # 校验照片 ID，防止页面被重定向到别的照片后张冠李戴
+        if PHOTO_RAW_RE.search(path) and f"/p{photo_id}." in path:
+            return href
+    return ""
+
+
+def _photo_display_url(soup: BeautifulSoup, photo_id: str) -> str:
+    """按 :data:`PHOTO_IMG_SIZE_PREFERENCE` 挑出页面上这张照片的最大可用 URL。
+
+    源站抖动时后端会把地址渲染成字面量 ``src="None"``，正则匹配不上，
+    这里自然返回空串。
+    """
+    found: dict[str, str] = {}
     for img in soup.find_all("img"):
         src = str(img.get("src", ""))
-        match = PHOTO_SIZE_RE.search(urlparse(src).path)
-        if match and match.group(2).startswith(f"p{photo_id}"):
-            if match.group(1) == "large":
-                large = src
-                break
-            if match.group(1) == "photo" and not large:
-                large = src
+        match = PHOTO_IMG_RE.search(urlparse(src).path)
+        if match and match.group(2).startswith(f"p{photo_id}."):
+            found.setdefault(match.group(1), src)
+    for size in PHOTO_IMG_SIZE_PREFERENCE:
+        if size in found:
+            return found[size]
+    # 偏好之外的尺寸（thumb / m / small…）也收下：归档时还能按尺寸链升级
+    return next(iter(found.values()), "")
+
+
+def parse_photo_detail(html: str, album_id: str, photo_id: str, url: str,
+                       cfg: Config = CONFIG) -> PhotoMeta:
+    """解析相册详情页，提取原图 / 大图 URL 与完整描述。
+
+    优先取"查看原图"的 ``raw`` 链接，取不到才退回页面 ``<img>`` 里的最大尺寸。
+    """
+    soup = make_soup(html, cfg)
+    original = _photo_original_url(soup, photo_id)
+    large = _photo_display_url(soup, photo_id)
 
     caption = _photo_caption(soup)
     if caption is None:
@@ -475,15 +517,21 @@ def parse_photo_detail(html: str, album_id: str, photo_id: str, url: str,
         title_node = soup.find("title")
         caption = clean_title(title_node.get_text()) if isinstance(title_node, Tag) else ""
 
+    ok = bool(original or large)
+    # 页面骨架在（照片页该有的容器都有）、却连一个图片地址都没解析出来，
+    # 那不是"这张照片没有图"，而是后端抖动把地址渲染成了 "None"。
+    rendered = soup.select_one(".phoview, #link-report") is not None
     return PhotoMeta(
         photo_id=photo_id,
         album_id=album_id,
         caption=caption,
         large_url=large,
+        original_url=original,
         source_url=url,
         status=SourceStatus(
-            availability="ok" if large else "unavailable",
-            detail="" if large else "未找到大图 URL",
+            availability="ok" if ok else "unavailable",
+            detail="" if ok else "未找到图片地址（页面可能未正常渲染）",
+            retryable=not ok and rendered,
         ),
     )
 
@@ -543,14 +591,12 @@ EXTERNAL_TITLE_SELECTORS = ("h1", ".topic-title", ".note-header h1", "#content h
 
 
 def parse_external_page(html: str, url: str, page_id: str, origin: str = "",
-                        cfg: Config = CONFIG) -> "ExternalPage":
+                        cfg: Config = CONFIG) -> ExternalPage:
     """解析豆瓣主站上的独立页面（``/topic/``、``/note/`` 等）。
 
     这些页面的 DOM 结构不如小站规整，因此正文与标题都用**候选选择器依次尝试**，
     取第一个有实际内容的。
     """
-    from .models import ExternalPage
-
     soup = make_soup(html, cfg)
 
     title = ""

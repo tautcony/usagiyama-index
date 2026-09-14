@@ -73,6 +73,14 @@ class SourceStatus:
     wayback_timestamp: str | None = None
     wayback_status: int | None = None
 
+    retryable: bool = False
+    """这次没拿到内容，但**结论不可信**（例如小站 widget 的间歇性 404）。
+
+    :attr:`availability` 说的是"现在拿不到"，本字段说的是"这个判断能不能作数"。
+    为 ``True`` 时进度记 ``FAILED``（下次同步自动重试）而不是 ``UNAVAILABLE``
+    （不再回头看）—— 源站的抖动不该被固化成归档里的空白。
+    """
+
     @property
     def label(self) -> str:
         return STATUS_LABELS.get(self.availability, str(self.availability))
@@ -88,6 +96,7 @@ class SourceStatus:
             "label": self.label,
             "httpStatus": self.http_status,
             "detail": self.detail,
+            "retryable": self.retryable,
             "waybackUrl": self.wayback_url,
             "waybackTimestamp": self.wayback_timestamp,
             "waybackStatus": self.wayback_status,
@@ -153,8 +162,26 @@ class PhotoMeta:
     caption: str = ""
     thumb_url: str = ""
     large_url: str = ""
+    """页面 ``<img>`` 里的最大尺寸（``large``，豆瓣处理版，长边 1600，小图会放大）。"""
+
+    original_url: str = ""
+    """详情页"查看原图"链接指向的 ``raw`` 尺寸 —— 上传时的原文件。
+
+    只有详情页才有这个链接，且并非所有照片都提供；为空时退回
+    :attr:`large_url`。见 :func:`scraper.parsers.parse_photo_detail`。
+    """
+
     source_url: str = ""
     local: str = ""
+    """**预览图**的站内路径：相册网格里显示的那张（``<img src>``）。"""
+
+    local_original: str = ""
+    """**原图**的站内路径：点开预览、或在新窗口打开时看的那张（``<a href>``）。
+
+    为空表示这张照片没有可得的原图（源站不提供，或者没抓到），
+    此时预览打开的仍是 :attr:`local`。
+    """
+
     status: SourceStatus = field(default_factory=SourceStatus)
 
     def to_dict(self) -> dict[str, Any]:

@@ -11,6 +11,7 @@ from scraper.http_client import CachedResponse
 from scraper.media import (
     MediaArchive,
     album_image_variants,
+    album_original_variants,
     basename_of,
     is_valid_image,
     note_image_variants,
@@ -78,6 +79,19 @@ class TestSizeVariants:
         assert "/large/" in variants[0]
         assert len(variants) == len(set(variants))
 
+    def test_original_prefers_raw_then_falls_back(self) -> None:
+        """"查看原图"链接（raw）为起点时，原图排第一，其后逐级退回处理版。"""
+        raw = "https://img1.doubanio.com/view/photo/raw/public/p2325379542.jpg"
+        variants = album_original_variants(raw)
+        assert variants[0] == raw
+        assert "/large/" in variants[1]
+        assert len(variants) == len(set(variants))
+
+    def test_original_variants_keep_extension(self) -> None:
+        """只换尺寸段，不动后缀 —— 原图是 .jpg，页面那张可能是 .webp。"""
+        raw = "https://img1.doubanio.com/view/photo/raw/public/p2325379542.jpg"
+        assert all(v.endswith("p2325379542.jpg") for v in album_original_variants(raw))
+
     def test_original_appended_when_unknown_size(self) -> None:
         url = "https://img1.doubanio.com/view/photo/original/public/p1.jpg"
         assert url in album_image_variants(url)
@@ -114,6 +128,58 @@ class TestNaming:
         archive.cfg = cfg
         _, local = archive.video_thumb_path("783649", "https://x/t.jpg")
         assert local == "/media/videos/783649.jpg"
+
+    def test_album_original_path_is_separate_from_preview(self, cfg) -> None:
+        """原图与预览图同在``{photoId}``命名下，必须落在不同目录才不会互相覆盖。"""
+        archive = MediaArchive.__new__(MediaArchive)
+        archive.cfg = cfg
+        url = "https://img1.doubanio.com/view/photo/raw/public/p2770778841.jpg"
+        dest, local = archive.album_original_path("13432051", "2770778841", url)
+        assert dest == cfg.media_dir / "albums" / "13432051" / "original" / "2770778841.jpg"
+        assert local == "/media/albums/13432051/original/2770778841.jpg"
+
+
+class TestFindAlbumFile:
+    """磁盘查找：预览图与原图各自只在自己的目录里找。"""
+
+    def _archive(self, cfg) -> MediaArchive:
+        archive = MediaArchive.__new__(MediaArchive)
+        archive.cfg = cfg
+        return archive
+
+    def _write(self, path: Path, blob: bytes = b"\xff\xd8\xff\xe0" + b"0" * 20) -> None:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(blob)
+
+    def test_preview_prefers_webp_when_both_suffixes_present(self, cfg) -> None:
+        """回归：早期归档留下过同名 ``.jpg``，网格该显示体积更小的 webp。"""
+        album_dir = cfg.media_dir / "albums" / "13432051"
+        self._write(album_dir / "2770778841.jpg")
+        self._write(album_dir / "2770778841.webp")
+        found = self._archive(cfg).find_album_image("13432051", "2770778841")
+        assert found is not None
+        assert found[1] == "/media/albums/13432051/2770778841.webp"
+
+    def test_preview_falls_back_to_other_suffix(self, cfg) -> None:
+        self._write(cfg.media_dir / "albums" / "13432051" / "2770778841.jpg")
+        found = self._archive(cfg).find_album_image("13432051", "2770778841")
+        assert found is not None
+        assert found[1] == "/media/albums/13432051/2770778841.jpg"
+
+    def test_preview_missing(self, cfg) -> None:
+        self._write(cfg.media_dir / "albums" / "13432051" / "2770778842.webp")
+        assert self._archive(cfg).find_album_image("13432051", "2770778841") is None
+
+    def test_original_not_confused_with_preview(self, cfg) -> None:
+        """只有预览图时，原图查找必须返回"没有" —— 否则页面会把 webp 当原图。"""
+        self._write(cfg.media_dir / "albums" / "13432051" / "2770778841.webp")
+        assert self._archive(cfg).find_album_original("13432051", "2770778841") is None
+
+    def test_original_found_in_subdir(self, cfg) -> None:
+        self._write(cfg.media_dir / "albums" / "13432051" / "original" / "2770778841.jpg")
+        found = self._archive(cfg).find_album_original("13432051", "2770778841")
+        assert found is not None
+        assert found[1] == "/media/albums/13432051/original/2770778841.jpg"
 
 
 class TestCollectNoteImages:

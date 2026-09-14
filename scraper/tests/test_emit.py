@@ -113,6 +113,12 @@ def _note(note_id: str = "1", **kwargs) -> Note:
     return note
 
 
+def _photo_card(text: str) -> str:
+    """取出相册页里的第一张卡片 —— 断言挂在卡片上，「哪张图配哪个链接」才说得清。"""
+    start = text.index('<figure class="photo-card">')
+    return text[start : text.index("</figure>", start)]
+
+
 class TestEmitNote:
     def test_writes_file_with_frontmatter(self, cfg) -> None:
         emitter = SiteEmitter(cfg, EmitContext(route_map={"1": "/notes/1"}))
@@ -217,6 +223,38 @@ class TestEmitAlbum:
         ]
         text = SiteEmitter(cfg).emit_album(album).read_text(encoding="utf-8")
         assert "&quot;" in text
+
+    def test_preview_webp_click_opens_original_jpg(self, cfg) -> None:
+        """有原图时：网格里显示 webp 预览图，点开的链接指向 jpg 原图。"""
+        album = Album(album_id="1", title="t")
+        album.photos = [
+            PhotoMeta(
+                photo_id="1",
+                album_id="1",
+                caption="描述",
+                local="/media/albums/1/1.webp",
+                local_original="/media/albums/1/original/1.jpg",
+            )
+        ]
+        text = SiteEmitter(cfg).emit_album(album).read_text(encoding="utf-8")
+        card = _photo_card(text)
+
+        assert '<a class="photo-preview" href="/media/albums/1/original/1.jpg"' in card
+        assert '<img src="/media/albums/1/1.webp" alt="描述" loading="lazy" />' in card
+        # 描述既给缩放脚本（data-caption）也做光标提示
+        assert 'data-caption="描述"' in card
+        assert "查看原图" in card
+
+    def test_without_original_click_opens_preview(self, cfg) -> None:
+        """源站不给原图（或没抓到）时，点开的仍是预览图，且不吹嘘"查看原图"。"""
+        album = Album(album_id="1", title="t")
+        album.photos = [PhotoMeta(photo_id="1", album_id="1", local="/media/albums/1/1.webp")]
+        text = SiteEmitter(cfg).emit_album(album).read_text(encoding="utf-8")
+        card = _photo_card(text)
+
+        assert 'href="/media/albums/1/1.webp"' in card
+        assert "查看原图" not in card
+        assert "data-caption" not in card
 
 
 class TestEmitSidebar:
@@ -390,6 +428,11 @@ class TestHtmlEscaping:
     def test_tabs_and_spaces_normalised(self) -> None:
         assert html_attr("a\t\t b   c") == "a b c"
 
+    def test_braces_escaped_for_vue(self) -> None:
+        """``{{ }}`` 是 Vue 的插值语法，原样输出会被当成表达式。"""
+        assert html_text("{{ x }}") == "&#123;&#123; x &#125;&#125;"
+        assert html_attr("{{ x }}") == "&#123;&#123; x &#125;&#125;"
+
 
 class TestAlbumCaptionEscaping:
     def test_newline_in_caption_does_not_break_html(self, cfg) -> None:
@@ -419,6 +462,22 @@ class TestAlbumCaptionEscaping:
         text = SiteEmitter(cfg).emit_album(album).read_text(encoding="utf-8")
         assert "<b>粗</b>" not in text
         assert "&lt;b&gt;" in text
+
+    def test_braces_in_caption_neutralised(self, cfg) -> None:
+        """回归：描述里的 ``{{ }}`` 会被 Vue 当成插值 —— 轻则吞掉这段文字，
+        重则（括号不配对时）让整个站点构建失败。"""
+        album = Album(album_id="1", title="相册")
+        album.photos = [
+            PhotoMeta(
+                photo_id="1",
+                album_id="1",
+                caption="含 {{ 花括号 }} 与坏表达式 {{ (}}",
+                local="/media/1.webp",
+            )
+        ]
+        text = SiteEmitter(cfg).emit_album(album).read_text(encoding="utf-8")
+        assert "{{" not in text
+        assert "&#123;&#123; 花括号 &#125;&#125;" in text
 
 
 class TestVideoEscaping:

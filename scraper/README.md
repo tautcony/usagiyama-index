@@ -197,6 +197,12 @@ for (const file of fs.readdirSync(srcDir)) {   // 先取名字快照
 > 顺带一提：不要在构建的同时开着 `vitepress dev`。旧进程会持有
 > `docs/.vitepress/dist`，导致构建以 `ENOTEMPTY` 失败、产出残缺。
 
+**正文里的花括号**：归档内容什么字符都可能有，而 VitePress 把每篇 markdown
+编译成 Vue 组件，`{{ … }}` 会被当成插值表达式 —— 轻则这段文字消失，重则
+（括号不配对时）整个站点构建失败。两道防线：markdown 正文由
+`config.mts` 里的 `defuseVueBraces` 换成实体，scraper 直接生成的裸 HTML
+（相册卡片等）由 `emit.html_text()` 换成实体，页面上显示的仍是花括号本身。
+
 ### 缓存按域名隔离
 
 缓存按 URL 的**主机名**分目录存放，不同源站互不干扰：
@@ -232,6 +238,14 @@ scraper/state/cache/
 | `unavailable` | 源站与 archive.org 均不可得 | 跳过（`--recheck-unavailable` 可重探） |
 | `failed` | 抓取出错 | 自动重试 |
 | `skipped` | 按策略跳过 | 跳过 |
+
+**不可信的 404**：小站的 widget 后端时不时对**确实存在**的页面返回 404
+（同一个地址几分钟后又正常，页面里还会渲染出字面量 `<img src="None">`）。
+这种 404 一个字都不写进缓存，本次先用一次强制的复查请求确认；仍然只拿到 404 的，
+按 `failed` 记（而不是 `unavailable`），同一地址最多重试
+`RETRYABLE_MAX_ATTEMPTS`（3）次才落进 `data/unavailable.md` ——
+源站的抖动不该被固化成归档里的一个空洞。受影响的域名由
+`Config.untrusted_404_hosts` 指定。
 
 三种终态（`done` / `unavailable` / `skipped`）都由**阶段执行器**统一保护：
 handler 主动标记后，兜底逻辑不会再把它改写成 `done`。
@@ -457,6 +471,9 @@ Playwright 走独立子进程，**两者都绕过 Python 的 socket 模块** —
 | `USAGI_BROWSER_NAV_TIMEOUT_MS` | `45000` | 浏览器导航超时（毫秒） |
 | `USAGI_BROWSER_NORMALIZE_UA` | `1` | 把 `HeadlessChrome` 还原为真实版本号 |
 
-**仓库体积**：相册默认用 `large`（约 618KB/张 × 498 张 ≈ 300MB）。
-若体积敏感，把 `config.py` 里的 `album_image_size` 改为 `"photo"`
-（约 123KB/张，总量降至约 60MB）。
+**仓库体积**：相册默认存两份 —— 预览图用 `large`（约 618KB/张 × 498 张 ≈ 300MB），
+原图是"查看原图"的 `raw` 尺寸（上传时的原文件，单张常在 1~3MB）。
+只有照片详情页会给出这个链接，拿不到就不存，存多少完全由源站决定。
+若体积敏感，把 `media.py` 里的 `ALBUM_SIZE_ORDER` 改以 `"photo"` 打头
+（约 123KB/张）；原图不受这档偏好影响，不想存就在 `stage_photos` 里
+去掉 `_archive_photo_original` 的调用 —— 预览图与页面都会自动退回到原样。

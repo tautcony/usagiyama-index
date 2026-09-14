@@ -5,14 +5,19 @@
 判定顺序：
 
 1. 源站正常返回 → ``Availability.OK``
-2. 源站不可访问（403/404/410/418/429 等）→ 查询 Wayback Machine
+2. 不可信的 404（小站 widget 的间歇性抖动，见
+   :func:`scraper.http_client.is_untrusted_missing`）→ **确认一次**再下结论；
+   确认后仍是 404 则标 ``retryable``（进度记 FAILED，下次同步重试）
+3. 源站不可访问（403/404/410/418/429 等）→ 查询 Wayback Machine
    * 命中快照 → ``Availability.ARCHIVED``（记录快照时间与链接）
    * 无快照   → ``Availability.ARCHIVE_MISSING``
-3. 命中已知需要登录的路径（``www.douban.com/note/``、``/topic/``）→
+4. 命中已知需要登录的路径（``www.douban.com/note/``、``/topic/``）→
    ``Availability.LOGIN_REQUIRED``，仍会尝试 archive.org
 
 所有非 OK 的页面都会被记入 ``PageResolver.unavailable``，
 最终产出 ``data/unavailable.md`` 清单，便于人工核对。
+可重试的暂时性失败**除外** —— 它还没被确认"不存在"，进清单会把清单本身
+变成噪声（下次同步很可能就补回来了）。
 """
 
 from __future__ import annotations
@@ -23,7 +28,14 @@ from urllib.parse import urlparse
 
 from .archive import WaybackClient
 from .config import CONFIG, Config
-from .http_client import BlockedError, CircuitBreakerOpen, FetchError, OfflineCacheMiss
+from .http_client import (
+    BlockedError,
+    CachedResponse,
+    CircuitBreakerOpen,
+    FetchError,
+    OfflineCacheMiss,
+    is_untrusted_missing,
+)
 from .transport import Transport
 from .models import Availability, SourceStatus
 
@@ -126,6 +138,11 @@ class PageResolver:
         except FetchError as exc:
             return self._fallback(url, exc.status, f"抓取失败：{exc}", context, allow_archive)
 
+        if not (resp.ok and resp.content) and is_untrusted_missing(url, resp.status, self.cfg):
+            # 小站的 404 不可信：同一个 URL 过一会儿往往就恢复 200。归档一旦把内容
+            # 判成"不存在"就不会再回头，所以先确认一次再下结论。
+            resp = self._confirm_transient(url, referer, resp)
+
         if resp.ok and resp.content:
             self.resolved_ok.add(url)
             return ResolvedPage(
@@ -139,8 +156,28 @@ class PageResolver:
             )
 
         return self._fallback(
-            url, resp.status, f"源站返回 HTTP {resp.status}", context, allow_archive
+            url,
+            resp.status,
+            f"源站返回 HTTP {resp.status}",
+            context,
+            allow_archive,
+            retryable=is_untrusted_missing(url, resp.status, self.cfg),
         )
+
+    def _confirm_transient(self, url: str, referer: str | None, first: CachedResponse) -> CachedResponse:
+        """对"不可信的 404"再请求一次，返回应该采信的那个响应。
+
+        确认请求同样走限速与熔断；它自己失败（被拦截 / 离线 / 网络错误）时
+        沿用第一次的结果，不改变判定。
+        """
+        log.warning("源站返回 %s，但该域名上的 404 不可信，确认一次：%s", first.status, url)
+        try:
+            return self.fetcher.fetch(url, referer=referer, force=True)
+        except CircuitBreakerOpen:
+            raise
+        except FetchError as exc:
+            log.warning("确认请求未成功（%s），沿用首次结果", exc)
+            return first
 
     def _fallback(
         self,
@@ -150,12 +187,18 @@ class PageResolver:
         context: str,
         allow_archive: bool,
         record_unavailable: bool = True,
+        retryable: bool = False,
     ) -> ResolvedPage:
         """源站不可用时的 archive.org 补足流程。
 
         ``record_unavailable=False`` 表示本次失败**不构成**"源站不可得"的
         证据（离线模式下缓存未命中），只返回状态、不写入 :attr:`unavailable`。
         名字取全，免得和下面的记录对象 ``record`` 撞名。
+
+        ``retryable=True`` 表示源站这次拒绝得**不可信**（小站 widget 的间歇性
+        404，见 :func:`is_untrusted_missing`）：状态照样是"现在拿不到"，但要
+        标记成可重试，并且**不进不可访问清单** —— 清单要的是"确认没有的东西"，
+        而这类页面下次同步很可能就回来了。
         """
         login_required = _looks_login_required(url)
         log.warning("不可访问 %s（%s）%s", url, http_status or "-", detail)
@@ -201,6 +244,8 @@ class PageResolver:
         )
         if self.wayback.enabled:
             detail = f"{detail}；Internet Archive 亦无可用快照"
+        if retryable:
+            detail = f"{detail}；源站返回不可信的 404，下次同步重试"
 
         record = UnavailableRecord(
             url=url,
@@ -211,7 +256,9 @@ class PageResolver:
             wayback_timestamp=wayback_ts,
             context=context,
         )
-        if record_unavailable:
+        # 可重试的失败不进清单：清单的语义是"确认拿不到的内容"，
+        # 而这类页面下次同步很可能就回来了（进度里记 FAILED 待重试）。
+        if record_unavailable and not retryable:
             self.unavailable.append(record)
 
         return ResolvedPage(
@@ -221,6 +268,7 @@ class PageResolver:
                 availability=availability,
                 http_status=http_status,
                 detail=detail,
+                retryable=retryable,
                 wayback_url=wayback_url,
                 wayback_timestamp=wayback_ts,
             ),

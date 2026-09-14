@@ -1,6 +1,37 @@
 import { defineConfig } from 'vitepress'
 import { sidebar } from './sidebar.generated.mts'
 
+/* 归档正文来自豆瓣，什么字符都可能出现，其中 ``{{ … }}`` 要特别处理：
+ * 它是 Vue 模板的插值语法，而 VitePress 会把每篇 markdown 编译成 Vue 组件，
+ * 于是正文里的花括号会被当成表达式 —— 轻则整段内容被吃掉，重则（括号不配对时）
+ * 让整个站点构建失败。markdown-it 不转义花括号，所以在渲染阶段换成实体，
+ * 页面上显示的还是花括号本身。
+ * （scraper 直接生成的裸 HTML 卡片由 emit.py 的 html_text() 负责同样的事。）
+ */
+const escapeHtml = (text: string): string =>
+  text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\{/g, '&#123;')
+    .replace(/\}/g, '&#125;')
+
+const defuseVueBraces = (md: any): void => {
+  md.core.ruler.push('defuse-vue-braces', (state: any) => {
+    for (const token of state.tokens) {
+      if (token.type !== 'inline' || !token.children) continue
+      for (const child of token.children) {
+        if (child.type !== 'text' || !/[{}]/.test(child.content)) continue
+        // 整段改判为 html_inline：它的内容原样输出，因此转义只需自己做一次；
+        // 若留在 text 里，markdown-it 会把实体里的 ``&`` 再转义一次，
+        // 页面上就会显示成 ``&#123;`` 这样的字面量。
+        child.type = 'html_inline'
+        child.content = escapeHtml(child.content)
+      }
+    }
+  })
+}
+
 export default defineConfig({
   lang: 'zh-CN',
   title: '兔子山的小站',
@@ -13,6 +44,7 @@ export default defineConfig({
     breaks: true,
     lineNumbers: false,
     image: { lazyLoading: true },
+    config: defuseVueBraces,
   },
 
   // 关键：把死链检查交给构建流程。任何指向不存在的 md / 图片都会让构建失败，

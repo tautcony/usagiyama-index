@@ -37,7 +37,7 @@ from __future__ import annotations
 
 import logging
 import time
-from typing import Any, Callable, Iterable, Protocol, runtime_checkable
+from typing import Any, Callable, Protocol, runtime_checkable
 from urllib.parse import urlparse
 
 from .config import CONFIG, Config
@@ -53,7 +53,7 @@ from .http_client import (
     RawResponse,
     _RetryableStatus,
 )
-from .util import atomic_write_text
+from .util import atomic_write_text, host_matches
 
 log = logging.getLogger("usagi.browser")
 
@@ -120,11 +120,6 @@ class ChallengeError(BlockedError):
         self.final_url = final_url
 
 
-def _host_matches(host: str, patterns: Iterable[str]) -> bool:
-    host = (host or "").lower()
-    return any(host == p or host.endswith("." + p) for p in patterns)
-
-
 def make_route_handler() -> Callable[[Any], None]:
     """构造 Playwright 的路由拦截回调。
 
@@ -139,7 +134,7 @@ def make_route_handler() -> Callable[[Any], None]:
         try:
             request = route.request
             host = (urlparse(request.url).hostname or "").lower()
-            if request.resource_type in BLOCKED_RESOURCE_TYPES or _host_matches(
+            if request.resource_type in BLOCKED_RESOURCE_TYPES or host_matches(
                 host, BLOCKED_HOSTS
             ):
                 route.abort("blockedbyclient")

@@ -264,7 +264,7 @@ JS 挑战，浏览器路径会被抓——而本项目的应对是"停下、让�
 | **rooms** | `stage_rooms` | 结构已在准备阶段获得。逐项把房间 + 模块数标记为 done（无模块则标记 unavailable）。 |
 | **bulletins** | `stage_bulletins` | 对每个公告栏 `widget`：解析其房间页 → `parse_bulletin` 得到标题与正文 HTML。索引①/② 的解析延后到生成阶段统一重建。 |
 | **notes** | `stage_notes` | 对每篇日记：解析详情页 → `parse_note` 得到标题/日期/正文/评论数；用 `media` 归档配图并建立 `{源URL:站内URL}` 重写映射；收集评论（服务端静态渲染、免登录，按 `?start=N` 翻页，每页 10 条，按 `comment_id` 去重）。正文拿不到时仍保留列表页元信息，页面带提示块。 |
-| **photos** | `stage_photos` | 对每张照片：解析详情页 → 取大图 URL，升级尺寸并下载到 `docs/public/media/albums/{albumId}/{photoId}.jpg`。无论成败都缓存描述，供 albums 阶段复用，避免重复请求。 |
+| **photos** | `stage_photos` | 对每张照片：解析详情页 → 分别归档**预览图**（页面 `<img>`，`docs/public/media/albums/{albumId}/{photoId}.{后缀}`）与**原图**（"查看原图"链接的 `raw` 尺寸，`docs/public/media/albums/{albumId}/original/{photoId}.{后缀}`）。无论成败都缓存描述，供 albums 阶段复用，避免重复请求。 |
 | **albums** | `stage_albums` | 汇总相册元信息（图片已在 photos 阶段归档）。解析相册列表页得到照片清单，复用 photos 阶段已解析的描述与已下载的本地路径。 |
 | **videos** | `stage_videos` | 对每条视频：下载缩略图到 `docs/public/media/videos/{videoId}.jpg`；正片在优酷，不抓。按 `video_id` 幂等合并。 |
 | **forum** | `stage_forum` | 对每个讨论帖：解析详情页，评论为静态渲染可完整归档。按 `discussion_id` 幂等合并。 |
@@ -275,13 +275,18 @@ JS 挑战，浏览器路径会被抓——而本项目的应对是"停下、让�
 
 ### 4.3 图片归档（media.py）
 
-三件必须处理好的现实问题：
+四件必须处理好的现实问题：
 
 1. **防盗链**：`img*.doubanio.com` 不带 `Referer` 返回 418，所有图片请求强制带
    `Referer: https://site.douban.com/211330/`。
 2. **尺寸升级**：列表页给的是 `thumb`（13KB），归档时按偏好顺序升级到最大尺寸
    （相册 `large` 618KB、日记配图 `raw` 207KB）。
-3. **假成功**：源站出错可能返回 HTML 错误页而非图片。因此下载后一律做 **magic bytes
+3. **相册要存两份**：详情页 `<img>` 给的是**预览图**（现在多为 webp，网格里显示的那张），
+   而"查看原图"链接指向 `raw` 尺寸的**原图**（上传时的原文件，多为 jpg）。
+   两者都存在时各存一份（预览图留在相册目录，原图进 `original/` 子目录，
+   避免后缀相同而互相覆盖），页面上点开看的是原图；没有原图时退化为同一个文件。
+   `find_album_image` 在同一张照片存在多个后缀的副本时取 webp —— 像素尺寸相同但体积小得多。
+4. **假成功**：源站出错可能返回 HTML 错误页而非图片。因此下载后一律做 **magic bytes
    校验**，不是真图片就换尺寸重试，再失败则走 archive.org 快照。
 
 `download` 流程：已存在且是有效图片 → 跳过（幂等，追加到 `skipped`）；否则按
@@ -299,6 +304,17 @@ JS 挑战，浏览器路径会被抓——而本项目的应对是"停下、让�
 4. 逐篇渲染：笔记、相册、首页、笔记索引、相册索引、关于页、视频、论坛、广播、站外页、
    sidebar、不可访问清单、manifest。
 5. `save_data`：把中间产物写回 `data/`（供 `emit` 与人工查看）。
+
+相册页的照片卡片刻意写成"裸 HTML + 语义化 class"，站点行为交给前端：
+
+```html
+<a class="photo-preview" href="{原图}" data-caption="…"><img src="{预览图}" /></a>
+```
+
+网格里显示 webp 预览图（省流量），点开由 `docs/.vitepress/theme/lightbox.ts` 接管成
+浮层预览原图 —— **先显示已加载的预览图、再在后台换成原图**，因为原图常有数 MB。
+脚本按住 Cmd/Ctrl 点击或未加载时都不接管，此时链接就是普通外链（`target="_blank"`），
+所以归档站点在 JS 失效的情况下依然可用。
 
 ### 4.5 登录与会话（auth.py）
 

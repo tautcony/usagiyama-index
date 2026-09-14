@@ -18,6 +18,8 @@ curl_cffi 维护着一套与真实浏览器逐字节一致的 TLS/HTTP2 指纹�
 
 * **磁盘缓存**：同一 URL 二次运行直接命中缓存，零网络请求。
   这是增量同步与断点续接的基础，也被浏览器后端复用（同一套缓存布局）。
+  例外是**不可信的 404**（见 :func:`is_untrusted_missing`）：既不入缓存、
+  也不从缓存里取，免得源站一次抖动被永久固化。
 * **礼貌限速**：单线程，请求间隔 ``delay_min ~ delay_max`` 随机抖动。
   豆瓣 ``www.douban.com/robots.txt`` 注明 ``Crawl-delay: 5``，默认以此为下限。
   注意间隔按「距上次请求**开始**的时间」计算，因此浏览器导航耗时会被吸收进间隔里，
@@ -58,7 +60,7 @@ from tenacity import (
 )
 
 from .config import CONFIG, Config
-from .util import atomic_write_bytes, atomic_write_text, now_iso, url_cache_key
+from .util import atomic_write_bytes, atomic_write_text, host_matches, now_iso, url_cache_key
 
 log = logging.getLogger("usagi.http")
 
@@ -71,6 +73,9 @@ BLOCKED_STATUS = frozenset({403, 418})
 RETRYABLE_STATUS = frozenset({408, 425, 429, 500, 502, 503, 504})
 # 不写入缓存的响应码。429/5xx 是暂时性状态，缓存会让下次运行永久失败。
 NO_CACHE_STATUS = frozenset({429, 500, 502, 503, 504, 508})
+# "内容不存在"的响应码。多数情况下 404 是确定性结论，可以直接缓存；
+# 但在 Config.untrusted_404_hosts 列出的域名上它不是 —— 见 is_untrusted_missing。
+MISSING_STATUS = 404
 
 # 可重试的网络异常（curl_cffi 的异常体系）
 CURL_RETRYABLE_EXCEPTIONS: tuple[type[BaseException], ...] = (
@@ -84,6 +89,30 @@ CURL_RETRYABLE_EXCEPTIONS: tuple[type[BaseException], ...] = (
 
 # 兼容旧名字（外部可能已导入）
 RETRYABLE_EXCEPTIONS = CURL_RETRYABLE_EXCEPTIONS
+
+
+# ------------------------------------------------------------------ 404 的可信度
+
+
+def is_untrusted_missing(url: str, status: int, cfg: Config = CONFIG) -> bool:
+    """这个 404 是否**不能**作为"内容已不存在"的证据。
+
+    小站（``site.douban.com``）的 widget 后端有已知抖动：**同一个 URL** 会间歇性
+    返回通用 404 页（"呃...你想访问的页面不存在"），几分钟后再请求就是 200
+    （实测：``/widget/photos/13431950/photo/2325379542/`` 一个小时内 404 → 200）。
+    存档一旦把内容判成"不存在"就不再回头看，因此这种 404 必须区别对待：
+
+    * **不写缓存** —— 否则一次抖动会被固化成永久结论；
+    * **不从缓存取** —— 修好之前写进去的那几条也算数，无需 ``--force``；
+    * 解析层据此把单元标为"可重试"，下次同步自动重试。
+
+    真正的死链因此会多花一两次请求，但不会丢内容。域名清单见
+    :attr:`Config.untrusted_404_hosts`（测试里可替换为空以恢复默认行为）。
+    """
+    if status != MISSING_STATUS:
+        return False
+    host = (urlparse(url).hostname or "").lower()
+    return host_matches(host, cfg.untrusted_404_hosts)
 
 
 # --------------------------------------------------------------------- 缓存布局
@@ -253,6 +282,8 @@ class FetchStats:
     bytes_downloaded: int = 0
     elapsed: float = 0.0
     impersonate: str = ""
+    #: 源站返回了不可信的 404（见 :func:`is_untrusted_missing`）的次数
+    transient_misses: int = 0
     by_status: dict[int, int] = field(default_factory=dict)
 
     def record_status(self, status: int) -> None:
@@ -265,6 +296,7 @@ class FetchStats:
         self.retries += other.retries
         self.blocked += other.blocked
         self.bytes_downloaded += other.bytes_downloaded
+        self.transient_misses += other.transient_misses
         for status, count in other.by_status.items():
             self.by_status[status] = self.by_status.get(status, 0) + count
 
@@ -275,6 +307,7 @@ class FetchStats:
             "retries": self.retries,
             "blocked": self.blocked,
             "bytesDownloaded": self.bytes_downloaded,
+            "transientMisses": self.transient_misses,
             "elapsedSeconds": round(self.elapsed, 1),
             "impersonate": self.impersonate,
             "byStatus": {str(k): v for k, v in sorted(self.by_status.items())},
@@ -488,6 +521,11 @@ class BaseFetcher:
             raise blocked
 
         self._consecutive_blocked = 0
+        # 不可信的 404（小站 widget 抖动）不能固化：不写缓存，下次运行重新请求
+        if is_untrusted_missing(url, raw.status, self.cfg):
+            self.stats.transient_misses += 1
+            log.warning("源站返回 %d，但该域名上的 404 不可信，不写缓存：%s", raw.status, url)
+            return resp
         # 4xx 视为确定性结果并缓存；429 与 5xx 是暂时性的，不缓存以便下次重试
         if raw.status not in NO_CACHE_STATUS:
             self._write_cache(resp)
@@ -514,10 +552,15 @@ class BaseFetcher:
             if cached is not None:
                 # 429/5xx 属于暂时性失败，历史缓存一律视为过期
                 if cached.status not in NO_CACHE_STATUS:
-                    self.stats.cache_hits += 1
-                    if cached.status in BLOCKED_STATUS and raise_for_blocked:
-                        raise BlockedError(url, "缓存记录为被拦截", cached.status)
-                    return cached
+                    # 不可信的 404 同理：本地这份缓存不能代表源站现状，
+                    # 联网时宁可重新请求一次。（离线时没有别的办法，照旧使用。）
+                    if not self.offline and is_untrusted_missing(url, cached.status, self.cfg):
+                        log.info("缓存中的 %d 不可信，改为重新请求：%s", cached.status, url)
+                    else:
+                        self.stats.cache_hits += 1
+                        if cached.status in BLOCKED_STATUS and raise_for_blocked:
+                            raise BlockedError(url, "缓存记录为被拦截", cached.status)
+                        return cached
 
         if self.offline:
             raise OfflineCacheMiss(url, "离线模式下缓存未命中")

@@ -48,7 +48,11 @@ PROGRESS_VERSION = 1
 # 5：照片描述改读 ``.phodesc``。旧选择器 ``.photo-desc`` 从来没匹配上，
 #    一路退到 ``#link-report``，于是每张照片的描述都带着
 #    "> 返回相册 第N张 / 共M张 上一张 / 下一张 … 查看原图 投诉"。
-PARSER_REVISION = 5
+# 6：照片改为归档详情页"查看原图"的 ``raw`` 原图（此前只取页面 ``<img>`` 的
+#    ``large`` —— 豆瓣的处理版，长边 1600，比它小的图还会被放大），
+#    取不到时退回原来的尺寸链；同时小站的间歇性 404 不再当作"内容不存在"，
+#    改为下次同步自动重试（见 cli.record_source_failure）。
+PARSER_REVISION = 6
 
 
 class ItemStatus(StrEnum):

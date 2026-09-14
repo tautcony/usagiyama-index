@@ -162,6 +162,150 @@
   color: var(--vp-c-text-2);
 }
 
+/* 网格里的 webp 预览图点开看 jpg 原图（见 theme/lightbox.ts），
+ * 光标提示"可放大"；按住 Cmd/Ctrl 点击仍走浏览器的"新窗口打开" */
+.photo-grid .photo-card a.photo-preview {
+  cursor: zoom-in;
+}
+
+/* ------------------------------------------------------- 原图预览（浮层） */
+
+/* 这一块由 theme/lightbox.ts 动态创建，只在此处定义外观 */
+body.usagi-lightbox-open {
+  overflow: hidden;
+}
+
+.usagi-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5vmin;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(3px);
+}
+
+.usagi-lightbox[hidden] {
+  display: none;
+}
+
+.usagi-lightbox figure {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+}
+
+.usagi-lightbox .lb-image {
+  max-width: 100%;
+  max-height: 84vh;
+  object-fit: contain;
+  margin: 0;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* 原图还在路上时给个轻微提示，避免被当成加载完了 */
+.usagi-lightbox .lb-image.is-loading {
+  opacity: 0.75;
+}
+
+.usagi-lightbox .lb-bar {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.usagi-lightbox .lb-caption {
+  max-width: 70ch;
+}
+
+.usagi-lightbox .lb-status:empty {
+  display: none;
+}
+
+.usagi-lightbox .lb-open {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.usagi-lightbox button {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.86);
+  background: rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.usagi-lightbox button:hover {
+  background: rgba(255, 255, 255, 0.26);
+}
+
+.usagi-lightbox button[hidden] {
+  display: none;
+}
+
+.usagi-lightbox .lb-close {
+  top: 1rem;
+  right: 1rem;
+}
+
+.usagi-lightbox .lb-prev,
+.usagi-lightbox .lb-next {
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+}
+
+.usagi-lightbox .lb-prev {
+  left: 1rem;
+}
+
+.usagi-lightbox .lb-next {
+  right: 1rem;
+}
+
+@media (max-width: 640px) {
+  .usagi-lightbox .lb-image {
+    max-height: 76vh;
+  }
+
+  .usagi-lightbox .lb-prev,
+  .usagi-lightbox .lb-next {
+    top: auto;
+    bottom: 1rem;
+    transform: none;
+  }
+
+  .usagi-lightbox .lb-prev {
+    left: 25%;
+  }
+
+  .usagi-lightbox .lb-next {
+    right: 25%;
+  }
+}
+
 /* ---------------------------------------------------------------- 视频网格 */
 
 .video-grid {

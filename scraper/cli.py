@@ -46,7 +46,7 @@ from .index_map import (
     group_by_category,
     parse_index,
 )
-from .media import MediaArchive, album_image_variants
+from .media import MediaArchive, album_image_variants, album_original_variants
 from .models import (
     Album,
     Availability,
@@ -57,6 +57,7 @@ from .models import (
     ExternalPage,
     MiniblogStatus,
     Note,
+    PhotoMeta,
     SourceStatus,
     Video,
 )
@@ -481,17 +482,21 @@ class SyncContext:
     # ------------------------------------------------------------ 渲染前准备
 
     def refresh_album_media(self) -> None:
-        """以磁盘为准，刷新每个相册照片的本地路径。
+        """以磁盘为准，刷新每个相册照片的本地路径（预览图与原图各一份）。
 
-        ``local`` 记录的是"图片在不在本地"这一磁盘事实，会随下载与清理而变。
-        图片完全可能在上一次相册阶段之后才落盘（例如本次只跑了 ``photos``
-        阶段），而 ``load_existing`` 发生在所有抓取阶段之前，读到的必然是
-        运行前的旧值。因此统一挪到渲染前重推一次：否则已归档的相册会被
-        整页报成"未能归档"。
+        ``local`` / ``local_original`` 记录的是"图片在不在本地"这一磁盘事实，
+        会随下载与清理而变。图片完全可能在上一次相册阶段之后才落盘
+        （例如本次只跑了 ``photos`` 阶段），而 ``load_existing`` 发生在所有
+        抓取阶段之前，读到的必然是运行前的旧值。因此统一挪到渲染前重推一次：
+        否则已归档的相册会被整页报成"未能归档"。
         """
         for album in self.albums.values():
             for photo in album.photos:
-                found = self.media.find_album_image(album.album_id, photo.photo_id)
+                preview = self.media.find_album_image(album.album_id, photo.photo_id)
+                original = self.media.find_album_original(album.album_id, photo.photo_id)
+                photo.local_original = original[1] if original is not None else ""
+                # 只有原图时拿它当显示图，与 stage_photos 的处理保持一致
+                found = preview or original
                 photo.local = found[1] if found is not None else ""
 
     def refresh_unavailable(self) -> None:
@@ -739,9 +744,42 @@ def _status_from_dict(payload: Any) -> SourceStatus:
         availability=Availability(payload.get("availability", "not_fetched")),
         http_status=payload.get("httpStatus"),
         detail=payload.get("detail", ""),
+        retryable=bool(payload.get("retryable", False)),
         wayback_url=payload.get("waybackUrl"),
         wayback_timestamp=payload.get("waybackTimestamp"),
     )
+
+
+#: 源站抖动（小站 widget 的间歇性 404）最多按"失败待重试"记几次。
+#: 抖动会自愈，但不会永远抖下去 —— 试够次数还拿不到，就该进不可访问清单
+#: 让人工看一眼了，而不是无限重试下去把清单永远遮住。
+RETRYABLE_MAX_ATTEMPTS = 3
+
+
+def record_source_failure(
+    progress: ProgressStore,
+    key: str,
+    status: SourceStatus,
+    *,
+    stage: str,
+    url: str = "",
+    detail: str = "",
+) -> None:
+    """把"这次没拿到内容"记进进度，按状态决定是"待重试"还是"不可得"。
+
+    :attr:`SourceStatus.retryable` 为真表示源站这次的拒绝**不可信**
+    （小站 widget 的间歇性 404 / ``src="None"``，见
+    :func:`scraper.http_client.is_untrusted_missing`）：记 ``FAILED``，
+    下次同步自动重试（``ProgressStore.pending`` 默认重试失败项），
+    重试满 :data:`RETRYABLE_MAX_ATTEMPTS` 次仍未成功才转为 ``UNAVAILABLE``。
+    """
+    text = detail or status.detail or status.label
+    record = progress.get(key)
+    attempts = record.attempts if record is not None else 0
+    if status.retryable and attempts < RETRYABLE_MAX_ATTEMPTS:
+        progress.mark_failed(key, text, stage=stage)
+        return
+    progress.mark_unavailable(key, text, stage=stage, url=url)
 
 
 #: 进度阶段 → 不可访问清单「上下文」列的中文名
@@ -831,8 +869,10 @@ def _album_from_dict(album_id: str, payload: dict[str, Any]) -> Album:
             caption=item.get("caption", ""),
             thumb_url=item.get("thumb_url", ""),
             large_url=item.get("large_url", ""),
+            original_url=item.get("original_url", ""),
             source_url=item.get("source_url", ""),
             local=item.get("local", ""),
+            local_original=item.get("local_original", ""),
         )
         photo.status = _status_from_dict(item.get("status"))
         album.photos.append(photo)
@@ -941,7 +981,7 @@ def stage_rooms(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> Sta
                 key, stage="rooms", detail=f"{room.title}（{len(room.widgets)} 个模块）"
             )
         else:
-            ctx.progress.mark_unavailable(key, room.status.label, stage="rooms", url=room.url)
+            record_source_failure(ctx.progress, key, room.status, stage="rooms", url=room.url)
 
     result = StageResult(stage="rooms", total=len(rooms), processed=len(rooms))
     ctx.results.append(result)
@@ -966,8 +1006,8 @@ def stage_bulletins(ctx: SyncContext, *, show_progress: bool, limit: int = 0) ->
         url = f"{cfg.base_url}/room/{widget.room_id}/"
         page = ctx.resolver.resolve(url, context=f"公告栏 {widget.title}")
         if not page.has_content:
-            ctx.progress.mark_unavailable(
-                key_of(widget), page.status.label, stage="bulletins", url=url
+            record_source_failure(
+                ctx.progress, key_of(widget), page.status, stage="bulletins", url=url
             )
             return
         bulletin = parse_bulletin(page.html, widget.widget_id, url, widget.room_id, cfg)
@@ -1056,7 +1096,7 @@ def stage_notes(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
                 status=page.status,
             )
             ctx.notes[entry.note_id] = note
-            ctx.progress.mark_unavailable(key, page.status.label, stage="notes", url=url)
+            record_source_failure(ctx.progress, key, page.status, stage="notes", url=url)
             return
 
         note = parse_note(page.html, entry.widget_id, entry.note_id, url, cfg)
@@ -1094,6 +1134,45 @@ def stage_notes(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
     return result
 
 
+def _archive_photo_original(ctx: SyncContext, meta: PhotoMeta) -> str:
+    """归档照片原图，成功时写回 :attr:`PhotoMeta.local_original`。
+
+    返回错误信息（成功为空串）。原图只是"更好的一份"，拿不到不算失败 ——
+    网格里还有预览图可看，页面照样成立。
+    """
+    if not meta.original_url:
+        return ""
+    dest, local = ctx.media.album_original_path(meta.album_id, meta.photo_id, meta.original_url)
+    outcome = ctx.media.download(
+        meta.original_url, dest, local, variants=album_original_variants(meta.original_url)
+    )
+    if outcome.ok:
+        meta.local_original = local
+        return ""
+    return outcome.error
+
+
+def _archive_photo_preview(ctx: SyncContext, meta: PhotoMeta) -> str:
+    """归档网格里显示的预览图，成功时写回 :attr:`PhotoMeta.local`。
+
+    页面没给出图片地址时，让原图兼作显示图 —— 网格里宁可显示大图，
+    也不能开天窗。返回错误信息（成功为空串）。
+    """
+    if not meta.large_url:
+        meta.local = meta.local_original
+        return ""
+    dest, local = ctx.media.album_image_path(meta.album_id, meta.photo_id, meta.large_url)
+    outcome = ctx.media.download(
+        meta.large_url, dest, local, variants=album_image_variants(meta.large_url)
+    )
+    if outcome.ok:
+        meta.local = local
+        return ""
+    # 预览图拿不到、原图在：用原图顶上，至少网格里看得见
+    meta.local = meta.local_original
+    return outcome.error
+
+
 def stage_photos(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
                  recheck_unavailable: bool = False, force: bool = False) -> StageResult:
     """阶段 4：相册图片归档。"""
@@ -1123,28 +1202,26 @@ def stage_photos(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
         url = cfg.photo_url(album_id, photo_id)
         page = ctx.resolver.resolve(url, context=f"照片 {photo_id}")
         if not page.has_content:
-            ctx.progress.mark_unavailable(
-                key_of(pair), page.status.label, stage="photos", url=url
+            record_source_failure(
+                ctx.progress, key_of(pair), page.status, stage="photos", url=url
             )
             return
         meta = parse_photo_detail(page.html, album_id, photo_id, url, cfg)
-        if not meta.large_url:
-            ctx.progress.mark_unavailable(
-                key_of(pair), "未找到大图", stage="photos", url=url
-            )
+        if not (meta.original_url or meta.large_url):
+            record_source_failure(ctx.progress, key_of(pair), meta.status, stage="photos", url=url)
             return
-        dest, local = ctx.media.album_image_path(album_id, photo_id, meta.large_url)
-        outcome = ctx.media.download(
-            meta.large_url, dest, local, variants=album_image_variants(meta.large_url)
-        )
         # 无论下载成败都记住描述，供 stage_albums 复用
         ctx.photo_meta[pair] = meta
-        if outcome.ok:
-            meta.local = local
+        # 原图与预览图各存一份：网格里显示预览图（小），点开预览的是原图（大）。
+        # 页面 <img> 的 large 只是豆瓣的处理版（长边 1600，小图还会被放大），
+        # 原图才是上传时的文件，只有"查看原图"链接指向它。
+        error = _archive_photo_original(ctx, meta)
+        error = _archive_photo_preview(ctx, meta) or error
+        if meta.local or meta.local_original:
             ctx.progress.mark_done(key_of(pair), stage="photos", detail=meta.caption[:40])
         else:
             ctx.progress.mark_unavailable(
-                key_of(pair), outcome.error, stage="photos", url=url
+                key_of(pair), error or "图片归档失败", stage="photos", url=url
             )
 
     items = pairs[:limit] if limit else pairs
@@ -1186,9 +1263,15 @@ def stage_albums(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> St
             cached_meta = ctx.photo_meta.get(pair)
             if cached_meta is not None and cached_meta.caption:
                 photo.caption = cached_meta.caption
+            original = ctx.media.find_album_original(album_id, photo.photo_id)
+            if original is not None:
+                photo.local_original = original[1]
             found = ctx.media.find_album_image(album_id, photo.photo_id)
             if found is not None:
                 photo.local = found[1]
+            elif original is not None:
+                # 只有原图时拿它当显示图（与 stage_photos / refresh_album_media 一致）
+                photo.local = original[1]
 
         ctx.albums[album_id] = album
         ctx.progress.mark_done(key, stage="albums", detail=f"{album.title}（{len(album.photos)} 张）")
@@ -1249,8 +1332,8 @@ def stage_forum(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> Sta
         url = cfg.discussion_url(forum_id, discussion_id)
         page = ctx.resolver.resolve(url, context=f"讨论帖 {title}")
         if not page.has_content:
-            ctx.progress.mark_unavailable(
-                key_of(topic), page.status.label, stage="forum", url=url
+            record_source_failure(
+                ctx.progress, key_of(topic), page.status, stage="forum", url=url
             )
             return
         discussion = parse_discussion(page.html, forum_id, discussion_id, url, cfg)
@@ -1284,9 +1367,7 @@ def stage_miniblog(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> 
             room_url = f"{cfg.base_url}/room/{widget.room_id}/"
             page = ctx.resolver.resolve(room_url, context=f"广播室 {widget.title}")
         if not page.has_content:
-            ctx.progress.mark_unavailable(
-                key, page.status.label, stage="miniblog", url=url
-            )
+            record_source_failure(ctx.progress, key, page.status, stage="miniblog", url=url)
             continue
         statuses = parse_miniblog(page.html, cfg)
         merge_by(ctx.miniblog, statuses, lambda s: s.status_id)
@@ -1366,8 +1447,8 @@ def stage_main(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
             ctx.external[page_id] = ExternalPage(
                 page_id=page_id, url=url, origin=origin, status=page.status
             )
-            ctx.progress.mark_unavailable(
-                key_of(target), page.status.label, stage="main", url=url
+            record_source_failure(
+                ctx.progress, key_of(target), page.status, stage="main", url=url
             )
             return
         external = parse_external_page(page.html, url, page_id, origin, cfg)

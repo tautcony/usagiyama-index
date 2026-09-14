@@ -393,12 +393,38 @@ class _Session404:
     def __init__(self) -> None:
         self.headers: dict[str, str] = {}
         self.trust_env = False
+        self.calls: list[str] = []
 
     def get(self, url: str, headers: dict[str, str] | None = None, **_kwargs: object):
+        self.calls.append(url)
         return _Response404()
 
     def close(self) -> None:
         pass
+
+
+class _SequenceSession:
+    """按顺序返回给定响应码的会话替身。"""
+
+    def __init__(self, statuses: list[int]) -> None:
+        self.headers: dict[str, str] = {}
+        self.trust_env = False
+        self.calls: list[str] = []
+        self._statuses = list(statuses)
+
+    def get(self, url: str, headers: dict[str, str] | None = None, **_kwargs: object):
+        self.calls.append(url)
+        index = min(len(self.calls), len(self._statuses)) - 1
+        return _Response404() if self._statuses[index] == 404 else _Response200()
+
+    def close(self) -> None:
+        pass
+
+
+class _Response200:
+    status_code = 200
+    content = b"<html><body><div class='phoview'></div></body></html>"
+    headers = {"Content-Type": "text/html; charset=utf-8"}
 
 
 class TestOfflineMissNotRecorded:
@@ -427,16 +453,97 @@ class TestOfflineMissNotRecorded:
         assert resolver.unavailable == []
 
     def test_online_failure_still_recorded(self, cfg) -> None:
-        """对照组：真发过请求而失败（这里源站 404）仍要进清单。"""
+        """对照组：404 落在**可信**域名上时仍是确定性结论，照旧进清单。"""
+        import dataclasses
+
         from scraper.http_client import Fetcher
         from scraper.resolver import PageResolver
 
-        resolver = PageResolver(Fetcher(cfg, session=_Session404()), cfg=cfg)
+        trusted = dataclasses.replace(cfg, untrusted_404_hosts=())
+        session = _Session404()
+        resolver = PageResolver(Fetcher(trusted, session=session), cfg=trusted)
         resolver.resolve("https://site.douban.com/211330/widget/notes/17565710/note/1/", context="日记")
 
         assert [record.url for record in resolver.unavailable] == [
             "https://site.douban.com/211330/widget/notes/17565710/note/1/"
         ]
+        # 也不该有"确认请求"——免检名单之外不做第二次请求
+        assert len(session.calls) == 1
+
+
+class TestTransientMissingIsRetryable:
+    """小站 widget 的间歇性 404 不能固化成"内容不存在"。
+
+    实测：同一个照片页 URL 会间歇性返回通用 404 页，几分钟后再请求就是 200。
+    归档一旦判定"不存在"就不再回头看，所以这类 404 要先**确认一次**再下结论；
+    确认后仍是 404 的，标成"可重试"（进度记 FAILED，下次同步重试），
+    并且**不进**不可访问清单——清单要的是确认拿不到的内容，不是源站的抖动。
+    """
+
+    URL = "https://site.douban.com/211330/widget/photos/13431950/photo/2325379542/"
+
+    def test_confirmation_recovers_page(self, cfg) -> None:
+        """第一次 404、确认时 200：直接采信第二次的结果。"""
+        from scraper.http_client import Fetcher
+        from scraper.resolver import PageResolver
+
+        session = _SequenceSession([404, 200])
+        resolver = PageResolver(Fetcher(cfg, session=session), cfg=cfg)
+        page = resolver.resolve(self.URL, context="照片")
+
+        assert page.has_content
+        assert page.status.availability == Availability.OK
+        assert resolver.unavailable == []
+        assert len(session.calls) == 2
+
+    def test_persistent_404_marked_retryable(self, cfg) -> None:
+        """确认后仍是 404：结论照下，但要标明"这个结论不可信"。"""
+        from scraper.http_client import Fetcher
+        from scraper.resolver import PageResolver
+
+        resolver = PageResolver(Fetcher(cfg, session=_Session404()), cfg=cfg)
+        page = resolver.resolve(self.URL, context="照片")
+
+        assert not page.has_content
+        assert page.status.availability == Availability.UNAVAILABLE
+        assert page.status.retryable is True
+        assert resolver.unavailable == []
+
+    def test_retryable_failure_records_failed_not_unavailable(self, cfg) -> None:
+        """进度侧：可重试的失败记 FAILED（下次同步会自动重试）。
+
+        FAILED 不是终态，``ProgressStore.pending`` 默认就会把它筛出来重跑；
+        记成 UNAVAILABLE 则再也不会回头看一眼。
+        """
+        from scraper.cli import record_source_failure
+        from scraper.progress import ItemStatus as Status
+        from scraper.progress import ProgressStore
+
+        store = ProgressStore(cfg=cfg)
+        record_source_failure(
+            store,
+            "photo:13431950:2325379542",
+            SourceStatus(availability=Availability.UNAVAILABLE, retryable=True),
+            stage="photos",
+            url=self.URL,
+        )
+
+        assert store.status_of("photo:13431950:2325379542") == str(Status.FAILED)
+        assert store.unavailable() == []
+        assert store.pending(["photo:13431950:2325379542"]) == ["photo:13431950:2325379542"]
+
+    def test_untrusted_404_never_reaches_unavailable_json(self, cfg) -> None:
+        """端到端：resolve → refresh_unavailable，清单里不出现抖动页面。"""
+        from scraper.http_client import Fetcher
+        from scraper.resolver import PageResolver
+
+        resolver = PageResolver(Fetcher(cfg, session=_Session404()), cfg=cfg)
+        resolver.resolve(self.URL, context="照片")
+
+        ctx = SyncContext(cfg)
+        ctx.resolver = resolver
+        ctx.refresh_unavailable()
+        assert ctx.unavailable == []
 
 
 class TestNoEmitStillPersists:

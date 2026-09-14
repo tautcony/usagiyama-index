@@ -168,6 +168,40 @@ PHOTO_DETAIL_WBR_HTML = """
 </body></html>
 """
 
+# 页面 <img> 只到 photo 尺寸、且是 .webp 的后端渲染（实测形态）。
+# 原图只藏在"查看原图"链接里 —— 这正是此前被漏掉的那份文件。
+PHOTO_DETAIL_ORIGINAL_HTML = """
+<html><head><title>第八集 山顶场景 分镜</title></head><body>
+<div class="photo-wrapper"><div id="link-report">
+  <div class="photitle">&gt; 返回相册 第1张 / 共11张 上一张 / 下一张</div>
+  <div class="phoview"><a class="mainphoto"><img src="https://img1.doubanio.com/view/photo/photo/public/p2325379542.webp" /></a></div>
+  <div class="phodesc"><p>第八集山顶场景的分镜（by 山田尚子）</p>
+    <p><span id="original"><a href="https://img1.doubanio.com/view/photo/raw/public/p2325379542.jpg" title="查看原图">查看原图</a></span></p>
+  </div>
+</div></div>
+</body></html>
+"""
+
+# 结构变形：没有 #original 包裹，只有一个普通链接指向 raw 尺寸
+PHOTO_DETAIL_ORIGINAL_LOOSE_HTML = """
+<html><head><title>幕后&周边</title></head><body>
+<div id="link-report">
+  <div class="phoview"><img src="https://img2.doubanio.com/view/photo/large/public/p2180208471.jpg" /></div>
+  <div class="phodesc"><p>看原图：<a href="https://img2.doubanio.com/view/photo/raw/public/p2180208471.jpg">这里</a></p></div>
+</div>
+</body></html>
+"""
+
+# 源站抖动：后端把地址渲染成字面量 "None"（实测形态）
+PHOTO_DETAIL_SRC_NONE_HTML = """
+<html><head><title>幕后&周边</title></head><body>
+<div class="photo-wrapper"><div id="link-report">
+  <div class="phoview"><a class="mainphoto"><img src="None" /></a></div>
+  <div class="phodesc"><p>某张照片的描述</p></div>
+</div></div>
+</body></html>
+"""
+
 DISCUSSION_HTML = """
 <html><head><title>【小站论坛开放，欢迎讨论】</title></head><body>
 <h1>【小站论坛开放，欢迎讨论】</h1>
@@ -408,6 +442,66 @@ class TestPhoto:
         html = "<html><body><img src='https://img2.doubanio.com/view/photo/large/public/p999.jpg'/></body></html>"
         photo = parse_photo_detail(html, "1", "123", "https://example.com/")
         assert photo.status.availability == "unavailable"
+
+    def test_original_link_extracted(self) -> None:
+        """详情页的"查看原图"链接指向 ``raw`` 尺寸，那才是上传时的原图。
+
+        页面 ``<img>`` 里的 ``large`` 是豆瓣的处理版（长边 1600，小图还会被放大），
+        此前完全没处理过这个链接，归档下来的是处理版甚至 ``<img>`` 的 webp 转码。
+        """
+        photo = parse_photo_detail(
+            PHOTO_DETAIL_ORIGINAL_HTML, "13431950", "2325379542", "https://example.com/"
+        )
+        assert photo.original_url == "https://img1.doubanio.com/view/photo/raw/public/p2325379542.jpg"
+        # 页面那张（photo 尺寸的 webp）仍然留着，供原图取不到时兜底
+        assert photo.large_url.endswith("/photo/public/p2325379542.webp")
+        assert photo.status.availability == "ok"
+
+    def test_large_also_recorded_when_original_present(self) -> None:
+        photo = parse_photo_detail(
+            PHOTO_DETAIL_HTML, "13431373", "2180208471", "https://example.com/"
+        )
+        assert photo.original_url == "https://img2.doubanio.com/view/photo/raw/public/p2180208471.jpg"
+        assert "/large/" in photo.large_url
+
+    def test_original_link_without_special_markup(self) -> None:
+        """页面结构变了也要认得出原图链接（退化为全页扫 ``raw`` 尺寸）。"""
+        photo = parse_photo_detail(
+            PHOTO_DETAIL_ORIGINAL_LOOSE_HTML, "13431373", "2180208471", "https://example.com/"
+        )
+        assert photo.original_url == "https://img2.doubanio.com/view/photo/raw/public/p2180208471.jpg"
+
+    def test_original_link_for_other_photo_ignored(self) -> None:
+        """页面若被重定向到别的照片，不能把那张的原图安在这张头上。"""
+        html = """
+        <html><body><div id="link-report">
+          <div class="phodesc"><p>x</p>
+            <p><span id="original"><a href="https://img1.doubanio.com/view/photo/raw/public/p111.jpg" title="查看原图">查看原图</a></span></p>
+          </div>
+        </div></body></html>
+        """
+        photo = parse_photo_detail(html, "1", "222", "https://example.com/")
+        assert photo.original_url == ""
+
+    def test_none_src_is_retryable(self) -> None:
+        """源站抖动渲染出 ``src="None"``：不是"这张照片没图"，而是没渲染好。
+
+        这类失败必须标成可重试，否则下次同步不会再看它一眼，照片就永久缺了。
+        """
+        photo = parse_photo_detail(
+            PHOTO_DETAIL_SRC_NONE_HTML, "13431950", "2325379527", "https://example.com/"
+        )
+        assert photo.large_url == ""
+        assert photo.original_url == ""
+        assert photo.status.availability == "unavailable"
+        assert photo.status.retryable is True
+
+    def test_genuinely_missing_page_is_not_retryable(self) -> None:
+        """对照：拿到的根本不是照片页（没有页面骨架）时，照旧是确定性结论。"""
+        html = "<html><body><p>呃...你想访问的页面不存在</p></body></html>"
+        photo = parse_photo_detail(html, "1", "123", "https://example.com/")
+        assert photo.status.availability == "unavailable"
+        assert photo.status.retryable is False
 
 
 class TestDiscussion:

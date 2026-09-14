@@ -174,8 +174,10 @@ npm run login         # 重新登录并覆盖会话文件
     ├── .vitepress/
     │   ├── config.mts
     │   ├── sidebar.generated.mts   ← 由索引①/② 生成
-    │   └── theme/custom.css
+    │   └── theme/                 custom.css + lightbox.ts（相册原图预览）
     ├── public/media/            全部本地化图片
+    │   ├── albums/{albumId}/{photoId}.webp          相册预览图（网格里显示）
+    │   ├── albums/{albumId}/original/{photoId}.jpg  相册原图（点开预览的那张）
     ├── index.md  about.md  videos.md  board.md  broadcast.md
     ├── notes/{noteId}.md        144 篇
     ├── albums/{albumId}.md      6 个相册

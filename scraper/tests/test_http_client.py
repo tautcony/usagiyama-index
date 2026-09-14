@@ -26,6 +26,7 @@ from scraper.http_client import (
     Fetcher,
     OfflineCacheMiss,
     decode_html,
+    is_untrusted_missing,
 )
 
 
@@ -161,6 +162,59 @@ class TestCaching:
         session2 = FakeSession([FakeResponse(200, b"fresh")])
         fetcher2 = Fetcher(cfg, session=session2, sleep=sleeper.append)
         assert fetcher2.fetch("https://x/stale").content == b"fresh"
+
+
+class TestUntrustedMissing:
+    """小站的间歇性 404 不能当作"内容已不存在"。
+
+    实测：同一个照片页 URL 会间歇性返回通用 404 页（"呃...你想访问的页面不存在"），
+    几分钟后再请求就是 200。归档一旦判定"不存在"就不再回头看，所以这类 404
+    既不写缓存、也不从缓存里取，解析层据此把单元标成"可重试"。
+    域名清单见 ``Config.untrusted_404_hosts``。
+    """
+
+    GONE = "https://site.douban.com/211330/widget/photos/13431950/photo/2325379542/"
+
+    def test_only_404_on_configured_hosts(self, cfg) -> None:
+        assert is_untrusted_missing(self.GONE, 404, cfg)
+        # 子域也算
+        assert is_untrusted_missing("https://site.douban.com.evil/?", 404, cfg) is False
+        assert is_untrusted_missing("https://www.douban.com/note/1/", 404, cfg) is False
+        assert is_untrusted_missing(self.GONE, 200, cfg) is False
+
+    def test_untrusted_404_not_written_to_cache(self, cfg, sleeper) -> None:
+        session = FakeSession([FakeResponse(404, b"nope")])
+        fetcher = Fetcher(cfg, session=session, sleep=sleeper.append)
+        fetcher.fetch(self.GONE)
+
+        assert not fetcher.cache_has(self.GONE)
+        assert fetcher.stats.transient_misses == 1
+
+    def test_cached_untrusted_404_is_refetched(self, cfg, sleeper) -> None:
+        """修好之前写进去的缓存同样不算数：无需 ``--force`` 就能自愈。"""
+        trusted = dataclasses.replace(cfg, untrusted_404_hosts=())
+        Fetcher(
+            trusted, session=FakeSession([FakeResponse(404, b"stale")]), sleep=sleeper.append
+        ).fetch(self.GONE)
+
+        session = FakeSession([FakeResponse(200, b"<html>back</html>")])
+        result = Fetcher(cfg, session=session, sleep=sleeper.append).fetch(self.GONE)
+
+        assert result.content == b"<html>back</html>"
+        assert not result.from_cache
+        assert len(session.calls) == 1
+
+    def test_offline_still_uses_cached_untrusted_404(self, cfg, sleeper) -> None:
+        """离线时没有别的办法，缓存照用（否则离线渲染会凭空少掉页面）。"""
+        trusted = dataclasses.replace(cfg, untrusted_404_hosts=())
+        Fetcher(
+            trusted, session=FakeSession([FakeResponse(404, b"stale")]), sleep=sleeper.append
+        ).fetch(self.GONE)
+
+        offline_cfg = dataclasses.replace(cfg, offline=True)
+        result = Fetcher(offline_cfg, session=FakeSession(), sleep=sleeper.append).fetch(self.GONE)
+        assert result.from_cache
+        assert result.status == 404
 
 
 class TestCircuitBreaker:

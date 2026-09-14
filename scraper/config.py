@@ -88,8 +88,18 @@ class Config:
         default_factory=lambda: _env_float("USAGI_ARCHIVE_BACKOFF_BASE", 20.0)
     )
 
+    # ---------- 源站抖动 ----------
+    # site.douban.com 的小站 widget 后端不稳定：**同一个 URL** 会间歇性返回通用
+    # 404 页（"呃...你想访问的页面不存在"），几分钟后再请求又是 200；同样的抖动
+    # 还会把照片地址渲染成字面量 ``src="None"``。
+    # 因此落在这些域名上的 404 不能当作"内容已不存在"的证据 —— 归档一旦判定不可得
+    # 就不会再回头看。处理方式：不写缓存 + 解析层标为可重试，下次同步自动重试。
+    untrusted_404_hosts: tuple[str, ...] = ("site.douban.com",)
+
     # ---------- 图片尺寸 ----------
-    # 相册：thumb=13KB / m=46KB / photo=123KB / large=618KB / raw 不可用
+    # 相册：thumb=13KB / m=46KB / photo=123KB / large=618KB（large 是豆瓣的
+    # 处理版，长边 1600，小图还会被放大）；真正的原图要从详情页的
+    # "查看原图"链接取，见 media.album_original_variants。
     album_image_size: str = "large"
     # 日记配图：small=4.9KB / medium=84KB / large=211KB / raw=207KB
     note_image_size: str = "raw"

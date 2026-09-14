@@ -137,9 +137,14 @@ def html_text(value: str) -> str:
 
     同时把换行压平：豆瓣的相册描述里常有字面换行，
     直接塞进 HTML 会破坏结构（Vue 的 SFC 解析器会直接报错）。
+
+    花括号也要转成实体：``{{ … }}`` 是 Vue 模板的插值语法，
+    描述里出现它时轻则被当成表达式而**整段吃掉**，重则（括号不配对）
+    让整篇文档构建失败。实体在页面上仍显示为花括号本身。
     """
     text = " ".join((value or "").split())
-    return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    text = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    return text.replace("{", "&#123;").replace("}", "&#125;")
 
 
 def html_attr(value: str) -> str:
@@ -293,18 +298,32 @@ class SiteEmitter:
         cards: list[str] = []
         missing: list[str] = []
         for photo in album.photos:
-            if photo.local:
-                caption = (photo.caption or "").strip()
-                # 没有描述就整个属性都别写，免得留下一串空 title/alt
-                attr = f' alt="{html_attr(caption)}"' if caption else ""
-                title = f' title="{html_attr(caption)}"' if caption else ""
-                img = f'<img src="{photo.local}"{attr} loading="lazy" />'
-                inner = f'<a href="{photo.local}" target="_blank"{title}>{img}</a>'
-                if caption:
-                    inner += f'<p class="caption">{html_text(caption)}</p>'
-                cards.append(f'<figure class="photo-card">{inner}</figure>')
-            else:
+            # 网格里显示预览图（小），点开预览的是原图（大）。没有原图时
+            # 两者是同一个文件 —— 与 photo.local 的"只有原图就用原图"约定一致。
+            preview = photo.local
+            if not preview:
                 missing.append(photo.photo_id)
+                continue
+            full = photo.local_original or preview
+            caption = (photo.caption or "").strip()
+            has_original = bool(photo.local_original)
+            # 没有描述就整个属性都别写，免得留下一串空 title/alt
+            attr = f' alt="{html_attr(caption)}"' if caption else ""
+            tip = f"{caption} · 查看原图" if has_original and caption else (
+                "查看原图" if has_original else caption
+            )
+            title = f' title="{html_attr(tip)}"' if tip else ""
+            # data-caption 供站点脚本（放大预览）取用，不依赖光标提示
+            data = f' data-caption="{html_attr(caption)}"' if caption else ""
+            img = f'<img src="{preview}"{attr} loading="lazy" />'
+            # class 是给放大预览脚本的挂载点；JS 未生效时它就是一个普通链接
+            inner = (
+                f'<a class="photo-preview" href="{full}" target="_blank"{title}{data}>'
+                f"{img}</a>"
+            )
+            if caption:
+                inner += f'<p class="caption">{html_text(caption)}</p>'
+            cards.append(f'<figure class="photo-card">{inner}</figure>')
 
         if cards:
             blocks.append('<div class="photo-grid">\n' + "\n".join(cards) + "\n</div>")
@@ -911,6 +930,13 @@ class SiteEmitter:
                 f"- 指纹：`{stats.get('impersonate', '')}`",
                 f"- 耗时：**{stats.get('elapsedSeconds', 0)}s**",
             ]
+            # 源站抖动的迹象：同一批"404"里有一部分其实只是 widget 后端抽风，
+            # 下次同步会自动重试。只在真的出现时列出来，免得报告里全是 0。
+            transient = stats.get("transientMisses", 0)
+            if transient:
+                lines.append(
+                    f"- 不可信的 404（源站抖动，未写缓存、下次重试）：**{transient}**"
+                )
 
         path = self.cfg.data_dir / "sync-report.md"
         atomic_write_text(path, "\n".join(lines) + "\n")

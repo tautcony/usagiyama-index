@@ -5,7 +5,8 @@
 1. **防盗链**：``img*.doubanio.com`` 不带 ``Referer`` 返回 **418**。
    所有图片请求强制带 ``Referer: https://site.douban.com/211330/``。
 2. **尺寸**：列表页给的是 ``thumb``（13KB）。归档时升级到可用的最大尺寸
-   （相册 ``large`` 618KB、日记配图 ``raw`` 207KB）。
+   （日记配图 ``raw``、相册优先详情页"查看原图"的 ``raw`` 原图，
+   拿不到才退回 ``large``）。
 3. **假成功**：源站出错时可能返回 HTML 错误页而不是图片。
    因此下载后一律做 **magic bytes 校验**，不是真图片就换尺寸重试，
    再失败则走 archive.org 快照。
@@ -13,7 +14,10 @@
 命名规则保证幂等，便于增量同步：
 
 * 日记配图  ``docs/public/media/notes/{noteId}/{原文件名}``
-* 相册图片  ``docs/public/media/albums/{albumId}/{photoId}.jpg``
+* 相册预览图 ``docs/public/media/albums/{albumId}/{photoId}.{后缀}``
+  （网格里显示的那张，取自详情页 ``<img>``）
+* 相册原图  ``docs/public/media/albums/{albumId}/original/{photoId}.{后缀}``
+  （详情页"查看原图"链接指向的 ``raw`` 文件，点开预览时看的就是它）
 * 视频缩略图 ``docs/public/media/videos/{videoId}.jpg``
 * 站点素材  ``docs/public/media/site/{文件名}``
 """
@@ -54,9 +58,25 @@ ALBUM_MEDIA_PREFIX = "/media/albums"
 VIDEO_MEDIA_PREFIX = "/media/videos"
 SITE_MEDIA_PREFIX = "/media/site"
 
+# 相册原图的子目录：``media/albums/{albumId}/original/{photoId}.{ext}``。
+# 单独一层目录、而不是与预览图并排放在相册根目录，是因为两者的后缀未必不同
+# ——原图若是 webp，就会和预览图撞成同一个文件名，按后缀区分不可靠。
+# 分目录之后两边都能独立地"有或没有"，也不需要任何按文件名猜含义的规则。
+ORIGINAL_MEDIA_SUBDIR = "original"
+
+# 预览图的后缀偏好：同一张照片若在相册根目录里同时存在多个后缀
+# （旧版本归档留下过 ``.jpg``，现在详情页 ``<img>`` 给的是 ``.webp``），
+# 取 webp —— 像素尺寸与 jpg 相同、体积小得多，正适合网格里显示。
+# 点击预览看到的仍是原图（``original/`` 下的实拍文件），见 docs 主题的 lightbox。
+PREVIEW_SUFFIX_ORDER = (".webp", ".jpg", ".jpeg", ".png", ".gif")
+
 # 图片尺寸升级顺序（按可用性与质量）
 NOTE_SIZE_ORDER = ("raw", "large", "medium", "small")
 ALBUM_SIZE_ORDER = ("large", "photo", "m", "thumb")
+# 相册原图（详情页"查看原图"链接）的升级顺序：原图拿不到时逐级退回。
+# 注意 ``raw`` 是上传时的原文件，尺寸与格式都由上传者决定，未必比 ``large`` 大
+# —— ``large`` 是豆瓣的处理版，长边固定 1600（小图还会被放大），两者不可互换。
+ORIGINAL_SIZE_ORDER = ("raw", "large", "photo", "m", "thumb")
 
 
 def sniff_image(data: bytes) -> str | None:
@@ -117,7 +137,13 @@ def note_image_variants(url: str) -> list[str]:
 
 
 def album_image_variants(url: str) -> list[str]:
+    """相册图片的尺寸候选（从"查看原图"链接出发时用 :func:`album_original_variants`）。"""
     return _size_variants(url, ALBUM_SIZE_ORDER)
+
+
+def album_original_variants(url: str) -> list[str]:
+    """相册原图（``raw``）的尺寸候选：原图优先，拿不到再逐级退回处理版。"""
+    return _size_variants(url, ORIGINAL_SIZE_ORDER)
 
 
 def basename_of(url: str, fallback: str = "image") -> str:
@@ -173,6 +199,10 @@ class MediaArchive:
         )
 
     def album_image_path(self, album_id: str, photo_id: str, url: str = "") -> tuple[Path, str]:
+        """**预览图**的落盘路径：网格里显示的那张（页面 ``<img>`` 的尺寸）。
+
+        原图另有 :meth:`album_original_path`，两者分目录存放。
+        """
         suffix = Path(urlparse(url).path).suffix or ".jpg"
         name = f"{photo_id}{suffix}"
         return (
@@ -180,19 +210,61 @@ class MediaArchive:
             f"{ALBUM_MEDIA_PREFIX}/{album_id}/{name}",
         )
 
-    def find_album_image(self, album_id: str, photo_id: str) -> tuple[Path, str] | None:
-        """在已归档目录中查找某张照片的落盘文件，找不到返回 ``None``。
+    def album_original_path(self, album_id: str, photo_id: str, url: str = "") -> tuple[Path, str]:
+        """**原图**（"查看原图"的 ``raw`` 尺寸）的落盘路径。"""
+        suffix = Path(urlparse(url).path).suffix or ".jpg"
+        name = f"{photo_id}{suffix}"
+        return (
+            self.cfg.media_dir / "albums" / album_id / ORIGINAL_MEDIA_SUBDIR / name,
+            f"{ALBUM_MEDIA_PREFIX}/{album_id}/{ORIGINAL_MEDIA_SUBDIR}/{name}",
+        )
 
-        文件名后缀取自下载时使用的大图 URL，而相册列表页只给得出缩略图 URL，
+    def find_album_image(self, album_id: str, photo_id: str) -> tuple[Path, str] | None:
+        """在已归档目录中查找某张照片的**预览图**，找不到返回 ``None``。
+
+        文件名后缀取自下载时使用的 URL，而相册列表页只给得出缩略图 URL，
         两者后缀未必一致，因此不能按 URL 反推路径，只能按 ``<photo_id>.*`` 查找。
+        原图不在这一层（见 :data:`ORIGINAL_MEDIA_SUBDIR`），不会被误认成预览图。
         """
-        directory = self.cfg.media_dir / "albums" / album_id
+        return self._find_album_file(
+            self.cfg.media_dir / "albums" / album_id,
+            album_id,
+            photo_id,
+            preferred_suffixes=PREVIEW_SUFFIX_ORDER,
+        )
+
+    def find_album_original(self, album_id: str, photo_id: str) -> tuple[Path, str] | None:
+        """查找某张照片的**原图**，找不到返回 ``None``。"""
+        return self._find_album_file(
+            self.cfg.media_dir / "albums" / album_id / ORIGINAL_MEDIA_SUBDIR,
+            album_id,
+            photo_id,
+            f"{ORIGINAL_MEDIA_SUBDIR}/",
+        )
+
+    def _find_album_file(
+        self,
+        directory: Path,
+        album_id: str,
+        photo_id: str,
+        prefix: str = "",
+        preferred_suffixes: tuple[str, ...] = (),
+    ) -> tuple[Path, str] | None:
         if not directory.is_dir():
             return None
-        for path in sorted(directory.glob(f"{photo_id}.*")):
-            if path.is_file():
-                return path, f"{ALBUM_MEDIA_PREFIX}/{album_id}/{path.name}"
-        return None
+        paths = [path for path in directory.glob(f"{photo_id}.*") if path.is_file()]
+        if not paths:
+            return None
+        if preferred_suffixes:
+            # 同一张照片可能有多个后缀的副本（早期归档留下的 ``.jpg`` 与现在的
+            # ``.webp``），按偏好取第一个；其余不删 —— 它们已经进了 git 历史，
+            # 删掉既省不下多少空间，又会让"归档"这件事变得不可回溯。
+            rank = {suffix: order for order, suffix in enumerate(preferred_suffixes)}
+            paths.sort(key=lambda path: (rank.get(path.suffix.lower(), len(rank)), path.name))
+        else:
+            paths.sort()
+        path = paths[0]
+        return path, f"{ALBUM_MEDIA_PREFIX}/{album_id}/{prefix}{path.name}"
 
     def video_thumb_path(self, video_id: str, url: str = "") -> tuple[Path, str]:
         suffix = Path(urlparse(url).path).suffix or ".jpg"
