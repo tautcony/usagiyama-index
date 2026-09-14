@@ -42,7 +42,7 @@ PROGRESS_VERSION = 1
 # 不产生任何网络请求 —— 相当于"免费地"用新解析器重刷全站。
 #
 # 这样就不必依赖使用者记得加 --force。
-PARSER_REVISION = 2
+PARSER_REVISION = 3
 
 
 class ItemStatus(StrEnum):
@@ -102,11 +102,22 @@ class ItemRecord:
 
 
 class ProgressStore:
-    """断点续接的进度库。"""
+    """断点续接的进度库。
 
-    def __init__(self, path: Path | None = None, cfg: Config = CONFIG) -> None:
+    ``readonly=True`` 时仍然**读取**已有进度（因此已完成项照常跳过），
+    但任何 ``mark_*`` 都只改内存、不落盘。
+
+    离线模式（``--offline``）必须用只读模式：那时"缓存未命中"只是本地还没有
+    这份数据，并不代表源站不可得。若照常落盘，一次离线运行就会把整站标成
+    "原站不可访问"，既污染进度、又让不可访问清单失真。
+    """
+
+    def __init__(
+        self, path: Path | None = None, cfg: Config = CONFIG, *, readonly: bool = False
+    ) -> None:
         self.cfg = cfg
         self.path = path or cfg.progress_path
+        self.readonly = readonly
         self._items: dict[str, ItemRecord] = {}
         self._stages: dict[str, dict[str, int]] = {}
         self._dirty = 0
@@ -149,6 +160,8 @@ class ProgressStore:
 
     def save(self, *, force: bool = False) -> None:
         """原子落盘。默认按 ``progress_autosave_every`` 节流。"""
+        if self.readonly:
+            return
         if not force and self._dirty < self.cfg.progress_autosave_every:
             return
         payload = {
@@ -449,9 +462,15 @@ class StageRunner:
                 key = key_of(item)
                 try:
                     handler(item)
-                    # 兜底标记：handler 通常已自行 mark_done 并附带 detail/meta，
-                    # 此时不覆盖；若 handler 漏标，这里补上以保证断点续接可靠。
-                    if not self.store.is_done(key):
+                    # 兜底标记：handler 通常已自行 mark_done / mark_unavailable
+                    # 并附带 detail/meta，此时不覆盖；若 handler 漏标，这里补上
+                    # 以保证断点续接可靠。
+                    #
+                    # 判断依据必须是"终态"而不是"done"：handler 主动标记的
+                    # unavailable / skipped 也是终态，用 is_done 会把它们改写成
+                    # done，导致 --recheck-unavailable 永远筛不出这些条目、
+                    # 不可访问清单也会变空。
+                    if not self.store.is_terminal(key):
                         self.store.mark_done(key, stage=self.stage)
                     result.processed += 1
                 except Exception as exc:  # noqa: BLE001 - 单点失败不阻塞整体

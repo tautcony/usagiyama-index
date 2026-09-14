@@ -30,8 +30,10 @@ from bs4 import BeautifulSoup, Tag
 
 from .archive import WaybackClient
 from .config import CONFIG, Config
-from .http_client import BlockedError, FetchError, Fetcher, OfflineCacheMiss
+from .http_client import BlockedError, FetchError, OfflineCacheMiss
+from .transport import Transport
 from .models import ImageRef
+from .util import atomic_write_bytes
 
 log = logging.getLogger("usagi.media")
 
@@ -148,7 +150,7 @@ class MediaArchive:
 
     def __init__(
         self,
-        fetcher: Fetcher,
+        fetcher: Transport,
         wayback: WaybackClient | None = None,
         cfg: Config = CONFIG,
     ) -> None:
@@ -227,9 +229,7 @@ class MediaArchive:
                 continue
 
             dest.parent.mkdir(parents=True, exist_ok=True)
-            from .util import atomic_write_bytes
-
-            atomic_write_bytes(dest, resp.content)
+            atomic_write_bytes(dest, resp.content, tmp_dir=self.cfg.tmp_dir)
             result.ok = True
             result.size_bytes = len(resp.content)
             result.kind = kind
@@ -246,9 +246,7 @@ class MediaArchive:
                 data, wayback_url = shot
                 if sniff_image(data) is not None:
                     dest.parent.mkdir(parents=True, exist_ok=True)
-                    from .util import atomic_write_bytes
-
-                    atomic_write_bytes(dest, data)
+                    atomic_write_bytes(dest, data, tmp_dir=self.cfg.tmp_dir)
                     result.ok = True
                     result.archived = True
                     result.wayback_url = wayback_url

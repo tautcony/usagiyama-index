@@ -119,10 +119,14 @@ def status_notice(status: SourceStatus) -> str:
 
 
 def source_footer(source_url: str, *, comment_count: int = 0, extra: str = "") -> str:
-    """页面底部的来源标注。"""
+    """页面底部的来源标注。
+
+    ``comment_count`` 用于在**评论未归档**时说明原因；评论已归档时
+    由正文的评论区块自行展示数量，这里不再重复。
+    """
     parts = [f"*本页归档自 [原站页面]({source_url})"]
     if comment_count:
-        parts.append(f"原站有 {comment_count} 条评论（评论由豆瓣动态加载，未能归档）")
+        parts.append(f"原站另有 {comment_count} 条评论未能归档")
     if extra:
         parts.append(extra)
     return " · ".join(parts) + "*"
@@ -161,6 +165,7 @@ class EmitContext:
 
     route_map: dict[str, str] = field(default_factory=dict)
     album_routes: dict[str, str] = field(default_factory=dict)
+    external_routes: dict[str, str] = field(default_factory=dict)
 
 
 @dataclass
@@ -200,6 +205,7 @@ class SiteEmitter:
             route_map=self.ctx.route_map,
             image_map={img.src: img.local for img in note.images if img.archived},
             album_routes=self.ctx.album_routes,
+            external_routes=self.ctx.external_routes,
             keep_remote_images=False,
         )
         body = html_to_markdown(note.content_html, context, self.cfg)
@@ -227,12 +233,42 @@ class SiteEmitter:
         else:
             blocks.append("*正文未能归档。*")
 
-        blocks.append(source_footer(note.source_url, comment_count=note.comment_count))
+        # 评论（服务端静态渲染，免登录即可归档）
+        comments_block = self._render_comments(note.comments, note.note_id)
+        if comments_block:
+            blocks.append(comments_block)
+
+        # 只有确实没归档到评论时才提示数量缺口
+        missing_comments = note.comment_count if not note.comments else 0
+        blocks.append(source_footer(note.source_url, comment_count=missing_comments))
 
         path = self.cfg.notes_dir / f"{note.note_id}.md"
         atomic_write_text(path, "\n\n".join(blocks) + "\n")
         self.report.notes += 1
         return path
+
+    def _render_comments(self, comments: Sequence[Any], note_id: str = "") -> str:
+        """把评论渲染成 Markdown 区块。
+
+        每条评论用引用块呈现，作者与时间加粗放在前面，与页面的正文视觉分开。
+        """
+        if not comments:
+            return ""
+        context = ConvertContext(
+            note_id=note_id,
+            route_map=self.ctx.route_map,
+            album_routes=self.ctx.album_routes,
+            external_routes=self.ctx.external_routes,
+        )
+        blocks = [f"## 评论（{len(comments)}）"]
+        for comment in comments:
+            head = " · ".join(part for part in (comment.author, comment.date) if part)
+            body = html_to_markdown(comment.content_html, context, self.cfg)
+            if not body:
+                body = "（空）"
+            quoted = "\n".join(f"> {line}" if line else ">" for line in body.splitlines())
+            blocks.append(f"**{head or '匿名'}**\n\n{quoted}")
+        return "\n\n".join(blocks)
 
     # ------------------------------------------------------------------ 相册
 
@@ -286,6 +322,77 @@ class SiteEmitter:
 
         path = self.cfg.albums_dir / f"{album.album_id}.md"
         atomic_write_text(path, "\n\n".join(blocks) + "\n")
+        return path
+
+    # ------------------------------------------------------------ 站外页面
+
+    def emit_external(self, page: Any) -> Path:
+        """渲染一个站外（``www.douban.com``）页面。"""
+        blocks = [
+            frontmatter(
+                {
+                    "title": page.title or page.page_id,
+                    "pageId": page.page_id,
+                    "origin": page.origin,
+                    "source": page.url,
+                    "availability": str(page.status.availability),
+                    "archivedAt": now_iso()[:10],
+                }
+            )
+        ]
+        notice = status_notice(page.status)
+        if notice:
+            blocks.append(notice)
+            self.report.unavailable_pages += 1
+
+        if page.origin:
+            blocks.append(f"*原站索引分组：{page.origin}*")
+
+        body = html_to_markdown(
+            page.content_html,
+            ConvertContext(
+                route_map=self.ctx.route_map,
+                album_routes=self.ctx.album_routes,
+                external_routes=self.ctx.external_routes,
+            ),
+            self.cfg,
+        )
+        blocks.append(body or "*正文未能归档。*")
+
+        comments_block = self._render_comments(page.comments)
+        if comments_block:
+            blocks.append(comments_block)
+
+        blocks.append(source_footer(page.url))
+
+        path = self.cfg.docs_dir / "external" / f"{page.page_id}.md"
+        atomic_write_text(path, "\n\n".join(blocks) + "\n")
+        self.report.pages.append(f"external/{page.page_id}.md")
+        return path
+
+    def emit_external_index(self, pages: Sequence[Any]) -> Path:
+        """渲染 /external/ 索引页。"""
+        blocks = [
+            frontmatter({"title": "站外文章", "aside": False}),
+            "# 站外文章\n",
+            "原站索引①/② 里有一部分条目直接指向豆瓣主站（需要登录才能访问），"
+            "登录后已一并归档。\n",
+        ]
+        if pages:
+            items = []
+            for page in pages:
+                badge = ""
+                if page.status.availability != Availability.OK:
+                    badge = f" <small class=\"badge-unavailable\">{page.status.label}</small>"
+                origin = f" — <small>{page.origin}</small>" if page.origin else ""
+                items.append(f"- [{page.title}]({page.route}){origin}{badge}")
+            blocks.append("\n".join(items))
+        else:
+            blocks.append("*还没有归档站外文章。*")
+
+        path = self.cfg.docs_dir / "external" / "index.md"
+        atomic_write_text(path, "\n\n".join(blocks) + "\n")
+        self.report.pages.append("external/index.md")
         return path
 
     # ---------------------------------------------------------------- 首页
@@ -416,8 +523,15 @@ class SiteEmitter:
                         badge = f' <small class="badge-unavailable">{note.status.label}</small>'
                     items.append(f"- [{note.title}]({route}){date}{badge}")
                 else:
-                    badge = " <small class=\"badge-unavailable\">未归档</small>"
-                    items.append(f"- [{entry.title}]({entry.url}){badge}")
+                    # 已归档的站外页面指向站内路由，否则保留外链并标注未归档
+                    route = self.ctx.external_routes.get(entry.url) or self.ctx.external_routes.get(
+                        entry.url.rstrip("/")
+                    )
+                    if route:
+                        items.append(f"- [{entry.title}]({route})")
+                    else:
+                        badge = " <small class=\"badge-unavailable\">未归档</small>"
+                        items.append(f"- [{entry.title}]({entry.url}){badge}")
             blocks.append("\n".join(items))
 
         if fallback_notes:
@@ -597,6 +711,7 @@ class SiteEmitter:
         fallback_notes: Sequence[Note] = (),
         albums: Sequence[Album] = (),
         videos_count: int = 0,
+        external_count: int = 0,
     ) -> Path:
         """生成 ``sidebar.generated.mts``。
 
@@ -618,9 +733,14 @@ class SiteEmitter:
                     # 未归档的条目**不能**把外站 URL 当作 link：
                     # VitePress 的 sidebar link 必须是站内路由，否则构建期报
                     # "Invalid route component: undefined"。
-                    # 这里保留文字（维持站长编排的结构可见），去掉链接，
-                    # 外链在 /notes/ 索引页里给出。
-                    items.append({"text": f"{entry.title}（未归档）"})
+                    # 已归档的站外页面则指向站内路由。
+                    route = self.ctx.external_routes.get(entry.url) or self.ctx.external_routes.get(
+                        entry.url.rstrip("/")
+                    )
+                    if route:
+                        items.append({"text": entry.title, "link": route})
+                    else:
+                        items.append({"text": f"{entry.title}（未归档）"})
             if items:
                 notes_sidebar.append(
                     {"text": group.title, "collapsed": False, "items": items}
@@ -660,6 +780,7 @@ class SiteEmitter:
                 "text": "站内",
                 "items": [
                     {"text": "文章索引", "link": "/notes/"},
+                    *([{"text": "站外文章", "link": "/external/"}] if external_count else []),
                     {"text": "相册", "link": "/albums/"},
                     {"text": "关于山田尚子", "link": "/about"},
                     {"text": "留言板", "link": "/board"},

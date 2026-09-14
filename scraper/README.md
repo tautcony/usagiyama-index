@@ -18,6 +18,7 @@ uv run python -m scraper.cli <子命令> [参数]
 | `discover` | 只枚举站点结构，不抓详情 |
 | `report` | 输出进度报告 |
 | `verify` | 校验归档结果（断链 / 图片 / 对账 / 抽查） |
+| `login` | 打开浏览器完成豆瓣登录并保存会话（工具不接触密码） |
 | `test` | 跑 HTML→Markdown 转换回归测试 |
 
 全局参数：
@@ -26,7 +27,8 @@ uv run python -m scraper.cli <子命令> [参数]
 | --- | --- |
 | `--impersonate NAME` | curl_cffi 浏览器指纹，默认 `chrome`（可选 `chrome136`、`safari18_0` 等） |
 | `--offline` | 只读本地缓存，绝不联网 |
-| `--no-archive` | 禁用 Internet Archive 补足 |
+| `--archive` / `--no-archive` | 启用 / 关闭 Internet Archive 补足（**默认关闭**） |
+| `--browser` / `--no-browser` | 用无头浏览器抓页面 / 退回纯 HTTP（**默认启用浏览器**） |
 | `--delay N` | 请求间隔下限（秒），默认 5 |
 | `--limit N` | 每阶段最多处理 N 项（冒烟测试用） |
 | `-v` / `-q` | 详细 / 安静日志 |
@@ -37,11 +39,18 @@ uv run python -m scraper.cli <子命令> [参数]
 | --- | --- |
 | `--dry-run` | 只预估规模与耗时，不抓取 |
 | `--i-have-read-robots` | 知情门槛，见下 |
-| `--stages a,b,c` | 只跑指定阶段（`rooms,bulletins,notes,photos,albums,videos,forum,miniblog`） |
+| `--stages a,b,c` | 只跑指定阶段（`rooms,bulletins,notes,photos,albums,videos,forum,miniblog,main`） |
 | `--force` | 忽略进度，强制重抓 |
 | `--recheck-unavailable` | 重新探测此前标记为不可访问的页面 |
 | `--no-emit` | 只抓取，不生成站点 |
-| `--no-progress` | 关闭进度条 |
+| `--progress` / `--no-progress` | 显示 / 隐藏进度条 |
+
+`login` 专属参数：
+
+| 参数 | 说明 |
+| --- | --- |
+| `--check` | 只校验已保存的会话是否有效，不打开浏览器 |
+| `--timeout N` | 等待登录的超时秒数（默认 300） |
 
 ---
 
@@ -71,9 +80,16 @@ Disallow: /
 | 缓存 | 同 URL 二次运行**零请求** |
 | 增量 | 只抓新增内容，存量不重抓 |
 
-并且**明确不做**以下事情：不轮换 UA、不轮换代理、不做指纹伪装、不并发轰炸。
-固定使用一个浏览器指纹（`curl_cffi` 的 `impersonate="chrome"`）只是因为服务端会对
-TLS 指纹做校验 —— 裸 `requests` 的首个请求会连续收到 `SSLEOFError`。
+关于指纹与 UA：
+
+- 固定使用**一个** curl_cffi 指纹（`impersonate="chrome"`）。这不是规避手段 ——
+  裸 `requests` 的首个请求会连续收到 `SSLEOFError`，说明服务端会校验 TLS 指纹，
+  模拟浏览器是**能正常访问的最低要求**。
+- 浏览器模式下**不伪造版本号**：只在无头启动导致 UA 里出现 `HeadlessChrome`
+  时，把它替换回浏览器**自己上报的真实版本**（`Chrome/152.0.7977.83`）。
+- `navigator.webdriver` **不做处理** —— 那是真正的自动化标记，不属于"还原成有头行为"的范畴。
+
+并且**明确不做**：不轮换 UA、不轮换代理、不并发轰炸、不做验证码绕过。
 
 请仅将归档结果用于个人保存与阅读，不要公开再分发。
 
@@ -81,6 +97,66 @@ TLS 指纹做校验 —— 裸 `requests` 的首个请求会连续收到 `SSLEOF
 
 看到「已熔断停止」说明源站开始拒绝请求。建议**等待数小时**后重跑同一命令。
 进度已保存，已完成的内容不会被重复请求。
+
+如果日志里同时出现「登录态已失效」，说明熔断的原因不是频率而是会话过期：
+重跑 `npm run login` 后再同步即可。
+
+---
+
+## 浏览器抓取（默认启用）
+
+小站有反爬措施，纯 HTTP 会拿到 403 / 302 到风控页，且需要登录的内容拿不到。
+因此**所有页面请求默认走真实 Chrome**：
+
+| 项目 | 做法 |
+| --- | --- |
+| 引擎 | Playwright 驱动**系统已装的 Chrome**（`channel="chrome"`），无需 `playwright install` |
+| 无头 | 抓取时无头；`login` 子命令强制有头 |
+| 等待策略 | `domcontentloaded`（不等图片/字体，省时间且不影响正文） |
+| 资源拦截 | 拦截图片/媒体/字体与统计域名（`hm.baidu.com`、`googletagmanager.com` 等） |
+| 页面回收 | 每 200 次导航重建 `page`，避免长时间运行内存增长 |
+| 崩溃恢复 | 监听 `page.crash`，自动重建 page 后继续 |
+
+**风控识别**：导航后若最终落在 `sec.douban.com`，说明触发了风控。
+这类响应**不会被缓存**（否则会永久污染缓存），而是抛出 `ChallengeError` 并计入熔断。
+
+**图片仍走 HTTP**：图片是静态资源、不需要 JS，走浏览器只会更慢。
+所以浏览器模式内部仍保留一个 curl_cffi 传输层专门下图片，两者共用同一份磁盘缓存。
+
+想退回纯 HTTP（快、轻，但拿不到需登录内容）：
+
+```bash
+uv run python -m scraper.cli sync --no-browser --i-have-read-robots
+```
+
+---
+
+## 登录与会话
+
+有些内容（`www.douban.com/note/*`、`/topic/*`）未登录会 302 到风控页。
+本工具提供登录流程，但**全程不接触密码**：
+
+```bash
+npm run login          # 打开 Chrome，你手动登录，工具只保存会话
+npm run login:check    # 只校验会话是否还有效
+```
+
+流程：
+
+1. 启动一个有头 Chrome，打开豆瓣登录页；
+2. 你在窗口里完成登录（扫码 / 短信 / 账号密码 / 图形验证码都行）；
+3. 工具轮询 `www.douban.com/mine/`，一旦返回 200 就判定登录成功；
+4. 把 `storage_state`（cookie + localStorage）写入 `scraper/state/douban.auth.json`，
+   权限 `0600`，并已在 `.gitignore` 中排除；
+5. 关闭窗口。
+
+**会话文件是敏感的**，等同你的登录凭据，不要提交、不要分享。
+
+`--check` 不需要浏览器：它把 cookie 注入 curl_cffi 会话后请求 `/mine/`，
+200 即有效，403 即过期。所以可以在跑长任务前快速确认。
+
+登录后，`sync` 的 `main` 阶段会补抓索引①/② 里指向豆瓣主站的页面，
+归入 `/external/{page_id}` 路由，并接入侧边栏。
 
 ---
 
@@ -96,6 +172,30 @@ TLS 指纹做校验 —— 裸 `requests` 的首个请求会连续收到 `SSLEOF
 
 `progress.json` 采用**原子写入**（同目录临时文件 + `os.replace`），
 因此 Ctrl-C、断网、熔断都不会损坏状态文件。
+
+### 图片的临时文件刻意放在 `public/` 之外
+
+图片同样走原子写入，但临时文件落在 `docs/.vitepress/.tmp/`，
+而不是目标目录 `docs/public/media/.../`。
+
+原因：Vite 拷贝 `public/` 用的是
+
+```js
+for (const file of fs.readdirSync(srcDir)) {   // 先取名字快照
+  const stat = fs.statSync(srcFile);           // 再逐个 stat
+  fs.copyFileSync(srcFile, destFile);          // 再逐个拷贝
+}
+```
+
+只要临时文件落在 `public/` 里，就会被 `readdirSync` 列进名单，
+而随后的 `os.replace` 会把这个名字移走 —— 构建于是**随机**地以
+`ENOENT ... copyfile` 失败。把临时文件挪出 `public/` 从根上消除了这个竞态。
+
+`docs/.vitepress/.tmp/` 与 `docs/public/` 在同一文件系统，所以
+`os.replace` 仍然是原子的（跨设备会报 `EXDEV`）。
+
+> 顺带一提：不要在构建的同时开着 `vitepress dev`。旧进程会持有
+> `docs/.vitepress/dist`，导致构建以 `ENOTEMPTY` 失败、产出残缺。
 
 ### 缓存按域名隔离
 
@@ -133,16 +233,31 @@ scraper/state/cache/
 | `failed` | 抓取出错 | 自动重试 |
 | `skipped` | 按策略跳过 | 跳过 |
 
-### 解析器版本号（改动解析逻辑后无需手动 --force）
+三种终态（`done` / `unavailable` / `skipped`）都由**阶段执行器**统一保护：
+handler 主动标记后，兜底逻辑不会再把它改写成 `done`。
+（早期版本用 `is_done` 判断，会把 `unavailable` 覆盖成 `done`，
+于是 `--recheck-unavailable` 永远筛不出这些条目、不可访问清单也会变空。）
 
-`progress.py` 里有一个 `PARSER_REVISION` 常量。**修改了选择器、转换规则或
-生成逻辑后把它加一**，此前标记为 `done` 的单元会自动作废并重跑一遍。
+### `--offline` 是只读模式
 
-因为原始 HTML 都在磁盘缓存里，这次重跑**只走本地解析、不产生任何网络请求** ——
-相当于免费地"用新解析器重刷全站"。这样就不必依赖使用者记得加 `--force`。
+离线运行时，"缓存未命中"只说明**本地还没有这份数据**，并不代表源站不可得。
+因此离线模式下的进度库是只读的：照常读取已有进度（已完成项照常跳过），
+但任何标记都不落盘。
 
-实测这个机制很必要：修好日记列表的选择器后，如果不作废旧进度，
-那 144 篇日记会一直因为"已完成"而被跳过。
+否则一次 `sync --offline` 就会把整站写成"原站不可访问"，
+既污染进度、又让后续的 `--recheck-unavailable` 失去意义。
+
+`report` 子命令同样是只读的 —— 一个查询命令不该反过来改写进度文件。
+
+> 注意：离线运行仍会**重新生成站点产物**。若缓存不完整，产出的页面会带上
+> "离线模式且无缓存"的提示块，`data/unavailable.md` 也会列出这些条目。
+> 想要完整产物，请在缓存完整时使用离线模式，或直接联网跑一次。
+
+### 评论也要能从产物里还原
+
+评论是归档内容的一部分，因此 `_note_from_dict` / `_discussion_from_dict`
+必须把 `comments` 一并还原。漏还原会在"日记已 `done`、本次被跳过"时
+静默丢掉全部评论 —— 而评论去重正是依赖 `comment_id` 的。
 
 ### 解析器版本号（改动解析逻辑后无需手动 --force）
 
@@ -172,11 +287,22 @@ scraper/state/cache/
       └───────┬───────┘
               │
               ▼
-      ┌───────────────┐    ┌──────────────┐    ┌─────────────┐
-      │ resolver.py   │───▶│ archive.py   │    │ http_client │
-      │ 抓取+失败标记  │    │ IA 补足       │◀──▶│ 缓存/限速   │
-      └───────┬───────┘    └──────────────┘    └─────────────┘
-              │
+      ┌───────────────┐    ┌──────────────┐    ┌─────────────────┐
+      │ resolver.py   │───▶│ archive.py   │    │ transport.py    │
+      │ 抓取+失败标记  │    │ IA 补足       │    │ Transport 协议   │
+      └───────┬───────┘    └──────────────┘    └────────┬────────┘
+              │                                          │
+              │                          ┌───────────────┴───────────────┐
+              │                          ▼                               ▼
+              │                  ┌──────────────┐                ┌──────────────┐
+              │                  │http_client.py│                │ browser.py   │
+              │                  │curl_cffi+缓存 │                │Playwright    │
+              │                  └──────────────┘                └──────┬───────┘
+              │                                                         │
+              │                                                  ┌──────┴───────┐
+              │                                                  │  auth.py     │
+              │                                                  │ 登录与会话    │
+              │                                                  └──────────────┘
               ▼
       ┌───────────────┐    ┌──────────────┐
       │ parsers.py    │───▶│ html2md.py   │
@@ -195,7 +321,10 @@ scraper/state/cache/
 | 模块 | 职责 | 关键设计 |
 | --- | --- | --- |
 | `config.py` | 站点常量、抓取参数、路径 | 全部可调参数集中于此，支持环境变量覆盖 |
-| `http_client.py` | HTTP 传输 | curl_cffi 指纹 + tenacity 退避 + 磁盘缓存 + 熔断 |
+| `transport.py` | 传输层抽象 | `runtime_checkable` Protocol，HTTP 与浏览器可互换 |
+| `http_client.py` | HTTP 传输 | curl_cffi 指纹 + tenacity 退避 + 磁盘缓存 + 熔断 + 限速 |
+| `browser.py` | 浏览器传输 | Playwright + 系统 Chrome，风控识别、资源拦截、page 回收 |
+| `auth.py` | 登录与会话 | 手动登录 + `storage_state` 持久化（0600），工具不接触密码 |
 | `archive.py` | Internet Archive 补足 | 仅用 CDX 接口（`/wayback/available` 会被限流） |
 | `resolver.py` | 抓取 → 标记 → 补足 | 统一的页面解析入口，记录所有不可访问页面 |
 | `discover.py` | 结构发现 | 房间 → 模块 → 分页枚举 ID 全集 |
@@ -206,6 +335,27 @@ scraper/state/cache/
 | `progress.py` | 进度与断点续接 | 原子写入 + 阶段执行器 |
 | `emit.py` | 产物生成 | 幂等，全部以 manifest 为输入 |
 | `verify.py` | 校验 | 六项检查 + 构建期死链复查 |
+
+### 为什么抽出 `Transport` 协议
+
+`resolver.py` / `media.py` 只依赖 `Transport` 协议，不关心底层是 curl_cffi 还是浏览器：
+
+```python
+@runtime_checkable
+class Transport(Protocol):
+    cfg: Config
+    stats: FetchStats
+    def fetch(self, url, *, referer=None, force=False, raise_for_blocked=True) -> CachedResponse: ...
+    def get_html(self, url, **kw) -> str: ...
+    def get_bytes(self, url, **kw) -> bytes: ...
+    def get_image(self, url, **kw) -> bytes: ...
+    def close(self) -> None: ...
+```
+
+好处是切换传输层不需要动任何业务代码，测试里也可以直接塞一个假实现。
+`Fetcher` 与 `BrowserFetcher` 都继承 `BaseFetcher`，共享限速、重试、缓存、
+熔断与离线判定，只在 `_attempt()`（真正发请求）和 `_classify_blocked()`
+（判定是否被拦截）两个点上分叉。
 
 ---
 
@@ -245,22 +395,45 @@ scraper/state/cache/
 ## 测试
 
 ```bash
-uv run python -m pytest scraper/tests -q
+uv run python -m pytest scraper/tests -q          # 默认：零网络、零浏览器
+uv run python -m pytest scraper/tests -m browser  # 只跑真实浏览器冒烟
+uv run python -m pytest scraper/tests -m network  # 只跑真实联网测试
 ```
 
-274 个单元测试，覆盖：
+387 个单元测试（默认执行 386 个，浏览器冒烟被排除），覆盖：
 
 | 文件 | 覆盖点 |
 | --- | --- |
 | `test_html2md.py` | 每种 HTML 形态的转换结果 |
 | `test_parsers.py` | 所有选择器（用真实结构裁剪的片段） |
 | `test_index_map.py` | 索引解析、分组归属、豆列识别 |
-| `test_media.py` | 格式识别、尺寸升级、路径命名 |
-| `test_progress.py` | 状态机、断点续接、阶段执行器 |
+| `test_media.py` | 格式识别、尺寸升级、路径命名、临时文件不落 public/ |
+| `test_progress.py` | 状态机、断点续接、阶段执行器、终态不被兜底覆盖、只读模式 |
 | `test_http_client.py` | 缓存、限速、退避、熔断（假 session，不联网） |
+| `test_browser_fetcher.py` | 风控识别、缓存、熔断、page 回收、UA 归一、路由拦截 |
+| `test_auth.py` | 会话存取、权限 0600、脱敏、登录态判定 |
+| `test_comments.py` | 评论解析（含去重） |
+| `test_external_pages.py` | 站外页面 ID、目标枚举、解析、路由、sidebar |
 | `test_emit.py` | frontmatter 转义、HTML 转义、提示块、sidebar、清单 |
 | `test_verify.py` | 断链 / 图片 / frontmatter / 正文提取 |
-| `test_sync_state.py` | 状态恢复、索引重建、按 ID 幂等合并 |
+| `test_sync_state.py` | 状态恢复、索引重建、按 ID 幂等合并、评论还原、离线只读 |
+
+### 默认零网络是怎么保证的
+
+不靠"记得注入 fake"的约定，而是由 `conftest.py` 里的 autouse 夹具**强制**：
+
+- 未标记的测试里，`Fetcher._build_session` 被换成一个**允许构造、但任何 `.get()` 都抛
+  `AssertionError`** 的占位会话 —— 所以"只是构造 `SyncContext`"的测试照常通过，
+  而真的想联网的测试会立刻失败并提示正确做法；
+- `PlaywrightDriver.__init__` 直接替换为抛错函数；
+- `WaybackClient.cdx_search` 直接替换为抛错函数。
+
+拦在"构造点"而不是 socket 层，是因为 curl_cffi 走 libcurl（C 层）、
+Playwright 走独立子进程，**两者都绕过 Python 的 socket 模块** ——
+拦 socket 只会给出虚假的安全感。
+
+需要真实网络的测试必须显式标记 `@pytest.mark.network`（HTTP）或
+`@pytest.mark.browser`（浏览器），两者都被 `addopts` 默认排除。
 
 ---
 
@@ -274,8 +447,15 @@ uv run python -m pytest scraper/tests -q
 | `USAGI_MAX_RETRIES` | `5` | 最大重试次数 |
 | `USAGI_CIRCUIT_BREAK_AFTER` | `3` | 连续被拦截多少次后熔断 |
 | `USAGI_IMPERSONATE` | `chrome` | curl_cffi 指纹 |
-| `USAGI_ARCHIVE_ENABLED` | `1` | 是否启用 Internet Archive 补足 |
+| `USAGI_ARCHIVE_ENABLED` | `0` | 是否启用 Internet Archive 补足 |
 | `USAGI_OFFLINE` | `0` | 离线模式 |
+| `USAGI_BROWSER` | `1` | 是否用无头浏览器抓取 |
+| `USAGI_BROWSER_CHANNEL` | `chrome` | 用哪个浏览器（`chrome` / `msedge` / `chromium`） |
+| `USAGI_BROWSER_HEADLESS` | `1` | 是否无头（`login` 子命令会强制有头） |
+| `USAGI_BROWSER_LOGIN_TIMEOUT` | `300` | 等待登录的超时秒数 |
+| `USAGI_BROWSER_PAGE_RECYCLE` | `200` | 每 N 次导航重建 page |
+| `USAGI_BROWSER_NAV_TIMEOUT_MS` | `45000` | 浏览器导航超时（毫秒） |
+| `USAGI_BROWSER_NORMALIZE_UA` | `1` | 把 `HeadlessChrome` 还原为真实版本号 |
 
 **仓库体积**：相册默认用 `large`（约 618KB/张 × 498 张 ≈ 300MB）。
 若体积敏感，把 `config.py` 里的 `album_image_size` 改为 `"photo"`

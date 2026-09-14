@@ -87,10 +87,6 @@ class Config:
     archive_backoff_base: float = field(
         default_factory=lambda: _env_float("USAGI_ARCHIVE_BACKOFF_BASE", 20.0)
     )
-    # archive.org 被限流时的退避起点要比源站更大
-    archive_backoff_base: float = field(
-        default_factory=lambda: _env_float("USAGI_ARCHIVE_BACKOFF_BASE", 20.0)
-    )
 
     # ---------- 图片尺寸 ----------
     # 相册：thumb=13KB / m=46KB / photo=123KB / large=618KB / raw 不可用
@@ -103,7 +99,7 @@ class Config:
     # True 时只读本地缓存，绝不发起网络请求
     offline: bool = field(default_factory=lambda: _env_bool("USAGI_OFFLINE", False))
 
-    # ---------- 浏览器行为模拟 ----------
+    # ---------- HTTP 传输（curl_cffi）----------
     # 使用 curl_cffi（curl-impersonate 的 Python 绑定）模拟真实浏览器的
     # TLS / HTTP2 指纹。目标站点对 TLS 指纹有校验，裸 requests 会收到
     # SSLEOFError（实测首个请求连续 4 次失败）。这是业界标准做法：
@@ -116,17 +112,40 @@ class Config:
         default_factory=lambda: int(_env_float("USAGI_PROGRESS_AUTOSAVE_EVERY", 20))
     )
 
-    # ---------- 浏览器行为模拟 ----------
-    # 使用 curl_cffi（curl-impersonate 的 Python 绑定）模拟真实浏览器的
-    # TLS / HTTP2 指纹。目标站点对 TLS 指纹有校验，裸 requests 会收到
-    # SSLEOFError（实测首个请求连续 4 次失败）。这是业界标准做法：
-    # curl_cffi 维护着一套与真实浏览器逐字节一致的指纹配置，无需自行拼装。
-    impersonate: str = field(
-        default_factory=lambda: os.environ.get("USAGI_IMPERSONATE", "chrome")
+    # ---------- 浏览器传输（Playwright + 系统 Chrome）----------
+    # 默认启用：目标站点有反爬措施，浏览器能执行 JS 并携带登录态。
+    # 用 --no-browser 可退回纯 HTTP（快、轻，但拿不到需登录的内容）。
+    browser_enabled: bool = field(
+        default_factory=lambda: _env_bool("USAGI_BROWSER", True)
     )
-    # 进度文件自动落盘频率（每 N 次记录写一次），用于断点续接
-    progress_autosave_every: int = field(
-        default_factory=lambda: int(_env_float("USAGI_PROGRESS_AUTOSAVE_EVERY", 20))
+    # 用系统已安装的 Chrome（channel="chrome"），无需 playwright install，
+    # 且真实 Chrome 构建比自带 Chromium 更难被识别。
+    browser_channel: str = field(
+        default_factory=lambda: os.environ.get("USAGI_BROWSER_CHANNEL", "chrome")
+    )
+    # 抓取时无头；login 子命令会强制有头（用户需要看到登录窗口）
+    browser_headless: bool = field(
+        default_factory=lambda: _env_bool("USAGI_BROWSER_HEADLESS", True)
+    )
+    # 登录等待超时（秒）
+    browser_login_timeout: float = field(
+        default_factory=lambda: _env_float("USAGI_BROWSER_LOGIN_TIMEOUT", 300.0)
+    )
+    # 每 N 次导航重建一次 page，防止长时间运行内存增长
+    browser_page_recycle: int = field(
+        default_factory=lambda: int(_env_float("USAGI_BROWSER_PAGE_RECYCLE", 200))
+    )
+    # 浏览器导航超时（毫秒）。比 HTTP 的 timeout 宽松一些，
+    # 因为要等 DOM 构建完成。
+    browser_nav_timeout_ms: int = field(
+        default_factory=lambda: int(_env_float("USAGI_BROWSER_NAV_TIMEOUT_MS", 45_000))
+    )
+    # 无头启动会让 Chrome 在 UA 里带上 "HeadlessChrome" 标识，而有头时同一个
+    # Chrome 发的是 "Chrome"。这只是我们选了无头启动的副作用，并不代表换了客户端，
+    # 因此默认把它改回来（基于浏览器自己的真实版本号，不伪造版本）。
+    # 注意：navigator.webdriver 不在此列——那是真正的自动化标记，不做处理。
+    browser_normalize_headless_ua: bool = field(
+        default_factory=lambda: _env_bool("USAGI_BROWSER_NORMALIZE_UA", True)
     )
 
     # ---------- 路径 ----------
@@ -141,6 +160,7 @@ class Config:
     # ---------- 产物文件名 ----------
     manifest_name: str = "manifest.json"
     progress_name: str = "progress.json"
+    auth_state_name: str = "douban.auth.json"
 
     # ---------- 派生路径 ----------
     @property
@@ -151,6 +171,26 @@ class Config:
     def progress_path(self) -> Path:
         """断点续接的进度文件。"""
         return self.state_dir / self.progress_name
+
+    @property
+    def auth_state_path(self) -> Path:
+        """登录会话文件（含敏感 cookie，必须 gitignore，权限 0600）。"""
+        return self.state_dir / self.auth_state_name
+
+    @property
+    def chrome_ua_cache_path(self) -> Path:
+        """探测到的 Chrome UA 缓存（避免每次启动都开浏览器）。"""
+        return self.state_dir / "chrome_ua.txt"
+
+    @property
+    def tmp_dir(self) -> Path:
+        """原子写入的临时文件目录。
+
+        刻意放在 ``docs/.vitepress/`` 下 —— 它和 ``docs/public/`` 在同一个
+        文件系统（``os.replace`` 才能原子生效），但**不在** Vite 会遍历并
+        拷贝的目录树里。原因见 :func:`scraper.util.atomic_write_bytes`。
+        """
+        return self.docs_dir / ".vitepress" / ".tmp"
 
     @property
     def notes_dir(self) -> Path:
@@ -215,6 +255,7 @@ def ensure_dirs(cfg: Config = CONFIG) -> None:
         cfg.media_dir,
         cfg.notes_dir,
         cfg.albums_dir,
+        cfg.tmp_dir,
         cfg.sidebar_path.parent,
     ):
         path.mkdir(parents=True, exist_ok=True)

@@ -70,6 +70,8 @@ class ConvertContext:
     image_map: dict[str, str] = field(default_factory=dict)
     # 相册 ID → 站内路由
     album_routes: dict[str, str] = field(default_factory=dict)
+    # 站外页面 URL → 站内路由（已归档的 /topic/、/note/ 等）
+    external_routes: dict[str, str] = field(default_factory=dict)
     # 是否保留未归档图片的远程 URL（否则丢弃，避免裂图）
     keep_remote_images: bool = True
 
@@ -144,6 +146,14 @@ class DoubanConverter(MarkdownConverter):
             if route:
                 return route
             return href
+
+        # 已归档的站外页面（索引①/② 里指向豆瓣主站的条目）。
+        # 链接写法可能带或不带尾斜杠，两种都要能命中。
+        normalized = href.rstrip("/")
+        for key in (href, normalized, normalized + "/"):
+            route = self.ctx.external_routes.get(key)
+            if route:
+                return route
 
         return href
 

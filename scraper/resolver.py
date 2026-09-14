@@ -23,7 +23,8 @@ from urllib.parse import urlparse
 
 from .archive import WaybackClient
 from .config import CONFIG, Config
-from .http_client import BlockedError, CircuitBreakerOpen, FetchError, Fetcher, OfflineCacheMiss
+from .http_client import BlockedError, CircuitBreakerOpen, FetchError, OfflineCacheMiss
+from .transport import Transport
 from .models import Availability, SourceStatus
 
 log = logging.getLogger("usagi.resolve")
@@ -82,7 +83,7 @@ class PageResolver:
 
     def __init__(
         self,
-        fetcher: Fetcher,
+        fetcher: Transport,
         wayback: WaybackClient | None = None,
         cfg: Config = CONFIG,
     ) -> None:

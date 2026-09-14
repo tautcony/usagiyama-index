@@ -10,8 +10,12 @@
     "docs:preview": "vitepress preview docs",
     "sync": "uv run python -m scraper.cli sync",
     "sync:dry": "uv run python -m scraper.cli sync --dry-run",
+    "emit": "uv run python -m scraper.cli emit",
     "report": "uv run python -m scraper.cli report",
-    "verify": "uv run python -m scraper.cli verify"
+    "login": "uv run python -m scraper.cli login",
+    "login:check": "uv run python -m scraper.cli login --check",
+    "verify": "uv run python -m scraper.cli verify",
+    "test": "uv run python -m pytest scraper/tests -q"
   },
   "devDependencies": {
     "vitepress": "^1.6.3",

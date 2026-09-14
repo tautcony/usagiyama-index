@@ -137,11 +137,36 @@ class Verifier:
         if extra:
             result.add_problem(f"有 {len(extra)} 个 md 文件不在 manifest 中，例如 {sorted(extra)[:5]}")
 
+        # 评论归档情况（免登录，服务端静态渲染）
+        comment_total = 0
+        comment_archived = 0
+        for payload in (manifest.get("notes") or {}).values():
+            comment_total += int(payload.get("comment_count") or 0)
+            comment_archived += len(payload.get("comments") or [])
+        for payload in (manifest.get("external") or {}).values():
+            comment_archived += len(payload.get("comments") or [])
+
         result.notes.append(
             f"日记 {actual['notes']} 篇 / 相册 {actual['albums']} 个（{photos} 张）"
             f" / 公告 {actual['bulletins']} 条 / 视频 {actual['videos']} 条"
         )
         result.notes.append(f"磁盘 md 文件 {len(md_files)} 个")
+        result.notes.append(
+            f"评论已归档 {comment_archived} 条"
+            + (f"（原站标注共 {comment_total} 条）" if comment_total else "")
+        )
+
+        # 站外页面（需登录）
+        external = manifest.get("external") or {}
+        if external:
+            unavailable = sum(
+                1 for p in external.values()
+                if (p.get("status") or {}).get("availability") != "ok"
+            )
+            result.notes.append(
+                f"站外页面 {len(external)} 个"
+                + (f"，其中 {unavailable} 个未归档" if unavailable else "")
+            )
         return result
 
     # -------------------------------------------------------------- 2. 断链

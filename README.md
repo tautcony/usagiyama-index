@@ -11,7 +11,8 @@
 | 相册 | 6 个 / 498 张 | 海报墙、幕后周边、纪念册等 |
 | 公告栏 | 7 条 | 含站长手工编排的「索引①/②」分类目录 |
 | 视频 | 约 20 条 | 正片在优酷，仅归档缩略图与链接 |
-| 留言板 / 广播室 | 1 帖 / 若干动态 | 论坛评论为静态渲染，可完整归档 |
+| 留言板 / 广播室 | 1 帖 / 若干动态 | 论坛与日记评论均为静态渲染，可完整归档 |
+| 站外页面 | 索引中指向豆瓣主站的条目 | 需登录，归入 `/external/` 路由 |
 
 原站由 **羽音** 于 2013-05-01 创建。
 
@@ -26,6 +27,8 @@
   已完成内容不会重复请求（见下）。
 - **缺失内容显式标记**：无法访问的页面会在页面上显示提示块，
   并汇总到 `data/unavailable.md`。
+- **真实的浏览器行为**：页面请求走无头 Chrome（Playwright 驱动系统已装的
+  Chrome），以应对原站的反爬措施；登录由使用者手动完成，工具只保存会话。
 
 ---
 
@@ -49,9 +52,16 @@ uv sync
 # 1. 先看规模与耗时预估（不抓取）
 npm run sync:dry
 
-# 2. 正式抓取（首次约 1500 次请求，按 5~7 秒间隔约需 2~3 小时）
+# 2.（可选）先登录：有些内容未登录拿不到，工具全程不接触你的密码
+npm run login
+
+# 3. 正式抓取（首次约 1500 次请求，按 5~7 秒间隔约需 2~3 小时）
 npm run sync -- --i-have-read-robots
 ```
+
+抓取默认走**无头浏览器**（Playwright 驱动系统已装的 Chrome），
+因为原站有反爬措施，纯 HTTP 会拿到 403 或跳转到风控页。
+图片仍走 HTTP —— 静态资源不需要执行 JS。
 
 ### 预览与构建
 
@@ -102,6 +112,10 @@ npm run sync -- --i-have-read-robots
 npm run emit
 ```
 
+`npm run sync -- --offline` 则是"只读本地缓存重跑一遍解析"，
+它**不会改写进度文件**（离线时的缓存未命中只说明本地没有数据，
+不代表源站不可得）。
+
 ### 重新探测此前不可访问的页面
 
 ```bash
@@ -113,10 +127,15 @@ npm run sync -- --i-have-read-robots --recheck-unavailable
 把 `scraper/progress.py` 里的 `PARSER_REVISION` 加一即可。旧进度会自动作废、
 用新逻辑重刷全站，而原始内容都在本地缓存里，**不会产生额外网络请求**。
 
-### 改了抓取或转换逻辑之后
+### 登录会话过期后
 
-把 `scraper/progress.py` 里的 `PARSER_REVISION` 加一即可。旧进度会自动作废、
-用新逻辑重刷全站，而原始内容都在本地缓存里，**不会产生额外网络请求**。
+```bash
+npm run login:check   # 只校验，不开浏览器
+npm run login         # 重新登录并覆盖会话文件
+```
+
+会话保存在 `scraper/state/douban.auth.json`（权限 `0600`，已 gitignore）。
+它等同登录凭据，**不要提交、不要分享**。
 
 ---
 
@@ -125,7 +144,10 @@ npm run sync -- --i-have-read-robots --recheck-unavailable
 ```
 ├── scraper/                     抓取工具（Python，长期维护）
 │   ├── config.py                站点常量、抓取参数、路径布局
+│   ├── transport.py             传输层协议（HTTP / 浏览器可互换）
 │   ├── http_client.py           指纹模拟 + 限速 + 退避 + 缓存 + 熔断
+│   ├── browser.py               无头浏览器传输 + 风控识别 + 资源拦截
+│   ├── auth.py                  登录流程与会话持久化（不接触密码）
 │   ├── archive.py               Internet Archive 补足
 │   ├── resolver.py              抓取 → 失败标记 → 归档补足
 │   ├── discover.py              站点结构发现与分页枚举
@@ -137,8 +159,12 @@ npm run sync -- --i-have-read-robots --recheck-unavailable
 │   ├── emit.py                  产物生成
 │   ├── verify.py                归档校验
 │   ├── cli.py                   命令行入口
-│   ├── tests/                   274 个单元测试
-│   └── state/                   运行状态（cache/<域名> / progress / manifest）
+│   ├── tests/                   369 个单元测试（默认零网络、零浏览器）
+│   └── state/                   运行状态
+│       ├── cache/<域名>/        HTML / 图片原始响应缓存
+│       ├── progress.json        单元级进度（断点续接）
+│       ├── manifest.json        内容级单一事实源
+│       └── douban.auth.json     登录会话（0600，gitignore）
 ├── data/                        中间产物与报告
 │   ├── notes.json  albums.json  index.json  ...
 │   ├── unavailable.md           不可访问内容清单
@@ -152,7 +178,8 @@ npm run sync -- --i-have-read-robots --recheck-unavailable
     ├── public/media/            全部本地化图片
     ├── index.md  about.md  videos.md  board.md  broadcast.md
     ├── notes/{noteId}.md        144 篇
-    └── albums/{albumId}.md      6 个相册
+    ├── albums/{albumId}.md      6 个相册
+    └── external/{pageId}.md     站外页面（登录后补抓）
 ```
 
 ---
@@ -163,13 +190,13 @@ npm run sync -- --i-have-read-robots --recheck-unavailable
 
 | 情况 | 原因 | 处理 |
 | --- | --- | --- |
-| 日记评论 | 豆瓣用 AJAX 动态加载，需登录 | 仅归档评论**数量**，页面注明 |
-| `www.douban.com/topic/*` 访谈 | 主站返回 403，需登录 | 标记「需登录」；尝试 Internet Archive 补足 |
-| 部分日记的 `www.douban.com/note/*` | 主站 302 跳转反爬页 | 走小站镜像路径 `site.douban.com/211330/widget/...` |
+| `www.douban.com/topic/*` 访谈 | 未登录会 302 到风控页 | 登录后由 `main` 阶段补抓；仍拿不到则标记「需登录」并尝试 Internet Archive |
+| 部分日记的 `www.douban.com/note/*` | 主站 302 跳转反爬页 | 优先走小站镜像路径 `site.douban.com/211330/widget/...` |
 | 视频正片 | 托管在优酷 | 归档标题 + 缩略图 + 外链 |
 
-不可访问页面会自动尝试从 [Internet Archive](https://web.archive.org/) 取历史快照补足，
-成功补足的页面会显示快照时间与原始链接。完整清单见 `data/unavailable.md`。
+不可访问页面会自动尝试从 [Internet Archive](https://web.archive.org/) 取历史快照补足
+（默认关闭，用 `--archive` 开启），成功补足的页面会显示快照时间与原始链接。
+完整清单见 `data/unavailable.md`。
 
 ---
 

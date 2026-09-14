@@ -22,18 +22,24 @@ from __future__ import annotations
 
 import argparse
 import logging
+import re
 import signal
 import sys
 from collections.abc import Callable, Iterable
 from dataclasses import asdict
 from pathlib import Path
 from typing import Any, Sequence
+from urllib.parse import urlparse
+from urllib.parse import urlparse
 
+from . import auth
 from .archive import WaybackClient
+from .browser import BrowserFetcher, detect_chrome_ua
 from .config import CONFIG, Config, ensure_dirs
 from .discover import SiteDiscovery, SiteStructure
 from .emit import EmitContext, SiteEmitter
 from .http_client import CircuitBreakerOpen, Fetcher, estimate_duration
+from .transport import Transport
 from .index_map import (
     FALLBACK_CATEGORY,
     build_note_to_group,
@@ -45,7 +51,10 @@ from .models import (
     Album,
     Availability,
     Bulletin,
+    Comment,
     Discussion,
+    ExternalPage,
+    ExternalPage,
     MiniblogStatus,
     Note,
     SourceStatus,
@@ -53,6 +62,9 @@ from .models import (
 )
 from .parsers import (
     parse_album_title,
+    parse_external_page,
+    parse_note_comment_pages,
+    parse_note_comments,
     parse_bulletin,
     parse_discussion,
     parse_miniblog,
@@ -79,7 +91,13 @@ ALL_STAGES = (
     "videos",
     "forum",
     "miniblog",
+    # 站外页面（www.douban.com 的 /topic/、/note/）需要登录才能访问，
+    # 因此单独成一个阶段，便于登录后配合 --recheck-unavailable 单独补抓。
+    "main",
 )
+
+#: 站外页面的域名（索引①/② 里指向这些域名的条目需要登录）
+EXTERNAL_HOSTS = ("www.douban.com", "douban.com")
 
 ROBOTS_NOTICE = """
 ⚠️  抓取前请确认你已阅读目标站点的 robots.txt：
@@ -106,8 +124,9 @@ def setup_logging(verbose: bool, quiet: bool = False) -> None:
         datefmt="%H:%M:%S",
         stream=sys.stderr,
     )
-    # 第三方库日志降噪
-    for name in ("curl_cffi", "urllib3", "chardet"):
+    # 第三方库日志降噪。
+    # playwright 的 DEBUG 日志可能带请求头（含 cookie），必须压到 WARNING。
+    for name in ("curl_cffi", "urllib3", "chardet", "playwright"):
         logging.getLogger(name).setLevel(logging.WARNING)
 
 
@@ -153,6 +172,14 @@ def add_common_args(
         action=argparse.BooleanOptionalAction,
         default=argparse.SUPPRESS if suppress_defaults else False,
         help="启用 Internet Archive 补足（默认关闭；用 --no-archive 显式关闭）",
+    )
+    # 浏览器传输开关。默认启用（见 Config.browser_enabled）；
+    # --no-browser 可退回纯 HTTP（快、轻，但拿不到需登录的内容）。
+    parser.add_argument(
+        "--browser",
+        action=argparse.BooleanOptionalAction,
+        default=argparse.SUPPRESS if suppress_defaults else True,
+        help="用无头浏览器抓取页面（默认启用；用 --no-browser 退回纯 HTTP）",
     )
     parser.add_argument(
         "--delay", type=float, default=d_none, help="请求间隔下限（秒），默认 5"
@@ -223,6 +250,23 @@ def build_parser() -> argparse.ArgumentParser:
     p_verify = sub.add_parser("verify", help="校验归档结果", parents=[_common_parent()])
     p_verify.add_argument("--sample", type=int, default=5, help="内容抽查篇数")
 
+    p_login = sub.add_parser(
+        "login",
+        help="打开浏览器完成豆瓣登录并保存会话（工具不接触密码）",
+        parents=[_common_parent()],
+    )
+    p_login.add_argument(
+        "--check",
+        action="store_true",
+        help="只校验已保存的会话是否有效，不打开浏览器",
+    )
+    p_login.add_argument(
+        "--timeout",
+        type=float,
+        default=None,
+        help=f"等待登录的超时秒数（默认 {CONFIG.browser_login_timeout:.0f}）",
+    )
+
     sub.add_parser("test", help="跑 HTML→Markdown 转换回归测试", parents=[_common_parent()])
 
     return parser
@@ -242,14 +286,28 @@ def resolve_stages(raw: str) -> list[str]:
 class SyncContext:
     """一次同步运行的全部依赖与累积结果。"""
 
-    def __init__(self, cfg: Config, *, use_archive: bool = True) -> None:
+    def __init__(
+        self,
+        cfg: Config,
+        *,
+        use_archive: bool = True,
+        transport: Transport | None = None,
+    ) -> None:
         self.cfg = cfg
-        self.fetcher = Fetcher(cfg)
+        # 传输方式：默认按配置选（浏览器 / 纯 HTTP），也允许外部注入（测试用）
+        if transport is not None:
+            self.fetcher: Transport = transport
+        elif cfg.browser_enabled:
+            self.fetcher = BrowserFetcher(cfg)
+        else:
+            self.fetcher = Fetcher(cfg)
         # 默认不构造 WaybackClient，避免任何 archive.org 请求
         self.wayback = WaybackClient(cfg) if use_archive else None
         self.resolver = PageResolver(self.fetcher, self.wayback, cfg)
         self.media = MediaArchive(self.fetcher, self.wayback, cfg)
-        self.progress = ProgressStore(cfg=cfg)
+        # 离线模式下进度只读：缓存未命中只是"本地还没这份数据"，
+        # 若照常落盘会把整站误标为"原站不可访问"。见 ProgressStore 的说明。
+        self.progress = ProgressStore(cfg=cfg, readonly=cfg.offline)
         self.emitter = SiteEmitter(cfg, EmitContext())
         self.discovery = SiteDiscovery(self.resolver, cfg)
         self.structure = SiteStructure()
@@ -261,6 +319,10 @@ class SyncContext:
         self.videos: list[Video] = []
         self.discussions: list[Discussion] = []
         self.miniblog: list[MiniblogStatus] = []
+        # 站外页面（需登录），key 为 page_id
+        self.external: dict[str, ExternalPage] = {}
+        # 站外页面（需登录），key 为 page_id
+        self.external: dict[str, ExternalPage] = {}
         self.index_groups: list[Any] = []
         self.results: list[StageResult] = []
         self.unavailable: list[UnavailableRecord] = []
@@ -308,6 +370,14 @@ class SyncContext:
 
         for payload in read_json(self.cfg.data_dir / "miniblog.json", default=[]) or []:
             self.miniblog.append(MiniblogStatus(**payload))
+
+        external = read_json(self.cfg.data_dir / "external.json", default={}) or {}
+        for page_id, payload in external.items():
+            self.external[page_id] = _external_from_dict(page_id, payload)
+
+        external = read_json(self.cfg.data_dir / "external.json", default={}) or {}
+        for page_id, payload in external.items():
+            self.external[page_id] = _external_from_dict(page_id, payload)
 
         index_payload = read_json(self.cfg.data_dir / "index.json", default=None)
         if index_payload:
@@ -427,6 +497,16 @@ class SyncContext:
     def rebuild_context(self) -> None:
         """重建链接重写所需的映射表。"""
         self.emitter.ctx.route_map = {nid: f"/notes/{nid}" for nid in self.notes}
+        self.emitter.ctx.external_routes = {
+            page.url: page.route for page in self.external.values()
+        }
+        for page in self.external.values():
+            self.emitter.ctx.external_routes.setdefault(page.url.rstrip("/"), page.route)
+        self.emitter.ctx.external_routes = {
+            page.url: page.route for page in self.external.values()
+        }
+        for page in self.external.values():
+            self.emitter.ctx.external_routes.setdefault(page.url.rstrip("/"), page.route)
         self.emitter.ctx.album_routes = {aid: f"/albums/{aid}" for aid in self.albums}
 
     def save_data(self) -> None:
@@ -447,6 +527,14 @@ class SyncContext:
         write_json(cfg.data_dir / "videos.json", [v.to_dict() for v in self.videos])
         write_json(cfg.data_dir / "forum.json", [d.to_dict() for d in self.discussions])
         write_json(cfg.data_dir / "miniblog.json", [m.to_dict() for m in self.miniblog])
+        write_json(
+            cfg.data_dir / "external.json",
+            {pid: p.to_dict() for pid, p in sorted(self.external.items())},
+        )
+        write_json(
+            cfg.data_dir / "external.json",
+            {pid: p.to_dict() for pid, p in sorted(self.external.items())},
+        )
         write_json(
             cfg.data_dir / "index.json",
             [g.to_dict() for g in self.index_groups],
@@ -472,6 +560,9 @@ class SyncContext:
                 "bulletins": len(self.bulletins),
                 "discussions": len(self.discussions),
                 "miniblog": len(self.miniblog),
+                "external": len(self.external),
+                "comments": sum(len(n.comments) for n in self.notes.values())
+                + sum(len(p.comments) for p in self.external.values()),
                 "unavailable": len(self.unavailable),
             },
             "rooms": [r.to_dict() for r in self.structure.rooms],
@@ -480,6 +571,7 @@ class SyncContext:
             "notes": {nid: n.to_dict() for nid, n in sorted(self.notes.items())},
             "albums": {aid: a.to_dict() for aid, a in sorted(self.albums.items())},
             "videos": [v.to_dict() for v in self.videos],
+            "external": {pid: p.to_dict() for pid, p in sorted(self.external.items())},
         }
 
 
@@ -520,6 +612,24 @@ def _status_from_dict(payload: Any) -> SourceStatus:
     )
 
 
+def _comments_from_dict(payload: dict[str, Any]) -> list[Comment]:
+    """把 ``comments`` 字段还原为 :class:`Comment` 列表。
+
+    断点续接要求"没跑的阶段能从上一次产物里恢复"，评论也是产物的一部分：
+    漏还原就会在"日记已 done、本次被跳过"时静默丢掉全部评论。
+    """
+    return [
+        Comment(
+            author=item.get("author", ""),
+            date=item.get("date", ""),
+            content_html=item.get("content_html", ""),
+            avatar_url=item.get("avatar_url", ""),
+            comment_id=str(item.get("comment_id", "")),
+        )
+        for item in payload.get("comments") or []
+    ]
+
+
 def _note_from_dict(note_id: str, payload: dict[str, Any]) -> Note:
     from .models import ImageRef
 
@@ -539,6 +649,7 @@ def _note_from_dict(note_id: str, payload: dict[str, Any]) -> Note:
     note.status = _status_from_dict(payload.get("status"))
     for img in payload.get("images") or []:
         note.images.append(ImageRef(**img))
+    note.comments = _comments_from_dict(payload)
     return note
 
 
@@ -594,9 +705,20 @@ def _video_from_dict(payload: dict[str, Any]) -> Video:
     return video
 
 
-def _discussion_from_dict(payload: dict[str, Any]) -> Discussion:
-    from .models import Comment
+def _external_from_dict(page_id: str, payload: dict[str, Any]) -> ExternalPage:
+    page = ExternalPage(
+        page_id=page_id,
+        url=payload.get("url", ""),
+        title=payload.get("title", ""),
+        content_html=payload.get("content_html", ""),
+        origin=payload.get("origin", ""),
+    )
+    page.status = _status_from_dict(payload.get("status"))
+    page.comments = _comments_from_dict(payload)
+    return page
 
+
+def _discussion_from_dict(payload: dict[str, Any]) -> Discussion:
     discussion = Discussion(
         discussion_id=str(payload.get("discussion_id", "")),
         forum_id=str(payload.get("forum_id", "")),
@@ -607,15 +729,7 @@ def _discussion_from_dict(payload: dict[str, Any]) -> Discussion:
         source_url=payload.get("source_url", ""),
     )
     discussion.status = _status_from_dict(payload.get("status"))
-    for item in payload.get("comments") or []:
-        discussion.comments.append(
-            Comment(
-                author=item.get("author", ""),
-                date=item.get("date", ""),
-                content_html=item.get("content_html", ""),
-                avatar_url=item.get("avatar_url", ""),
-            )
-        )
+    discussion.comments = _comments_from_dict(payload)
     return discussion
 
 
@@ -642,6 +756,12 @@ def prepare_structure(ctx: SyncContext, stages: Sequence[str]) -> SiteStructure:
         discovery.discover_videos()
     if "forum" in stages:
         discovery.discover_forum()
+    if "main" in stages and not discovery.structure.bulletins:
+        # main 阶段依赖索引①/② 的内容来定位站外条目
+        discovery.discover_bulletins()
+    if "main" in stages and not discovery.structure.bulletins:
+        # main 阶段依赖索引①/② 的内容来定位站外条目
+        discovery.discover_bulletins()
 
     ctx.structure = discovery.structure
     return ctx.structure
@@ -706,6 +826,37 @@ def stage_bulletins(ctx: SyncContext, *, show_progress: bool, limit: int = 0) ->
     return result
 
 
+COMMENTS_PER_PAGE = 10
+
+
+def _collect_note_comments(
+    ctx: SyncContext, html: str, note_url: str, title: str
+) -> list[Comment]:
+    """收集一篇日记的全部评论（含翻页）。
+
+    评论是服务端静态渲染的，**不需要登录**。翻页走 note URL 的 ``?start=N``。
+    """
+    comments = parse_note_comments(html, ctx.cfg)
+    total_pages = parse_note_comment_pages(html, ctx.cfg)
+
+    for index in range(1, total_pages):
+        sub_url = f"{note_url}?start={index * COMMENTS_PER_PAGE}"
+        page = ctx.resolver.resolve(sub_url, context=f"日记评论 {truncate(title, 30)} 第 {index + 1} 页")
+        if page.has_content:
+            comments.extend(parse_note_comments(page.html, ctx.cfg))
+
+    # 翻页边界可能重复，按 comment_id 去重
+    seen: set[str] = set()
+    unique: list[Comment] = []
+    for comment in comments:
+        if comment.comment_id and comment.comment_id in seen:
+            continue
+        if comment.comment_id:
+            seen.add(comment.comment_id)
+        unique.append(comment)
+    return unique
+
+
 def stage_notes(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
                 recheck_unavailable: bool = False, force: bool = False) -> StageResult:
     """阶段 3：日记详情 + 配图归档。"""
@@ -762,12 +913,17 @@ def stage_notes(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
             ctx.media.archive_note_images(refs, note.note_id)
         note.images = refs
 
+        # 归档评论。评论是服务端静态渲染的，免登录即可拿到；
+        # 数量多时 note URL 支持 ?start=N 翻页（每页 10 条）。
+        note.comments = _collect_note_comments(ctx, page.html, url, entry.title)
+
         ctx.notes[note.note_id] = note
         ctx.progress.mark_done(
             key,
             stage="notes",
-            detail=f"{truncate(note.title, 40)} · {len(refs)} 图",
+            detail=f"{truncate(note.title, 40)} · {len(refs)} 图 · {len(note.comments)} 评论",
             images=len(refs),
+            comments=len(note.comments),
         )
 
     items = entries[:limit] if limit else entries
@@ -968,6 +1124,91 @@ def stage_miniblog(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> 
     return result
 
 
+def _external_page_id(url: str) -> str:
+    """由 URL 派生稳定的页面 ID，例如 ``/topic/499780453/`` → ``topic-499780453``。"""
+    path = (urlparse(url).path or "").strip("/")
+    parts = [part for part in path.split("/") if part]
+    if len(parts) >= 2:
+        return f"{parts[0]}-{parts[1]}"
+    slug = re.sub(r"[^a-zA-Z0-9]+", "-", path).strip("-").lower()
+    return slug or "page"
+
+
+def _external_targets(ctx: SyncContext) -> list[tuple[str, str, str]]:
+    """从索引①/② 里找出指向豆瓣主站的条目，返回 ``[(page_id, url, origin)]``。"""
+    seen: set[str] = set()
+    targets: list[tuple[str, str, str]] = []
+    for group in ctx.index_groups:
+        for entry in group.entries:
+            url = (entry.url or "").strip()
+            if not url:
+                continue
+            host = (urlparse(url).hostname or "").lower()
+            if host not in EXTERNAL_HOSTS:
+                continue
+            page_id = _external_page_id(url)
+            if page_id in seen:
+                continue
+            seen.add(page_id)
+            targets.append((page_id, url, group.title))
+    return targets
+
+
+def stage_main(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
+               recheck_unavailable: bool = False, force: bool = False) -> StageResult:
+    """阶段 9：补抓索引里指向豆瓣主站的页面（需要登录）。
+
+    这些页面未登录会 302 到 ``sec.douban.com``，因此只在登录后才有内容。
+    用独立的 key（``main:{page_id}``）而不是复用 notes 的 key，
+    这样 ``--recheck-unavailable`` 只重试这些页面，不会把已归档的 144 篇日记全部重抓。
+    """
+    cfg = ctx.cfg
+    if not ctx.index_groups:
+        ctx.build_index_groups()
+
+    targets = _external_targets(ctx)
+    if limit:
+        targets = targets[:limit]
+    if not targets:
+        log.info("索引里没有指向站外（%s）的条目，跳过", "/".join(EXTERNAL_HOSTS))
+        return StageResult(stage="main")
+
+    runner = StageRunner(
+        ctx.progress,
+        "main",
+        cfg=cfg,
+        show_progress=show_progress,
+        recheck_unavailable=recheck_unavailable,
+        recheck_done=force,
+    )
+
+    def key_of(target: tuple[str, str, str]) -> str:
+        return f"main:{target[0]}"
+
+    def handler(target: tuple[str, str, str]) -> None:
+        page_id, url, origin = target
+        page = ctx.resolver.resolve(url, context=f"站外页面 {url}")
+        if not page.has_content:
+            # 仍保留元信息，页面会带"需登录"提示块，索引里也不会成为死链
+            ctx.external[page_id] = ExternalPage(
+                page_id=page_id, url=url, origin=origin, status=page.status
+            )
+            ctx.progress.mark_unavailable(key_of(target), page.status.label, stage="main")
+            return
+        external = parse_external_page(page.html, url, page_id, origin, cfg)
+        external.status = page.status
+        ctx.external[page_id] = external
+        ctx.progress.mark_done(
+            key_of(target),
+            stage="main",
+            detail=f"{truncate(external.title, 40)} · {len(external.comments)} 评论",
+        )
+
+    result = runner.run(targets, handler, key_of, desc="站外页面")
+    ctx.results.append(result)
+    return result
+
+
 STAGE_FUNCS = {
     "rooms": stage_rooms,
     "bulletins": stage_bulletins,
@@ -977,6 +1218,7 @@ STAGE_FUNCS = {
     "videos": stage_videos,
     "forum": stage_forum,
     "miniblog": stage_miniblog,
+    "main": stage_main,
 }
 
 
@@ -1041,12 +1283,18 @@ def generate_site(ctx: SyncContext, *, verbose: bool = False) -> dict[str, Any]:
     ctx.emitter.emit_videos(ctx.videos)
     ctx.emitter.emit_board(ctx.discussions)
     ctx.emitter.emit_broadcast(ctx.miniblog)
+    external_pages = sorted(ctx.external.values(), key=lambda p: p.page_id)
+    for page in external_pages:
+        ctx.emitter.emit_external(page)
+    ctx.emitter.emit_external_index(external_pages)
+
     ctx.emitter.emit_sidebar(
         ctx.index_groups,
         notes,
         fallback_notes=fallback_notes,
         albums=albums,
         videos_count=len(ctx.videos),
+        external_count=len(external_pages),
     )
 
     ctx.emitter.emit_unavailable_report(ctx.unavailable)
@@ -1069,6 +1317,8 @@ def write_sync_report(ctx: SyncContext, *, mode: str) -> Path:
         "公告栏": len(ctx.bulletins),
         "讨论帖": len(ctx.discussions),
         "广播动态": len(ctx.miniblog),
+        "站外页面": len(ctx.external),
+        "站外页面": len(ctx.external),
         "不可访问页面": len(ctx.unavailable),
         "图片下载": ctx.media.summary()["downloaded"],
         "图片跳过（已存在）": ctx.media.summary()["skipped"],
@@ -1141,8 +1391,9 @@ def cmd_sync(args: argparse.Namespace) -> int:
 
         log.info("=" * 68)
         log.info("开始同步：阶段 = %s", ", ".join(stages))
-        log.info("请求间隔 %.1f~%.1f 秒 · 指纹 %s · archive.org 补足 %s",
-                 cfg.delay_min, cfg.delay_max, cfg.impersonate,
+        log.info("请求间隔 %.1f~%.1f 秒 · 传输 %s · archive.org 补足 %s",
+                 cfg.delay_min, cfg.delay_max,
+                 f"浏览器({cfg.browser_channel})" if cfg.browser_enabled else f"HTTP({cfg.impersonate})",
                  "开" if (ctx.wayback and ctx.wayback.enabled) else "关（默认）")
         log.info("=" * 68)
 
@@ -1150,7 +1401,7 @@ def cmd_sync(args: argparse.Namespace) -> int:
             prepare_structure(ctx, stages)
             for name in stages:
                 func = STAGE_FUNCS[name]
-                if name in {"notes", "photos"}:
+                if name in {"notes", "photos", "main"}:
                     func(
                         ctx,
                         show_progress=args.progress,
@@ -1164,8 +1415,14 @@ def cmd_sync(args: argparse.Namespace) -> int:
             log.error("已熔断停止：%s", exc)
             ctx.progress.save(force=True)
             ctx.save_data()
+            if getattr(ctx.fetcher, "session_expired", False):
+                log.error(
+                    "检测到豆瓣人机校验（sec.douban.com），登录态可能已失效。\n"
+                    "  请先重新登录：npm run login\n"
+                    "  再续跑：      npm run sync -- --i-have-read-robots --recheck-unavailable"
+                )
             log.error(
-                "进度已保存。建议等待一段时间后重新执行同一命令续跑（已完成内容不会重复请求）。"
+                "进度已保存。建议等待 30~60 分钟后再续跑（已完成内容不会重复请求）。"
             )
             return 3
         except KeyboardInterrupt:
@@ -1265,7 +1522,8 @@ def cmd_emit(args: argparse.Namespace) -> int:
 
 def cmd_report(args: argparse.Namespace) -> int:
     cfg = _config_from_args(args)
-    store = ProgressStore(cfg=cfg)
+    # report 是纯读命令，不应该反过来改写进度文件
+    store = ProgressStore(cfg=cfg, readonly=True)
     print(store.report())
     path = cfg.data_dir / "progress-report.md"
     from .util import atomic_write_text
@@ -1283,6 +1541,60 @@ def cmd_verify(args: argparse.Namespace) -> int:
     ok = verifier.run(sample=args.sample)
     print(verifier.report_text())
     return 0 if ok else 1
+
+
+def cmd_login(args: argparse.Namespace) -> int:
+    """打开浏览器让用户登录，或校验已有会话。"""
+    cfg = _config_from_args(args)
+    ensure_dirs(cfg)
+
+    if args.check:
+        status = auth.check_session(cfg)
+        print(f"会话状态：{status.label}")
+        print(f"  {status.detail}")
+        if status.state_path:
+            print(f"  状态文件：{status.state_path}")
+        if status.logged_in:
+            print("\n可以直接执行：npm run sync -- --i-have-read-robots")
+        else:
+            print("\n请执行：npm run login")
+        return 0 if status.logged_in else 1
+
+    print()
+    print("=" * 68)
+    print("豆瓣登录")
+    print("=" * 68)
+    print("即将打开一个 Chrome 窗口，请在其中完成登录：")
+    print("  · 扫码 / 短信 / 账号密码 / 图形验证码 都可以")
+    print("  · 本工具全程不接触你的密码，只保存登录后的会话状态")
+    print("  · 登录成功后会自动检测并关闭窗口")
+    print(f"  · 最长等待 {int(args.timeout or cfg.browser_login_timeout)} 秒")
+    print("=" * 68)
+    print()
+
+    def on_tick(elapsed: float) -> None:
+        print(f"\r  等待登录… {int(elapsed)} 秒", end="", flush=True)
+
+    ok, detail = auth.run_login_flow(
+        cfg,
+        timeout=args.timeout,
+        headless=False,
+        on_tick=on_tick,
+    )
+    print("\r" + " " * 40 + "\r", end="")
+
+    if not ok:
+        print(f"✗ 登录未完成：{detail}")
+        print("  会话文件未写入。请重新执行 npm run login")
+        return 1
+
+    print(f"✓ 登录状态已保存：{cfg.auth_state_path}")
+    print(f"  {detail}")
+    print("  权限已设为 0600，且已在 .gitignore 中排除")
+    print()
+    print("下一步（补抓此前拿不到的内容）：")
+    print("  npm run sync -- --i-have-read-robots --recheck-unavailable")
+    return 0
 
 
 def cmd_test(args: argparse.Namespace) -> int:
@@ -1306,6 +1618,8 @@ def _config_from_args(args: argparse.Namespace) -> Config:
         overrides["offline"] = True
     # 显式跟随命令行：默认 False（关闭），--archive 打开，--no-archive 关闭
     overrides["archive_enabled"] = bool(getattr(args, "archive", False))
+    # 浏览器传输：默认开启，--no-browser 关闭
+    overrides["browser_enabled"] = bool(getattr(args, "browser", True))
     if getattr(args, "delay", None):
         overrides["delay_min"] = args.delay
         overrides["delay_max"] = args.delay + 2.0
@@ -1328,6 +1642,10 @@ def _print_summary(ctx: SyncContext) -> None:
     print(f"  视频        {len(ctx.videos):5d} 条")
     print(f"  讨论帖      {len(ctx.discussions):5d} 个")
     print(f"  广播动态    {len(ctx.miniblog):5d} 条")
+    if ctx.external:
+        print(f"  站外页面    {len(ctx.external):5d} 个（需登录）")
+    if ctx.external:
+        print(f"  站外页面    {len(ctx.external):5d} 个（需登录）")
     print(f"  不可访问    {len(ctx.unavailable):5d} 个（详见 data/unavailable.md）")
     print(f"  图片下载    {int(media['downloaded']):5d} 张"
           f"（跳过 {int(media['skipped'])}，失败 {int(media['failed'])}，"
@@ -1358,6 +1676,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         "discover": cmd_discover,
         "report": cmd_report,
         "verify": cmd_verify,
+        "login": cmd_login,
         "test": cmd_test,
     }
     handler = handlers[args.command]

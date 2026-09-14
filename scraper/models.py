@@ -82,11 +82,6 @@ class SourceStatus:
         """是否需要在渲染出的页面上显示提示块。"""
         return self.availability.needs_notice
 
-    @property
-    def needs_notice(self) -> bool:
-        """是否需要在渲染出的页面上显示提示块。"""
-        return self.availability.needs_notice
-
     def to_dict(self) -> dict[str, Any]:
         return {
             "availability": str(self.availability),
@@ -131,6 +126,8 @@ class Note:
     source_url: str = ""
     also_in: list[str] = field(default_factory=list)
     images: list[ImageRef] = field(default_factory=list)
+    #: 评论在服务端就渲染进 DOM，免登录即可归档（此前误判为需登录）
+    comments: list[Comment] = field(default_factory=list)
     status: SourceStatus = field(default_factory=SourceStatus)
     category: str = ""
     index_order: int = 0
@@ -222,12 +219,17 @@ class Video:
 
 @dataclass
 class Comment:
-    """一条评论（仅论坛讨论帖的评论是静态渲染、可归档）。"""
+    """一条评论。
+
+    日记详情页与论坛讨论帖的评论都是**服务端静态渲染**的，
+    结构一致（``.comment-item``），因此共用一套解析逻辑与模型。
+    """
 
     author: str = ""
     date: str = ""
     content_html: str = ""
     avatar_url: str = ""
+    comment_id: str = ""
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -250,6 +252,36 @@ class Discussion:
     def to_dict(self) -> dict[str, Any]:
         d = asdict(self)
         d["status"] = self.status.to_dict()
+        return d
+
+
+@dataclass
+class ExternalPage:
+    """站外（``www.douban.com``）上的独立页面。
+
+    小站索引①/② 里有一部分条目直接指向豆瓣主站的 ``/topic/`` 或 ``/note/``，
+    这些页面**需要登录**才能访问（未登录会 302 到 ``sec.douban.com``）。
+    登录后把它们一并归档，避免索引里出现"指向站外且拿不到"的空洞。
+    """
+
+    page_id: str
+    url: str
+    title: str = ""
+    content_html: str = ""
+    origin: str = ""
+    """来源：哪个索引分组引入了这个页面。"""
+
+    comments: list[Comment] = field(default_factory=list)
+    status: SourceStatus = field(default_factory=SourceStatus)
+
+    @property
+    def route(self) -> str:
+        return f"/external/{self.page_id}"
+
+    def to_dict(self) -> dict[str, Any]:
+        d = asdict(self)
+        d["status"] = self.status.to_dict()
+        d["route"] = self.route
         return d
 
 

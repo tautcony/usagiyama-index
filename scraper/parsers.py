@@ -414,6 +414,131 @@ def parse_photo_detail(html: str, album_id: str, photo_id: str, url: str,
 # ---------------------------------------------------------------------- 论坛
 
 
+def parse_comment_items(scope: BeautifulSoup | Tag) -> list[Comment]:
+    """解析 ``.comment-item`` 列表。
+
+    日记详情页与论坛讨论帖用的是同一套评论结构，因此共用这段逻辑。
+    按 ``data-cid`` 去重，避免翻页时重复计入。
+    """
+    comments: list[Comment] = []
+    seen: set[str] = set()
+    for item in scope.select(".comment-item"):
+        cid = str(item.get("data-cid") or item.get("id") or "").strip()
+        if cid and cid in seen:
+            continue
+        if cid:
+            seen.add(cid)
+
+        avatar = item.select_one(".pic img")
+        author_node = item.select_one(".content .author")
+        body = item.select_one(".content p")
+        author = ""
+        date = ""
+        if isinstance(author_node, Tag):
+            anchors = author_node.find_all("a")
+            if anchors:
+                author = anchors[-1].get_text(strip=True)
+            date = parse_date(author_node.get_text())
+        comments.append(
+            Comment(
+                author=author,
+                date=date,
+                content_html=body.decode_contents() if isinstance(body, Tag) else "",
+                avatar_url=str(avatar.get("src", "")) if isinstance(avatar, Tag) else "",
+                comment_id=cid,
+            )
+        )
+    return comments
+
+
+#: 站外页面的正文容器候选。豆瓣主站不同页面用的容器不同，按顺序尝试。
+EXTERNAL_CONTENT_SELECTORS = (
+    "#link-report",
+    ".topic-content",
+    ".note-content",
+    ".article",
+    "article",
+    "#content .main",
+)
+
+#: 站外页面的标题候选
+EXTERNAL_TITLE_SELECTORS = ("h1", ".topic-title", ".note-header h1", "#content h1")
+
+
+def parse_external_page(html: str, url: str, page_id: str, origin: str = "",
+                        cfg: Config = CONFIG) -> "ExternalPage":
+    """解析豆瓣主站上的独立页面（``/topic/``、``/note/`` 等）。
+
+    这些页面的 DOM 结构不如小站规整，因此正文与标题都用**候选选择器依次尝试**，
+    取第一个有实际内容的。
+    """
+    from .models import ExternalPage
+
+    soup = make_soup(html, cfg)
+
+    title = ""
+    for selector in EXTERNAL_TITLE_SELECTORS:
+        node = soup.select_one(selector)
+        if isinstance(node, Tag):
+            candidate = " ".join(node.get_text(" ").split())
+            if candidate:
+                title = clean_title(candidate)
+                break
+    if not title:
+        node = soup.find("title")
+        title = clean_title(node.get_text()) if isinstance(node, Tag) else url
+
+    content = ""
+    for selector in EXTERNAL_CONTENT_SELECTORS:
+        node = soup.select_one(selector)
+        if isinstance(node, Tag) and node.get_text(strip=True):
+            content = node.decode_contents()
+            break
+
+    comments = parse_comment_items(soup)
+
+    return ExternalPage(
+        page_id=page_id,
+        url=url,
+        title=title,
+        content_html=content,
+        origin=origin,
+        comments=comments,
+        status=SourceStatus(
+            availability="ok" if content.strip() else "unavailable",
+            detail="" if content.strip() else "未找到正文容器",
+        ),
+    )
+
+
+def parse_note_comments(html: str, cfg: Config = CONFIG) -> list[Comment]:
+    """解析日记详情页的评论。
+
+    评论是**服务端静态渲染**的，就在 ``<div id="comments">`` 里，
+    免登录、免 AJAX、免滚动。
+    """
+    soup = make_soup(html, cfg)
+    scope = soup.find(id="comments")
+    return parse_comment_items(scope if isinstance(scope, Tag) else soup)
+
+
+def parse_note_comment_pages(html: str, cfg: Config = CONFIG) -> int:
+    """读 ``#comments`` 内的分页器，返回评论总页数（无分页器则为 1）。
+
+    评论翻页用的是 note URL 上的 ``?start=N``（每页 10 条）。
+    """
+    soup = make_soup(html, cfg)
+    scope = soup.find(id="comments")
+    if not isinstance(scope, Tag):
+        return 1
+    marker = scope.select_one(".paginator .thispage[data-total-page]")
+    if isinstance(marker, Tag):
+        raw = str(marker.get("data-total-page", ""))
+        if raw.isdigit():
+            return max(1, int(raw))
+    return 1
+
+
 def parse_discussion_list(html: str, forum_id: str, cfg: Config = CONFIG) -> list[tuple[str, str]]:
     """解析论坛话题列表，返回 ``[(discussion_id, title)]``。"""
     soup = make_soup(html, cfg)
@@ -454,26 +579,7 @@ def parse_discussion(html: str, forum_id: str, discussion_id: str, url: str,
                 author = from_node.get_text(strip=True)
         content = _link_report(soup)
 
-    comments: list[Comment] = []
-    for item in soup.select(".comment-item"):
-        avatar = item.select_one(".pic img")
-        author_node = item.select_one(".content .author")
-        body = item.select_one(".content p")
-        c_author = ""
-        c_date = ""
-        if isinstance(author_node, Tag):
-            anchors = author_node.find_all("a")
-            if anchors:
-                c_author = anchors[-1].get_text(strip=True)
-            c_date = parse_date(author_node.get_text())
-        comments.append(
-            Comment(
-                author=c_author,
-                date=c_date,
-                content_html=body.decode_contents() if isinstance(body, Tag) else "",
-                avatar_url=str(avatar.get("src", "")) if isinstance(avatar, Tag) else "",
-            )
-        )
+    comments = parse_comment_items(soup)
 
     return Discussion(
         discussion_id=discussion_id,

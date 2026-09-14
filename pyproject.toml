@@ -5,9 +5,13 @@ description = "「兔子山的小站」(site.douban.com/211330) 内容归档与 
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    # 传输层：curl-impersonate 的 Python 绑定，模拟真实浏览器的 TLS/HTTP2 指纹。
-    # 目标站点对 TLS 指纹有校验，裸 requests 会收到 SSLEOFError。
+    # 传输层（默认）：curl-impersonate 的 Python 绑定，模拟真实浏览器的
+    # TLS/HTTP2 指纹。目标站点对 TLS 指纹有校验，裸 requests 会收到 SSLEOFError。
     "curl-cffi>=0.13.0",
+    # 传输层（浏览器）：驱动系统已安装的 Chrome（channel="chrome"），
+    # 能执行 JS、携带登录态，用于应对反爬与需登录的页面。
+    # 用 channel="chrome" 时无需 `playwright install` 下载浏览器。
+    "playwright>=1.49",
     # 解析层
     "beautifulsoup4>=4.12.3",
     "lxml>=5.3.0",
@@ -31,3 +35,11 @@ package = false
 [tool.pytest.ini_options]
 testpaths = ["scraper/tests"]
 pythonpath = ["."]
+markers = [
+    "network: 会发起真实网络请求（默认不执行，用 -m network 启用）",
+    "browser: 需要真实浏览器（默认不执行，用 -m browser 启用）",
+]
+# 默认只跑纯离线、零浏览器的测试。
+# 由 conftest.forbid_real_transport 强制保证：未标记的测试一旦试图
+# 创建真实 session / 启动真实浏览器就会失败。
+addopts = "-m 'not network and not browser'"

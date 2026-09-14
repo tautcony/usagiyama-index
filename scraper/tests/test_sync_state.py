@@ -14,9 +14,9 @@ from __future__ import annotations
 
 import json
 
-from scraper.cli import SyncContext, merge_by, merge_by
+from scraper.cli import SyncContext, merge_by
 from scraper.config import ensure_dirs
-from scraper.models import Bulletin, SourceStatus
+from scraper.models import Bulletin, Comment, Discussion, Note, SourceStatus
 from scraper.util import write_json
 
 INDEX_HTML = (
@@ -258,88 +258,104 @@ class TestMergeById:
         merge_by(target, [{"id": "b"}, {"id": "a"}], lambda x: x["id"])
         assert [x["id"] for x in target] == ["c", "a", "b"]
 
-    def test_heals_preexisting_duplicates(self) -> None:
-        """早期版本可能已把重复数据写进产物，合并时必须顺手修好。"""
-        target = [{"id": "a", "v": 1}, {"id": "b", "v": 1}, {"id": "a", "v": 2}]
-        merge_by(target, [], lambda x: x["id"])
-        assert [x["id"] for x in target] == ["a", "b"]
-        assert target[0]["v"] == 2
-
-    def test_heals_duplicates_and_merges_new(self) -> None:
-        target = [{"id": "a", "v": 1}, {"id": "a", "v": 2}]
-        merge_by(target, [{"id": "b", "v": 3}], lambda x: x["id"])
-        assert [x["id"] for x in target] == ["a", "b"]
-        assert len(target) == 2
-
-    def test_preserves_first_seen_order(self) -> None:
-        target = [{"id": "c"}, {"id": "a"}]
-        merge_by(target, [{"id": "b"}, {"id": "a"}], lambda x: x["id"])
-        assert [x["id"] for x in target] == ["c", "a", "b"]
 
 
-class TestMergeById:
-    """恢复的既有数据与本次抓取的数据必须按 ID 合并，而不是叠加。"""
+class TestOfflineProgressIsReadonly:
+    """``--offline`` 必须让进度库进入只读模式。
 
-    def test_new_items_appended(self) -> None:
-        target = [{"id": "a"}]
-        merge_by(target, [{"id": "b"}], lambda x: x["id"])
-        assert [x["id"] for x in target] == ["a", "b"]
+    离线时的"缓存未命中"只是本地没有这份数据，并不代表源站不可得。
+    若照常落盘，一次离线运行会把整站标成"原站不可访问"，
+    既让后续 ``--recheck-unavailable`` 的语义失真，也让不可访问清单失去意义。
+    """
 
-    def test_existing_items_replaced_not_duplicated(self) -> None:
-        """核心回归：广播动态 20 条曾被叠加成 40 条。"""
-        target = [{"id": str(i), "v": 1} for i in range(20)]
-        merge_by(target, [{"id": str(i), "v": 2} for i in range(20)], lambda x: x["id"])
-        assert len(target) == 20
-        assert all(x["v"] == 2 for x in target)
+    def test_sync_context_offline_is_readonly(self, cfg) -> None:
+        import dataclasses
 
-    def test_partial_overlap(self) -> None:
-        target = [{"id": "a"}, {"id": "b"}]
-        merge_by(target, [{"id": "b"}, {"id": "c"}], lambda x: x["id"])
-        assert [x["id"] for x in target] == ["a", "b", "c"]
-        assert len(target) == 3
+        offline_cfg = dataclasses.replace(cfg, offline=True)
+        with SyncContext(offline_cfg, use_archive=False) as ctx:
+            assert ctx.progress.readonly
 
-    def test_empty_incoming(self) -> None:
-        target = [{"id": "a"}]
-        merge_by(target, [], lambda x: x["id"])
-        assert len(target) == 1
+    def test_sync_context_online_is_writable(self, cfg) -> None:
+        with SyncContext(cfg, use_archive=False) as ctx:
+            assert not ctx.progress.readonly
 
-    def test_empty_target(self) -> None:
-        target: list = []
-        merge_by(target, [{"id": "a"}, {"id": "a"}], lambda x: x["id"])
-        assert len(target) == 1
+    def test_offline_run_does_not_touch_progress_file(self, cfg) -> None:
+        import dataclasses
 
-    def test_heals_preexisting_duplicates(self) -> None:
-        """早期版本可能已把重复数据写进产物，合并时必须顺手修好。"""
-        target = [{"id": "a", "v": 1}, {"id": "b", "v": 1}, {"id": "a", "v": 2}]
-        merge_by(target, [], lambda x: x["id"])
-        assert [x["id"] for x in target] == ["a", "b"]
-        assert target[0]["v"] == 2
+        offline_cfg = dataclasses.replace(cfg, offline=True)
+        with SyncContext(offline_cfg, use_archive=False) as ctx:
+            ctx.progress.mark_unavailable("note:1", "离线无缓存", stage="notes")
+            ctx.progress.save(force=True)
+        assert not cfg.progress_path.exists()
 
-    def test_heals_duplicates_and_merges_new(self) -> None:
-        target = [{"id": "a", "v": 1}, {"id": "a", "v": 2}]
-        merge_by(target, [{"id": "b", "v": 3}], lambda x: x["id"])
-        assert [x["id"] for x in target] == ["a", "b"]
-        assert len(target) == 2
 
-    def test_preserves_first_seen_order(self) -> None:
-        target = [{"id": "c"}, {"id": "a"}]
-        merge_by(target, [{"id": "b"}, {"id": "a"}], lambda x: x["id"])
-        assert [x["id"] for x in target] == ["c", "a", "b"]
+class TestCommentsSurviveRoundTrip:
+    """评论必须能被 ``load_existing()`` 还原。
 
-    def test_heals_preexisting_duplicates(self) -> None:
-        """早期版本可能已把重复数据写进产物，合并时必须顺手修好。"""
-        target = [{"id": "a", "v": 1}, {"id": "b", "v": 1}, {"id": "a", "v": 2}]
-        merge_by(target, [], lambda x: x["id"])
-        assert [x["id"] for x in target] == ["a", "b"]
-        assert target[0]["v"] == 2
+    历史缺陷：``_note_from_dict`` 还原了 images 却漏了 comments，
+    ``_discussion_from_dict`` 还额外漏了 ``comment_id``。
+    后果是"日记已 done、本次被跳过"时评论被静默清空 ——
+    而评论正是靠 comment_id 去重的。
+    """
 
-    def test_heals_duplicates_and_merges_new(self) -> None:
-        target = [{"id": "a", "v": 1}, {"id": "a", "v": 2}]
-        merge_by(target, [{"id": "b", "v": 3}], lambda x: x["id"])
-        assert [x["id"] for x in target] == ["a", "b"]
-        assert len(target) == 2
+    COMMENT = {
+        "author": "贫僧读物理",
+        "date": "2019-01-24 15:22:41",
+        "content_html": "<p>希望兔子山能翻译一些利兹与青鸟的文章==</p>",
+        "avatar_url": "https://img9.doubanio.com/icon/u151409267-5.jpg",
+        "comment_id": "57095888",
+    }
 
-    def test_preserves_first_seen_order(self) -> None:
-        target = [{"id": "c"}, {"id": "a"}]
-        merge_by(target, [{"id": "b"}, {"id": "a"}], lambda x: x["id"])
-        assert [x["id"] for x in target] == ["c", "a", "b"]
+    def test_note_comments_restored(self, cfg) -> None:
+        note = Note(note_id="673585518", widget_id="17565710", title="谈谈丽兹")
+        note.comments = [Comment(**self.COMMENT)]
+        _seed_data(cfg, notes={"673585518": note.to_dict()})
+
+        with SyncContext(cfg, use_archive=False) as ctx:
+            ctx.load_existing()
+
+        restored = ctx.notes["673585518"]
+        assert len(restored.comments) == 1
+        assert restored.comments[0].comment_id == "57095888"
+        assert restored.comments[0].author == "贫僧读物理"
+
+    def test_discussion_comments_restored_with_id(self, cfg) -> None:
+        discussion = Discussion(discussion_id="1", forum_id="2", title="留言板")
+        discussion.comments = [Comment(**self.COMMENT)]
+        _seed_data(cfg)
+        write_json(cfg.data_dir / "forum.json", [discussion.to_dict()])
+
+        with SyncContext(cfg, use_archive=False) as ctx:
+            ctx.load_existing()
+
+        restored = ctx.discussions[0]
+        assert len(restored.comments) == 1
+        assert restored.comments[0].comment_id == "57095888"
+
+    def test_comment_count_survives_manifest(self, cfg) -> None:
+        note = Note(note_id="673585518", widget_id="17565710", title="谈谈丽兹")
+        note.comments = [Comment(**self.COMMENT)]
+        _seed_data(cfg, notes={"673585518": note.to_dict()})
+
+        with SyncContext(cfg, use_archive=False) as ctx:
+            ctx.load_existing()
+            manifest = ctx.build_manifest()
+
+        assert manifest["counts"]["comments"] == 1
+
+    def test_missing_comments_field_is_safe(self, cfg) -> None:
+        """旧产物没有 comments 字段时不能报错。"""
+        _seed_data(
+            cfg,
+            notes={
+                "1": {
+                    "note_id": "1",
+                    "widget_id": "2",
+                    "title": "旧数据",
+                    "images": [],
+                }
+            },
+        )
+        with SyncContext(cfg, use_archive=False) as ctx:
+            ctx.load_existing()
+        assert ctx.notes["1"].comments == []

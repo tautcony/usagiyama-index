@@ -7,6 +7,7 @@ from urllib.parse import urlparse
 
 import pytest
 
+from scraper.http_client import CachedResponse
 from scraper.media import (
     MediaArchive,
     album_image_variants,
@@ -180,3 +181,46 @@ class TestSizeVariantPrecision:
         variants = note_image_variants(url)
         assert "/view/note/raw/public/" in variants[0]
         assert all("/view/note/" in v for v in variants)
+
+
+class TestDownloadTempFiles:
+    """图片写入不得把临时文件留在 ``public/`` 里。
+
+    Vite 的 ``copyDir`` 先 ``readdirSync`` 取名字、再逐个 ``copyFileSync``，
+    所以只要临时文件落在 ``public/`` 中，就会被列进名单，而随后的
+    ``os.replace`` 会把该名字移走 —— 构建便随机以
+    ``ENOENT ... copyfile`` 失败。这里把"临时文件不进 public/"钉死。
+    """
+
+    class _StubTransport:
+        def __init__(self, payload: bytes) -> None:
+            self.payload = payload
+
+        def get_image(self, url: str) -> CachedResponse:
+            return CachedResponse(url=url, status=200, content=self.payload)
+
+    def test_temp_file_goes_to_tmp_dir_not_media_dir(self, cfg) -> None:
+        archive = MediaArchive(self._StubTransport(JPEG), cfg=cfg)
+        dest = cfg.media_dir / "notes" / "123" / "p1.jpg"
+        url = "https://img1.doubanio.com/view/note/raw/public/p1.jpg"
+
+        result = archive.download(url, dest, "/media/notes/123/p1.jpg")
+
+        assert result.ok, result.error
+        assert dest.exists()
+        # 目标目录里只应有正式文件，没有 .tmp 残留
+        assert [p.name for p in dest.parent.iterdir()] == ["p1.jpg"]
+
+    def test_tmp_dir_is_outside_public_dir(self, cfg) -> None:
+        """临时目录不能落在 Vite 会遍历拷贝的 ``public/`` 里。"""
+        assert cfg.media_dir not in cfg.tmp_dir.parents
+        assert cfg.tmp_dir != cfg.media_dir
+
+    def test_failed_write_leaves_no_temp_file(self, cfg) -> None:
+        from scraper.util import atomic_write_bytes
+
+        dest = cfg.media_dir / "notes" / "123" / "p2.jpg"
+        with pytest.raises(OSError):
+            # 目标是一个目录，os.replace 会失败
+            atomic_write_bytes(dest.parent, b"x", tmp_dir=cfg.tmp_dir)
+        assert not list(cfg.tmp_dir.glob("*.tmp"))

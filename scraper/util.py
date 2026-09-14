@@ -35,11 +35,24 @@ def _atomic_replace(tmp: Path, target: Path) -> None:
     os.replace(tmp, target)
 
 
-def atomic_write_text(path: Path, text: str) -> None:
+def _stage_file(path: Path, tmp_dir: Path | None) -> tuple[int, Path]:
+    """在临时位置创建一个待写入的文件。
+
+    ``tmp_dir`` 存在的意义见 :func:`atomic_write_bytes`。
+    """
+    if tmp_dir is not None:
+        tmp_dir.mkdir(parents=True, exist_ok=True)
+        directory = str(tmp_dir)
+    else:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        directory = str(path.parent)
+    fd, tmp_name = tempfile.mkstemp(dir=directory, prefix=f".{path.name}.", suffix=".tmp")
+    return fd, Path(tmp_name)
+
+
+def atomic_write_text(path: Path, text: str, *, tmp_dir: Path | None = None) -> None:
     """原子写入文本文件（同目录临时文件 + os.replace）。"""
-    path.parent.mkdir(parents=True, exist_ok=True)
-    fd, tmp_name = tempfile.mkstemp(dir=str(path.parent), prefix=f".{path.name}.", suffix=".tmp")
-    tmp = Path(tmp_name)
+    fd, tmp = _stage_file(path, tmp_dir)
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as handle:
             handle.write(text)
@@ -51,11 +64,19 @@ def atomic_write_text(path: Path, text: str) -> None:
         raise
 
 
-def atomic_write_bytes(path: Path, data: bytes) -> None:
-    """原子写入二进制文件。"""
-    path.parent.mkdir(parents=True, exist_ok=True)
-    fd, tmp_name = tempfile.mkstemp(dir=str(path.parent), prefix=f".{path.name}.", suffix=".tmp")
-    tmp = Path(tmp_name)
+def atomic_write_bytes(path: Path, data: bytes, *, tmp_dir: Path | None = None) -> None:
+    """原子写入二进制文件。
+
+    ``tmp_dir`` 用来把临时文件放到**目标目录之外**。这不是洁癖：Vite 的
+    ``copyDir`` 是"先 ``readdirSync`` 取名字列表、再逐个 ``statSync`` +
+    ``copyFileSync``"，如果临时文件恰好落在 ``public/`` 里，就会被它列进名单，
+    而随后的 ``os.replace`` 会把该名字移走 —— 于是构建随机地以
+    ``ENOENT ... copyfile`` 失败。把临时文件挪出 ``public/`` 就从根上消除了这个竞态。
+
+    ``tmp_dir`` 必须与目标在**同一文件系统**上（``os.replace`` 不支持跨设备），
+    所以调用方应选同一个仓库内的目录，例如 ``<docs>/.vitepress/.tmp``。
+    """
+    fd, tmp = _stage_file(path, tmp_dir)
     try:
         with os.fdopen(fd, "wb") as handle:
             handle.write(data)

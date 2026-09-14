@@ -2,6 +2,8 @@
 node_modules/
 docs/.vitepress/dist/
 docs/.vitepress/cache/
+# 原子写入的临时文件（刻意放在 public/ 之外，见 scraper/util.py）
+docs/.vitepress/.tmp/
 # 从仓库根误运行 vitepress 时会生成（正确入口是 docs/）
 /.vitepress/
 
@@ -11,6 +13,9 @@ __pycache__/
 .venv/
 .pytest_cache/
 .ruff_cache/
+
+# ---- 登录会话（含敏感 cookie，绝不入库）----
+scraper/state/*.auth.json
 
 # ---- 抓取运行状态（可重新生成，不入库）----
 # 原始 HTML 缓存体积大且可由源站重新获取；manifest 与 checkpoint 需要入库以便增量同步
