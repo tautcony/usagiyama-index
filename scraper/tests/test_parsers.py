@@ -66,12 +66,15 @@ NOTE_LIST_HTML = """
 </body></html>
 """
 
+# 正文容器 ``#link-report`` 尾部跟着豆瓣的"投诉"举报按钮（真实页面就是这么写的），
+# 它不是正文 —— 只取容器内部 HTML 会把它一并带上。
 NOTE_DETAIL_HTML = """
 <html><head><title>电影《聲之形》导演山田尚子创作感言（《Animedia》2016年9月号） (兔子山的小站)</title></head><body>
 <h1>电影《聲之形》导演山田尚子创作感言（《Animedia》2016年9月号）</h1>
 <div class="note-header"><span class="datetime">2016-08-11 21:06:31</span></div>
 <div id="note_575615184_full" class="note-content">
-  <div id="link-report"><div class="cc"><table><tr><td><img src="https://img9.doubanio.com/view/note/large/public/p36410176.jpg" alt=""/></td></tr></table></div><br>译自<a rel="nofollow" href="https://www.douban.com/link2/?url=https%3A%2F%2Fwww.amazon.co.jp%2Fdp%2FB01HIP2K34">《Animedia》2016年9月号</a><br>西宫硝子有着生动和固执的一面。<div class="clear"></div></div>
+  <div id="link-report"><div class="cc"><table><tr><td><img src="https://img9.doubanio.com/view/note/large/public/p36410176.jpg" alt=""/></td></tr></table></div><br>译自<a rel="nofollow" href="https://www.douban.com/link2/?url=https%3A%2F%2Fwww.amazon.co.jp%2Fdp%2FB01HIP2K34">《Animedia》2016年9月号</a><br>西宫硝子有着生动和固执的一面。<div class="clear"></div>
+  <span class="btn-report">投诉</span></div>
 </div>
 </body></html>
 """
@@ -394,6 +397,15 @@ class TestNote:
         assert note.comment_count == 0
         # 评论区不混进正文（评论另有归档流程）
         assert "23333" not in note.content_html
+
+    def test_report_button_stripped(self) -> None:
+        """``#link-report`` 尾部的"投诉"举报按钮是界面文字，不是正文。
+
+        照搬容器内部 HTML 会让归档的每篇日记都以一行"投诉"收尾。
+        """
+        note = parse_note(NOTE_DETAIL_HTML, "190597056", "575615184", "https://example.com/")
+        assert "投诉" not in note.content_html
+        assert "西宫硝子" in note.content_html
 
     def test_empty_body_marks_unavailable(self) -> None:
         html = '<html><head><title>空 (豆瓣)</title></head><body><h1>空</h1></body></html>'

@@ -93,15 +93,31 @@ def parse_comment_count(text: str) -> int:
     return int(match.group(1)) if match else 0
 
 
+#: 正文容器 ``#link-report`` 尾部的界面元素。豆瓣把"投诉"举报按钮摆在正文
+#: 后面，它跟着每篇日记走、不是作者写的字；只取容器内部 HTML 会把它一并
+#: 带上，于是归档的每篇日记都以一行"投诉"收尾（照片描述那边是同一回事，
+#: 见 :data:`PHOTO_DESC_UI_SELECTORS`）。
+CONTENT_UI_SELECTORS = (".btn-report",)
+
+
+def _content_html(node: Tag) -> str:
+    """取容器内部 HTML，剔除混在正文里的界面元素。"""
+    # 在副本上删节点，别改动调用方的 soup
+    node = copy.copy(node)
+    for junk in node.select(", ".join(CONTENT_UI_SELECTORS)):
+        junk.decompose()
+    return node.decode_contents()
+
+
 def _link_report(soup: BeautifulSoup, note_id: str = "") -> str:
     """提取正文容器 ``#link-report`` 的内部 HTML。"""
     if note_id:
         full = soup.find(id=f"note_{note_id}_full")
         if isinstance(full, Tag):
             inner = full.find(id="link-report")
-            return (inner or full).decode_contents()
+            return _content_html(inner or full)
     node = soup.find(id="link-report")
-    return node.decode_contents() if isinstance(node, Tag) else ""
+    return _content_html(node) if isinstance(node, Tag) else ""
 
 
 # ------------------------------------------------------------------ 站点骨架
@@ -198,7 +214,7 @@ def parse_bulletin(html: str, bulletin_id: str, url: str, room_id: str = "",
         title = clean_title(node.get_text()) if isinstance(node, Tag) else bulletin_id
 
     body = scope.find(id="link-report")
-    content = body.decode_contents() if isinstance(body, Tag) else ""
+    content = _content_html(body) if isinstance(body, Tag) else ""
     if not content and scope is soup:
         content = _link_report(soup)
 
