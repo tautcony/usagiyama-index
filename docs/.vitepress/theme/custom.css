@@ -1,0 +1,244 @@
+/* 「兔子山的小站」归档站点样式
+ *
+ * 覆盖三类由 scraper 生成的裸 HTML 结构：
+ *   .poster-wall  首页海报墙
+ *   .photo-grid   相册瀑布流
+ *   .video-grid   视频卡片
+ * 以及归档页面的提示块与来源标注的排版微调。
+ */
+
+:root {
+  --vp-c-brand-1: #e0648a;
+  --vp-c-brand-2: #d1507a;
+  --vp-c-brand-3: #b83f68;
+  --vp-c-brand-soft: rgba(224, 100, 138, 0.14);
+
+  --usagi-card-radius: 10px;
+  --usagi-card-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 4px 14px rgba(0, 0, 0, 0.06);
+  --usagi-card-shadow-hover: 0 4px 10px rgba(0, 0, 0, 0.1), 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.dark {
+  --usagi-card-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 14px rgba(0, 0, 0, 0.35);
+  --usagi-card-shadow-hover: 0 4px 10px rgba(0, 0, 0, 0.5), 0 12px 28px rgba(0, 0, 0, 0.45);
+}
+
+/* ---------------------------------------------------------------- 正文排版 */
+
+/* 豆瓣正文以单换行为主，段落间距需要比默认更宽松才好读 */
+.vp-doc p {
+  line-height: 1.85;
+  margin: 1em 0;
+}
+
+/* 归档页面底部的来源标注 */
+.vp-doc p > em:only-child {
+  display: block;
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--vp-c-divider);
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: var(--vp-c-text-3);
+}
+
+/* 正文中的归档配图 */
+.vp-doc img {
+  border-radius: 6px;
+}
+
+/* 索引页里标记"未归档"的小徽章 */
+.vp-doc .badge-unavailable {
+  display: inline-block;
+  padding: 0 0.4em;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  color: var(--vp-c-text-3);
+  background: var(--vp-c-default-soft);
+  white-space: nowrap;
+}
+
+/* -------------------------------------------------------------- 首页海报墙 */
+
+.poster-wall {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0 2.5rem;
+}
+
+.poster-wall .poster {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--usagi-card-radius);
+  background: var(--vp-c-bg-soft);
+  box-shadow: var(--usagi-card-shadow);
+  text-decoration: none;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.poster-wall .poster:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--usagi-card-shadow-hover);
+}
+
+.poster-wall .poster img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  margin: 0;
+  border-radius: 0;
+  display: block;
+}
+
+.poster-wall .poster > span {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.6rem 0.7rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+}
+
+.poster-wall .poster > span em {
+  flex: none;
+  font-size: 0.72rem;
+  font-style: normal;
+  font-weight: 400;
+  color: var(--vp-c-text-3);
+}
+
+/* ---------------------------------------------------------------- 相册网格 */
+
+.photo-grid {
+  columns: 4;
+  column-gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+@media (max-width: 960px) {
+  .photo-grid { columns: 3; }
+}
+
+@media (max-width: 640px) {
+  .photo-grid { columns: 2; }
+}
+
+.photo-grid .photo-card {
+  break-inside: avoid;
+  margin: 0 0 1rem;
+  border-radius: var(--usagi-card-radius);
+  overflow: hidden;
+  background: var(--vp-c-bg-soft);
+  box-shadow: var(--usagi-card-shadow);
+  transition: box-shadow 0.18s ease;
+}
+
+.photo-grid .photo-card:hover {
+  box-shadow: var(--usagi-card-shadow-hover);
+}
+
+.photo-grid .photo-card a {
+  display: block;
+  line-height: 0;
+}
+
+.photo-grid .photo-card img {
+  width: 100%;
+  height: auto;
+  margin: 0;
+  border-radius: 0;
+  display: block;
+}
+
+.photo-grid .photo-card .caption {
+  margin: 0;
+  padding: 0.55rem 0.7rem;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--vp-c-text-2);
+}
+
+/* ---------------------------------------------------------------- 视频网格 */
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.2rem;
+  margin: 1.5rem 0;
+}
+
+.video-grid .video-card {
+  margin: 0;
+  border-radius: var(--usagi-card-radius);
+  overflow: hidden;
+  background: var(--vp-c-bg-soft);
+  box-shadow: var(--usagi-card-shadow);
+  transition: box-shadow 0.18s ease;
+}
+
+.video-grid .video-card:hover {
+  box-shadow: var(--usagi-card-shadow-hover);
+}
+
+.video-grid .video-card a {
+  display: block;
+  line-height: 0;
+}
+
+.video-grid .video-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  margin: 0;
+  border-radius: 0;
+  display: block;
+}
+
+.video-grid .video-card figcaption {
+  padding: 0.6rem 0.7rem;
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.video-grid .video-card figcaption a {
+  display: block;
+  line-height: 1.6;
+  color: var(--vp-c-text-1);
+  text-decoration: none;
+}
+
+.video-grid .video-card figcaption a:hover {
+  color: var(--vp-c-brand-1);
+}
+
+.video-grid .video-card time {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.72rem;
+  color: var(--vp-c-text-3);
+}
+
+/* --------------------------------------------------------- 不可访问提示块 */
+
+/* 归档提示块加一条左侧色条，让"内容缺失"更醒目 */
+.vp-doc .custom-block.warning,
+.vp-doc .custom-block.danger,
+.vp-doc .custom-block.info {
+  border-radius: 8px;
+}
+
+.vp-doc .custom-block.danger {
+  border-left: 4px solid var(--vp-c-danger-1);
+}
+
+/* --------------------------------------------------------------- 首页微调 */
+
+.VPHero .name,
+.VPHero .text {
+  background-clip: text;
+  -webkit-background-clip: text;
+}

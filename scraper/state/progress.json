@@ -2,11 +2,11 @@
   "version": 1,
   "parserRevision": 3,
   "site": "https://site.douban.com/211330/",
-  "startedAt": "2026-09-14T12:58:30+08:00",
-  "updatedAt": "2026-09-14T13:10:32+08:00",
+  "startedAt": "2026-09-14T13:22:07+08:00",
+  "updatedAt": "2026-09-14T13:33:12+08:00",
   "totals": {
-    "done": 112,
-    "unavailable": 140,
+    "done": 222,
+    "unavailable": 87,
     "failed": 0,
     "skipped": 0
   },
@@ -277,27 +277,36 @@
     },
     "note:410073605": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:26:58+08:00",
+      "detail": "玉子爱情故事☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:410095370": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:26:53+08:00",
+      "detail": "电影☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:410464332": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:26:48+08:00",
+      "detail": "电影充☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:412701420": {
       "stage": "notes",
@@ -333,11 +342,14 @@
     },
     "note:430242140": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:26:42+08:00",
+      "detail": "By always thinking…☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:433039361": {
       "stage": "notes",
@@ -437,11 +449,14 @@
     },
     "note:441842568": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:26:37+08:00",
+      "detail": "米饭☆Papico · 0 图 · 2 评论",
+      "meta": {
+        "images": 0,
+        "comments": 2
+      }
     },
     "note:460892811": {
       "stage": "notes",
@@ -461,35 +476,47 @@
     },
     "note:467449573": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:26:31+08:00",
+      "detail": "一步一个脚印☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:480506533": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:26:24+08:00",
+      "detail": "羊☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:485196288": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:26:19+08:00",
+      "detail": "烤肉☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:490420693": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:26:13+08:00",
+      "detail": "玉子与饼藏☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:493628625": {
       "stage": "notes",
@@ -517,11 +544,14 @@
     },
     "note:496648491": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:26:07+08:00",
+      "detail": "电影☆上映☆悠风☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:497257959": {
       "stage": "notes",
@@ -565,11 +595,14 @@
     },
     "note:502324234": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:26:02+08:00",
+      "detail": "高中生☆Papico · 0 图 · 2 评论",
+      "meta": {
+        "images": 0,
+        "comments": 2
+      }
     },
     "note:502853776": {
       "stage": "notes",
@@ -621,11 +654,14 @@
     },
     "note:507086258": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:25:55+08:00",
+      "detail": "庆祝☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:511505892": {
       "stage": "notes",
@@ -645,19 +681,25 @@
     },
     "note:512288929": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:25:50+08:00",
+      "detail": "牙医☆Papico · 0 图 · 2 评论",
+      "meta": {
+        "images": 0,
+        "comments": 2
+      }
     },
     "note:515999854": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:25:43+08:00",
+      "detail": "秋意渐露☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:516700383": {
       "stage": "notes",
@@ -709,11 +751,14 @@
     },
     "note:520501904": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:25:37+08:00",
+      "detail": "星星与音乐☆Papico · 1 图 · 1 评论",
+      "meta": {
+        "images": 1,
+        "comments": 1
+      }
     },
     "note:520557685": {
       "stage": "notes",
@@ -741,11 +786,14 @@
     },
     "note:524707046": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:25:27+08:00",
+      "detail": "Tutti☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:525677843": {
       "stage": "notes",
@@ -757,11 +805,14 @@
     },
     "note:529201220": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:25:20+08:00",
+      "detail": "2015年☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:531685883": {
       "stage": "notes",
@@ -773,27 +824,36 @@
     },
     "note:536415117": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:25:14+08:00",
+      "detail": "新星★Papico · 3 图 · 1 评论",
+      "meta": {
+        "images": 3,
+        "comments": 1
+      }
     },
     "note:541065079": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:24:50+08:00",
+      "detail": "创作者☆Papico · 1 图 · 0 评论",
+      "meta": {
+        "images": 1,
+        "comments": 0
+      }
     },
     "note:547187777": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:24:39+08:00",
+      "detail": "再过不久☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:550509861": {
       "stage": "notes",
@@ -805,11 +865,14 @@
     },
     "note:560290293": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:24:34+08:00",
+      "detail": "兔子与新月☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:569110361": {
       "stage": "notes",
@@ -829,11 +892,14 @@
     },
     "note:572029004": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:24:28+08:00",
+      "detail": "薯片☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:572997848": {
       "stage": "notes",
@@ -888,11 +954,14 @@
     },
     "note:578163214": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:24:22+08:00",
+      "detail": "聲之形☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:580950328": {
       "stage": "notes",
@@ -968,11 +1037,14 @@
     },
     "note:583640613": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:24:15+08:00",
+      "detail": "电影《聲之形》☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:583976644": {
       "stage": "notes",
@@ -1024,59 +1096,80 @@
     },
     "note:589189219": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:24:09+08:00",
+      "detail": "聲之形☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:594375309": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:24:03+08:00",
+      "detail": "喜爱的东西☆Papico · 0 图 · 1 评论",
+      "meta": {
+        "images": 0,
+        "comments": 1
+      }
     },
     "note:599081646": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:23:56+08:00",
+      "detail": "极音☆Papico · 1 图 · 0 评论",
+      "meta": {
+        "images": 1,
+        "comments": 0
+      }
     },
     "note:604396376": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:23:45+08:00",
+      "detail": "聲之形☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:608843975": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:23:39+08:00",
+      "detail": "3月1日☆Papico · 0 图 · 1 评论",
+      "meta": {
+        "images": 0,
+        "comments": 1
+      }
     },
     "note:614170395": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:23:34+08:00",
+      "detail": "春☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:617677191": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:23:29+08:00",
+      "detail": "玉子☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:620299921": {
       "stage": "notes",
@@ -1088,179 +1181,245 @@
     },
     "note:620639436": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:33:12+08:00",
+      "detail": "电影《聲之形》制作笔记（场刊） · 6 图 · 0 评论",
+      "meta": {
+        "images": 6,
+        "comments": 0
+      }
     },
     "note:620796838": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:32:29+08:00",
+      "detail": "电影《聲之形》导演山田尚子×配乐牛尾宪辅对谈（场刊） · 4 图 · 0 评论",
+      "meta": {
+        "images": 4,
+        "comments": 0
+      }
     },
     "note:621091894": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:31:58+08:00",
+      "detail": "结尾的曲子是在京都动画附近的河滩上边哭边想到的——电影《聲之形》配乐牛尾宪辅访… · 4 图 · 1 评论",
+      "meta": {
+        "images": 4,
+        "comments": 1
+      }
     },
     "note:621342820": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:31:29+08:00",
+      "detail": "电影《聲之形》初感：一部温柔到骨子里的电影 · 14 图 · 4 评论",
+      "meta": {
+        "images": 14,
+        "comments": 4
+      }
     },
     "note:621946123": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:29:59+08:00",
+      "detail": "影像与音乐的反复结构／引用重松清《咖喱饭》的意义——记者饭田一史谈电影《聲之形》 · 4 图 · 1 评论",
+      "meta": {
+        "images": 4,
+        "comments": 1
+      }
     },
     "note:622694100": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:23:23+08:00",
+      "detail": "出来啦☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:623079239": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:29:28+08:00",
+      "detail": "希望做成一部能让观众觉得自己得到原谅的作品——电影《聲之形》编剧吉田玲子访谈（… · 1 图 · 0 评论",
+      "meta": {
+        "images": 1,
+        "comments": 0
+      }
     },
     "note:623264433": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:29:17+08:00",
+      "detail": "通过画面与声音给予观众影像体验——电影《聲之形》导演山田尚子访谈（Making… · 4 图 · 0 评论",
+      "meta": {
+        "images": 4,
+        "comments": 0
+      }
     },
     "note:623421008": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:28:45+08:00",
+      "detail": "《聲之形》原作者大今良时问答摘录（漫画FANBOOK） · 4 图 · 1 评论",
+      "meta": {
+        "images": 4,
+        "comments": 1
+      }
     },
     "note:623887272": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:28:15+08:00",
+      "detail": "欺凌与听障并非本作的主题，这是一个描写沟通的故事——《聲之形》原作者大今良时访… · 3 图 · 2 评论",
+      "meta": {
+        "images": 3,
+        "comments": 2
+      }
     },
     "note:624120737": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:27:48+08:00",
+      "detail": "她真的是个表里如一的好孩子——电影《聲之形》川井美树CV潘惠美访谈（Makin… · 2 图 · 0 评论",
+      "meta": {
+        "images": 2,
+        "comments": 0
+      }
     },
     "note:624442255": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:27:30+08:00",
+      "detail": "起用的理由与意外的发现——松冈茉优×山田尚子导演《聲之形》对谈（mynavi） · 4 图 · 0 评论",
+      "meta": {
+        "images": 4,
+        "comments": 0
+      }
     },
     "note:626780778": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:23:18+08:00",
+      "detail": "电影☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:630626923": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:23:11+08:00",
+      "detail": "梦境☆Papico · 0 图 · 1 评论",
+      "meta": {
+        "images": 0,
+        "comments": 1
+      }
     },
     "note:634384397": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:23:05+08:00",
+      "detail": "夏天……☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:638128887": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:22:58+08:00",
+      "detail": "创作☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:641740675": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:22:53+08:00",
+      "detail": "哇～☆Papico · 0 图 · 0 评论",
+      "meta": {
+        "images": 0,
+        "comments": 0
+      }
     },
     "note:645545220": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:22:47+08:00",
+      "detail": "红色夹克衫☆Papico · 0 图 · 1 评论",
+      "meta": {
+        "images": 0,
+        "comments": 1
+      }
     },
     "note:649190492": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:22:40+08:00",
+      "detail": "丽兹与青鸟☆Papico · 1 图 · 2 评论",
+      "meta": {
+        "images": 1,
+        "comments": 2
+      }
     },
     "note:653967636": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:22:28+08:00",
+      "detail": "玉子与青鸟☆Papico · 0 图 · 6 评论",
+      "meta": {
+        "images": 0,
+        "comments": 6
+      }
     },
     "note:657510394": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:22:21+08:00",
+      "detail": "丽兹与青鸟☆Papico · 1 图 · 2 评论",
+      "meta": {
+        "images": 1,
+        "comments": 2
+      }
     },
     "note:661229588": {
       "stage": "notes",
-      "status": "unavailable",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T11:50:38+08:00",
-      "detail": "原站不可访问",
-      "meta": {}
+      "status": "done",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:22:09+08:00",
+      "detail": "丽兹与青鸟☆Papico · 0 图 · 2 评论",
+      "meta": {
+        "images": 0,
+        "comments": 2
+      }
     },
     "note:666011890": {
       "stage": "notes",
@@ -1509,6 +1668,462 @@
       "attempts": 1,
       "updatedAt": "2026-09-14T12:58:30+08:00",
       "detail": "> 返回相册 第1张 / 共26张 上一张 / 下一张 诸行无常，唯有祈福方能克",
+      "meta": {}
+    },
+    "photo:190597061:2377494278": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:21:57+08:00",
+      "detail": "> 返回相册 第104张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2377676036": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:21:45+08:00",
+      "detail": "> 返回相册 第103张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2377676045": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:21:35+08:00",
+      "detail": "> 返回相册 第102张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2377676059": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:21:22+08:00",
+      "detail": "> 返回相册 第101张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2377676063": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:21:12+08:00",
+      "detail": "> 返回相册 第100张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2377676067": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:21:01+08:00",
+      "detail": "> 返回相册 第99张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2377676086": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:20:49+08:00",
+      "detail": "> 返回相册 第98张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2377676106": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:20:36+08:00",
+      "detail": "> 返回相册 第97张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2377676118": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:20:26+08:00",
+      "detail": "> 返回相册 第96张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2377676130": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:20:14+08:00",
+      "detail": "> 返回相册 第95张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2377676162": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:20:02+08:00",
+      "detail": "> 返回相册 第94张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2377676325": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:19:51+08:00",
+      "detail": "> 返回相册 第93张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2377676350": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:19:38+08:00",
+      "detail": "> 返回相册 第92张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2377706474": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:19:26+08:00",
+      "detail": "> 返回相册 第91张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2378205067": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:19:14+08:00",
+      "detail": "> 返回相册 第90张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2378295415": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:19:02+08:00",
+      "detail": "> 返回相册 第89张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2378593875": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:18:49+08:00",
+      "detail": "> 返回相册 第88张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2378929805": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:18:37+08:00",
+      "detail": "> 返回相册 第87张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2379014908": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:18:25+08:00",
+      "detail": "> 返回相册 第86张 / 共158张 上一张 / 下一张 电影《聲之形》爆米花",
+      "meta": {}
+    },
+    "photo:190597061:2379408635": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:18:13+08:00",
+      "detail": "> 返回相册 第85张 / 共158张 上一张 / 下一张 アニメディア 201",
+      "meta": {}
+    },
+    "photo:190597061:2379408661": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:18:01+08:00",
+      "detail": "> 返回相册 第84张 / 共158张 上一张 / 下一张 ニュータイプ 201",
+      "meta": {}
+    },
+    "photo:190597061:2379525370": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:17:49+08:00",
+      "detail": "> 返回相册 第83张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2379525375": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:17:38+08:00",
+      "detail": "> 返回相册 第82张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2379669896": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:17:27+08:00",
+      "detail": "> 返回相册 第81张 / 共158张 上一张 / 下一张 山田：我很喜欢松冈出",
+      "meta": {}
+    },
+    "photo:190597061:2379669898": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:17:15+08:00",
+      "detail": "> 返回相册 第80张 / 共158张 上一张 / 下一张 山田：我很喜欢松冈出",
+      "meta": {}
+    },
+    "photo:190597061:2379669900": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:17:04+08:00",
+      "detail": "> 返回相册 第79张 / 共158张 上一张 / 下一张 山田：我很喜欢松冈出",
+      "meta": {}
+    },
+    "photo:190597061:2380210960": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:16:52+08:00",
+      "detail": "> 返回相册 第78张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2380210973": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:16:39+08:00",
+      "detail": "> 返回相册 第77张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2380748905": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:16:25+08:00",
+      "detail": "> 返回相册 第76张 / 共158张 上一张 / 下一张 山田監督と牛尾さん✿",
+      "meta": {}
+    },
+    "photo:190597061:2380899556": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:16:13+08:00",
+      "detail": "> 返回相册 第75张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2381034291": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:16:01+08:00",
+      "detail": "> 返回相册 第74张 / 共158张 上一张 / 下一张 http://new",
+      "meta": {}
+    },
+    "photo:190597061:2381034295": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:15:49+08:00",
+      "detail": "> 返回相册 第73张 / 共158张 上一张 / 下一张 http://new",
+      "meta": {}
+    },
+    "photo:190597061:2381237615": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:15:38+08:00",
+      "detail": "> 返回相册 第72张 / 共158张 上一张 / 下一张 蟹の形 查看原图 投",
+      "meta": {}
+    },
+    "photo:190597061:2381237618": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:15:26+08:00",
+      "detail": "> 返回相册 第71张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2381237620": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:15:13+08:00",
+      "detail": "> 返回相册 第70张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2381275389": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:15:00+08:00",
+      "detail": "> 返回相册 第69张 / 共158张 上一张 / 下一张 山田的这张照片是在岐",
+      "meta": {}
+    },
+    "photo:190597061:2381324527": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:14:49+08:00",
+      "detail": "> 返回相册 第68张 / 共158张 上一张 / 下一张 映画「聲の形」牛尾憲",
+      "meta": {}
+    },
+    "photo:190597061:2381324546": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:14:36+08:00",
+      "detail": "> 返回相册 第67张 / 共158张 上一张 / 下一张 映画「聲の形」牛尾憲",
+      "meta": {}
+    },
+    "photo:190597061:2381451447": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:14:23+08:00",
+      "detail": "> 返回相册 第66张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2381451450": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:14:12+08:00",
+      "detail": "> 返回相册 第65张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2381451458": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:14:00+08:00",
+      "detail": "> 返回相册 第64张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2381451463": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:13:49+08:00",
+      "detail": "> 返回相册 第63张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2381451466": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:13:38+08:00",
+      "detail": "> 返回相册 第62张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2381451469": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:13:26+08:00",
+      "detail": "> 返回相册 第61张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2381451471": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:13:13+08:00",
+      "detail": "> 返回相册 第60张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2381451472": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:13:01+08:00",
+      "detail": "> 返回相册 第59张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2381451475": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:12:47+08:00",
+      "detail": "> 返回相册 第58张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2381451477": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:12:35+08:00",
+      "detail": "> 返回相册 第57张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2381451478": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:12:23+08:00",
+      "detail": "> 返回相册 第56张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2381451479": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:12:09+08:00",
+      "detail": "> 返回相册 第55张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2381451481": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:11:57+08:00",
+      "detail": "> 返回相册 第54张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2381451484": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:11:45+08:00",
+      "detail": "> 返回相册 第53张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2381451486": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:11:33+08:00",
+      "detail": "> 返回相册 第52张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2381451489": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:11:21+08:00",
+      "detail": "> 返回相册 第51张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2381451492": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:11:09+08:00",
+      "detail": "> 返回相册 第50张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2381451494": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:10:58+08:00",
+      "detail": "> 返回相册 第49张 / 共158张 上一张 / 下一张 查看原图 投诉",
+      "meta": {}
+    },
+    "photo:190597061:2381451497": {
+      "stage": "photos",
+      "status": "done",
+      "attempts": 1,
+      "updatedAt": "2026-09-14T13:10:45+08:00",
+      "detail": "> 返回相册 第48张 / 共158张 上一张 / 下一张 查看原图 投诉",
       "meta": {}
     },
     "photo:190597061:2381451498": {
@@ -1890,56 +2505,56 @@
     "room:2793793": {
       "stage": "rooms",
       "status": "done",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T12:58:30+08:00",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:22:07+08:00",
       "detail": "宇宙的入口（5 个模块）",
       "meta": {}
     },
     "room:2794117": {
       "stage": "rooms",
       "status": "done",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T12:58:30+08:00",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:22:07+08:00",
       "detail": "☆ 悠风 etc.（4 个模块）",
       "meta": {}
     },
     "room:2794121": {
       "stage": "rooms",
       "status": "done",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T12:58:30+08:00",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:22:07+08:00",
       "detail": "☆ 玉子（5 个模块）",
       "meta": {}
     },
     "room:2794136": {
       "stage": "rooms",
       "status": "done",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T12:58:30+08:00",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:22:07+08:00",
       "detail": "☆ 轻音（5 个模块）",
       "meta": {}
     },
     "room:2794240": {
       "stage": "rooms",
       "status": "done",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T12:58:30+08:00",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:22:07+08:00",
       "detail": "留言板（1 个模块）",
       "meta": {}
     },
     "room:3598399": {
       "stage": "rooms",
       "status": "done",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T12:58:30+08:00",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:22:07+08:00",
       "detail": "☆ 聲之形（4 个模块）",
       "meta": {}
     },
     "room:3598411": {
       "stage": "rooms",
       "status": "done",
-      "attempts": 2,
-      "updatedAt": "2026-09-14T12:58:30+08:00",
+      "attempts": 3,
+      "updatedAt": "2026-09-14T13:22:07+08:00",
       "detail": "广播室（1 个模块）",
       "meta": {}
     },
