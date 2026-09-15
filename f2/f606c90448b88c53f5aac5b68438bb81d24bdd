@@ -1,0 +1,20 @@
+scraper/REVIEW-FINDINGS.md
+  h_3705811fa4502c 1-112
+scraper/cli.py
+  h_3705811fa4502c 73-76,1006-1007,1032-1033,1037-1044,1086,1089,1284-1285,1341-1342,1349-1356,1376-1377,1386-1393,1422-1423,1735-1741,1762-1769
+scraper/discover.py
+  h_3705811fa4502c 237,241
+scraper/parsers.py
+  h_3705811fa4502c 719-721
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "f2f606c90448b88c53f5aac5b68438bb81d24bdd",
+  "prompts": {},
+  "humans": {
+    "h_3705811fa4502c": {
+      "author": "TautCony <i@tautcony.xyz>"
+    }
+  }
+}
