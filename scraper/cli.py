@@ -30,7 +30,6 @@ from dataclasses import asdict
 from pathlib import Path
 from typing import Any, Sequence
 from urllib.parse import urlparse
-from urllib.parse import urlparse
 
 from . import auth
 from .archive import WaybackClient
@@ -62,7 +61,6 @@ from .models import (
     Bulletin,
     Comment,
     Discussion,
-    ExternalPage,
     ExternalPage,
     MiniblogStatus,
     Note,
@@ -375,8 +373,6 @@ class SyncContext:
         self.miniblog: list[MiniblogStatus] = []
         # 站外页面（需登录），key 为 page_id
         self.external: dict[str, ExternalPage] = {}
-        # 站外页面（需登录），key 为 page_id
-        self.external: dict[str, ExternalPage] = {}
         self.index_groups: list[Any] = []
         self.results: list[StageResult] = []
         self.unavailable: list[UnavailableRecord] = []
@@ -424,10 +420,6 @@ class SyncContext:
 
         for payload in read_json(self.cfg.data_dir / "miniblog.json", default=[]) or []:
             self.miniblog.append(MiniblogStatus(**payload))
-
-        external = read_json(self.cfg.data_dir / "external.json", default={}) or {}
-        for page_id, payload in external.items():
-            self.external[page_id] = _external_from_dict(page_id, payload)
 
         external = read_json(self.cfg.data_dir / "external.json", default={}) or {}
         for page_id, payload in external.items():
@@ -558,7 +550,7 @@ class SyncContext:
 
         清单必须跨运行累积、且以进度库为准，因为**绝大多数失败条目本次根本
         不会被重新抓取**：它们在进度里已是终态，``StageRunner`` 直接跳过；
-        ``emit`` 更是只读本地产物，一个请求都不发。早先直接拿 resolver 本次
+        ``emit`` 只读本地产物，不发起任何请求。此前直接复用 resolver 本次
         的失败列表当全量清单，于是每次重新生成都把清单清空成
         「全部内容均已成功归档」，而进度里明明还躺着十几条抓不到的条目。
 
@@ -693,11 +685,6 @@ class SyncContext:
         }
         for page in self.external.values():
             self.emitter.ctx.external_routes.setdefault(page.url.rstrip("/"), page.route)
-        self.emitter.ctx.external_routes = {
-            page.url: page.route for page in self.external.values()
-        }
-        for page in self.external.values():
-            self.emitter.ctx.external_routes.setdefault(page.url.rstrip("/"), page.route)
         self.emitter.ctx.album_routes = {aid: f"/albums/{aid}" for aid in self.albums}
 
     def save_data(self) -> None:
@@ -718,10 +705,6 @@ class SyncContext:
         write_json(cfg.data_dir / "videos.json", [v.to_dict() for v in self.videos])
         write_json(cfg.data_dir / "forum.json", [d.to_dict() for d in self.discussions])
         write_json(cfg.data_dir / "miniblog.json", [m.to_dict() for m in self.miniblog])
-        write_json(
-            cfg.data_dir / "external.json",
-            {pid: p.to_dict() for pid, p in sorted(self.external.items())},
-        )
         write_json(
             cfg.data_dir / "external.json",
             {pid: p.to_dict() for pid, p in sorted(self.external.items())},
@@ -806,7 +789,7 @@ def _status_from_dict(payload: Any) -> SourceStatus:
 
 #: 源站抖动（小站 widget 的间歇性 404）最多按"失败待重试"记几次。
 #: 抖动会自愈，但不会永远抖下去 —— 试够次数还拿不到，就该进不可访问清单
-#: 让人工看一眼了，而不是无限重试下去把清单永远遮住。
+#: 交由人工确认，而非无限重试以致清单被持续掩盖。
 RETRYABLE_MAX_ATTEMPTS = 3
 
 
@@ -1011,9 +994,6 @@ def prepare_structure(ctx: SyncContext, stages: Sequence[str]) -> SiteStructure:
         discovery.discover_videos()
     if "forum" in stages:
         discovery.discover_forum()
-    if "main" in stages and not discovery.structure.bulletins:
-        # main 阶段依赖索引①/② 的内容来定位站外条目
-        discovery.discover_bulletins()
     if "main" in stages and not discovery.structure.bulletins:
         # main 阶段依赖索引①/② 的内容来定位站外条目
         discovery.discover_bulletins()
@@ -1636,7 +1616,6 @@ def write_sync_report(ctx: SyncContext, *, mode: str) -> Path:
         "讨论帖": len(ctx.discussions),
         "广播动态": len(ctx.miniblog),
         "站外页面": len(ctx.external),
-        "站外页面": len(ctx.external),
         "不可访问页面": len(ctx.unavailable),
         "图片下载": ctx.media.summary()["downloaded"],
         "图片跳过（已存在）": ctx.media.summary()["skipped"],
@@ -1716,7 +1695,7 @@ def cmd_sync(args: argparse.Namespace) -> int:
         rate_note = crawl_delay_warning(cfg)
         if rate_note:
             # 快于 Crawl-delay 的档位在这里再记一次：上面那行 INFO 只说"是多少"，
-            # 这条说的是"这件事意味着什么"，免得跑完几个小时才发现选错了档。
+            # 该提示说明操作的实际影响，避免数小时运行后才发现档位选错。
             log.warning(rate_note)
         log.info("=" * 68)
 
@@ -1972,8 +1951,6 @@ def _print_summary(ctx: SyncContext) -> None:
     print(f"  视频        {len(ctx.videos):5d} 条")
     print(f"  讨论帖      {len(ctx.discussions):5d} 个")
     print(f"  广播动态    {len(ctx.miniblog):5d} 条")
-    if ctx.external:
-        print(f"  站外页面    {len(ctx.external):5d} 个（需登录）")
     if ctx.external:
         print(f"  站外页面    {len(ctx.external):5d} 个（需登录）")
     print(f"  不可访问    {len(ctx.unavailable):5d} 个（详见 data/unavailable.md）")

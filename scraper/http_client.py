@@ -19,7 +19,7 @@ curl_cffi 维护着一套与真实浏览器逐字节一致的 TLS/HTTP2 指纹�
 * **磁盘缓存**：同一 URL 二次运行直接命中缓存，零网络请求。
   这是增量同步与断点续接的基础，也被浏览器后端复用（同一套缓存布局）。
   例外是**不可信的 404**（见 :func:`is_untrusted_missing`）：既不入缓存、
-  也不从缓存里取，免得源站一次抖动被永久固化。
+  也不从缓存里取，避免源站一次抖动被永久固化。
 * **礼貌限速**：单线程，请求间隔 ``delay_min ~ delay_max`` 随机抖动。
   豆瓣 ``www.douban.com/robots.txt`` 注明 ``Crawl-delay: 5``，默认以此为下限。
   注意间隔按「距上次请求**开始**的时间」计算，因此浏览器导航耗时会被吸收进间隔里，
@@ -144,9 +144,10 @@ def image_request_headers(url: str, referer: str | None) -> dict[str, str | None
     ``impersonate`` 注入的默认头是**文档导航**的：``Accept: text/html,…``、
     ``Sec-Fetch-Dest: document``、``Sec-Fetch-Mode: navigate``、
     ``Sec-Fetch-Site: none``、``Sec-Fetch-User: ?1``、``Upgrade-Insecure-Requests: 1``。
-    实测（本地回显服务器）早先每个图片请求发的正是这六个，也就是说：**服务器收到的
-    是一个自报"我要加载一份 HTML 文档"的请求，而实际要的是一张 jpg**。
-    这与"请求像不像浏览器"直接相关，因此这里整组换掉，而不是只补 ``Referer``。
+    通过本地回显服务器实测，curl_cffi 的 ``impersonate`` 默认对上述六个导航类请求头
+    同样下发，即服务器收到的请求语义是「加载一份 HTML 文档」而非图片，与真实的
+    ``<img>`` 加载行为不符。这与「请求是否像浏览器」直接相关，因此这里整组换掉，
+    而不是只补 ``Referer``。
 
     不做的事与项目原则一致：不伪造 UA、不轮换指纹，``Sec-Ch-Ua*`` 仍由 impersonate
     提供（值与 TLS 指纹同源，改动反而会自相矛盾）。

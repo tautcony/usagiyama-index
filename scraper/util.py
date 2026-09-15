@@ -33,7 +33,7 @@ def url_cache_key(url: str) -> str:
 
 
 def files_equal(a: Path, b: Path) -> bool:
-    """两个文件是否字节相同。先比大小早退，免得为大文件白读一遍。"""
+    """两个文件是否字节相同。先比对大小以尽早返回，避免为大文件无谓地读取全部内容。"""
     if a.stat().st_size != b.stat().st_size:
         return False
     return sha1_of(a.read_bytes()) == sha1_of(b.read_bytes())

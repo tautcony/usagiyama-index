@@ -57,7 +57,7 @@ MAGIC_PREFIXES: tuple[tuple[bytes, str], ...] = (
 )
 
 # 真实格式 → 落盘后缀。``jpeg`` 一律落 ``.jpg`` —— ``.jpeg`` 是等价写法，
-# 同一份内容在两个等价后缀之间来回改名只会平白制造噪音。
+# 同一份内容在两种等价后缀间反复改名只会产生无意义的差异。
 SUFFIX_FOR_KIND: dict[str, str] = {
     "jpeg": ".jpg",
     "png": ".png",
@@ -164,9 +164,9 @@ def with_name(local_url: str, name: str) -> str:
 def describe_response(resp: CachedResponse) -> str:
     """把一个响应压成一行诊断信息。
 
-    **错误码是排查的第一要素**：早先这里只报了字节数（"返回内容不是图片（0B）"），
-    拿到这样一条日志既不知道源站返回了什么状态码，也不知道内容类型与来源，
-    只能手工重放请求去猜（实测那一条是 404 —— 一个不存在的 ``raw`` 尺寸）。
+    **错误码是排障的首要信息**：此前的实现仅上报字节数（如「返回内容不是图片（0B）」），
+    无法从日志判断源站返回的状态码、内容类型与来源，只能手动重放请求确认
+    （实际为 404 —— 某个不存在的 ``raw`` 尺寸）。
     """
     parts = [f"HTTP {resp.status}", resp.content_type.split(";")[0].strip() or "无类型"]
     parts.append(f"{len(resp.content)}B")
@@ -412,7 +412,7 @@ class MediaArchive:
         这是给"URL 后缀撒谎"时代的存量文件兜底的：新下载已经由
         :func:`correct_suffix` 直接落成真实后缀，但老文件不会自己变。
         目标名已被占用时保持原样并记 WARNING —— 那说明同一目录里两张**不同**的图
-        争一个名字，是需要人看一眼的事，绝不能悄悄覆盖掉其中一张。
+        争一个名字，属于需人工确认的情况，绝不能静默覆盖其中任意一张。
         """
         kind = read_kind(path)
         target = correct_suffix(path, kind)
@@ -465,7 +465,7 @@ class MediaArchive:
 
         # 逐个候选尝试。失败的候选在这里只记 INFO —— 多尺寸候选里的"这条不存在"
         # 是**预期内**的（同一张图只有某一个尺寸/某一台 CDN 上有），
-        # 早先却按 WARNING 打出来，看起来像归档失败，实际上接着就成功了。
+        # 此前的实现将其按 WARNING 输出，易误判为归档失败，而后续候选通常会立即成功。
         # 真正的失败由末尾那条 WARNING 一次性汇总，带上每个候选的状态码。
         failures: list[str] = []
         for candidate in variants or [url]:

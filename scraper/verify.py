@@ -422,7 +422,7 @@ class Verifier:
         """把 md 拆成 ``(正文, 评论)`` 两段原始 Markdown。
 
         切在 ``## 评论（N）`` 标题行**之后**：标题是 emit 生成的脚手架，原文
-        里没有对应物，两侧都不该带上，否则每篇都比出一个凭空插入的"评论（N）"。
+        里没有对应物，两侧均不应纳入，否则每篇都会多出一段凭空插入的「评论（N）」。
         """
         raw = Verifier._markdown_body(path)
         match = COMMENT_HEADING_RE.search(raw)
@@ -436,7 +436,7 @@ class Verifier:
 
         内容抽查要求两侧同口径：md 侧的评论由 ``emit._render_comments`` 渲染
         （作者 · 日期 + 引用块正文），这里必须复刻它的字段顺序，以及"无作者写
-        匿名、无正文写（空）"两条兜底，否则每次比对都会凭空多出差异。
+        匿名、无正文写（空）"两条兜底逻辑，否则每次比对都会引入额外差异。
         """
         parts: list[str] = []
         for comment in comments:

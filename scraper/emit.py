@@ -43,7 +43,7 @@ NOTICE_LEVEL = {
 
 #: 评论区块的标题行模式。内容抽查（:mod:`scraper.verify`）按它把 md 切成
 #: 「正文」与「评论」两段，好拿评论去和原始 HTML 里的 ``#comments`` 比。
-#: 评论不在 ``#link-report`` 里，只比对正文会让 md 侧凭空多出一大段评论。
+#: 评论不在 ``#link-report`` 内，若仅比对正文，md 侧会额外多出整段评论内容。
 COMMENT_HEADING_RE = re.compile(r"^## 评论（\d+）$", re.MULTILINE)
 
 
@@ -317,7 +317,7 @@ class SiteEmitter:
             full = photo.local_original or preview
             caption = (photo.caption or "").strip()
             has_original = bool(photo.local_original)
-            # 没有描述就整个属性都别写，免得留下一串空 title/alt
+            # 无描述时不输出对应属性，避免生成空的 title/alt
             attr = f' alt="{html_attr(caption)}"' if caption else ""
             tip = f"{caption} · 查看原图" if has_original and caption else (
                 "查看原图" if has_original else caption
@@ -940,7 +940,7 @@ class SiteEmitter:
                 f"- 耗时：**{stats.get('elapsedSeconds', 0)}s**",
             ]
             # 源站抖动的迹象：同一批"404"里有一部分其实只是 widget 后端抽风，
-            # 下次同步会自动重试。只在真的出现时列出来，免得报告里全是 0。
+            # 下次同步会自动重试，仅在有实际发生时列出，避免报告中充斥零值。
             transient = stats.get("transientMisses", 0)
             if transient:
                 lines.append(

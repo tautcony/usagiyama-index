@@ -270,7 +270,7 @@ def parse_page_step(html: str, cfg: Config = CONFIG, fallback: int = 1) -> int:
     if not steps:
         return fallback
     step = min(steps)
-    # 步长 1（或 0）必然是误读，照做会把列表页逐条翻一遍
+    # 步长为 1（或 0）必为误读，照此翻页将退化为逐条遍历列表页
     return step if step > 1 else fallback
 
 

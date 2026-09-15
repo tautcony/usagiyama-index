@@ -193,7 +193,7 @@ class PageResolver:
 
         ``record_unavailable=False`` 表示本次失败**不构成**"源站不可得"的
         证据（离线模式下缓存未命中），只返回状态、不写入 :attr:`unavailable`。
-        名字取全，免得和下面的记录对象 ``record`` 撞名。
+        参数名取全名，避免与下文记录对象 ``record`` 重名。
 
         ``retryable=True`` 表示源站这次拒绝得**不可信**（小站 widget 的间歇性
         404，见 :func:`is_untrusted_missing`）：状态照样是"现在拿不到"，但要
