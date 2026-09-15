@@ -446,6 +446,10 @@ class BrowserFetcher(BaseFetcher):
         """把内部 curl 图片请求的统计并入，保证同步报告数字完整。"""
         stats = super().finalize()
         stats.merge(self._image_fetcher.stats)
+        # 图片 fetcher 有独立时钟；运行时间应取两者覆盖区间的最大值，
+        # 否则只统计浏览器导航的耗时，会低估总运行时间（见 SUG-19）。
+        image_elapsed = time.monotonic() - self._image_fetcher._started_at
+        stats.elapsed = max(stats.elapsed, image_elapsed)
         return stats
 
 
@@ -476,6 +480,9 @@ def detect_chrome_ua(cfg: Config = CONFIG, *, refresh: bool = False) -> str:
             try:
                 page = browser.new_page()
                 ua = str(page.evaluate("navigator.userAgent"))
+                # headless 模式下 UA 带 "HeadlessChrome"，会误导"实际使用的浏览器版本"
+                # 展示；归一化为普通 "Chrome" 再缓存（见 SUG-18）。
+                ua = ua.replace("HeadlessChrome", "Chrome")
             finally:
                 browser.close()
     except Exception as exc:  # noqa: BLE001 - 探测失败不该影响主流程

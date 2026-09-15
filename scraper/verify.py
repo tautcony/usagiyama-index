@@ -454,10 +454,12 @@ class Verifier:
             result.notes.append("没有已归档的日记，跳过内容抽查（请先执行 sync 的 notes 阶段）")
             return result
 
+        # Archived/Wayback responses can have a non-``ok`` availability while
+        # still carrying the original HTML and a rendered markdown page. They
+        # must remain eligible for sampling; filtering to ``ok`` silently
+        # excluded precisely the entries most likely to be degraded.
         candidates = [
-            (nid, payload)
-            for nid, payload in notes.items()
-            if payload.get("content_html") and payload.get("status", {}).get("availability") == "ok"
+            (nid, payload) for nid, payload in notes.items() if payload.get("content_html")
         ]
         if not candidates:
             result.notes.append("没有可抽查的已归档日记")

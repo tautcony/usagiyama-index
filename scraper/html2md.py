@@ -44,10 +44,9 @@ def unwrap_link2(url: str) -> str:
     """解码豆瓣 ``link2`` 跳转链接，取出真实地址。"""
     if not url or LINK2_HOST_MARKER not in url:
         return url
-    try:
-        query = parse_qs(urlparse(url).query)
-    except ValueError:
-        return url
+    # 注：``urlparse`` / ``parse_qs`` 不会因畸形输入抛出 ``ValueError``
+    # （最多返回空结果），此前的 ``try/except ValueError`` 是永不触发的死代码。
+    query = parse_qs(urlparse(url).query)
     values = query.get("url")
     if not values:
         return url

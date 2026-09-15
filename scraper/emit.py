@@ -552,6 +552,19 @@ class SiteEmitter:
 
     # ------------------------------------------------------------ 文章索引页
 
+    def _resolve_entry_route(self, entry: Any, notes: dict[str, Note]) -> str | None:
+        """为索引条目解析站内路由（消除 emit_notes_index / emit_sidebar 的重复，见 SUG-17）。
+
+        已归档日记（``entry.note_id`` 在 ``notes`` 中）走 ``route_map``；
+        指向已归档站外页面的条目走 ``external_routes``；其余返回 ``None``
+        （调用方据此保留外链或标注"未归档"）。
+        """
+        if entry.note_id and entry.note_id in notes:
+            return self.ctx.route_map.get(entry.note_id, f"/notes/{entry.note_id}")
+        return self.ctx.external_routes.get(entry.url) or self.ctx.external_routes.get(
+            entry.url.rstrip("/")
+        )
+
     def emit_notes_index(
         self,
         groups: Sequence[IndexGroup],
@@ -574,9 +587,9 @@ class SiteEmitter:
                 blocks.append(f"[豆瓣豆列]({group.doulist_url})\n")
             items: list[str] = []
             for entry in group.entries:
+                route = self._resolve_entry_route(entry, notes)
                 if entry.note_id and entry.note_id in notes:
                     note = notes[entry.note_id]
-                    route = self.ctx.route_map.get(entry.note_id, f"/notes/{entry.note_id}")
                     date = f" <small>{note.date[:10]}</small>" if note.date else ""
                     badge = ""
                     if note.status.availability != Availability.OK:
@@ -584,9 +597,6 @@ class SiteEmitter:
                     items.append(f"- [{md_escape_link_text(note.title)}]({route}){date}{badge}")
                 else:
                     # 已归档的站外页面指向站内路由，否则保留外链并标注未归档
-                    route = self.ctx.external_routes.get(entry.url) or self.ctx.external_routes.get(
-                        entry.url.rstrip("/")
-                    )
                     if route:
                         items.append(f"- [{md_escape_link_text(entry.title)}]({route})")
                     else:
@@ -785,18 +795,15 @@ class SiteEmitter:
                 continue
             items: list[dict[str, Any]] = []
             for entry in group.entries:
+                route = self._resolve_entry_route(entry, notes)
                 if entry.note_id and entry.note_id in notes:
                     note = notes[entry.note_id]
-                    route = self.ctx.route_map.get(entry.note_id, f"/notes/{entry.note_id}")
                     items.append({"text": note.title, "link": route})
                 else:
                     # 未归档的条目**不能**把外站 URL 当作 link：
                     # VitePress 的 sidebar link 必须是站内路由，否则构建期报
                     # "Invalid route component: undefined"。
                     # 已归档的站外页面则指向站内路由。
-                    route = self.ctx.external_routes.get(entry.url) or self.ctx.external_routes.get(
-                        entry.url.rstrip("/")
-                    )
                     if route:
                         items.append({"text": entry.title, "link": route})
                     else:

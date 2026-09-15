@@ -1,6 +1,6 @@
 # Scraper 代码审查跟踪 (Code Review Findings)
 
-> 审查范围：`scraper/` 全部模块（9,425 行，审查于 HEAD `7ce6305`，working tree 干净）
+> 审查范围：`scraper/` 全部模块（审查基线 HEAD `7ce6305`；2026-09-15 复核工作区修正）
 > 审查时间：2026-09-15
 > 标记说明：`[ ]` 待处理 / `[x]` 已修复 / `[~]` 已确认忽略
 
@@ -85,16 +85,16 @@
 
 ## 🟡 Suggestion — 质量 / 次要
 
-- [ ] **SUG-14** `parsers.py:813` — `unquote()` 死代码：`external or unquote(external)` 短路到 `external`，youku `%xx` 链接永不解码。改为 `unquote(external)`。
-- [ ] **SUG-15** `media.py:118-133` — `read_kind`/`is_valid_image` 仅读 32 字节；带 XML prolog 的 SVG 需 ≥512 字节 → 误判"非图片"并重下载/标记无效。
-- [ ] **SUG-16** `html2md.py:48-50` — `urlparse`/`parse_qs` 周围 `try/except ValueError` 永不触发，删除。
-- [ ] **SUG-17** `emit.py:547-564` vs `757-773` — 重复路由解析逻辑，抽取 `_resolve_entry_route(entry)`。
-- [ ] **SUG-18** `browser.py:475` — `detect_chrome_ua` 缓存 `HeadlessChrome` UA（误导）；缓存前归一化 `HeadlessChrome`→`Chrome`。
-- [ ] **SUG-19** `http_client.py:721/449` — `finalize().elapsed` 未计入 image fetcher 时钟 → 运行时间低估。
-- [ ] **SUG-20** `http_client.py:522-523` — `cache_has` 只查 body，`_read_cache` 需 body+meta → 半迁移 body 使 `count_cached` 高估。
-- [ ] **SUG-21** `verify.py:448-518` — `check_content_sample` 仅抽样 `ok` 笔记；Wayback/ARCHIVED 笔记及全部 albums/photos/external 从不比对 → 损坏归档未捕获。
-- [ ] **SUG-22** `cli.py:1014,1414` — miniblog/rooms 每轮无条件 `mark_done`（attempts/updatedAt 噪声）；参照 `StageRunner` 用 `is_terminal` 守卫。
-- [ ] **SUG-23** `cli.py:1267` vs `1280` — `stage_photos` 限制*图片对*，`stage_albums` 限制*album id*；小 `--limit` 下可能处理其图片从未下载的 album。
+- [x] **SUG-14** `parsers.py:813` — 已统一使用 `unquote(external)`，优酷 `%xx` 链接会解码。
+- [x] **SUG-15** `media.py:118-133` — `read_kind`/`is_valid_image` 已读取 512 字节，覆盖 XML prolog SVG。
+- [x] **SUG-16** `html2md.py:48-50` — 已删除不会触发的 `ValueError` 捕获。
+- [x] **SUG-17** `emit.py` — 已抽取 `_resolve_entry_route(entry, notes)`，索引与 sidebar 共用。
+- [x] **SUG-18** `browser.py:475` — 已在缓存 UA 前归一化 `HeadlessChrome` 为 `Chrome`。
+- [x] **SUG-19** `browser.py` — `finalize()` 已合并 image fetcher 覆盖时钟，运行时间不再低估。
+- [x] **SUG-20** `http_client.py:522-523` — `cache_has` 现要求 body 与 meta 同时存在，并有回归测试。
+- [~] **SUG-21** `verify.py:448-518` — 已移除 `availability == ok` 过滤，Wayback/ARCHIVED 笔记现在会参与抽查；albums/photos/external 因没有统一的原始 HTML 对照源，仍仅由数量、断链和媒体完整性检查覆盖。
+- [x] **SUG-22** `cli.py` — rooms/miniblog 已经 StageRunner 路由，终态项目不会重复 `mark_done`。
+- [x] **SUG-23** `cli.py:1267,1294,1373` — `--limit` 统一按相册生效：照片阶段先选前 N 个相册，随后相册阶段使用同一批相册，避免图片与相册配额错位。
 
 ---
 

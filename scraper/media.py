@@ -119,7 +119,10 @@ def is_valid_image(path: Path) -> bool:
     """磁盘上的文件是否为真实图片（而非 HTML 错误页）。"""
     try:
         with path.open("rb") as handle:
-            return sniff_image(handle.read(32)) is not None
+            # 读 512 字节而非 32：带 XML prolog 的 SVG 形如
+            # ``<?xml …?>\n<svg …>``，未解码的 ``<svg`` 常落在 prolog 之后，
+            # 只读 32 字节会判成"非图片"而被重下载/标记无效（见 SUG-15）。
+            return sniff_image(handle.read(512)) is not None
     except OSError:
         return False
 
@@ -128,7 +131,7 @@ def read_kind(path: Path) -> str:
     """读文件头判定的真实格式；读不了返回空串。"""
     try:
         with path.open("rb") as handle:
-            return sniff_image(handle.read(32)) or ""
+            return sniff_image(handle.read(512)) or ""
     except OSError:
         return ""
 

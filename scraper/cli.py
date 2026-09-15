@@ -1241,7 +1241,13 @@ def stage_photos(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
     """阶段 4：相册图片归档。"""
     cfg = ctx.cfg
     pairs: list[tuple[str, str]] = []
-    for album_id, photo_ids in ctx.structure.photo_ids.items():
+    # ``--limit`` is an album-level smoke-test limit.  Keep photos and album
+    # stages aligned so an album emitted in the same run always has its photo
+    # details eligible for processing (SUG-23).
+    album_items = list(ctx.structure.photo_ids.items())
+    if limit > 0:
+        album_items = album_items[:limit]
+    for album_id, photo_ids in album_items:
         pairs.extend((album_id, pid) for pid in photo_ids)
 
     if not pairs:
@@ -1291,7 +1297,7 @@ def stage_photos(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
                 key_of(pair), error or "图片归档失败", stage="photos", url=url
             )
 
-    result = runner.run(pairs, handler, key_of, desc="照片", limit=limit)
+    result = runner.run(pairs, handler, key_of, desc="照片")
     ctx.results.append(result)
     return result
 

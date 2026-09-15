@@ -161,6 +161,15 @@ class TestCaching:
             fetcher.fetch("https://x/limited")
         assert not fetcher.cache_has("https://x/limited")
 
+    def test_cache_has_requires_body_and_metadata(self, cfg, sleeper) -> None:
+        fetcher = Fetcher(cfg, session=FakeSession(), sleep=sleeper.append)
+        fetcher.fetch("https://x/partial")
+        body, meta = cache_paths(cfg, "https://x/partial")
+        assert fetcher.cache_has("https://x/partial")
+        meta.unlink()
+        assert not fetcher.cache_has("https://x/partial")
+        body.unlink()
+
     def test_stale_429_cache_ignored(self, cfg, sleeper) -> None:
         """即使历史缓存里存了 429，也应视为过期重新请求。"""
         session = FakeSession([FakeResponse(429)])

@@ -524,7 +524,12 @@ class BaseFetcher:
             log.warning("缓存写入失败 %s: %s", resp.url, exc)
 
     def cache_has(self, url: str) -> bool:
-        return self._cache_paths(url)[0].exists()
+        # A cache entry is usable only when body and metadata exist.  During
+        # interrupted migrations either file can be left behind; reporting
+        # such an entry as cached makes callers skip the network fetch while
+        # _read_cache correctly treats it as a miss (see SUG-20).
+        body_path, meta_path = self._cache_paths(url)
+        return body_path.exists() and meta_path.exists()
 
     def invalidate_cache(self, url: str) -> bool:
         """丢弃某个 URL 的缓存条目（调用方判定缓存内容不可用时使用）。

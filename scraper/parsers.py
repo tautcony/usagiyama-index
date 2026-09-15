@@ -821,7 +821,9 @@ def parse_video_list(html: str, widget_id: str, cfg: Config = CONFIG) -> list[Vi
                 widget_id=widget_id,
                 title=title,
                 thumb_url=thumb,
-                external_url=external or unquote(external),
+                # 优酷外链常带百分号编码（%xx），必须解码才是可用的真实地址；
+                # 即使 external 已解码（不含 %xx），unquote 也是幂等的。
+                external_url=unquote(external),
                 date=date_match.group(1) if date_match else "",
                 source_url=href,
                 status=SourceStatus(availability="ok"),
