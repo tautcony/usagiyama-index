@@ -559,7 +559,18 @@ class SiteEmitter:
         if path.exists():
             match = re.search(r"^archivedAt:\s*(\S+)", path.read_text(encoding="utf-8"), re.MULTILINE)
             if match:
-                return match.group(1)
+                value = match.group(1)
+                # Older output could contain a JSON-quoted date. Normalize it
+                # before feeding it back through yaml_value, otherwise each
+                # regeneration adds another layer of escaping.
+                if value.startswith('"'):
+                    try:
+                        decoded = json.loads(value)
+                        if isinstance(decoded, str):
+                            value = decoded
+                    except json.JSONDecodeError:
+                        pass
+                return value.strip('"')
         return now_iso()[:10]
 
     def _resolve_entry_route(self, entry: Any, notes: dict[str, Note]) -> str | None:
