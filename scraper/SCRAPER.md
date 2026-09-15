@@ -4,22 +4,22 @@
 VitePress 站点。本文件说明 `scraper/` 下各模块的协作逻辑、每条流水线阶段的职责，
 并附流程图。
 
-阅读顺序建议：先看 [总览](#一-总览) 与 [架构](#二-模块架构与职责)，再看
-[核心流水线 sync](#四-核心流水线-sync) 的逐阶段说明，最后看 [流程图](#八-流程图)。
+可先看[总览](#一-总览)和[架构](#二-模块架构与职责)，再看
+[核心流水线 sync](#四-核心流水线-sync)与[流程图](#八-流程图)。
 
 ---
 
 ## 一、总览
 
-抓取器以「**单线程 + 最小间隔 + 指数退避 + 熔断**」的方式礼貌地抓取源站，
-把全部 HTML、图片、评论等内容落盘，再离线渲染成 Markdown 产物。它刻意**不规避风控**：
+抓取器以「**单线程 + 最小间隔 + 指数退避 + 熔断**」访问源站，
+把 HTML、图片和评论保存到磁盘，再离线渲染为 Markdown。它**不规避风控**：
 复用真实浏览器的 TLS 栈（不手工伪造；详见 [3.2](#32-两种传输实现)、
 [3.3](#33-传输方式的选择哪些用浏览器headlesschrome哪些用-curl) 与
 [3.5 可探测性说明](#35-关于可探测性诚实说明它确实非浏览器)）、不轮换 UA、不轮换代理，
 靠「真 Chrome 的 TLS 栈 + 真人登录 + 低频 + 熔断即停」降低风险。
-**注意：本工具并不伪装成真人浏览器，可被识别为自动化客户端——这是有意的不规避风控，见 3.5。**
+**本工具不伪装成真人浏览器，可能被识别为自动化客户端，详见 3.5。**
 
-设计上的三条支柱（断点续接的基础）：
+断点续接依赖以下三个文件：
 
 | 持久化文件 | 作用 | 续跑时的行为 |
 | --- | --- | --- |
@@ -72,7 +72,7 @@ models.py      数据模型（Note / Album / Bulletin / Video / Discussion / …
 util.py        通用工具（JSON 读写、原子写入、时长/大小格式化等）
 ```
 
-**关键设计：传输层可替换**。`http_client.Fetcher`（curl_cffi，快、轻）与
+传输层可以替换。`http_client.Fetcher`（curl_cffi）与
 `browser.BrowserFetcher`（Playwright，能执行 JS、带登录态）都实现
 `transport.Transport` 协议，因此 `resolver` / `media` 等消费方不关心自己拿到的是
 哪一种后端，只依赖同一组方法与异常。两者共用同一套磁盘缓存、限速、退避、熔断与统计
@@ -125,34 +125,16 @@ magic bytes 校验链路）。
   Chrome 的 `HeadlessChrome` UA 改回 `Chrome`（版本号取真实值，不伪造）；检测到
   `sec.douban.com` 人机校验即计入熔断并停止，提示重新登录，**不尝试绕过**。
 
-> **「固定浏览器 TLS 指纹」是手工实现，还是靠 Chrome 本身？——靠库 / 靠 Chrome，不手工。**
-> 本项目代码**没有手写任何 TLS 指纹字节**。具体分两种后端：
->
-> - **HTTP 后端（curl_cffi）**：`impersonate="chrome"` 底层是 **curl-impersonate**——
->   一组打了补丁的 curl/OpenSSL 构建，把 Chrome 的 TLS ClientHello（密码套件、扩展、
->   ALPN、TLS GREASE、签名扩展、HTTP/2 的 SETTINGS 帧与伪头顺序等）原样回放出来。
->   指纹细节由这个经过大量站点验证的库维护，本项目只需声明 `impersonate="chrome"`，
->   **不拼任何请求头、不手动构造握手**。
-> - **浏览器后端（真实 Chrome）**：TLS 指纹就是 **Chrome 进程自己生成的**——因为抓取时
->   真正拉起了一个系统 Chrome（见下 3.3）。指纹源自真实浏览器二进制，更不可能由本项目
->   代码伪造。
->
-> 本项目唯一对"指纹"做的小动作只有 **UA 字符串规范化**：无头启动会让 Chrome 在 UA 里带
-> `HeadlessChrome`，而有头时同一 Chrome 发的是 `Chrome`。这里把它改回 `Chrome`，且版本号
-> 取浏览器自己的真实值（`navigator.userAgent`），只是抹掉"无头启动"这个副作用，**并不伪造
-> 任何指纹**。同时明确**不做**这些事：`navigator.webdriver` 不修改（那才是真正的自动化标记，
-> 改了反而违背"不规避风控"原则）、不轮换 UA、不轮换代理、不做指纹伪装。**这套方案刻意不伪装成
-> 真人浏览器**（详见 [3.5](#35-关于可探测性诚实说明它确实非浏览器)）——降低风险靠的是
-> 「真 Chrome 的 TLS 栈 + 真人登录 + 5~7s 间隔（`--speed` 默认档）+ 单线程 + 熔断即停」的礼貌低频策略，而不是与风控对抗。
+HTTP 后端使用 `curl_cffi` 的 `impersonate="chrome"`，TLS 细节由库处理；浏览器后端直接使用系统
+Chrome。代码不手写 TLS 指纹，也不轮换 UA、代理或会话。无头 Chrome 的 UA 只去掉
+`HeadlessChrome`，保留浏览器上报的版本号；`navigator.webdriver` 保持不变。
 
 ### 3.3 传输方式的选择：哪些用浏览器（HeadlessChrome）、哪些用 curl
 
-`SyncContext` 在初始化时**永远**用 **`BrowserFetcher`** 作为页面传输（`cli.py` 的
-`SyncContext.__init__`）：HTML 页面一律由无头 Chrome 抓取，**不再提供 curl（原
-`--no-browser`）回退路径**——这是有意为之（见上一条"使用 headless 而非 curl"的要求）。
+`SyncContext` 始终使用 `BrowserFetcher` 抓取 HTML 页面，不提供 curl 回退路径。
 `--no-browser` 开关与 `USAGI_BROWSER` 环境变量均已废弃移除。
 
-但要注意：**外层传输 ≠ 所有请求都走它**。具体落到每一类请求：
+图片、Wayback 查询和会话校验仍使用 curl；登录流程使用有头 Chrome：
 
 | 请求类型 | 实际使用的客户端 | 说明 |
 | --- | --- | --- |
@@ -163,18 +145,7 @@ magic bytes 校验链路）。
 | **登录流程**（`auth.run_login_flow`） | **有头 Chrome**（headless=False） | 用户需要看到登录窗口；此时连路由拦截都不开（验证码本身是图片，拦掉会渲染不出来） |
 | **探测 Chrome UA**（`detect_chrome_ua`） | **无头 Chrome** | 仅用于报告展示真实浏览器版本，结果缓存在 `state/chrome_ua.txt` |
 
-要点：
-
-1. **图片永远走 curl_cffi**，哪怕外层是浏览器。原因（`browser.py` 模块文档）：
-   - 图片是公开 CDN（`img*.doubanio.com`），不需要登录态；
-   - 尺寸升级 + magic bytes 校验 + archive.org 兜底的整条链路都建在
-     `get_image() → CachedResponse` 上，换浏览器会牵动业务逻辑；
-   - 798 张图若走 `page.goto` 还会渲染整页、成本极高。
-2. **HTML 页面永远走 HeadlessChrome，不再走 curl**：因为目标站点有反爬，部分页面需登录、
-   可能触发人机校验，纯 HTTP 拿不全内容。浏览器后端（`BrowserFetcher`）与图片/archive 用的
-   curl 后端**复用同一套**磁盘缓存、限速、退避、熔断与统计（都继承 `BaseFetcher`），
-   所以增量同步、断点续接、`--offline`、`emit` 全部自动生效。
-3. **archive.org 与登录态校验一律 curl/有头 Chrome**，与"抓页面用哪种传输"解耦。
+三种客户端共用磁盘缓存、限速、退避、熔断和统计，因此增量同步、断点续接与离线生成的行为一致。
 
 ### 3.4 页面解析（PageResolver.resolve）
 
@@ -192,15 +163,12 @@ magic bytes 校验链路）。
 `resolve_required` / `resolve_optional` 是为「关键路径必须成功」与「可选内容失败不中断」
 两种语义提供的便捷封装。
 
-### 3.5 关于可探测性（诚实说明：它确实"非浏览器"）
+### 3.5 可探测性
 
-上面对"复用真实浏览器 TLS 指纹"的描述**不是**在说这套方案能伪装成真人浏览器。从技术上讲，
-它**很容易被识别为自动化客户端**，这一点必须说清楚：
+这套工具仍可能被识别为自动化客户端：
 
-1. **页面抓取（默认无头 Chrome）可被 JS 检测**：Playwright 拉起的无头 Chrome 其
-   `navigator.webdriver === true`。本项目**故意不遮这个标记**（见 3.2 引用块）——它是真正的
-   自动化信号。代码只把 UA 里的 `HeadlessChrome` 改回 `Chrome`（版本取真实值），但 webdriver
-   标记照留。任何在页面上跑 JS 的 bot 检测都能一眼识破。
+1. **页面抓取（默认无头 Chrome）可被 JS 检测**：Playwright 拉起的无头 Chrome 的
+   `navigator.webdriver === true`，代码不修改这个标记。
 2. **媒体抓取不是 Chrome，是 libcurl**：图片走 curl_cffi（curl-impersonate），TLS 指纹像
    Chrome，但它根本不是浏览器、UA 是写死的字符串、完全不执行 JS。"页面来自无头 Chrome、
    图片来自 libcurl"是**两个不同的客户端栈**，对同一批内容做关联请求时本身就是一个 tell
@@ -226,30 +194,16 @@ magic bytes 校验链路）。
    `Sec-Fetch-Site` 由来源页与目标域名算出（详情页 → `img*.doubanio.com` 是 `cross-site`，
    无 Referer 时是 `none`），导航请求保持原样。
 
-   这**不是**加伪装，而是把请求写成本来就该有的样子：`Accept` 与三个 `Sec-Fetch-*` 如实
-   描述"这是一个子资源请求"，另外两个头如实删掉（它们只可能出现在导航里）；
-   `User-Agent` / `Sec-Ch-Ua*` / TLS 指纹仍全部来自 `impersonate` 的同一份配置
-   （值互相自洽，自己改反而会矛盾）。仍然可识别：libcurl 不执行
-   JS、没有浏览器的 Cookie 容器与 HTTP/2 优先级帧，且"页面无头 Chrome + 图片 libcurl"
-   这个组合本身没变。
+   图片请求使用上述子资源头，导航专属头不会发送。`User-Agent`、`Sec-Ch-Ua*` 和 TLS
+   指纹仍由 `impersonate` 提供；libcurl 不执行 JS，也没有浏览器的 Cookie 容器。
 
-**那为什么还能跑通？——看它真正在对抗什么。** 从代码可见，本工具实际面对的封锁是：
+当前需要处理的限制有三类：
 
 - **图片防盗链**：`img*.doubanio.com` 不带 Referer 返 418 → 强制带 Referer 即可过。
 - **登录墙**：`/note/`、`/topic/` 需登录 → 标 `LOGIN_REQUIRED`，由真人登录的有头 Chrome 去抓。
 - **人机校验重定向**：触发 `sec.douban.com` → 计入熔断、提示重登，**不绕过**。
 
-要抓的内容是**服务端渲染**的，抓取在 `domcontentloaded` 即拿到完整 DOM，页面本身不需要 JS
-执行。目前挡路的都是 TLS / Referer / 登录态问题，**没有证据显示豆瓣对这些页面下了
-`navigator.webdriver` 检测**。因此"匹配 TLS + 带 Referer + 真人登录 + 低频熔断"恰好够用。
-
-**但这是"故意不躲"，不是"躲得好"。** 项目立场是**不规避风控**：不遮 `webdriver`、不轮换 UA、
-不轮换代理、不做指纹伪装。它的风险模型是「真 Chrome TLS 栈 + 真人登录 + 5~7s 间隔（`--speed` 默认档）+ 单线程 +
-熔断即停」的**礼貌低频归档器**，而非 undetectable scraper。若豆瓣哪天上了基于 `webdriver` 的
-JS 挑战，浏览器路径会被抓——而本项目的应对是"停下、让人登录、重跑"，不是"加大伪装"。
-
-> 准确的表述应为：它复用了真 Chrome 的 **TLS 栈**（浏览器路径）与一个 Chrome **匹配** 的
-> TLS 栈（curl 路径）来过"TLS 这一关"，但两者都**不**呈现为真人会话，且均可被识别。
+页面为服务端渲染，`domcontentloaded` 即可取得正文。触发人机校验时熔断并停止，处理方式是重新登录后重跑。
 
 ---
 
