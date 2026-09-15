@@ -70,9 +70,10 @@ from .models import (
 )
 from .parsers import (
     parse_album_title,
-    parse_external_page,
-    parse_note_comment_pages,
-    parse_note_comments,
+        parse_external_page,
+        parse_note_comment_pages,
+        parse_page_step,
+        parse_note_comments,
     parse_bulletin,
     parse_discussion,
     parse_miniblog,
@@ -1002,7 +1003,8 @@ def prepare_structure(ctx: SyncContext, stages: Sequence[str]) -> SiteStructure:
     return ctx.structure
 
 
-def stage_rooms(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> StageResult:
+def stage_rooms(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
+                recheck_unavailable: bool = False, force: bool = False) -> StageResult:
     """阶段 1：房间与模块清单（结构已在 prepare_structure 中获取）。"""
     rooms = ctx.structure.rooms
     if not rooms:
@@ -1027,11 +1029,19 @@ def stage_rooms(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> Sta
     return result
 
 
-def stage_bulletins(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> StageResult:
+def stage_bulletins(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
+                    recheck_unavailable: bool = False, force: bool = False) -> StageResult:
     """阶段 2：公告栏 / 索引①/②。"""
     cfg = ctx.cfg
     widgets = ctx.structure.widgets_of("bulletin")
-    runner = StageRunner(ctx.progress, "bulletins", cfg=cfg, show_progress=show_progress)
+    runner = StageRunner(
+        ctx.progress,
+        "bulletins",
+        cfg=cfg,
+        show_progress=show_progress,
+        recheck_unavailable=recheck_unavailable,
+        recheck_done=force,
+    )
 
     def key_of(widget: Any) -> str:
         return f"bulletin:{widget.widget_id}"
@@ -1073,9 +1083,10 @@ def _collect_note_comments(
     """
     comments = parse_note_comments(html, ctx.cfg)
     total_pages = parse_note_comment_pages(html, ctx.cfg)
+    step = parse_page_step(html, ctx.cfg, COMMENTS_PER_PAGE)
 
     for index in range(1, total_pages):
-        sub_url = f"{note_url}?start={index * COMMENTS_PER_PAGE}"
+        sub_url = f"{note_url}?start={index * step}"
         page = ctx.resolver.resolve(sub_url, context=f"日记评论 {truncate(title, 30)} 第 {index + 1} 页")
         if page.has_content:
             comments.extend(parse_note_comments(page.html, ctx.cfg))
@@ -1270,7 +1281,8 @@ def stage_photos(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
     return result
 
 
-def stage_albums(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> StageResult:
+def stage_albums(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
+                 recheck_unavailable: bool = False, force: bool = False) -> StageResult:
     """阶段 5：汇总相册元信息（图片已在上一阶段归档）。"""
     cfg = ctx.cfg
     album_ids = list(ctx.structure.photo_ids.keys())
@@ -1326,14 +1338,22 @@ def stage_albums(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> St
     return result
 
 
-def stage_videos(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> StageResult:
+def stage_videos(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
+                 recheck_unavailable: bool = False, force: bool = False) -> StageResult:
     """阶段 6：视频条目（缩略图归档，正片在优酷）。"""
     cfg = ctx.cfg
     videos = ctx.structure.videos
     if not videos:
         return StageResult(stage="videos")
 
-    runner = StageRunner(ctx.progress, "videos", cfg=cfg, show_progress=show_progress)
+    runner = StageRunner(
+        ctx.progress,
+        "videos",
+        cfg=cfg,
+        show_progress=show_progress,
+        recheck_unavailable=recheck_unavailable,
+        recheck_done=force,
+    )
 
     def key_of(video: Video) -> str:
         return f"video:{video.video_id}"
@@ -1353,7 +1373,8 @@ def stage_videos(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> St
     return result
 
 
-def stage_forum(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> StageResult:
+def stage_forum(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
+                recheck_unavailable: bool = False, force: bool = False) -> StageResult:
     """阶段 7：论坛讨论帖（评论为静态渲染，可完整归档）。"""
     cfg = ctx.cfg
     topics: list[tuple[str, str, str]] = []
@@ -1362,7 +1383,14 @@ def stage_forum(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> Sta
     if not topics:
         return StageResult(stage="forum")
 
-    runner = StageRunner(ctx.progress, "forum", cfg=cfg, show_progress=show_progress)
+    runner = StageRunner(
+        ctx.progress,
+        "forum",
+        cfg=cfg,
+        show_progress=show_progress,
+        recheck_unavailable=recheck_unavailable,
+        recheck_done=force,
+    )
 
     def key_of(topic: tuple[str, str, str]) -> str:
         return f"discussion:{topic[1]}"
@@ -1391,7 +1419,8 @@ def stage_forum(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> Sta
     return result
 
 
-def stage_miniblog(ctx: SyncContext, *, show_progress: bool, limit: int = 0) -> StageResult:
+def stage_miniblog(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
+                   recheck_unavailable: bool = False, force: bool = False) -> StageResult:
     """阶段 8：广播室动态流。"""
     cfg = ctx.cfg
     widgets = ctx.structure.widgets_of("miniblog")
@@ -1703,16 +1732,13 @@ def cmd_sync(args: argparse.Namespace) -> int:
             prepare_structure(ctx, stages)
             for name in stages:
                 func = STAGE_FUNCS[name]
-                if name in {"notes", "photos", "main"}:
-                    func(
-                        ctx,
-                        show_progress=args.progress,
-                        limit=args.limit,
-                        recheck_unavailable=args.recheck_unavailable,
-                        force=args.force,
-                    )
-                else:
-                    func(ctx, show_progress=args.progress, limit=args.limit)
+                func(
+                    ctx,
+                    show_progress=args.progress,
+                    limit=args.limit,
+                    recheck_unavailable=args.recheck_unavailable,
+                    force=args.force,
+                )
         except CircuitBreakerOpen as exc:
             log.error("已熔断停止：%s", exc)
             ctx.progress.save(force=True)
@@ -1733,6 +1759,14 @@ def cmd_sync(args: argparse.Namespace) -> int:
             ctx.save_data()
             log.warning("进度已保存，重新执行同一命令即可续跑。")
             return 130
+        except Exception as exc:
+            # 解析 bug / 异常响应 / 缺字段等不在上方两类中的异常会冒泡到此处，
+            # 必须先把内存里已解析但未落盘的批次数据写盘，否则 progress.json 已
+            # 标记 done 而 data/*.json 仍是旧快照，resume 时会永久丢失最后一批内容。
+            log.error("同步过程中发生未预期错误：%s", exc)
+            ctx.progress.save(force=True)
+            ctx.save_data()
+            raise
 
         ctx.refresh_unavailable()
 

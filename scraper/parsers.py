@@ -716,7 +716,9 @@ def parse_discussion(html: str, forum_id: str, discussion_id: str, url: str,
             from_node = info.select_one(".from a")
             if isinstance(from_node, Tag):
                 author = from_node.get_text(strip=True)
-        content = _link_report(soup)
+        # 正文优先取日记通用的 #link-report；讨论帖页面结构可能不含该容器，
+        # 此时回退到帖子本体，避免整篇讨论正文归档为空（“正文未能归档”）。
+        content = _link_report(soup) or _content_html(post)
 
     comments = parse_comment_items(soup)
 

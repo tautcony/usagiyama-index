@@ -234,10 +234,11 @@ class SiteDiscovery:
             return entries
 
         total_pages = parse_total_pages(page.html)
+        step = parse_page_step(page.html, self.cfg, NOTES_PER_PAGE)
         entries.extend(parse_note_list(page.html, widget_id, self.cfg))
 
         for index in range(1, total_pages):
-            start = index * NOTES_PER_PAGE
+            start = index * step
             url = self.cfg.notes_list_url(widget_id, start)
             sub = self.resolver.resolve(url, context=f"日记列表 {widget_id} 第 {index + 1} 页")
             if not sub.has_content:
