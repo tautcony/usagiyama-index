@@ -1,0 +1,28 @@
+scraper/cli.py
+  s_d1a961f18fd452::t_326e291680fe54 1244-1250,1300
+scraper/http_client.py
+  s_d1a961f18fd452::t_44f148c9e13d71 527-532
+scraper/tests/test_http_client.py
+  s_d1a961f18fd452::t_0659b9c351dc9b 164-172
+scraper/REVIEW-FINDINGS.md
+  s_d1a961f18fd452::t_81a32c22d6b9a3 95,97
+  s_d1a961f18fd452::t_5fc438a14e9c97 3,88-94,96
+scraper/verify.py
+  s_d1a961f18fd452::t_94c77ee2d4ade6 457-460,462
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "808999444258137e5e5f764dd1cec9210108280c",
+  "prompts": {},
+  "sessions": {
+    "s_d1a961f18fd452": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0a390-26d3-7e70-b425-ce75486ac202",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "TautCony <i@tautcony.xyz>"
+    }
+  }
+}
