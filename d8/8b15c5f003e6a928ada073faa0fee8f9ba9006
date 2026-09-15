@@ -1,0 +1,21 @@
+docs/.vitepress/config.mts
+  s_85ce0041e860df::t_bb8a90b0a0f55b 36
+.github/workflows/deploy-docs.yml
+  s_85ce0041e860df::t_bb8a90b0a0f55b 1-55
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "d88b15c5f003e6a928ada073faa0fee8f9ba9006",
+  "prompts": {},
+  "sessions": {
+    "s_85ce0041e860df": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0a3cf-ec8a-7590-8a84-c12a71ce6768",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "TautCony <i@tautcony.xyz>"
+    }
+  }
+}
