@@ -1,0 +1,19 @@
+scraper/emit.py
+  s_d1a961f18fd452::t_f141dd8f9ded3c 562-573
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "b7f4b1cb5615e0c32d7ef32dae628827f7a39591",
+  "prompts": {},
+  "sessions": {
+    "s_d1a961f18fd452": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0a390-26d3-7e70-b425-ce75486ac202",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "TautCony <i@tautcony.xyz>"
+    }
+  }
+}
