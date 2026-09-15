@@ -399,32 +399,40 @@ class SyncContext:
         它此前产出的数据必须能从 ``data/`` 恢复，否则会出现
         「索引分组为空 → sidebar 全空」「只跑 notes 阶段时结构丢失」这类问题。
         """
-        notes = read_json(self.cfg.data_dir / "notes.json", default={}) or {}
+        def payload_of(value: Any, default: Any) -> Any:
+            if isinstance(value, dict) and "_meta" in value:
+                return value.get("items", default) if "items" in value else {
+                    k: v for k, v in value.items() if k != "_meta"
+                }
+            return value
+
+        notes = payload_of(read_json(self.cfg.data_dir / "notes.json", default={}), {}) or {}
         for note_id, payload in notes.items():
             self.notes[note_id] = _note_from_dict(note_id, payload)
 
-        albums = read_json(self.cfg.data_dir / "albums.json", default={}) or {}
+        albums = payload_of(read_json(self.cfg.data_dir / "albums.json", default={}), {}) or {}
         for album_id, payload in albums.items():
             self.albums[album_id] = _album_from_dict(album_id, payload)
 
-        bulletins = read_json(self.cfg.data_dir / "bulletins.json", default={}) or {}
+        bulletins = payload_of(read_json(self.cfg.data_dir / "bulletins.json", default={}), {}) or {}
         for bid, payload in bulletins.items():
             self.bulletins[bid] = _bulletin_from_dict(bid, payload)
 
-        for payload in read_json(self.cfg.data_dir / "videos.json", default=[]) or []:
+        for payload in payload_of(read_json(self.cfg.data_dir / "videos.json", default=[]), []) or []:
             self.videos.append(_video_from_dict(payload))
 
-        for payload in read_json(self.cfg.data_dir / "forum.json", default=[]) or []:
+        for payload in payload_of(read_json(self.cfg.data_dir / "forum.json", default=[]), []) or []:
             self.discussions.append(_discussion_from_dict(payload))
 
-        for payload in read_json(self.cfg.data_dir / "miniblog.json", default=[]) or []:
+        for payload in payload_of(read_json(self.cfg.data_dir / "miniblog.json", default=[]), []) or []:
             self.miniblog.append(MiniblogStatus(**payload))
 
-        external = read_json(self.cfg.data_dir / "external.json", default={}) or {}
+        external = payload_of(read_json(self.cfg.data_dir / "external.json", default={}), {}) or {}
         for page_id, payload in external.items():
             self.external[page_id] = _external_from_dict(page_id, payload)
 
         index_payload = read_json(self.cfg.data_dir / "index.json", default=None)
+        index_payload = payload_of(index_payload, [])
         if index_payload:
             from .models import IndexEntry, IndexGroup
 
@@ -446,7 +454,7 @@ class SyncContext:
                     )
                 )
 
-        structure = read_json(self.cfg.data_dir / "structure.json", default=None)
+        structure = payload_of(read_json(self.cfg.data_dir / "structure.json", default=None), None)
         if structure:
             self._restore_structure(structure)
 
@@ -689,33 +697,44 @@ class SyncContext:
     def save_data(self) -> None:
         """把中间产物写入 ``data/``（供 ``emit`` 与人工查看）。"""
         cfg = self.cfg
+        updated_at = now_iso()
+
+        def stamped(value: Any) -> Any:
+            if isinstance(value, dict):
+                return {"_meta": {"updatedAt": updated_at}, **value}
+            return value
+
         write_json(
             cfg.data_dir / "notes.json",
-            {nid: n.to_dict() for nid, n in sorted(self.notes.items())},
+            stamped({nid: n.to_dict() for nid, n in sorted(self.notes.items())}),
         )
         write_json(
             cfg.data_dir / "albums.json",
-            {aid: a.to_dict() for aid, a in sorted(self.albums.items())},
+            stamped({aid: a.to_dict() for aid, a in sorted(self.albums.items())}),
         )
         write_json(
             cfg.data_dir / "bulletins.json",
-            {bid: b.to_dict() for bid, b in sorted(self.bulletins.items())},
+            stamped({bid: b.to_dict() for bid, b in sorted(self.bulletins.items())}),
         )
-        write_json(cfg.data_dir / "videos.json", [v.to_dict() for v in self.videos])
-        write_json(cfg.data_dir / "forum.json", [d.to_dict() for d in self.discussions])
-        write_json(cfg.data_dir / "miniblog.json", [m.to_dict() for m in self.miniblog])
+        write_json(cfg.data_dir / "videos.json", stamped([v.to_dict() for v in self.videos]))
+        write_json(cfg.data_dir / "forum.json", stamped([d.to_dict() for d in self.discussions]))
+        write_json(cfg.data_dir / "miniblog.json", stamped([m.to_dict() for m in self.miniblog]))
         write_json(
             cfg.data_dir / "external.json",
-            {pid: p.to_dict() for pid, p in sorted(self.external.items())},
+            stamped({pid: p.to_dict() for pid, p in sorted(self.external.items())}),
         )
         write_json(
             cfg.data_dir / "index.json",
-            [g.to_dict() for g in self.index_groups],
+            stamped([g.to_dict() for g in self.index_groups]),
         )
-        write_json(cfg.data_dir / "structure.json", self.structure.to_dict())
+        write_json(cfg.data_dir / "structure.json", stamped(self.structure.to_dict()))
         write_json(
             cfg.data_dir / "unavailable.json",
             [asdict(record) for record in self.unavailable],
+        )
+        write_json(
+            cfg.data_dir / "updated-at.json",
+            {"updatedAt": updated_at, "source": "sync"},
         )
 
     def build_manifest(self) -> dict[str, Any]:

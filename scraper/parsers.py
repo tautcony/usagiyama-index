@@ -231,11 +231,6 @@ def parse_bulletin(html: str, bulletin_id: str, url: str, room_id: str = "",
     )
 
 
-def parse_index_bulletin_content(html: str, cfg: Config = CONFIG) -> str:
-    """首页的索引公告（索引①/②）正文 HTML。"""
-    return _link_report(make_soup(html, cfg))
-
-
 # ---------------------------------------------------------------------- 日记
 
 

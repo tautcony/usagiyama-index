@@ -270,8 +270,3 @@ class WaybackClient:
 
     def stats(self) -> dict[str, object]:
         return self._fetcher.stats.to_dict()
-
-
-def wayback_calendar_url(url: str) -> str:
-    """给用户看的"查看所有快照"链接。"""
-    return f"{WAYBACK_WEB}/*/{url}"
