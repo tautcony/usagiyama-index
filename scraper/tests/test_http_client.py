@@ -12,6 +12,7 @@ import pytest
 
 from scraper.http_client import (
     BLOCKED_STATUS,
+    CURL_RETRYABLE_EXCEPTIONS,
     IMAGE_ACCEPT,
     NO_CACHE_STATUS,
     RETRYABLE_STATUS,
@@ -29,6 +30,7 @@ from scraper.http_client import (
     migrate_flat_cache,
     site_suffix,
 )
+from curl_cffi.requests.exceptions import CurlError
 
 
 JPEG = b"\xff\xd8\xff\xe0" + b"\x00" * 40
@@ -91,6 +93,11 @@ class TestStatusSets:
 
     def test_transient_statuses_not_cached(self) -> None:
         assert {429, 500, 502, 503, 504} <= NO_CACHE_STATUS
+
+    def test_retry_set_excludes_base_curl_error(self) -> None:
+        """WARN-6：重试集合不能含基类 ``CurlError``，否则 ``ImpersonateError``
+        （无效 USAGI_IMPERSONATE）等致命配置错误会被退避重试、掩盖真实错误。"""
+        assert CurlError not in CURL_RETRYABLE_EXCEPTIONS
 
 
 class TestDecodeHtml:
@@ -307,6 +314,23 @@ class TestBlockedCache:
         )
         assert result.from_cache
         assert result.status == 403
+
+    def test_fresh_blocked_body_returned_when_not_raising(self, cfg, sleeper) -> None:
+        """WARN-5：``raise_for_blocked=False`` 时，新鲜（未缓存）的 403 响应体也应
+        返回给调用方（archive.org 兜底路径需要拿到 body），而不是抛 ``BlockedError``。"""
+        session = FakeSession([FakeResponse(403, b"<html>denied</html>")])
+        result = Fetcher(cfg, session=session, sleep=sleeper.append).fetch(
+            self.TOPIC, raise_for_blocked=False
+        )
+        assert result.status == 403
+        assert result.content == b"<html>denied</html>"
+        assert not result.from_cache
+
+    def test_fresh_blocked_still_raises_by_default(self, cfg, sleeper) -> None:
+        """默认（``raise_for_blocked=True``）下新鲜 403 仍抛 ``BlockedError``。"""
+        session = FakeSession([FakeResponse(403, b"<html>denied</html>")])
+        with pytest.raises(BlockedError):
+            Fetcher(cfg, session=session, sleep=sleeper.append).fetch(self.TOPIC)
 
     def test_force_still_bypasses_cache(self, cfg, sleeper) -> None:
         """``force`` 与"缓存被认定为过期"是同一件事的两种入口，行为要一致。"""

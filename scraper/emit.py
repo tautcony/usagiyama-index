@@ -134,7 +134,7 @@ def source_footer(source_url: str, *, comment_count: int = 0, extra: str = "") -
     ``comment_count`` 用于在**评论未归档**时说明原因；评论已归档时
     由正文的评论区块自行展示数量，这里不再重复。
     """
-    parts = [f"*本页归档自 [原站页面]({source_url})"]
+    parts = [f"*本页归档自 [原站页面]({md_safe_url(source_url)})"]
     if comment_count:
         parts.append(f"原站另有 {comment_count} 条评论未能归档")
     if extra:
@@ -163,6 +163,24 @@ def html_attr(value: str) -> str:
     ``&`` 必须最先替换，否则会把后续替换产生的实体二次转义。
     """
     return html_text(value).replace('"', "&quot;")
+
+
+def md_escape_link_text(value: str) -> str:
+    """转义 Markdown 链接文字里的 ``[`` / ``]``，避免提前闭合链接括号。
+
+    标题如 ``C# [笔记]`` 会让 ``[text](url)`` 在首个 ``]`` 处提前闭合，
+    把 ``](url)`` 泄漏成可见文字。用反斜杠转义后被渲染为字面方括号。
+    """
+    return (value or "").replace("[", "\\[").replace("]", "\\]")
+
+
+def md_safe_url(value: str) -> str:
+    """把 URL 转成 Markdown 链接安全写法：含空格或括号时用尖括号包裹。"""
+    if not value:
+        return value
+    if any(ch in value for ch in (" ", "\t", "(", ")")):
+        return f"<{value}>"
+    return value
 
 
 def slug_anchor(text: str) -> str:
@@ -253,8 +271,20 @@ class SiteEmitter:
         if comments_block:
             blocks.append(comments_block)
 
-        # 只有确实没归档到评论时才提示数量缺口
-        missing_comments = note.comment_count if not note.comments else 0
+        # 评论数量缺口：只有当确实没归档到任何评论，或归档数量少于源站
+        # 声明的评论数（分页不全）时，才在来源标注里提示，否则会误导
+        # verify 阶段的源/快照比对（"## 评论（N）"的 N 会偏低且无从察觉）。
+        archived_comments = len(note.comments)
+        if archived_comments == 0:
+            missing_comments = note.comment_count
+        elif note.comment_count and archived_comments < note.comment_count:
+            missing_comments = note.comment_count - archived_comments
+            log.warning(
+                "日记 %s 评论分页不全：归档 %d 条，但源站显示 %d 条",
+                note.note_id, archived_comments, note.comment_count,
+            )
+        else:
+            missing_comments = 0
         blocks.append(source_footer(note.source_url, comment_count=missing_comments))
 
         path = self.cfg.notes_dir / f"{note.note_id}.md"
@@ -416,7 +446,7 @@ class SiteEmitter:
                 if page.status.availability != Availability.OK:
                     badge = f" <small class=\"badge-unavailable\">{page.status.label}</small>"
                 origin = f" — <small>{page.origin}</small>" if page.origin else ""
-                items.append(f"- [{page.title}]({page.route}){origin}{badge}")
+                items.append(f"- [{md_escape_link_text(page.title)}]({page.route}){origin}{badge}")
             blocks.append("\n".join(items))
         else:
             blocks.append("*还没有归档站外文章。*")
@@ -551,17 +581,17 @@ class SiteEmitter:
                     badge = ""
                     if note.status.availability != Availability.OK:
                         badge = f' <small class="badge-unavailable">{note.status.label}</small>'
-                    items.append(f"- [{note.title}]({route}){date}{badge}")
+                    items.append(f"- [{md_escape_link_text(note.title)}]({route}){date}{badge}")
                 else:
                     # 已归档的站外页面指向站内路由，否则保留外链并标注未归档
                     route = self.ctx.external_routes.get(entry.url) or self.ctx.external_routes.get(
                         entry.url.rstrip("/")
                     )
                     if route:
-                        items.append(f"- [{entry.title}]({route})")
+                        items.append(f"- [{md_escape_link_text(entry.title)}]({route})")
                     else:
                         badge = " <small class=\"badge-unavailable\">未归档</small>"
-                        items.append(f"- [{entry.title}]({entry.url}){badge}")
+                        items.append(f"- [{md_escape_link_text(entry.title)}]({md_safe_url(entry.url)}){badge}")
             blocks.append("\n".join(items))
 
         if fallback_notes:
@@ -670,7 +700,7 @@ class SiteEmitter:
             if notice:
                 blocks.append(notice)
                 self.report.unavailable_pages += 1
-            blocks.append(f"## {discussion.title}\n")
+            blocks.append(f"## {md_escape_link_text(discussion.title)}\n")
             meta_line = " · ".join(
                 part for part in [discussion.author, discussion.date] if part
             )
@@ -721,7 +751,7 @@ class SiteEmitter:
                 line += f" <small>{item.date}</small>"
             if title:
                 link = item.link_url or "#"
-                line += f"\n  - [{title}]({link})"
+                line += f"\n  - [{md_escape_link_text(title)}]({md_safe_url(link)})"
             blocks.append(line)
         if not statuses:
             blocks.append("*未能归档到动态。*")

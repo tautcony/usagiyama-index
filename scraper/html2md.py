@@ -55,6 +55,40 @@ def unwrap_link2(url: str) -> str:
     return target or url
 
 
+#: 允许出现在 Markdown 链接里的协议；其余（``javascript:`` / ``data:`` /
+#: ``file:`` 等）一律视为危险，退化为纯文字，避免注入可点击的 XSS 链接。
+#: 站内相对路径（无 scheme）与 ``/notes/…`` 这类 VitePress 路由也放行。
+_SAFE_URL_SCHEMES = ("http", "https", "mailto")
+
+
+def sanitize_markdown_url(url: str) -> str:
+    """把 URL 转成 Markdown 链接安全的写法。
+
+    * 拒绝 ``javascript:`` / ``data:`` 等危险协议（只放行 http(s)/mailto
+      与站内相对路径）；
+    * 含空格或 ``(`` / ``)`` 的 URL 用尖括号包裹，否则会破坏 ``[text](url)``
+      的语法——``)`` 会提前闭合括号，``(`` 同样让解析错位，导致链接目标泄漏。
+    """
+    if not url:
+        return url
+    parsed = urlparse(url)
+    if parsed.scheme and parsed.scheme.lower() not in _SAFE_URL_SCHEMES:
+        return ""
+    if any(ch in url for ch in (" ", "\t", "(", ")")):
+        return f"<{url}>"
+    return url
+
+
+def escape_markdown_link_text(text: str) -> str:
+    """转义 Markdown 链接文字里的 ``[`` / ``]``，避免提前闭合链接括号。
+
+    例如标题 ``C# [笔记]`` 会让 ``[text](url)`` 在第一个 ``]`` 处提前闭合、
+    把剩余 ``](url)`` 泄漏成可见文字。用反斜杠转义后 markdown-it 还原为字面
+    方括号，不会破坏链接。
+    """
+    return text.replace("[", "\\[").replace("]", "\\]")
+
+
 def _text_of(node: Tag) -> str:
     return node.get_text(strip=True)
 
@@ -102,9 +136,9 @@ class DoubanConverter(MarkdownConverter):
         alt = (el.get("alt") or "").strip()
         local = self.ctx.image_map.get(src)
         if local:
-            return f"![{alt}]({local})"
+            return f"![{escape_markdown_link_text(alt)}]({sanitize_markdown_url(local)})"
         if self.ctx.keep_remote_images:
-            return f"![{alt}]({src})"
+            return f"![{escape_markdown_link_text(alt)}]({sanitize_markdown_url(src)})"
         return ""
 
     def convert_a(self, el: Tag, text: str, parent_tags: set[str]) -> str:
@@ -115,7 +149,12 @@ class DoubanConverter(MarkdownConverter):
             return ""
         if not href or href.startswith("#"):
             return label
-        return f"[{label}]({self._rewrite_href(href)})"
+        target = self._rewrite_href(href)
+        safe_target = sanitize_markdown_url(target)
+        if not safe_target:
+            # 危险协议（javascript:/data: 等）退化为纯文字，不渲染可点击链接
+            return label
+        return f"[{escape_markdown_link_text(label)}]({safe_target})"
 
     def convert_table(self, el: Tag, text: str, parent_tags: set[str]) -> str:
         # 表格骨架已在预处理中拆掉；若仍有残留，退化为纯文本而非 Markdown 表格

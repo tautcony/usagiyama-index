@@ -280,7 +280,9 @@ class TestHelpers:
         assert parse_total_pages('<span data-total-page="5">1</span>') == 5
 
     def test_parse_total_pages_default(self) -> None:
-        assert parse_total_pages("<div></div>") == 1
+        # 没有 data-total-page 时返回 None（"无法确定"），由调用方告警/重试，
+        # 而不是静默当成单页截断多页列表。
+        assert parse_total_pages("<div></div>") is None
 
     def test_parse_page_step_from_paginator(self) -> None:
         html = """<div class="paginator">

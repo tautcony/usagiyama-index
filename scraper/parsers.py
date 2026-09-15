@@ -239,9 +239,18 @@ def parse_index_bulletin_content(html: str, cfg: Config = CONFIG) -> str:
 # ---------------------------------------------------------------------- 日记
 
 
-def parse_total_pages(html: str) -> int:
+def parse_total_pages(html: str) -> int | None:
+    """返回列表页的分页总数。
+
+    若页面里没有 ``data-total-page`` 属性（被拦截 / 畸形 / 非列表页），返回
+    ``None`` 表示"无法确定"，调用方应据此**记录告警或重试**，而不是默认当成
+    单页——否则多页列表会被静默截断、且没有任何信号。
+
+    调用方拿到 ``None`` 时通常按单页处理，但必须显式打日志，方便排查"抓到
+    的列表页数对不上"这类问题。
+    """
     match = re.search(r'data-total-page="(\d+)"', html or "")
-    return int(match.group(1)) if match else 1
+    return int(match.group(1)) if match else None
 
 
 #: 分页链接里的页偏移，形如 ``?start=30``

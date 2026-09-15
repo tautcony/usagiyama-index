@@ -33,6 +33,31 @@ class TestUnwrapLink2:
         assert unwrap_link2("") == ""
 
 
+class TestLinkSafety:
+    """WARN-9：不可信 URI 净化，避免 XSS 与链接语法破损。"""
+
+    def test_javascript_scheme_dropped(self) -> None:
+        # 评论里的 javascript: 链接不能变成可点击链接（XSS）
+        out = html_to_markdown('<a href="javascript:alert(1)">点我</a>')
+        assert out == "点我"
+        assert "javascript:" not in out
+
+    def test_bracket_in_label_escaped(self) -> None:
+        # 链接文字里的 ] 不应提前闭合链接括号
+        out = html_to_markdown('<a href="https://example.com/n">C# [笔记]</a>')
+        assert out == "[C# \\[笔记\\]](https://example.com/n)"
+
+    def test_url_with_paren_wrapped(self) -> None:
+        # 含 ) 的 URL 用尖括号包裹，避免破坏 [text](url) 语法
+        out = html_to_markdown('<a href="https://example.com/x(y)">链接</a>')
+        assert out == "[链接](<https://example.com/x(y)>)"
+
+    def test_data_scheme_dropped(self) -> None:
+        out = html_to_markdown('<a href="data:text/html,<script>x</script>">坏链</a>')
+        assert "data:text/html" not in out
+        assert out == "坏链"
+
+
 class TestBrHandling:
     """豆瓣靠 <br> 分行分段，这是还原语义的关键。"""
 

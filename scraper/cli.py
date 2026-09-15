@@ -1005,13 +1005,31 @@ def prepare_structure(ctx: SyncContext, stages: Sequence[str]) -> SiteStructure:
 
 def stage_rooms(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
                 recheck_unavailable: bool = False, force: bool = False) -> StageResult:
-    """阶段 1：房间与模块清单（结构已在 prepare_structure 中获取）。"""
+    """阶段 1：房间与模块清单（结构已在 prepare_structure 中获取）。
+
+    房间清单本身已在发现阶段抓取，这里只是把结果写进进度；仍经 StageRunner
+    路由，使 ``--force`` / ``--recheck-unavailable`` / ``--limit`` / 续跑能一致生效
+    （见 WARN-13）。
+    """
+    cfg = ctx.cfg
     rooms = ctx.structure.rooms
     if not rooms:
         raise SystemExit("未能发现任何房间，请检查网络或首页是否可访问")
 
-    for room in rooms:
-        key = f"room:{room.room_id}"
+    runner = StageRunner(
+        ctx.progress,
+        "rooms",
+        cfg=cfg,
+        show_progress=show_progress,
+        recheck_unavailable=recheck_unavailable,
+        recheck_done=force,
+    )
+
+    def key_of(room: Any) -> str:
+        return f"room:{room.room_id}"
+
+    def handler(room: Any) -> None:
+        key = key_of(room)
         if room.widgets:
             ctx.progress.mark_done(
                 key, stage="rooms", detail=f"{room.title}（{len(room.widgets)} 个模块）"
@@ -1019,7 +1037,7 @@ def stage_rooms(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
         else:
             record_source_failure(ctx.progress, key, room.status, stage="rooms", url=room.url)
 
-    result = StageResult(stage="rooms", total=len(rooms), processed=len(rooms))
+    result = runner.run(rooms, handler, key_of, desc="房间", limit=limit)
     ctx.results.append(result)
     log.info(
         "房间 %d 个，模块 %d 个",
@@ -1063,8 +1081,7 @@ def stage_bulletins(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
             key_of(widget), stage="bulletins", detail=truncate(bulletin.title, 40)
         )
 
-    items = widgets[:limit] if limit else widgets
-    result = runner.run(items, handler, key_of, desc="公告栏")
+    result = runner.run(widgets, handler, key_of, desc="公告栏", limit=limit)
     ctx.results.append(result)
 
     # 索引分组在 generate_site() 里统一重建，见 SyncContext.build_index_groups
@@ -1173,8 +1190,7 @@ def stage_notes(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
             comments=len(note.comments),
         )
 
-    items = entries[:limit] if limit else entries
-    result = runner.run(items, handler, key_of, desc="日记")
+    result = runner.run(entries, handler, key_of, desc="日记", limit=limit)
     ctx.results.append(result)
     return result
 
@@ -1275,39 +1291,63 @@ def stage_photos(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
                 key_of(pair), error or "图片归档失败", stage="photos", url=url
             )
 
-    items = pairs[:limit] if limit else pairs
-    result = runner.run(items, handler, key_of, desc="照片")
+    result = runner.run(pairs, handler, key_of, desc="照片", limit=limit)
     ctx.results.append(result)
     return result
 
 
 def stage_albums(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
                  recheck_unavailable: bool = False, force: bool = False) -> StageResult:
-    """阶段 5：汇总相册元信息（图片已在上一阶段归档）。"""
+    """阶段 5：汇总相册元信息（图片已在上一阶段归档）。
+
+    优先复用发现阶段已枚举好的照片（``ctx.structure.album_photos``），避免同步时
+    再次 resolve + 解析同一份列表页（见 WARN-12）；只有发现阶段没拿到枚举结果时
+    才现场抓取。
+    """
     cfg = ctx.cfg
     album_ids = list(ctx.structure.photo_ids.keys())
     if not album_ids:
         return StageResult(stage="albums")
-    if limit:
-        album_ids = album_ids[:limit]
 
-    for album_id in album_ids:
-        key = f"album:{album_id}"
+    runner = StageRunner(
+        ctx.progress,
+        "albums",
+        cfg=cfg,
+        show_progress=show_progress,
+        recheck_unavailable=recheck_unavailable,
+        recheck_done=force,
+    )
+
+    def key_of(album_id: str) -> str:
+        return f"album:{album_id}"
+
+    def handler(album_id: str) -> None:
         url = cfg.photos_list_url(album_id)
-        page = ctx.resolver.resolve(url, context=f"相册 {album_id}")
-        title = ctx.structure.album_titles.get(album_id, "")
-        if page.has_content and not title:
-            title = parse_album_title(page.html, cfg)
+        # 优先复用发现阶段枚举好的照片（含分页），省一次 resolve + 解析
+        stored_photos = ctx.structure.album_photos.get(album_id)
+        if stored_photos is not None:
+            photos = stored_photos
+            status = ctx.structure.album_status.get(album_id) or SourceStatus()
+            title = ctx.structure.album_titles.get(album_id, "")
+        else:
+            page = ctx.resolver.resolve(url, context=f"相册 {album_id}")
+            title = ctx.structure.album_titles.get(album_id, "")
+            if page.has_content and not title:
+                title = parse_album_title(page.html, cfg)
+            status = page.status
+            # 列表页分页：只读第一页会把后面的照片整批漏掉
+            photos = (
+                enumerate_album_photos(ctx.resolver, album_id, cfg, first_html=page.html)
+                if page.has_content else []
+            )
 
         album = Album(
             album_id=album_id,
             title=title or f"相册 {album_id}",
             source_url=url,
-            status=page.status,
+            status=status,
         )
-        if page.has_content:
-            # 列表页分页：只读第一页会把后面的照片整批漏掉
-            album.photos = enumerate_album_photos(ctx.resolver, album_id, cfg, first_html=page.html)
+        album.photos = photos
 
         # 复用 stage_photos 已解析的描述，避免重复请求；本地路径则以磁盘为准
         for photo in album.photos:
@@ -1326,13 +1366,11 @@ def stage_albums(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
                 photo.local = original[1]
 
         ctx.albums[album_id] = album
-        ctx.progress.mark_done(key, stage="albums", detail=f"{album.title}（{len(album.photos)} 张）")
+        ctx.progress.mark_done(
+            key_of(album_id), stage="albums", detail=f"{album.title}（{len(album.photos)} 张）"
+        )
 
-    result = StageResult(
-        stage="albums",
-        total=len(album_ids),
-        processed=len(album_ids),
-    )
+    result = runner.run(album_ids, handler, key_of, desc="相册", limit=limit)
     ctx.results.append(result)
     log.info("相册：%d 个，照片：%d 张", len(ctx.albums), sum(len(a.photos) for a in ctx.albums.values()))
     return result
@@ -1367,8 +1405,7 @@ def stage_videos(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
         merge_by(ctx.videos, [video], lambda v: v.video_id)
         ctx.progress.mark_done(key_of(video), stage="videos", detail=truncate(video.title, 40))
 
-    items = videos[:limit] if limit else videos
-    result = runner.run(items, handler, key_of, desc="视频")
+    result = runner.run(videos, handler, key_of, desc="视频", limit=limit)
     ctx.results.append(result)
     return result
 
@@ -1413,22 +1450,37 @@ def stage_forum(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
             key_of(topic), stage="forum", detail=f"{len(discussion.comments)} 条回应"
         )
 
-    items = topics[:limit] if limit else topics
-    result = runner.run(items, handler, key_of, desc="讨论帖")
+    result = runner.run(topics, handler, key_of, desc="讨论帖", limit=limit)
     ctx.results.append(result)
     return result
 
 
 def stage_miniblog(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
                    recheck_unavailable: bool = False, force: bool = False) -> StageResult:
-    """阶段 8：广播室动态流。"""
+    """阶段 8：广播室动态流。
+
+    经 StageRunner 路由，使续跑 / ``--force`` / ``--limit`` 能一致生效
+    （此前每轮无条件 ``mark_done``、从不查询进度，见 WARN-13）。
+    """
     cfg = ctx.cfg
     widgets = ctx.structure.widgets_of("miniblog")
     if not widgets:
         return StageResult(stage="miniblog")
 
-    for widget in widgets:
-        key = f"miniblog:{widget.widget_id}"
+    runner = StageRunner(
+        ctx.progress,
+        "miniblog",
+        cfg=cfg,
+        show_progress=show_progress,
+        recheck_unavailable=recheck_unavailable,
+        recheck_done=force,
+    )
+
+    def key_of(widget: Any) -> str:
+        return f"miniblog:{widget.widget_id}"
+
+    def handler(widget: Any) -> None:
+        key = key_of(widget)
         url = cfg.miniblog_url(widget.widget_id)
         page = ctx.resolver.resolve(url, context=f"广播室 {widget.title}")
         if not page.has_content:
@@ -1437,12 +1489,12 @@ def stage_miniblog(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
             page = ctx.resolver.resolve(room_url, context=f"广播室 {widget.title}")
         if not page.has_content:
             record_source_failure(ctx.progress, key, page.status, stage="miniblog", url=url)
-            continue
+            return
         statuses = parse_miniblog(page.html, cfg)
         merge_by(ctx.miniblog, statuses, lambda s: s.status_id)
         ctx.progress.mark_done(key, stage="miniblog", detail=f"{len(statuses)} 条动态")
 
-    result = StageResult(stage="miniblog", total=len(widgets), processed=len(widgets))
+    result = runner.run(widgets, handler, key_of, desc="广播室", limit=limit)
     ctx.results.append(result)
     return result
 
@@ -1490,8 +1542,6 @@ def stage_main(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
         ctx.build_index_groups()
 
     targets = _external_targets(ctx)
-    if limit:
-        targets = targets[:limit]
     if not targets:
         log.info("索引里没有指向站外（%s）的条目，跳过", "/".join(EXTERNAL_HOSTS))
         return StageResult(stage="main")
@@ -1529,7 +1579,7 @@ def stage_main(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
             detail=f"{truncate(external.title, 40)} · {len(external.comments)} 评论",
         )
 
-    result = runner.run(targets, handler, key_of, desc="站外页面")
+    result = runner.run(targets, handler, key_of, desc="站外页面", limit=limit)
     ctx.results.append(result)
     return result
 

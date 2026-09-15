@@ -180,6 +180,31 @@ class TestCheckSession:
         status = auth.check_session(cfg, session=FakeSession())
         assert status.logged_in is True
 
+    def test_probe_200_but_redirected_to_login_is_expired(self, cfg) -> None:
+        """WARN-7：allow_redirects=True 下，未登录可能被 302 到登录页（仍返回 200）。
+
+        不能因此误判为已登录。
+        """
+        save_state(cfg.auth_state_path, _state())
+
+        class FakeSession:
+            def __init__(self) -> None:
+                self.cookies = _FakeCookies()
+
+            def get(self, url, **kwargs):
+                return type(
+                    "R",
+                    (),
+                    {
+                        "status_code": 200,
+                        "url": "https://accounts.douban.com/passport/login",
+                    },
+                )()
+
+        status = auth.check_session(cfg, session=FakeSession())
+        assert status.logged_in is False
+        assert "登录" in status.detail
+
     def test_probe_403_means_expired(self, cfg) -> None:
         save_state(cfg.auth_state_path, _state())
 

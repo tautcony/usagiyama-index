@@ -443,11 +443,17 @@ class StageRunner:
         *,
         desc: str | None = None,
         on_unavailable: Callable[[T, str], None] | None = None,
+        limit: int = 0,
     ) -> StageResult:
         """依次处理 items，自动跳过已完成项。
 
         ``handler`` 抛出的 ``CircuitBreakerOpen`` 会向上冒泡（立即停止），
         其他异常记为失败并继续，保证单个坏页面不阻塞整体归档。
+
+        :param limit: 本次最多处理的**待办（pending）**单元数。注意是对
+            过滤掉已完成项之后的 ``todo`` 取上限，而不是对 ``items`` 全量
+            截断——否则续跑时前 ``limit`` 项早已 ``done`` 会被跳过，固定
+            ``--limit N`` 会永远卡在最前面那批，无法向前推进。
         """
         started = time.monotonic()
         result = StageResult(stage=self.stage, total=len(items))
@@ -463,6 +469,8 @@ class StageRunner:
         result.skipped = len(items) - len(pending_keys)
 
         todo = [item for item in items if key_of(item) in pending_keys]
+        if limit:
+            todo = todo[:limit]
         if not todo:
             result.elapsed = time.monotonic() - started
             log.info("%s：全部已完成，跳过（%d 项）", self.stage, result.total)

@@ -43,7 +43,6 @@ from curl_cffi.requests import Session
 from curl_cffi.requests.exceptions import (
     ChunkedEncodingError,
     ConnectionError as CurlConnectionError,
-    CurlError,
     IncompleteRead,
     SSLError as CurlSSLError,
     Timeout as CurlTimeout,
@@ -74,14 +73,19 @@ NO_CACHE_STATUS = frozenset({429, 500, 502, 503, 504, 508})
 # 但在 Config.untrusted_404_hosts 列出的域名上它不是 —— 见 is_untrusted_missing。
 MISSING_STATUS = 404
 
-# 可重试的网络异常（curl_cffi 的异常体系）
+# 可重试的网络异常（curl_cffi 的异常体系）。
+#
+# 只保留**具体的瞬态异常子类**，不要包含基类 ``CurlError``：``CurlError`` 是
+# 所有 curl_cffi 异常的父类，把它放进来会让 ``ImpersonateError``（``USAGI_IMPERSONATE``
+# 配了无效值）、``DNSError``、结构错误的 URL 等**致命配置错误**也被退避重试，
+# 每个请求白白重试 ``max_retries`` 次才失败，既掩盖真实配置错误、又把运行时间
+# 放大约 6×。瞬态的网络抖动由下面这些具体子类覆盖即可。
 CURL_RETRYABLE_EXCEPTIONS: tuple[type[BaseException], ...] = (
     CurlConnectionError,
     CurlTimeout,
     CurlSSLError,
     ChunkedEncodingError,
     IncompleteRead,
-    CurlError,
 )
 
 # 兼容旧名字（外部可能已导入）
@@ -582,7 +586,12 @@ class BaseFetcher:
         return None
 
     def _fetch_network(
-        self, url: str, referer: str | None, image: bool = False
+        self,
+        url: str,
+        referer: str | None,
+        image: bool = False,
+        *,
+        raise_for_blocked: bool = True,
     ) -> CachedResponse:
         try:
             raw = self._retryer()(self._attempt, url, referer, image=image)
@@ -619,7 +628,11 @@ class BaseFetcher:
                     f"进度已保存，稍后可直接续跑。",
                     raw.status,
                 )
-            raise blocked
+            if raise_for_blocked:
+                raise blocked
+            # 调用方显式要求"拿到被拦截的响应体"（例如拿 403 body 去走
+            # archive.org 兜底），此时不抛异常，直接把响应交回去。
+            return resp
 
         self._consecutive_blocked = 0
         # 不可信的 404（小站 widget 抖动）不能固化：不写缓存，下次运行重新请求
@@ -660,6 +673,8 @@ class BaseFetcher:
         :param referer: 部分资源（尤其 ``img*.doubanio.com``）需要 Referer 才返回 200。
         :param force: 忽略缓存强制重新请求。
         :param raise_for_blocked: 被拦截时是否抛 ``BlockedError``。
+            设为 ``False`` 时（如 archive.org 兜底路径）会返回被拦截的响应体，
+            **但缓存命中路径上的拦截仍由该参数控制**（见上方 ``BLOCKED_STATUS`` 分支）。
         :param image: 这是图片子资源请求，改用图片的请求头特征
             （见 :func:`image_request_headers`）。缓存命中时该参数无影响。
         """
@@ -679,7 +694,7 @@ class BaseFetcher:
         if self.offline:
             raise OfflineCacheMiss(url, "离线模式下缓存未命中")
 
-        return self._fetch_network(url, referer, image)
+        return self._fetch_network(url, referer, image, raise_for_blocked=raise_for_blocked)
 
     def _cache_is_stale(self, cached: CachedResponse, url: str) -> bool:
         """缓存里这份"拿不到"的结论是否可能已经被时间推翻（只在联网时问）。

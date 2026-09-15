@@ -188,6 +188,17 @@ def check_session(
         status = response.status_code
         final_url = str(getattr(response, "url", "") or "")
         if status == 200:
+            # allow_redirects=True 下，未登录可能被 302 跳转到登录页
+            # （accounts.douban.com/passport/login），而该页同样返回 200。
+            # 此时不能判为"已登录"，必须确认最终落点不是 passport/login 域，
+            # 否则会用早已失效的 cookie 继续抓取。
+            if LOGIN_PAGE_URL in final_url or "accounts.douban.com" in final_url:
+                return SessionStatus(
+                    logged_in=False,
+                    detail=f"会话已失效，被重定向到登录页（{final_url}）",
+                    cookie_count=len(cookies),
+                    state_path=path,
+                )
             return SessionStatus(
                 logged_in=True,
                 detail=f"会话有效（{SESSION_PROBE_URL} → 200）",

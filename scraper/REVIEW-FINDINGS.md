@@ -36,47 +36,47 @@
 
 ## 🟠 Warning — 正确性 / 安全 / 效率
 
-- [ ] **WARN-5 `raise_for_blocked` 对新鲜网络响应无效**
+- [x] **WARN-5 `raise_for_blocked` 对新鲜网络响应无效**
   `http_client.py:584-622`
   该 flag 仅在 cache-hit 路径（675 行）生效；`_fetch_network` 对新鲜 403/418/Challenge 始终抛 `BlockedError`。`fetch(url, raise_for_blocked=False)` 想拿到 403 body 去走 archive.org fallback，却拿到异常。
   *修复：* 将 `raise_for_blocked` 传入 `_fetch_network`，在 622 行 raise 处加 `if raise_for_blocked:` 守卫。
 
-- [ ] **WARN-6 重试集合含基类 `CurlError` 掩盖致命配置**
+- [x] **WARN-6 重试集合含基类 `CurlError` 掩盖致命配置**
   `http_client.py:78-85`
   `CurlError` 是 curl_cffi 异常基类的父类，`CURL_RETRYABLE_EXCEPTIONS` 会重试结构性致命错误（`ImpersonateError` 来自错误 `USAGI_IMPERSONATE`、错误 URL）。无效 impersonate 值使每个请求重试 `max_retries` 次后才失败，掩盖真实配置错误并放大约 6× 运行时间。
   *修复：* 去掉裸 `CurlError`，保留具体子类或排除 `ImpersonateError`。
 
-- [ ] **WARN-7 `check_session` 仅信任 `status == 200`**
+- [x] **WARN-7 `check_session` 仅信任 `status == 200`**
   `auth.py:187-202`
   `allow_redirects=True` 下，未登录请求 302 跳转到返回 200 的登录页会被判为"会话有效"，随后用失效 cookie 抓取。
   *修复：* 同时校验 `final_url` 非 passport/login 域名，或复查响应 cookie 中 `dbcl2`/`ck` 是否存在。
 
-- [ ] **WARN-8 部分评论归档未告警**
+- [x] **WARN-8 部分评论归档未告警**
   `emit.py:257`
   `missing_comments = note.comment_count if not note.comments else 0`。若归档评论数少于 `comment_count`（分页不全），无告警且 `## 评论（N）` 计数偏低，误导 `verify` 的源/快照比对。
   *修复：* 比较 `len(note.comments)` 与 `note.comment_count`，不一致时告警。
 
-- [ ] **WARN-9 不可信 URI 未净化即写入 Markdown（XSS）**
+- [x] **WARN-9 不可信 URI 未净化即写入 Markdown（XSS）**
   `html2md.py:93-118`、`emit.py:554,761,419,673,724`
   归档评论为外部不可信内容，`convert_a` 将 `href` 原样插入。评论含 `javascript:alert(1)` → 可点击 XSS 链接；含 `)` 的 URL 破坏链接语法。标题含 `[`/`]`（如 "C# [笔记]"）会提前闭合链接括号。
   *修复：* 拒绝非 `http(s)` 协议；含空格/`)` 的 URL 用 `<…>` 包裹；链接文本中转义 `[`/`]`。
 
-- [ ] **WARN-10 `parse_total_pages` 静默返回 1**
+- [x] **WARN-10 `parse_total_pages` 静默返回 1**
   `parsers.py:242-244`
   `data-total-page` 缺失（畸形/被拦截页）时假定单页，无信号地截断多页列表。
   *修复：* 返回 `None`/抛 "undetermined"，让调用方重试/记录。
 
-- [ ] **WARN-11 `--limit` 在 resume 过滤前截断 → 无法推进**
+- [x] **WARN-11 `--limit` 在 resume 过滤前截断 → 无法推进**
   `cli.py:1165,1267,1280,1350,1388`
   `items = entries[:limit]` 截断全量列表，再经 `StageRunner` 过滤 pending。resume 时前 `limit` 项已 `done` 被跳过，固定 `--limit N` 永远卡在前 N 项。
   *修复：* 对 pending key 集合（或 `todo`）应用 `limit`，而非全量列表。
 
-- [ ] **WARN-12 album 列表页每次 sync 抓取两次**
+- [x] **WARN-12 album 列表页每次 sync 抓取两次**
   `discover.py:270` ↔ `cli.py:1298`
   `discover_photos`→`enumerate_album_photos` 已抓每 album 列表页，随后 `stage_albums` 对相同 album 再次调用（即便有磁盘缓存也冗余）。
   *修复：* 持久化/复用 discovery 的枚举结果到 `stage_albums`。
 
-- [ ] **WARN-13 `stage_rooms`/`stage_albums`/`stage_miniblog` 忽略 resume**
+- [x] **WARN-13 `stage_rooms`/`stage_albums`/`stage_miniblog` 忽略 resume**
   `cli.py:1005,1273,1394`
   未使用 `StageRunner`，从不查询 `progress` → 每次全量重解析（无跳过、无 `recheck`）。效率损失且无法一致地 force/limit。
   *修复：* 经 `StageRunner` 路由并带 `recheck_done`/`recheck_unavailable`。

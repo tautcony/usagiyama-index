@@ -11,7 +11,7 @@ import logging
 from dataclasses import dataclass, field
 
 from .config import CONFIG, Config
-from .models import Bulletin, PhotoMeta, Room, Video, Widget
+from .models import Bulletin, PhotoMeta, Room, SourceStatus, Video, Widget
 from .parsers import (
     NoteListEntry,
     parse_album_title,
@@ -46,6 +46,10 @@ class SiteStructure:
     note_entries: list[NoteListEntry] = field(default_factory=list)
     photo_ids: dict[str, list[str]] = field(default_factory=dict)
     album_titles: dict[str, str] = field(default_factory=dict)
+    #: 发现阶段枚举得到的相册照片（含分页），供 stage_albums 复用，
+    #: 避免同步时再次 resolve + 解析同一份列表页（见 WARN-12）。
+    album_photos: dict[str, list[PhotoMeta]] = field(default_factory=dict)
+    album_status: dict[str, SourceStatus] = field(default_factory=dict)
     videos: list[Video] = field(default_factory=list)
     forum_topics: dict[str, list[tuple[str, str]]] = field(default_factory=dict)
 
@@ -138,7 +142,13 @@ def enumerate_album_photos(
     absorb(first_html)
 
     step = parse_page_step(first_html, cfg, PHOTOS_PER_PAGE)
-    for index in range(1, parse_total_pages(first_html)):
+    total_pages = parse_total_pages(first_html)
+    if total_pages is None:
+        log.warning(
+            "相册 %s 列表页未找到分页信息（可能是被拦截或页面畸形），按单页处理", album_id
+        )
+        total_pages = 1
+    for index in range(1, total_pages):
         url = cfg.photos_list_url(album_id, index * step)
         sub = resolver.resolve(url, context=f"相册列表 {album_id} 第 {index + 1} 页")
         if sub.has_content:
@@ -234,6 +244,12 @@ class SiteDiscovery:
             return entries
 
         total_pages = parse_total_pages(page.html)
+        if total_pages is None:
+            log.warning(
+                "日记模块 %s 列表页未找到分页信息（可能是被拦截或页面畸形），按单页处理",
+                widget_id,
+            )
+            total_pages = 1
         step = parse_page_step(page.html, self.cfg, NOTES_PER_PAGE)
         entries.extend(parse_note_list(page.html, widget_id, self.cfg))
 
@@ -269,8 +285,14 @@ class SiteDiscovery:
         self.structure.album_titles.setdefault(album_id, parse_album_title(page.html, self.cfg))
 
         photos = enumerate_album_photos(self.resolver, album_id, self.cfg, first_html=page.html)
+        pages = parse_total_pages(page.html)
+        # 把枚举结果连同列表页状态一起存下来，供 stage_albums 复用，
+        # 避免同步时再次 resolve + 解析同一份列表页（见 WARN-12）。
+        self.structure.album_photos[album_id] = photos
+        self.structure.album_status[album_id] = page.status
         log.info(
-            "  相册 %s：%d 张（共 %d 页）", album_id, len(photos), parse_total_pages(page.html)
+            "  相册 %s：%d 张（共 %s 页）",
+            album_id, len(photos), pages if pages is not None else "?",
         )
         return [meta.photo_id for meta in photos]
 
