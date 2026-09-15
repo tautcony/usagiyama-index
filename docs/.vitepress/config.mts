@@ -33,6 +33,7 @@ const defuseVueBraces = (md: any): void => {
 }
 
 export default defineConfig({
+  base: process.env.BASE_PATH ?? '/',
   lang: 'zh-CN',
   title: '兔子山的小站',
   description:
