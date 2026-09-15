@@ -1,0 +1,16 @@
+pyproject.toml
+  h_3705811fa4502c 9
+scraper/config.py
+  h_3705811fa4502c 163
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "7ce63059a44532de5ce2c46b2c1ce5c1c2cab610",
+  "prompts": {},
+  "humans": {
+    "h_3705811fa4502c": {
+      "author": "TautCony <i@tautcony.xyz>"
+    }
+  }
+}
