@@ -233,6 +233,7 @@ class SiteEmitter:
 
     def emit_note(self, note: Note) -> Path:
         """渲染一篇日记。"""
+        output_path = self.cfg.notes_dir / f"{note.note_id}.md"
         context = ConvertContext(
             note_id=note.note_id,
             route_map=self.ctx.route_map,
@@ -252,7 +253,7 @@ class SiteEmitter:
             "source": note.source_url,
             "commentCount": note.comment_count or None,
             "availability": str(note.status.availability),
-            "archivedAt": now_iso()[:10],
+            "archivedAt": self._archived_at(output_path),
         }
         blocks.append(frontmatter(fm))
 
@@ -287,7 +288,7 @@ class SiteEmitter:
             missing_comments = 0
         blocks.append(source_footer(note.source_url, comment_count=missing_comments))
 
-        path = self.cfg.notes_dir / f"{note.note_id}.md"
+        path = output_path
         atomic_write_text(path, "\n\n".join(blocks) + "\n")
         self.report.notes += 1
         return path
@@ -319,6 +320,7 @@ class SiteEmitter:
 
     def emit_album(self, album: Album) -> Path:
         """渲染一个相册（瀑布流网格 + 原图链接）。"""
+        output_path = self.cfg.albums_dir / f"{album.album_id}.md"
         blocks: list[str] = []
         fm = {
             "title": album.title or f"相册 {album.album_id}",
@@ -326,7 +328,7 @@ class SiteEmitter:
             "photoCount": len(album.photos),
             "source": album.source_url,
             "availability": str(album.status.availability),
-            "archivedAt": now_iso()[:10],
+            "archivedAt": self._archived_at(output_path),
         }
         blocks.append(frontmatter(fm))
 
@@ -381,7 +383,7 @@ class SiteEmitter:
         self.report.albums += 1
         self.report.photos += len([p for p in album.photos if p.local])
 
-        path = self.cfg.albums_dir / f"{album.album_id}.md"
+        path = output_path
         atomic_write_text(path, "\n\n".join(blocks) + "\n")
         return path
 
@@ -551,6 +553,14 @@ class SiteEmitter:
         return path
 
     # ------------------------------------------------------------ 文章索引页
+
+    def _archived_at(self, path: Path) -> str:
+        """Keep the original archive date when regenerating unchanged output."""
+        if path.exists():
+            match = re.search(r"^archivedAt:\s*(\S+)", path.read_text(encoding="utf-8"), re.MULTILINE)
+            if match:
+                return match.group(1)
+        return now_iso()[:10]
 
     def _resolve_entry_route(self, entry: Any, notes: dict[str, Note]) -> str | None:
         """为索引条目解析站内路由（消除 emit_notes_index / emit_sidebar 的重复，见 SUG-17）。

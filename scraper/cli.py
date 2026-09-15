@@ -1785,7 +1785,12 @@ def cmd_sync(args: argparse.Namespace) -> int:
         log.info("=" * 68)
 
         try:
+            # Always revalidate discovery/list pages.  Completed progress items
+            # may still have changed upstream; only unchanged detail stages
+            # remain skipped afterwards.
+            ctx.resolver.revalidate = True
             prepare_structure(ctx, stages)
+            ctx.resolver.revalidate = False
             for name in stages:
                 func = STAGE_FUNCS[name]
                 func(

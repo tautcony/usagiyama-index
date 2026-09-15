@@ -106,6 +106,9 @@ class PageResolver:
         #: 本次运行成功取回的页面地址。清单要剔除"已经补回来的"条目，
         #: 光看失败列表做不到——成功时根本不产生记录，旧记录便永远留在清单里。
         self.resolved_ok: set[str] = set()
+        # Sync discovery must revalidate listing pages even when detail stages
+        # are already complete; callers can enable this for one crawl.
+        self.revalidate = False
 
     # ------------------------------------------------------------------ 核心
 
@@ -120,7 +123,7 @@ class PageResolver:
     ) -> ResolvedPage:
         """抓取页面；失败则标记并尝试 archive.org 补足。"""
         try:
-            resp = self.fetcher.fetch(url, referer=referer, force=force)
+            resp = self.fetcher.fetch(url, referer=referer, force=(force or self.revalidate))
         except CircuitBreakerOpen:
             raise
         except BlockedError as exc:
