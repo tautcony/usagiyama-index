@@ -56,8 +56,8 @@ PHOTO_IMG_SIZE_PREFERENCE = ("large", "l", "photo")
 PHOTO_ORIGINAL_SELECTORS = ("#original a[href]", "a[title='查看原图'][href]")
 # 原图 URL（``raw`` 尺寸）
 PHOTO_RAW_RE = re.compile(r"/view/photo/raw/public/p\d+\.\w+$")
-#: 相册照片描述容器。注意真实类名是 ``phodesc``（**没有**连字符），
-#: 它在 ``#link-report`` 里面；直接取 ``#link-report`` 会把整页的
+#: 相册照片描述容器，真实类名为 ``phodesc``（无连字符），位于
+#: ``#link-report`` 内；直接取 ``#link-report`` 会把整页的
 #: "> 返回相册 第N张 / 共M张 上一张 / 下一张 … 查看原图 投诉" 全带上。
 PHOTO_DESC_SELECTORS = (".phodesc", ".photo-desc")
 #: 描述容器里的界面元素（不是照片本身的描述）

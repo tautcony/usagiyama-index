@@ -61,8 +61,8 @@ log = logging.getLogger("usagi.browser")
 # 该页面本身是 JS 渲染的，取回为空，不要去解析它的 HTML。
 CHALLENGE_HOST = "sec.douban.com"
 
-# 这些资源类型一律拦截：图片另有下载通道，视频只存缩略图，字体纯排版。
-# 注意不要拦 stylesheet —— 元素"不可见"会干扰后续的可见性判断，且 CSS 体积很小。
+# 拦截图片、媒体和字体：图片另有下载通道，视频只存缩略图，字体仅用于排版。
+# 保留 stylesheet；否则元素可见性判断会失真，且 CSS 体积很小。
 #
 # **仅用于抓取**。登录流程绝不能套这套策略：豆瓣的风控验证码
 # （turing.captcha.qcloud.com 的滑块拼图）本身就是图片资源，
@@ -126,8 +126,8 @@ def make_route_handler() -> Callable[[Any], None]:
     **只给抓取用**，不要用在登录流程 —— 它会拦掉所有图片，
     而风控验证码本身就是图片（详见 ``BLOCKED_RESOURCE_TYPES`` 的说明）。
 
-    注意：注册路由后**每个**匹配的请求都必须显式 ``continue_()`` 或 ``abort()``，
-    否则请求会永久挂起。回调内部抛异常也会导致挂起，因此这里兜底放行。
+    每个匹配请求都必须显式 ``continue_()`` 或 ``abort()``；回调异常时兜底放行，
+    避免请求挂起。登录流程不可复用此拦截器。
     """
 
     def handler(route: Any) -> None:

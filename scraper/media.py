@@ -94,8 +94,8 @@ PREVIEW_SUFFIX_ORDER = (".webp", ".jpg", ".jpeg", ".png", ".gif")
 NOTE_SIZE_ORDER = ("raw", "large", "medium", "small")
 ALBUM_SIZE_ORDER = ("large", "photo", "m", "thumb")
 # 相册原图（详情页"查看原图"链接）的升级顺序：原图拿不到时逐级退回。
-# 注意 ``raw`` 是上传时的原文件，尺寸与格式都由上传者决定，未必比 ``large`` 大
-# —— ``large`` 是豆瓣的处理版，长边固定 1600（小图还会被放大），两者不可互换。
+# ``raw`` 是上传时的原文件，尺寸与格式由上传者决定，未必比 ``large`` 大；
+# ``large`` 是豆瓣的处理版，长边固定 1600（小图还会被放大）。
 ORIGINAL_SIZE_ORDER = ("raw", "large", "photo", "m", "thumb")
 
 

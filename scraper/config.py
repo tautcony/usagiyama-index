@@ -44,7 +44,7 @@ ROBOTS_CRAWL_DELAY = 5.0
 #: 请求间隔档位：``名字 → (下限秒, 上限秒)``，实际间隔在其中随机抖动。
 #: 名字描述的是"有多客气"，不是"有多快"：默认档之所以慢，是因为它正好卡在
 #: ``Crawl-delay: 5`` 上，而不是因为技术上做不到更快。另外两档都是**明确
-#: 快于** robots.txt 建议值的选项，选之前请自行确认可以接受。
+#: 快于 robots.txt 建议值；使用前需确认可以接受该请求频率。
 SPEED_TIERS: dict[str, tuple[float, float]] = {
     "cautious": (5.0, 7.0),
     "normal": (2.0, 3.0),
@@ -198,10 +198,8 @@ class Config:
     browser_nav_timeout_ms: int = field(
         default_factory=lambda: int(_env_float("USAGI_BROWSER_NAV_TIMEOUT_MS", 45_000))
     )
-    # 无头启动会让 Chrome 在 UA 里带上 "HeadlessChrome" 标识，而有头时同一个
-    # Chrome 发的是 "Chrome"。这只是我们选了无头启动的副作用，并不代表换了客户端，
-    # 因此默认把它改回来（基于浏览器自己的真实版本号，不伪造版本）。
-    # 注意：navigator.webdriver 不在此列——那是真正的自动化标记，不做处理。
+    # 无头 Chrome 的 UA 会带上 "HeadlessChrome"；默认仅将其替换为浏览器自身的
+    # 真实版本号。navigator.webdriver 属于自动化标记，保持原值。
     browser_normalize_headless_ua: bool = field(
         default_factory=lambda: _env_bool("USAGI_BROWSER_NORMALIZE_UA", True)
     )

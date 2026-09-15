@@ -32,8 +32,8 @@ from .util import atomic_write_text, now_iso, read_json
 
 log = logging.getLogger("usagi.auth")
 
-# 豆瓣登录成功后 ``.douban.com`` 上会同时存在这两个 cookie。
-# 注意 ``bid`` **不是**判据——未登录访问也会下发。
+# 豆瓣登录成功后 ``.douban.com`` 上会同时存在这两个 cookie；``bid``
+# 不作判据，因为未登录访问也会下发。
 LOGIN_COOKIE_NAMES = ("dbcl2", "ck")
 
 DOUBAN_COOKIE_DOMAIN = ".douban.com"
@@ -188,10 +188,8 @@ def check_session(
         status = response.status_code
         final_url = str(getattr(response, "url", "") or "")
         if status == 200:
-            # allow_redirects=True 下，未登录可能被 302 跳转到登录页
-            # （accounts.douban.com/passport/login），而该页同样返回 200。
-            # 此时不能判为"已登录"，必须确认最终落点不是 passport/login 域，
-            # 否则会用早已失效的 cookie 继续抓取。
+            # 未登录可能 302 到同样返回 200 的登录页，因此还要确认最终落点
+            # 不在 accounts.douban.com，避免使用失效 cookie 继续抓取。
             if LOGIN_PAGE_URL in final_url or "accounts.douban.com" in final_url:
                 return SessionStatus(
                     logged_in=False,

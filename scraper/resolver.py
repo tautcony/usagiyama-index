@@ -173,13 +173,13 @@ class PageResolver:
         确认请求同样走限速与熔断；它自己失败（被拦截 / 离线 / 网络错误）时
         沿用第一次的结果，不改变判定。
         """
-        log.warning("源站返回 %s，但该域名上的 404 不可信，确认一次：%s", first.status, url)
+        log.warning("源站返回 %s，重试确认：%s", first.status, url)
         try:
             return self.fetcher.fetch(url, referer=referer, force=True)
         except CircuitBreakerOpen:
             raise
         except FetchError as exc:
-            log.warning("确认请求未成功（%s），沿用首次结果", exc)
+            log.warning("确认请求失败（%s），沿用首次结果", exc)
             return first
 
     def _fallback(

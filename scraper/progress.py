@@ -450,10 +450,9 @@ class StageRunner:
         ``handler`` 抛出的 ``CircuitBreakerOpen`` 会向上冒泡（立即停止），
         其他异常记为失败并继续，保证单个坏页面不阻塞整体归档。
 
-        :param limit: 本次最多处理的**待办（pending）**单元数。注意是对
-            过滤掉已完成项之后的 ``todo`` 取上限，而不是对 ``items`` 全量
-            截断——否则续跑时前 ``limit`` 项早已 ``done`` 会被跳过，固定
-            ``--limit N`` 会永远卡在最前面那批，无法向前推进。
+        :param limit: 本次最多处理的待办（pending）单元数。上限应用于
+            过滤后的 ``todo``，而非 ``items`` 全量；这样续跑时
+            ``--limit N`` 才能持续向后推进。
         """
         started = time.monotonic()
         result = StageResult(stage=self.stage, total=len(items))

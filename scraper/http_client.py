@@ -15,9 +15,8 @@
   例外是**不可信的 404**（见 :func:`is_untrusted_missing`）：既不入缓存、
   也不从缓存里取，避免源站一次抖动被永久固化。
 * **礼貌限速**：单线程，请求间隔 ``delay_min ~ delay_max`` 随机抖动。
-  豆瓣 ``www.douban.com/robots.txt`` 注明 ``Crawl-delay: 5``，默认以此为下限。
-  注意间隔按「距上次请求**开始**的时间」计算，因此浏览器导航耗时会被吸收进间隔里，
-  单请求总时长是 ``max(delay, 导航耗时)`` 而非两者相加。
+  豆瓣 ``www.douban.com/robots.txt`` 注明 ``Crawl-delay: 5``，默认以此为下限；
+  间隔从上次请求开始计时，因此单请求总时长为 ``max(delay, 导航耗时)``。
 * **指数退避**：由 tenacity 提供（指数增长 + 抖动）。
 * **熔断**：连续 N 次被拦截（403/418）立即停止，避免把 IP 拖进黑名单。
 * **不规避风控**：固定指纹、不轮换 UA、不轮换代理。
@@ -95,8 +94,8 @@ RETRYABLE_EXCEPTIONS = CURL_RETRYABLE_EXCEPTIONS
 # ------------------------------------------------------------------ 请求头特征
 
 #: 浏览器加载图片时的 ``Accept``。
-#: 注意与导航用的 ``text/html,application/xhtml+xml,…`` 完全不同 —— 后者对图片请求
-#: 是个明显的错配信号。
+#: 与导航用的 ``text/html,application/xhtml+xml,…`` 不同；导航头请求图片
+#: 会形成明显的错配信号。
 IMAGE_ACCEPT = "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8"
 
 #: 只属于导航、图片请求里不该出现的头。curl_cffi 的 impersonate 会注入它们，
