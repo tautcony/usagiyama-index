@@ -145,7 +145,7 @@ def enumerate_album_photos(
     total_pages = parse_total_pages(first_html)
     if total_pages is None:
         log.warning(
-            "相册 %s 列表页未找到分页信息（可能是被拦截或页面畸形），按单页处理", album_id
+            "相册 %s 列表页未找到分页信息，按单页处理", album_id
         )
         total_pages = 1
     for index in range(1, total_pages):
@@ -246,7 +246,7 @@ class SiteDiscovery:
         total_pages = parse_total_pages(page.html)
         if total_pages is None:
             log.warning(
-                "日记模块 %s 列表页未找到分页信息（可能是被拦截或页面畸形），按单页处理",
+                "日记模块 %s 列表页未找到分页信息，按单页处理",
                 widget_id,
             )
             total_pages = 1

@@ -113,9 +113,7 @@ ROBOTS_NOTICE = """
     https://site.douban.com/robots.txt  →  User-agent: * / Disallow: /
     https://www.douban.com/robots.txt   →  部分禁止，并注明 Crawl-delay: 5
 
-本工具以「单线程 + 请求间隔 {interval} + 指数退避 + 熔断」的方式运行，
-不轮换 UA、不轮换代理、不做指纹伪装，仅使用固定的浏览器指纹
-（curl_cffi impersonate={impersonate}）以通过服务端的 TLS 校验。
+本工具以「单线程 + 请求间隔 {interval} + 指数退避 + 熔断」的方式运行。
 {tier_note}
 请仅将归档结果用于个人保存与阅读。确认理解后，加上 --i-have-read-robots 重新运行。
 """
