@@ -1,0 +1,16 @@
+data/structure.json
+  h_3705811fa4502c 406-2502
+data/sync-report.md
+  h_3705811fa4502c 3,28-36,40-41,44,46
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "9a0dce93fd6fe380b942c7be3e5d5ddc60e62427",
+  "prompts": {},
+  "humans": {
+    "h_3705811fa4502c": {
+      "author": "TautCony <i@tautcony.xyz>"
+    }
+  }
+}
