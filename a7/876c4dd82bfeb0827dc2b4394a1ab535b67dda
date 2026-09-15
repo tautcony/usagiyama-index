@@ -1,0 +1,16 @@
+scraper/discover.py
+  h_3705811fa4502c 148,249
+scraper/cli.py
+  h_3705811fa4502c 116
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "a7876c4dd82bfeb0827dc2b4394a1ab535b67dda",
+  "prompts": {},
+  "humans": {
+    "h_3705811fa4502c": {
+      "author": "TautCony <i@tautcony.xyz>"
+    }
+  }
+}
