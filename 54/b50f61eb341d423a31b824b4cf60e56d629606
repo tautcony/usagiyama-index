@@ -1,0 +1,30 @@
+scraper/SCRAPER.md
+  s_43edefd66efcee::t_9f6d622499793c 128-130,134,137,148,166,168,200,206
+  s_43edefd66efcee::t_7fa012771a6e23 170-171
+  s_43edefd66efcee::t_0bcc9ce1c63a8e 7-8,14-15,20,22,75
+  s_43edefd66efcee::t_28728642534a0d 197-198
+README.md
+  s_43edefd66efcee::t_b780ffba330ca0 151
+  s_43edefd66efcee::t_dc26b457b3ee0f 141-142
+  s_43edefd66efcee::t_0bcc9ce1c63a8e 4,21,23-24,26,29
+scraper/README.md
+  s_43edefd66efcee::t_d72ae429ae04e1 379,413
+  s_43edefd66efcee::t_0bcc9ce1c63a8e 4,60,72,91,209,253
+  s_43edefd66efcee::t_b780ffba330ca0 170,326
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "54b50f61eb341d423a31b824b4cf60e56d629606",
+  "prompts": {},
+  "sessions": {
+    "s_43edefd66efcee": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0a3d1-d335-7671-9d2d-ad2c11aac6bc",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "TautCony <i@tautcony.xyz>"
+    }
+  }
+}
