@@ -1,0 +1,38 @@
+scraper/REVIEW-FINDINGS.md
+  h_3705811fa4502c 39,44,49,54,59,64,69,74,79
+scraper/auth.py
+  h_3705811fa4502c 191-201
+scraper/cli.py
+  h_3705811fa4502c 1008-1014,1019-1032,1040,1084,1193,1294,1301-1306,1312-1324,1326-1342,1348,1350,1369-1371,1373,1408,1453,1460-1464,1470-1483,1492,1497,1582
+scraper/discover.py
+  h_3705811fa4502c 14,49-52,145-151,247-252,288-292,294-295
+scraper/emit.py
+  h_3705811fa4502c 137,168-185,274-287,449,584,591,594,703,754
+scraper/html2md.py
+  h_3705811fa4502c 58-91,139,141,152-157
+scraper/http_client.py
+  h_3705811fa4502c 76-82,589-594,631-635,676-677,697
+scraper/parsers.py
+  h_3705811fa4502c 242-251,253
+scraper/progress.py
+  h_3705811fa4502c 446,452-456,472-473
+scraper/tests/test_auth.py
+  h_3705811fa4502c 183-207
+scraper/tests/test_html2md.py
+  h_3705811fa4502c 36-60
+scraper/tests/test_http_client.py
+  h_3705811fa4502c 15,33,97-101,318-334
+scraper/tests/test_parsers.py
+  h_3705811fa4502c 283-285
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "9997ff52f3200abdeba6e15114959725a6b3fa24",
+  "prompts": {},
+  "humans": {
+    "h_3705811fa4502c": {
+      "author": "TautCony <i@tautcony.xyz>"
+    }
+  }
+}
