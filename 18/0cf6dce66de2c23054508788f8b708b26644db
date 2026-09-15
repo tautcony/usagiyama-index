@@ -1,0 +1,32 @@
+scraper/cli.py
+  h_3705811fa4502c 553,792,1698
+scraper/emit.py
+  h_3705811fa4502c 46,320,943
+scraper/html2md.py
+  h_3705811fa4502c 267
+scraper/http_client.py
+  h_3705811fa4502c 22,147-150
+scraper/media.py
+  h_3705811fa4502c 60,167-169,415,468
+scraper/parsers.py
+  h_3705811fa4502c 273
+scraper/progress.py
+  h_3705811fa4502c 120-122
+scraper/resolver.py
+  h_3705811fa4502c 196
+scraper/util.py
+  h_3705811fa4502c 36
+scraper/verify.py
+  h_3705811fa4502c 425,439
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "180cf6dce66de2c23054508788f8b708b26644db",
+  "prompts": {},
+  "humans": {
+    "h_3705811fa4502c": {
+      "author": "TautCony <i@tautcony.xyz>"
+    }
+  }
+}
