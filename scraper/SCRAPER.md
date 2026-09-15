@@ -118,8 +118,6 @@ magic bytes 校验链路）。
 ### 3.2 两种传输实现
 
 - **Fetcher（curl_cffi）**：用 `impersonate="chrome"` 使用真实浏览器 TLS 指纹。
-  目标站点校验 TLS 指纹，裸 `requests` 会连续 `SSLEOFError`，因此用业界标准库而非
-  自行拼请求头。
 - **BrowserFetcher（Playwright + 系统 Chrome）**：默认启用，**HTML 页面一律走无头
   Chrome**（curl 回退路径已移除，见 `cli.py` 的 `SyncContext`）；无头与否可由
   `USAGI_BROWSER_HEADLESS` / `headless` 构造参数配置（默认无头）。
@@ -237,7 +235,6 @@ magic bytes 校验链路）。
 
 **那为什么还能跑通？——看它真正在对抗什么。** 从代码可见，本工具实际面对的封锁是：
 
-- **TLS 指纹校验**：裸 `requests` 首请求连续 `SSLEOFError` → curl-impersonate / 真 Chrome 的 TLS 栈即可过。
 - **图片防盗链**：`img*.doubanio.com` 不带 Referer 返 418 → 强制带 Referer 即可过。
 - **登录墙**：`/note/`、`/topic/` 需登录 → 标 `LOGIN_REQUIRED`，由真人登录的有头 Chrome 去抓。
 - **人机校验重定向**：触发 `sec.douban.com` → 计入熔断、提示重登，**不绕过**。

@@ -8,12 +8,6 @@
 * :class:`Fetcher` —— curl_cffi 实现（默认传输）
 * :class:`~scraper.browser.BrowserFetcher` —— Playwright 实现（见 browser.py）
 
-**为什么用 curl_cffi 而不是自行拼装请求头**：目标站点校验 TLS 指纹，
-实测裸 ``requests`` 的首个请求会连续 4 次收到 ``SSLEOFError``；
-curl_cffi 维护着一套与真实浏览器逐字节一致的 TLS/HTTP2 指纹配置，
-``impersonate="chrome"`` 即可稳定 200。指纹细节交给经过大量站点验证的库，
-本模块只负责**归档策略**。
-
 **归档策略**：
 
 * **磁盘缓存**：同一 URL 二次运行直接命中缓存，零网络请求。

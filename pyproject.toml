@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     # 传输层（默认）：curl-impersonate 的 Python 绑定，模拟真实浏览器的
-    # TLS/HTTP2 指纹。目标站点对 TLS 指纹有校验，裸 requests 会收到 SSLEOFError。
+    # TLS/HTTP2 指纹。
     "curl-cffi>=0.13.0",
     # 传输层（浏览器）：驱动系统已安装的 Chrome（channel="chrome"），
     # 能执行 JS、携带登录态，用于应对反爬与需登录的页面。

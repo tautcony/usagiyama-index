@@ -160,8 +160,7 @@ class Config:
 
     # ---------- HTTP 传输（curl_cffi）----------
     # 使用 curl_cffi（curl-impersonate 的 Python 绑定）模拟真实浏览器的
-    # TLS / HTTP2 指纹。目标站点对 TLS 指纹有校验，裸 requests 会收到
-    # SSLEOFError（实测首个请求连续 4 次失败）。这是业界标准做法：
+    # TLS / HTTP2 指纹。
     # curl_cffi 维护着一套与真实浏览器逐字节一致的指纹配置，无需自行拼装。
     impersonate: str = field(
         default_factory=lambda: os.environ.get("USAGI_IMPERSONATE", "chrome")

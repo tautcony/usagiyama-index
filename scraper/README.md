@@ -98,9 +98,6 @@ Disallow: /
 
 关于指纹与 UA：
 
-- 固定使用**一个** curl_cffi 指纹（`impersonate="chrome"`）。这不是规避手段 ——
-  裸 `requests` 的首个请求会连续收到 `SSLEOFError`，说明服务端会校验 TLS 指纹，
-  模拟浏览器是**能正常访问的最低要求**。
 - 浏览器模式下**不伪造版本号**：只在无头启动导致 UA 里出现 `HeadlessChrome`
   时，把它替换回浏览器**自己上报的真实版本**（`Chrome/152.0.7977.83`）。
 - `navigator.webdriver` **不做处理** —— 那是真正的自动化标记，不属于"还原成有头行为"的范畴。
