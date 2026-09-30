@@ -84,6 +84,7 @@ class ItemRecord:
     stage: str = ""
     status: str = str(ItemStatus.FAILED)
     attempts: int = 0
+    failures: int = 0
     updated_at: str = ""
     detail: str = ""
     meta: dict[str, Any] = field(default_factory=dict)
@@ -95,6 +96,7 @@ class ItemRecord:
             stage=str(data.get("stage", "")),
             status=str(data.get("status", ItemStatus.FAILED)),
             attempts=int(data.get("attempts", 0)),
+            failures=int(data.get("failures", 0)),
             updated_at=str(data.get("updatedAt", "")),
             detail=str(data.get("detail", "")),
             meta=dict(data.get("meta") or {}),
@@ -105,6 +107,7 @@ class ItemRecord:
             "stage": self.stage,
             "status": self.status,
             "attempts": self.attempts,
+            "failures": self.failures,
             "updatedAt": self.updated_at,
             "detail": self.detail,
             "meta": self.meta,
@@ -129,9 +132,14 @@ class ProgressStore:
         self.path = path or cfg.progress_path
         self.readonly = readonly
         self._items: dict[str, ItemRecord] = {}
+        # Historical success ledger: never remove a key after it has completed.
+        # The live item status can change on retries or parser revision resets;
+        # this ledger is the monotone whole-archive progress signal.
+        self._completed: dict[str, str] = {}
         self._stages: dict[str, dict[str, int]] = {}
         self._dirty = 0
         self._started_at = now_iso()
+        self.before_save: Callable[[], None] | None = None
         self.load()
 
     # ------------------------------------------------------------ 加载与保存
@@ -143,6 +151,12 @@ class ProgressStore:
             return
 
         stored_revision = data.get("parserRevision")
+        completed = data.get("completed")
+        if isinstance(completed, dict):
+            self._completed = {
+                str(key): str(stage or "(未分类)")
+                for key, stage in completed.items()
+            }
         raw_items = data.get("items")
         if isinstance(raw_items, dict):
             self._items = {
@@ -150,9 +164,12 @@ class ProgressStore:
                 for key, value in raw_items.items()
                 if isinstance(value, dict)
             }
+            for key, record in self._items.items():
+                if record.status == str(ItemStatus.DONE):
+                    self._completed.setdefault(key, record.stage or "(未分类)")
 
         # 解析器语义变了 → 旧结果不可信，全部作废重跑（走本地缓存，零请求）
-        if stored_revision != PARSER_REVISION:
+        if stored_revision != PARSER_REVISION and not self.readonly:
             stale = len(self._items)
             self._items.clear()
             self._dirty = self.cfg.progress_autosave_every
@@ -174,6 +191,8 @@ class ProgressStore:
             return
         if not force and self._dirty < self.cfg.progress_autosave_every:
             return
+        if self.before_save is not None:
+            self.before_save()
         payload = {
             "version": PROGRESS_VERSION,
             "parserRevision": PARSER_REVISION,
@@ -182,6 +201,7 @@ class ProgressStore:
             "updatedAt": now_iso(),
             "totals": self.totals(),
             "items": {key: record.to_dict() for key, record in sorted(self._items.items())},
+            "completed": dict(sorted(self._completed.items())),
         }
         write_json(self.path, payload)
         self._dirty = 0
@@ -260,6 +280,10 @@ class ProgressStore:
         record.stage = stage or record.stage
         record.status = value
         record.attempts += 1
+        if value in {str(ItemStatus.FAILED), str(ItemStatus.UNAVAILABLE)}:
+            record.failures += 1
+        if value == str(ItemStatus.DONE):
+            self._completed.setdefault(key, stage or record.stage or "(未分类)")
         record.updated_at = now_iso()
         if detail:
             record.detail = detail
@@ -311,6 +335,13 @@ class ProgressStore:
             bucket[record.status] = bucket.get(record.status, 0) + 1
         return stats
 
+    def overall_stage_stats(self) -> dict[str, int]:
+        """Count distinct keys that have succeeded at least once, by stage."""
+        stats: dict[str, int] = {}
+        for stage in self._completed.values():
+            stats[stage] = stats.get(stage, 0) + 1
+        return stats
+
     def failures(self) -> list[ItemRecord]:
         return [r for r in self._items.values() if r.status == ItemStatus.FAILED]
 
@@ -318,15 +349,31 @@ class ProgressStore:
         return [r for r in self._items.values() if r.status == ItemStatus.UNAVAILABLE]
 
     def report(self) -> str:
-        """产出 Markdown 格式的进度报告。"""
+        """产出同时区分单调累计进度与当前状态的 Markdown 报告。"""
         totals = self.totals()
         lines = [
-            "# 抓取进度报告",
+            "# 归档进度报告",
             "",
             f"- 站点：{self.cfg.site_url}",
-            f"- 本次开始：{self._started_at}",
             f"- 生成时间：{now_iso()}",
-            f"- 已记录单元：{len(self._items)}",
+            "",
+            "## 整体累计进度",
+            "",
+            "累计成功数按唯一 key 记录；完成过的项目不会因重试失败或解析器升级而扣回。",
+            "",
+            f"- 累计成功归档：**{len(self._completed)}** 个对象",
+            "",
+            "| 阶段 | 累计成功归档 |",
+            "| --- | ---: |",
+        ]
+        for stage, count in sorted(self.overall_stage_stats().items()):
+            lines.append(f"| {stage} | {count} |")
+
+        lines += [
+            "",
+            "## 当前状态快照",
+            "",
+            f"当前进度库记录 {len(self._items)} 个对象；此处状态用于续跑和排错，可能随重试变化。",
             "",
             "## 状态汇总",
             "",
@@ -455,9 +502,16 @@ class StageRunner:
             ``--limit N`` 才能持续向后推进。
         """
         started = time.monotonic()
-        result = StageResult(stage=self.stage, total=len(items))
-
         all_keys = [key_of(item) for item in items]
+        unique_items: list[T] = []
+        seen_keys: set[str] = set()
+        for item, key in zip(items, all_keys):
+            if key not in seen_keys:
+                seen_keys.add(key)
+                unique_items.append(item)
+        items = unique_items
+        all_keys = [key_of(item) for item in items]
+        result = StageResult(stage=self.stage, total=len(items))
         pending_keys = set(
             self.store.pending(
                 all_keys,
@@ -505,7 +559,13 @@ class StageRunner:
                     # unavailable / skipped 也是终态，用 is_done 会把它们改写成
                     # done，导致 --recheck-unavailable 永远筛不出这些条目、
                     # 不可访问清单也会变空。
-                    if not self.store.is_terminal(key):
+                    record = self.store.get(key)
+                    # FAILED is a deliberate retryable outcome, not a missing
+                    # handler mark. Only add the fallback when the handler did
+                    # not record any decision for this key.
+                    if not self.store.is_terminal(key) and not (
+                        record is not None and record.status == ItemStatus.FAILED
+                    ):
                         self.store.mark_done(key, stage=self.stage)
                     result.processed += 1
                 except Exception as exc:  # noqa: BLE001 - 单点失败不阻塞整体

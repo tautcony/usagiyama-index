@@ -72,6 +72,15 @@ class TestParseNoteComments:
         assert comments[0].author == ""
         assert comments[0].content_html == "匿名"
 
+    def test_collects_all_comment_paragraphs(self) -> None:
+        html = ('<div id="comments"><div class="comment-item" data-cid="10">'
+                '<div class="content"><p>第一段</p><p>第二段 <b>保留格式</b></p></div>'
+                '</div></div>')
+        comment = parse_note_comments(html)[0]
+        assert "第一段" in comment.content_html
+        assert "第二段" in comment.content_html
+        assert "<b>保留格式</b>" in comment.content_html
+
     def test_shares_logic_with_discussion(self) -> None:
         """论坛讨论帖与日记用的是同一套解析（结构一致）。"""
         assert parse_comment_items(

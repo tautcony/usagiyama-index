@@ -120,6 +120,30 @@ class TestResolveRoute:
 
 
 class TestCheckLinks:
+    def test_missing_fragment_is_reported(self, cfg) -> None:
+        guide = cfg.docs_dir / "guide"
+        guide.mkdir(parents=True, exist_ok=True)
+        (guide / "a.md").write_text("[同页坏锚点](#不存在)\n", encoding="utf-8")
+        result = Verifier(cfg).check_links()
+        assert not result.passed
+        assert any("没有锚点" in problem for problem in result.problems)
+
+    def test_heading_fragment_uses_vitepress_slug_and_duplicate_suffix(self, cfg) -> None:
+        guide = cfg.docs_dir / "guide"
+        guide.mkdir(parents=True, exist_ok=True)
+        (guide / "a.md").write_text(
+            "# École déjà!\n\n# École déjà!\n\n[second](#ecole-deja-1)\n", encoding="utf-8"
+        )
+        assert Verifier(cfg).check_links().passed
+
+    def test_relative_heading_fragment_checks_target_page(self, cfg) -> None:
+        guide = cfg.docs_dir / "guide"
+        guide.mkdir(parents=True, exist_ok=True)
+        (guide / "a.md").write_text("[target](../notes/target.md#section)\n", encoding="utf-8")
+        (cfg.docs_dir / "notes").mkdir()
+        (cfg.docs_dir / "notes" / "target.md").write_text("# Section\n", encoding="utf-8")
+        assert Verifier(cfg).check_links().passed
+
     def test_detects_missing_link(self, cfg) -> None:
         (cfg.docs_dir / "notes").mkdir(parents=True, exist_ok=True)
         (cfg.docs_dir / "notes" / "a.md").write_text(
@@ -140,6 +164,72 @@ class TestCheckLinks:
         )
         assert Verifier(cfg).check_links().passed
 
+    def test_md_extension_is_not_appended_twice(self, cfg) -> None:
+        notes = cfg.docs_dir / "notes"
+        notes.mkdir(parents=True, exist_ok=True)
+        (notes / "a.md").write_text("[b](/notes/b.md)", encoding="utf-8")
+        (notes / "b.md").write_text("b", encoding="utf-8")
+        assert Verifier(cfg).check_links().passed
+
+    def test_relative_link_uses_source_directory(self, cfg) -> None:
+        deep = cfg.docs_dir / "guide" / "deep"
+        deep.mkdir(parents=True, exist_ok=True)
+        (deep / "a.md").write_text("[b](../b.md)", encoding="utf-8")
+        (cfg.docs_dir / "guide" / "b.md").write_text("b", encoding="utf-8")
+        assert Verifier(cfg).check_links().passed
+
+    def test_missing_relative_link_is_detected(self, cfg) -> None:
+        guide = cfg.docs_dir / "guide"
+        guide.mkdir(parents=True, exist_ok=True)
+        (guide / "a.md").write_text("[missing](./missing)", encoding="utf-8")
+        (cfg.docs_dir / "missing.md").write_text("wrong base", encoding="utf-8")
+        result = Verifier(cfg).check_links()
+        assert not result.passed
+        assert any("missing" in problem for problem in result.problems)
+
+
+class TestCheckCounts:
+    def test_healthy_notes_data_ignores_meta_record(self, cfg) -> None:
+        cfg.data_dir.mkdir(parents=True, exist_ok=True)
+        cfg.notes_dir.mkdir(parents=True, exist_ok=True)
+        cfg.manifest_path.parent.mkdir(parents=True, exist_ok=True)
+        cfg.manifest_path.write_text(
+            json.dumps({"counts": {"notes": 1}, "notes": {"1": {"comments": []}}}),
+            encoding="utf-8",
+        )
+        (cfg.data_dir / "notes.json").write_text(
+            json.dumps({"_meta": {"updatedAt": "now"}, "1": {}}), encoding="utf-8"
+        )
+        (cfg.notes_dir / "1.md").write_text(NOTE_MD, encoding="utf-8")
+        result = Verifier(cfg).check_counts()
+        assert result.passed
+
+    def test_missing_note_page_is_detected(self, cfg) -> None:
+        cfg.data_dir.mkdir(parents=True, exist_ok=True)
+        cfg.manifest_path.parent.mkdir(parents=True, exist_ok=True)
+        cfg.manifest_path.write_text(
+            json.dumps({"counts": {"notes": 1}, "notes": {"1": {}}}),
+            encoding="utf-8",
+        )
+        (cfg.data_dir / "notes.json").write_text(json.dumps({"1": {}}), encoding="utf-8")
+        result = Verifier(cfg).check_counts()
+        assert not result.passed
+        assert any("缺少 md 文件" in problem for problem in result.problems)
+
+    def test_stale_album_and_external_pages_are_detected(self, cfg) -> None:
+        cfg.manifest_path.parent.mkdir(parents=True, exist_ok=True)
+        cfg.manifest_path.write_text(
+            json.dumps({"notes": {}, "albums": {}, "external": {}}), encoding="utf-8"
+        )
+        (cfg.albums_dir).mkdir(parents=True, exist_ok=True)
+        (cfg.docs_dir / "external").mkdir(parents=True, exist_ok=True)
+        (cfg.albums_dir / "old-album.md").write_text("stale", encoding="utf-8")
+        (cfg.docs_dir / "external" / "old-page.md").write_text("stale", encoding="utf-8")
+        result = Verifier(cfg).check_counts()
+        assert not result.passed
+        assert any("albums 有 1 个过期页面" in problem for problem in result.problems)
+        assert any("external 有 1 个过期页面" in problem for problem in result.problems)
+
     def test_ignores_external_links(self, cfg) -> None:
         notes = cfg.docs_dir / "notes"
         notes.mkdir(parents=True, exist_ok=True)
@@ -151,6 +241,14 @@ class TestCheckLinks:
 
 
 class TestCheckImages:
+    def test_dotfiles_are_ignored(self, cfg) -> None:
+        media = cfg.media_dir / "albums"
+        media.mkdir(parents=True, exist_ok=True)
+        (media / ".DS_Store").write_bytes(b"mac metadata")
+        result = Verifier(cfg).check_images()
+        assert result.passed
+        assert result.checked == 0
+
     def test_detects_html_error_page(self, cfg) -> None:
         media = cfg.media_dir / "notes" / "1"
         media.mkdir(parents=True, exist_ok=True)
@@ -215,6 +313,14 @@ class TestCheckMediaFormats:
     def test_missing_media_dir_passes(self, cfg) -> None:
         assert Verifier(cfg).check_media_formats().passed
 
+    def test_dotfiles_are_ignored(self, cfg) -> None:
+        media = cfg.media_dir / "albums"
+        media.mkdir(parents=True, exist_ok=True)
+        (media / ".DS_Store").write_bytes(b"metadata")
+        result = Verifier(cfg).check_media_formats()
+        assert result.passed
+        assert result.checked == 0
+
 
 class TestCheckDuplicates:
     def test_detects_duplicate_content(self, cfg) -> None:
@@ -233,6 +339,13 @@ class TestCheckDuplicates:
         (media / "b.jpg").write_bytes(b"\xff\xd8\xff\xe0" + b"\x01" * 200)
         result = Verifier(cfg).check_duplicate_images()
         assert any("没有重复图片" in note for note in result.notes)
+
+    def test_dotfiles_are_ignored(self, cfg) -> None:
+        media = cfg.media_dir / "albums"
+        media.mkdir(parents=True, exist_ok=True)
+        (media / ".DS_Store").write_bytes(b"metadata")
+        result = Verifier(cfg).check_duplicate_images()
+        assert result.checked == 0
 
 
 class TestCheckFrontmatter:
@@ -399,6 +512,70 @@ class TestContentSample:
         result = Verifier(cfg).check_content_sample(sample=5)
         assert not result.passed
         assert any("md 文件不存在" in problem for problem in result.problems)
+
+    def test_missing_raw_cache_is_a_failure_not_a_silent_skip(self, cfg) -> None:
+        self._prepare(cfg, NOTE_WITH_COMMENTS)
+        body, meta = cache_paths(cfg, cfg.note_url("1", "575615184"))
+        body.unlink()
+        meta.unlink()
+        result = Verifier(cfg).check_content_sample(sample=5)
+        assert not result.passed
+        assert result.checked == 0
+        assert any("无原始 HTML 缓存" in problem for problem in result.problems)
+
+    def test_sampling_is_reproducible_and_reports_ids(self, cfg) -> None:
+        self._prepare(cfg, NOTE_WITH_COMMENTS)
+        verifier = Verifier(cfg)
+        first = verifier.check_content_sample(sample=5)
+        second = verifier.check_content_sample(sample=5)
+        assert first.notes[0] == second.notes[0]
+        assert first.notes[0].startswith("抽样 ID：note:575615184")
+
+    def test_external_pages_are_sampled(self, cfg) -> None:
+        url = "https://www.douban.com/topic/123/"
+        cfg.manifest_path.parent.mkdir(parents=True, exist_ok=True)
+        cfg.manifest_path.write_text(
+            json.dumps({"external": {"topic-123": {"url": url, "content_html": "真实内容"}}}),
+            encoding="utf-8",
+        )
+        page = cfg.docs_dir / "external" / "topic-123.md"
+        page.parent.mkdir(parents=True, exist_ok=True)
+        page.write_text("---\ntitle: t\n---\n\n完全不同", encoding="utf-8")
+        body, meta = cache_paths(cfg, url)
+        body.parent.mkdir(parents=True, exist_ok=True)
+        body.write_text('<div class="topic-content">真实内容</div>', encoding="utf-8")
+        meta.write_text(json.dumps({"contentType": "text/html; charset=utf-8"}), encoding="utf-8")
+        result = Verifier(cfg).check_content_sample(sample=1)
+        assert not result.passed
+        assert result.checked == 1
+        assert any("external:topic-123" in problem for problem in result.problems)
+
+    def test_album_captions_are_sampled(self, cfg) -> None:
+        url = "https://site.douban.com/photo/1/"
+        cfg.manifest_path.parent.mkdir(parents=True, exist_ok=True)
+        cfg.manifest_path.write_text(
+            json.dumps({
+                "albums": {
+                    "A1": {"photos": [{"photo_id": "1", "caption": "真实描述", "source_url": url}]}
+                }
+            }),
+            encoding="utf-8",
+        )
+        page = cfg.albums_dir / "A1.md"
+        page.parent.mkdir(parents=True, exist_ok=True)
+        page.write_text("---\ntitle: album\n---\n\n错误描述", encoding="utf-8")
+        body, meta = cache_paths(cfg, url)
+        body.parent.mkdir(parents=True, exist_ok=True)
+        body.write_text(
+            '<div class="phoview"><div class="phodesc">真实描述</div>'
+            '<img src="https://img.test/a.jpg"></div>',
+            encoding="utf-8",
+        )
+        meta.write_text(json.dumps({"contentType": "text/html; charset=utf-8"}), encoding="utf-8")
+        result = Verifier(cfg).check_content_sample(sample=1)
+        assert not result.passed
+        assert result.checked == 1
+        assert any("album:A1" in problem for problem in result.problems)
 
 
 class TestReport:

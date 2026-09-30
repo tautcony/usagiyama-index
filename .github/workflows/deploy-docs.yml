@@ -27,11 +27,33 @@ jobs:
           node-version: 22
           cache: npm
 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Install scraper dependencies
+        run: uv sync --frozen --group dev
+
+      - name: Run offline scraper tests
+        run: uv run --frozen python -m pytest scraper/tests -q
+
+      - name: Verify archive structure
+        # Raw response cache is intentionally local and is not committed. The
+        # command reports that content sampling was skipped in its report.
+        run: uv run --frozen python -m scraper.cli verify --skip-content-sample
 
       - name: Build docs
         env:

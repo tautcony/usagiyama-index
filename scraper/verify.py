@@ -30,7 +30,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from .config import CONFIG, Config
-from .emit import COMMENT_HEADING_RE
+from .emit import COMMENT_HEADING_RE, slug_anchor
 from .html2md import html_to_plain_text, markdown_to_plain_text
 from .media import SUFFIX_FOR_KIND, is_valid_image, read_kind, sniff_image
 from .util import atomic_write_text, human_size, now_iso, read_json
@@ -87,7 +87,7 @@ class Verifier:
 
     # ------------------------------------------------------------------ 入口
 
-    def run(self, *, sample: int = 5) -> bool:
+    def run(self, *, sample: int = 5, skip_content_sample: bool = False) -> bool:
         self.results = [
             self.check_counts(),
             self.check_links(),
@@ -95,8 +95,13 @@ class Verifier:
             self.check_media_formats(),
             self.check_duplicate_images(),
             self.check_frontmatter(),
-            self.check_content_sample(sample=sample),
         ]
+        if skip_content_sample:
+            self.results.append(
+                CheckResult(name="内容抽查", notes=["按命令行选项跳过（未检查原始缓存内容）"])
+            )
+        else:
+            self.results.append(self.check_content_sample(sample=sample))
         self.write_report()
         return all(result.passed for result in self.results)
 
@@ -129,9 +134,18 @@ class Verifier:
             result.add_problem(f"照片计数不一致：声明 {counts.get('photos')}，实际 {photos}")
 
         # manifest vs data/ 中间产物
-        data_notes = read_json(self.cfg.data_dir / "notes.json", default={}) or {}
-        if len(data_notes) != actual["notes"]:
-            result.add_problem(f"data/notes.json 有 {len(data_notes)} 条，manifest 有 {actual['notes']} 条")
+        data_collections = {
+            "notes": read_json(self.cfg.data_dir / "notes.json", default={}) or {},
+            "albums": read_json(self.cfg.data_dir / "albums.json", default={}) or {},
+            "external": read_json(self.cfg.data_dir / "external.json", default={}) or {},
+            "bulletins": read_json(self.cfg.data_dir / "bulletins.json", default={}) or {},
+            "videos": read_json(self.cfg.data_dir / "videos.json", default=[]) or [],
+        }
+        for key, data in data_collections.items():
+            count = len({k: v for k, v in data.items() if k != "_meta"}) if isinstance(data, dict) else len(data)
+            expected = len(manifest.get(key) or {})
+            if count != expected:
+                result.add_problem(f"data/{key}.json 有 {count} 条，manifest 有 {expected} 条")
 
         # manifest vs 磁盘上的 md 文件
         md_files = {p.stem for p in self.cfg.notes_dir.glob("*.md") if p.stem != "index"}
@@ -141,6 +155,27 @@ class Verifier:
             result.add_problem(f"有 {len(missing)} 篇日记缺少 md 文件，例如 {sorted(missing)[:5]}")
         if extra:
             result.add_problem(f"有 {len(extra)} 个 md 文件不在 manifest 中，例如 {sorted(extra)[:5]}")
+
+        for key, directory in (
+            ("albums", self.cfg.albums_dir),
+            ("external", self.cfg.docs_dir / "external"),
+        ):
+            expected = set((manifest.get(key) or {}).keys())
+            actual_files = {p.stem for p in directory.glob("*.md") if p.stem != "index"}
+            missing_pages = expected - actual_files
+            stale_pages = actual_files - expected
+            if missing_pages:
+                result.add_problem(f"{key} 有 {len(missing_pages)} 个页面缺失，例如 {sorted(missing_pages)[:5]}")
+            if stale_pages:
+                result.add_problem(f"{key} 有 {len(stale_pages)} 个过期页面，例如 {sorted(stale_pages)[:5]}")
+
+        for key, page in (
+            ("videos", self.cfg.docs_dir / "videos.md"),
+            ("discussions", self.cfg.docs_dir / "board.md"),
+        ):
+            expected_count = counts.get(key)
+            if expected_count and not page.is_file():
+                result.add_problem(f"{key} 有 {expected_count} 条数据，但生成页 {page.name} 缺失")
 
         # 评论归档情况（免登录，服务端静态渲染）
         comment_total = 0
@@ -176,7 +211,7 @@ class Verifier:
 
     # -------------------------------------------------------------- 2. 断链
 
-    def _resolve_route(self, target: str) -> Path | None:
+    def _resolve_route(self, target: str, source: Path | None = None) -> Path | None:
         """把站内路由映射到磁盘文件；站外链接返回 ``None``。"""
         if target.startswith(("http://", "https://", "mailto:", "#")):
             return None
@@ -187,16 +222,22 @@ class Verifier:
         if path.startswith("/media/"):
             return self.cfg.docs_dir / "public" / path.lstrip("/")
 
-        candidate = path.strip("/")
         docs = self.cfg.docs_dir
-        options = [
-            docs / f"{candidate}.md",
-            docs / candidate / "index.md",
-        ]
+        if path.startswith("/"):
+            base, route = docs, path.lstrip("/")
+        else:
+            base, route = (source.parent if source is not None else docs), path
+        target_path = (base / route).resolve()
+        if not target_path.is_relative_to(docs.resolve()):
+            return target_path
+        options = [target_path]
+        if target_path.suffix.lower() not in {".md", ".html"}:
+            options.append(target_path.with_suffix(".md"))
+        options.append(target_path / "index.md")
         for option in options:
-            if option.exists():
+            if option.is_file():
                 return option
-        return docs / f"{candidate}.md"
+        return options[0]
 
     def check_links(self) -> CheckResult:
         result = CheckResult(name="断链检查")
@@ -213,15 +254,43 @@ class Verifier:
             targets |= set(HTML_ATTR_RE.findall(text))
 
             for target in targets:
-                resolved = self._resolve_route(target)
+                route, has_fragment, fragment = target.partition("#")
+                if has_fragment and not route:
+                    resolved = md_path
+                else:
+                    resolved = self._resolve_route(route if has_fragment else target, md_path)
                 if resolved is None:
                     continue
                 result.checked += 1
                 if not resolved.exists():
                     rel = md_path.relative_to(docs)
                     result.add_problem(f"{rel} → {target}（期望 {resolved.relative_to(docs)}）")
+                elif has_fragment and fragment:
+                    anchors = self._heading_ids(resolved)
+                    if fragment not in anchors:
+                        rel = md_path.relative_to(docs)
+                        result.add_problem(f"{rel} → {target}（目标页没有锚点 #{fragment}）")
 
         return result
+
+    @staticmethod
+    def _heading_ids(path: Path) -> set[str]:
+        """Generate heading IDs with the same slug rules as VitePress."""
+        ids: set[str] = set()
+        counts: dict[str, int] = {}
+        for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+            match = re.match(r"^#{1,6}\s+(.+?)\s*#*\s*$", line)
+            if not match:
+                continue
+            title = match.group(1)
+            title = re.sub(r"!\[([^\]]*)\]\([^)]*\)", r"\1", title)
+            title = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", title)
+            title = re.sub(r"[`*_~]", "", title)
+            base = slug_anchor(title)
+            count = counts.get(base, 0)
+            counts[base] = count + 1
+            ids.add(base if count == 0 else f"{base}-{count}")
+        return ids
 
     # ------------------------------------------------------------ 3. 图片完整性
 
@@ -234,7 +303,7 @@ class Verifier:
 
         total_bytes = 0
         for path in sorted(media_dir.rglob("*")):
-            if not path.is_file():
+            if not path.is_file() or path.name.startswith("."):
                 continue
             result.checked += 1
             size = path.stat().st_size
@@ -303,7 +372,7 @@ class Verifier:
 
         by_hash: dict[str, list[Path]] = {}
         for path in sorted(media_dir.rglob("*")):
-            if not path.is_file():
+            if not path.is_file() or path.name.startswith("."):
                 continue
             digest = hashlib.md5(path.read_bytes()).hexdigest()
             by_hash.setdefault(digest, []).append(path)
@@ -445,77 +514,131 @@ class Verifier:
             parts.append(html_to_plain_text(comment.content_html) or "（空）")
         return " ".join(parts)
 
+    def _cached_html_for_url(self, url: str) -> str | None:
+        """从缓存读取指定 URL 的原始 HTML。"""
+        from .http_client import cache_paths, decode_html
+
+        body, meta = cache_paths(self.cfg, url)
+        if not body.exists():
+            return None
+        content_type = ""
+        if meta.exists():
+            try:
+                content_type = json.loads(meta.read_text(encoding="utf-8")).get("contentType", "")
+            except (OSError, json.JSONDecodeError):
+                pass
+        return decode_html(body.read_bytes(), content_type)
+
     def check_content_sample(self, *, sample: int = 5) -> CheckResult:
         result = CheckResult(name="内容抽查")
-        notes = self.manifest.get("notes") or {}
-        if not notes:
-            # 没有已归档日记说明还没跑 notes 阶段；完整性由「数量对账」负责，
-            # 这里只做抽样比对，无样本可抽时跳过而不是判定失败。
-            result.notes.append("没有已归档的日记，跳过内容抽查（请先执行 sync 的 notes 阶段）")
-            return result
+        candidates: list[tuple[str, str, dict[str, Any]]] = []
+        for item_id, payload in (self.manifest.get("notes") or {}).items():
+            if payload.get("content_html"):
+                candidates.append(("note", item_id, payload))
+        for item_id, payload in (self.manifest.get("external") or {}).items():
+            if payload.get("content_html"):
+                candidates.append(("external", item_id, payload))
+        for item_id, payload in (self.manifest.get("albums") or {}).items():
+            photos = payload.get("photos") or []
+            if any(photo.get("caption") and photo.get("source_url") for photo in photos):
+                candidates.append(("album", item_id, payload))
 
-        # Archived/Wayback responses can have a non-``ok`` availability while
-        # still carrying the original HTML and a rendered markdown page. They
-        # must remain eligible for sampling; filtering to ``ok`` silently
-        # excluded precisely the entries most likely to be degraded.
-        candidates = [
-            (nid, payload) for nid, payload in notes.items() if payload.get("content_html")
-        ]
         if not candidates:
-            result.notes.append("没有可抽查的已归档日记")
+            result.notes.append("没有可抽查的正文、站外页或相册描述")
             return result
 
-        picks = random.sample(candidates, min(sample, len(candidates)))
-        for note_id, payload in picks:
-            md_path = self.cfg.notes_dir / f"{note_id}.md"
-            if not md_path.exists():
-                result.add_problem(f"抽查 {note_id}：md 文件不存在")
-                continue
-            result.checked += 1
+        candidates.sort(key=lambda item: (item[0], item[1]))
+        picks = random.Random(0).sample(candidates, min(max(sample, 0), len(candidates)))
+        result.notes.append("抽样 ID：" + ", ".join(f"{kind}:{item_id}" for kind, item_id, _ in picks))
 
-            cached = self._cached_html_for_note(note_id, str(payload.get("widget_id", "")))
-            if not cached:
-                result.notes.append(f"抽查 {note_id}：无原始 HTML 缓存，跳过比对")
-                continue
-
-            from bs4 import BeautifulSoup
-
-            from .parsers import _link_report, parse_note_comments
-
-            # 原文侧：正文对 `#link-report`，评论对 `#comments`。两个容器在页面里
-            # 是兄弟节点，评论不在正文里，只能各自取出来配对
-            original_html = _link_report(BeautifulSoup(cached, "lxml"), note_id)
-            original_parts = (
-                html_to_plain_text(original_html),
-                self._comment_text(parse_note_comments(cached, self.cfg)),
-            )
-
-            # 归档侧：按同样的切分取出正文与评论
-            md_body, md_comments = self._markdown_parts(md_path)
-            md_parts = (
-                markdown_to_plain_text(md_body),
-                markdown_to_plain_text(md_comments),
-            )
-
-            if not any(original_parts):
-                result.notes.append(f"抽查 {note_id}：原文为空，跳过")
-                continue
-
-            # 正文与评论**各自算比值**，取较差的一段判定。合成一整段再比会把
-            # 局部丢失稀释掉：评论偏少的长文里，整段评论全丢也只掉到 0.93，
-            # 够不着阈值，等于没查。
-            ratios = [
-                (label, SequenceMatcher(None, original, archived).ratio())
-                for label, original, archived in zip(("正文", "评论"), original_parts, md_parts)
-                if original or archived
-            ]
-            worst = min(ratio for _, ratio in ratios)
-            detail = " / ".join(f"{label} {ratio:.3f}" for label, ratio in ratios)
-            title = str(payload.get("title", ""))[:30]
-            if worst < 0.9:
-                result.add_problem(f"抽查 {note_id}（{title}）相似度仅 {worst:.3f}（{detail}）")
+        for kind, item_id, payload in picks:
+            if kind == "note":
+                md_path = self.cfg.notes_dir / f"{item_id}.md"
+                cached = self._cached_html_for_note(item_id, str(payload.get("widget_id", "")))
+            elif kind == "external":
+                md_path = self.cfg.docs_dir / "external" / f"{item_id}.md"
+                cached = self._cached_html_for_url(str(payload.get("url", "")))
             else:
-                result.notes.append(f"抽查 {note_id}（{title}）相似度 {worst:.3f} ✓")
+                md_path = self.cfg.albums_dir / f"{item_id}.md"
+                photo = next(
+                    p for p in (payload.get("photos") or [])
+                    if p.get("caption") and p.get("source_url")
+                )
+                cached = self._cached_html_for_url(str(photo["source_url"]))
+
+            if not md_path.exists():
+                result.add_problem(f"抽查 {kind}:{item_id}：md 文件不存在")
+                continue
+            if not cached:
+                result.add_problem(f"抽查 {kind}:{item_id}：无原始 HTML 缓存，无法比对")
+                continue
+
+            if kind == "note":
+                from bs4 import BeautifulSoup
+                from .parsers import _link_report, parse_note_comments
+
+                original_html = _link_report(BeautifulSoup(cached, "lxml"), item_id)
+                original_parts = (
+                    html_to_plain_text(original_html),
+                    self._comment_text(parse_note_comments(cached, self.cfg)),
+                )
+                md_body, md_comments = self._markdown_parts(md_path)
+                archived_parts = (
+                    markdown_to_plain_text(md_body),
+                    markdown_to_plain_text(md_comments),
+                )
+                ratios = [
+                    (label, SequenceMatcher(None, original, archived).ratio())
+                    for label, original, archived in zip(
+                        ("正文", "评论"), original_parts, archived_parts
+                    )
+                    if original or archived
+                ]
+                if not ratios:
+                    result.add_problem(f"抽查 note:{item_id}：缓存正文为空，无法比对")
+                    continue
+                ratio = min(value for _, value in ratios)
+                detail = " / ".join(f"{label} {value:.3f}" for label, value in ratios)
+            elif kind == "external":
+                from .parsers import parse_external_page
+
+                original = html_to_plain_text(
+                    parse_external_page(cached, str(payload.get("url", "")), item_id, "", self.cfg).content_html
+                )
+                archived = markdown_to_plain_text(self._markdown_body(md_path))
+                if not original:
+                    result.add_problem(f"抽查 external:{item_id}：缓存正文为空，无法比对")
+                    continue
+                ratio = SequenceMatcher(None, original, archived).ratio()
+                detail = f"正文 {ratio:.3f}"
+            else:
+                from .parsers import parse_photo_detail
+                from html import unescape
+
+                photo_payload = next(
+                    p for p in (payload.get("photos") or [])
+                    if p.get("caption") and p.get("source_url")
+                )
+                original = parse_photo_detail(
+                    cached,
+                    item_id,
+                    str(photo_payload.get("photo_id", "")),
+                    str(photo_payload["source_url"]),
+                    self.cfg,
+                ).caption
+                original = html_to_plain_text(original)
+                archived = unescape(md_path.read_text(encoding="utf-8"))
+                if not original:
+                    result.add_problem(f"抽查 album:{item_id}：缓存描述为空，无法比对")
+                    continue
+                ratio = 1.0 if original in archived else SequenceMatcher(None, original, archived).ratio()
+                detail = f"描述 {ratio:.3f}"
+
+            result.checked += 1
+            if ratio < 0.9:
+                result.add_problem(f"抽查 {kind}:{item_id} 相似度仅 {ratio:.3f}（{detail}）")
+            else:
+                result.notes.append(f"抽查 {kind}:{item_id} 相似度 {ratio:.3f}（{detail}） ✓")
 
         return result
 

@@ -279,6 +279,10 @@ class TestHelpers:
     def test_parse_total_pages(self) -> None:
         assert parse_total_pages('<span data-total-page="5">1</span>') == 5
 
+    def test_parse_total_pages_accepts_single_and_unquoted_attributes(self) -> None:
+        assert parse_total_pages("<span data-total-page='6'>1</span>") == 6
+        assert parse_total_pages("<span data-total-page = 7>1</span>") == 7
+
     def test_parse_total_pages_default(self) -> None:
         # 没有 data-total-page 时返回 None（"无法确定"），由调用方告警/重试，
         # 而不是静默当成单页截断多页列表。
@@ -540,6 +544,22 @@ class TestVideo:
         assert v.external_url.startswith("http://v.youku.com")
         assert v.date == "2016-11-06"
 
+    def test_missing_thumbnail_is_not_marked_ok(self) -> None:
+        html = ('<div class="item-video"><div class="pic"><a href="'
+                'https://site.douban.com/211330/widget/videos/123/video/771903/">'
+                '</a></div><div class="info"><a>标题</a></div></div>')
+        video = parse_video_list(html, "123")[0]
+        assert video.status.availability == "unavailable"
+        assert video.status.retryable
+
+
+def test_source_status_normalizes_string_availability() -> None:
+    from scraper.models import Availability, SourceStatus
+
+    status = SourceStatus(availability="ok")
+    assert status.availability is Availability.OK
+    assert not status.needs_notice
+
 
 class TestMiniblog:
     def test_status_parsed(self) -> None:
@@ -656,6 +676,12 @@ class TestMultipleBulletinsInOneRoom:
         assert parse_bulletin(MULTI_BULLETIN_HTML, "17754656", "https://x/").title == "索引②"
         assert parse_bulletin(MULTI_BULLETIN_HTML, "13430830", "https://x/").title == "About PPK"
 
-    def test_missing_container_falls_back(self) -> None:
+    def test_missing_container_without_other_report_is_unavailable(self) -> None:
         bulletin = parse_bulletin("<html><body><p>没有公告</p></body></html>", "999", "https://x/")
         assert bulletin.status.availability == "unavailable"
+
+    def test_missing_container_does_not_take_sibling_bulletin(self) -> None:
+        bulletin = parse_bulletin(MULTI_BULLETIN_HTML, "99999999", "https://x/")
+        assert bulletin.content_html == ""
+        assert bulletin.status.availability == "unavailable"
+        assert bulletin.status.retryable

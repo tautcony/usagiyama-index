@@ -294,6 +294,8 @@ class PageResolver:
             return self.resolve(*args, **kwargs)  # type: ignore[arg-type]
         except CircuitBreakerOpen:
             raise
+        except AssertionError:
+            raise
         except Exception as exc:  # noqa: BLE001 - 可选内容失败不应中断整体流程
             log.warning("可选内容抓取失败：%s", exc)
             return None

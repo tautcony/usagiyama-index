@@ -70,6 +70,10 @@ def sanitize_markdown_url(url: str) -> str:
     """
     if not url:
         return url
+    # A raw angle bracket can terminate Markdown's <...> destination and turn
+    # the remainder of an attacker-controlled URL into an HTML token.
+    if re.search(r"[<>\x00-\x1f]", url):
+        return ""
     parsed = urlparse(url)
     if parsed.scheme and parsed.scheme.lower() not in _SAFE_URL_SCHEMES:
         return ""
@@ -116,6 +120,16 @@ class DoubanConverter(MarkdownConverter):
         self.ctx = ctx
         super().__init__(**options)
 
+    def escape(self, text: str, parent_tags: set[str]) -> str:
+        """Keep text-node markup literal when Markdown is rendered as a page.
+
+        BeautifulSoup decodes entities before markdownify sees them. Escape the
+        HTML delimiters here so untrusted text cannot become a raw HTML token.
+        ``&`` must be escaped first to avoid double-decoding.
+        """
+        text = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+        return super().escape(text, parent_tags)
+
     # ---------------------------------------------------------------- 行内元素
 
     def convert_br(self, el: Tag, text: str, parent_tags: set[str]) -> str:
@@ -153,7 +167,8 @@ class DoubanConverter(MarkdownConverter):
         if not safe_target:
             # 危险协议（javascript:/data: 等）退化为纯文字，不渲染可点击链接
             return label
-        return f"[{escape_markdown_link_text(label)}]({safe_target})"
+        rendered_label = label if "![" in label else escape_markdown_link_text(label)
+        return f"[{rendered_label}]({safe_target})"
 
     def convert_table(self, el: Tag, text: str, parent_tags: set[str]) -> str:
         # 表格骨架已在预处理中拆掉；若仍有残留，退化为纯文本而非 Markdown 表格

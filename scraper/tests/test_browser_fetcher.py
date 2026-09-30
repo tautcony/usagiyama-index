@@ -19,6 +19,7 @@ from scraper.browser import (
     PlaywrightDriver,
     is_challenge_url,
     make_route_handler,
+    PLAYWRIGHT_RETRYABLE_EXCEPTIONS,
 )
 from scraper.http_client import (
     BlockedError,
@@ -213,11 +214,16 @@ class TestImageDelegation:
         fetcher.fetch(URL)
         fetcher.get_image("https://img9.doubanio.com/view/note/raw/public/p1.jpg")
         stats = fetcher.finalize()
+        second = fetcher.finalize()
         assert stats.requests == 2  # 1 次浏览器导航 + 1 次图片请求
         assert stats.impersonate.startswith("browser:")
+        assert second.requests == stats.requests
 
 
 class TestLifecycle:
+    def test_playwright_base_error_is_not_retryable(self) -> None:
+        assert all(error.__name__ != "Error" for error in PLAYWRIGHT_RETRYABLE_EXCEPTIONS)
+
     def test_close_is_idempotent(self, browser_factory) -> None:
         fetcher, driver, _ = browser_factory()
         fetcher.fetch(URL)

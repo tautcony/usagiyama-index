@@ -137,7 +137,7 @@ class TestReport:
         store.mark_unavailable("note:2", "403", stage="notes")
         store.mark_failed("note:3", "超时", stage="notes")
         report = store.report()
-        assert "# 抓取进度报告" in report
+        assert "# 归档进度报告" in report
         assert "notes" in report
         assert "待重试项" in report
         assert "不可访问项" in report
@@ -152,8 +152,44 @@ class TestReport:
         assert stats["s1"][str(ItemStatus.FAILED)] == 1
         assert stats["s2"][str(ItemStatus.DONE)] == 1
 
+    def test_overall_success_count_is_monotone_when_live_status_changes(self, cfg) -> None:
+        store = ProgressStore(cfg=cfg)
+        store.mark_done("note:1", stage="notes")
+        assert "累计成功归档：**1** 个对象" in store.report()
+
+        store.mark_failed("note:1", "temporary failure", stage="notes")
+        report = store.report()
+        assert "累计成功归档：**1** 个对象" in report
+        assert "失败（下次重试） | 1" in report
+
+    def test_overall_success_history_survives_parser_revision_reset(self, cfg) -> None:
+        import json
+
+        store = ProgressStore(cfg=cfg)
+        store.mark_done("note:1", stage="notes")
+        store.save(force=True)
+        payload = json.loads(cfg.progress_path.read_text(encoding="utf-8"))
+        payload["parserRevision"] -= 1
+        cfg.progress_path.write_text(json.dumps(payload), encoding="utf-8")
+
+        reset = ProgressStore(cfg=cfg)
+        assert reset.totals()[str(ItemStatus.DONE)] == 0
+        assert "累计成功归档：**1** 个对象" in reset.report()
+        assert "本次开始" not in reset.report()
+        persisted = json.loads(cfg.progress_path.read_text(encoding="utf-8"))
+        assert persisted["completed"] == {"note:1": "notes"}
+
 
 class TestStageRunner:
+    def test_duplicate_keys_are_processed_and_counted_once(self, cfg) -> None:
+        store = ProgressStore(cfg=cfg)
+        runner = StageRunner(store, "s", cfg=cfg, show_progress=False)
+        calls: list[str] = []
+        result = runner.run(["a", "a", "b"], calls.append, lambda item: item)
+        assert calls == ["a", "b"]
+        assert result.total == 2
+        assert result.processed == 2
+
     def test_processes_all_items(self, cfg) -> None:
         store = ProgressStore(cfg=cfg)
         runner = StageRunner(store, "s", cfg=cfg, show_progress=False)
@@ -364,6 +400,45 @@ class TestTerminalOutcomesNotOverwritten:
         runner.run(["a"], lambda item: None, lambda item: item)
         assert store.is_done("a")
 
+    def test_retryable_failed_handler_outcome_survives_runner(self, cfg) -> None:
+        from scraper.cli import record_source_failure
+        from scraper.models import Availability, SourceStatus
+
+        store = ProgressStore(cfg=cfg)
+        runner = StageRunner(store, "s", cfg=cfg, show_progress=False)
+
+        def handler(item: str) -> None:
+            record_source_failure(
+                store,
+                item,
+                SourceStatus(availability=Availability.UNAVAILABLE, retryable=True),
+                stage="s",
+                url="https://example.test/",
+            )
+
+        result = runner.run(["k"], handler, lambda item: item)
+        assert store.status_of("k") == str(ItemStatus.FAILED)
+        assert store.pending(["k"]) == ["k"]
+        assert result.failed == 0
+
+    def test_data_persistence_hook_runs_before_progress_write(self, cfg, monkeypatch) -> None:
+        import scraper.progress as progress_module
+
+        store = ProgressStore(cfg=cfg)
+        order: list[str] = []
+        original_write = progress_module.write_json
+
+        def recording_write(path, payload) -> None:
+            if path == store.path:
+                order.append("progress")
+            original_write(path, payload)
+
+        monkeypatch.setattr(progress_module, "write_json", recording_write)
+        store.before_save = lambda: order.append("data")
+        store.mark_done("k", stage="s")
+        store.save(force=True)
+        assert order == ["data", "progress"]
+
 
 class TestRecordSourceFailure:
     """源站抖动的记录策略：先重试，试满次数才认账（见 ``cli.record_source_failure``）。
@@ -406,6 +481,46 @@ class TestRecordSourceFailure:
         assert store.status_of("photo:1:2") == str(ItemStatus.UNAVAILABLE)
         assert [record.key for record in store.unavailable()] == ["photo:1:2"]
         assert store.get("photo:1:2").meta["url"] == "https://x/"
+
+    def test_successful_marks_do_not_consume_retry_budget(self, cfg) -> None:
+        from scraper.cli import RETRYABLE_MAX_ATTEMPTS, record_source_failure
+
+        store = ProgressStore(cfg=cfg)
+        status = self._status(retryable=True)
+        for _ in range(3):
+            store.mark_done("photo:1:2", stage="photos")
+
+        runner = StageRunner(
+            store, "photos", cfg=cfg, show_progress=False, recheck_done=True
+        )
+        seen = 0
+
+        def handler(item: str) -> None:
+            nonlocal seen
+            seen += 1
+            record_source_failure(store, item, status, stage="photos", url="https://x/")
+
+        runner.run(["photo:1:2"], handler, lambda item: item)
+        assert seen == 1
+        assert store.status_of("photo:1:2") == str(ItemStatus.FAILED)
+        assert store.get("photo:1:2").failures == 1
+
+    def test_runner_failure_reaches_unavailable_on_fourth_attempt(self, cfg) -> None:
+        from scraper.cli import RETRYABLE_MAX_ATTEMPTS, record_source_failure
+
+        store = ProgressStore(cfg=cfg)
+        status = self._status(retryable=True)
+        runner = StageRunner(store, "photos", cfg=cfg, show_progress=False)
+
+        def handler(item: str) -> None:
+            record_source_failure(store, item, status, stage="photos", url="https://x/")
+
+        for attempt in range(RETRYABLE_MAX_ATTEMPTS + 1):
+            runner.run(["photo:1:2"], handler, lambda item: item)
+            if attempt < RETRYABLE_MAX_ATTEMPTS:
+                assert store.status_of("photo:1:2") == str(ItemStatus.FAILED)
+            else:
+                assert store.status_of("photo:1:2") == str(ItemStatus.UNAVAILABLE)
 
     def test_plain_failure_records_unavailable_immediately(self, cfg) -> None:
         """对照组：可信的失败（403/真死链）立刻进清单。"""

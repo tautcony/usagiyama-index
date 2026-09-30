@@ -81,6 +81,14 @@ class SourceStatus:
     （不再回头看）—— 源站的抖动不该被固化成归档里的空白。
     """
 
+    def __post_init__(self) -> None:
+        if not isinstance(self.availability, Availability):
+            self.availability = Availability(self.availability)
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.availability, Availability):
+            self.availability = Availability(self.availability)
+
     @property
     def label(self) -> str:
         return STATUS_LABELS.get(self.availability, str(self.availability))

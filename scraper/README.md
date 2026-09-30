@@ -46,6 +46,8 @@ uv run python -m scraper.cli <子命令> [参数]
 | `--no-emit` | 只抓取，不生成站点 |
 | `--progress` / `--no-progress` | 显示 / 隐藏进度条 |
 
+`npm run report` 生成的 `data/progress-report.md` 分开显示整体累计成功数和当前续跑状态。累计数按唯一 key 计数，项目成功归档后不会因重试失败或解析器版本变化而回退。
+
 `login` 专属参数：
 
 | 参数 | 说明 |

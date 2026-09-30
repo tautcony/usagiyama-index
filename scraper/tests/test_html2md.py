@@ -57,6 +57,33 @@ class TestLinkSafety:
         assert "data:text/html" not in out
         assert out == "坏链"
 
+    @pytest.mark.parametrize(
+        "payload",
+        [
+            "<img src=x onerror=alert(1)>",
+            "<svg onload=alert(1)>",
+            '<iframe srcdoc="<script>alert(1)</script>">',
+            "<script>alert(1)</script>",
+        ],
+    )
+    def test_entity_encoded_html_remains_text(self, payload: str) -> None:
+        from html import escape
+
+        out = html_to_markdown(f"<p>{escape(payload)}</p>")
+        assert "<img" not in out
+        assert "<svg" not in out
+        assert "<iframe" not in out
+        assert "<script" not in out
+
+    def test_greater_than_in_link2_target_cannot_escape_link(self) -> None:
+        from urllib.parse import quote
+
+        target = "http://x.test/a > <img src=y onerror=alert(1)>"
+        wrapped = "https://www.douban.com/link2/?url=" + quote(target, safe="")
+        out = html_to_markdown(f'<a href="{wrapped}">click</a>')
+        assert "<img" not in out
+        assert out == "click"
+
 
 class TestBrHandling:
     """豆瓣靠 <br> 分行分段，这是还原语义的关键。"""
@@ -114,6 +141,16 @@ class TestImageHandling:
 
 
 class TestLinkHandling:
+    def test_clickable_image_remains_nested_image_link(self) -> None:
+        ctx = ConvertContext(image_map={
+            "https://img9.doubanio.com/view/note/large/public/p1.jpg": "/media/notes/1/p1.jpg"
+        })
+        out = html_to_markdown(
+            '<a href="https://example.com/photo"><img alt="[cover]" '
+            'src="https://img9.doubanio.com/view/note/large/public/p1.jpg"></a>', ctx
+        )
+        assert out == "[![\\[cover\\]](/media/notes/1/p1.jpg)](https://example.com/photo)"
+
     def test_external_link(self) -> None:
         out = html_to_markdown('<a href="https://example.com/x">链接</a>')
         assert out == "[链接](https://example.com/x)"

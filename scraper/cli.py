@@ -171,6 +171,20 @@ _SPEED_HELP = "请求间隔档位：" + "、".join(
 )
 
 
+def _nonnegative_int(value: str) -> int:
+    parsed = int(value)
+    if parsed < 0:
+        raise argparse.ArgumentTypeError("必须大于或等于 0")
+    return parsed
+
+
+def _positive_float(value: str) -> float:
+    parsed = float(value)
+    if parsed <= 0:
+        raise argparse.ArgumentTypeError("必须大于 0")
+    return parsed
+
+
 def add_common_args(
     parser: argparse.ArgumentParser, *, suppress_defaults: bool = False
 ) -> None:
@@ -192,9 +206,15 @@ def add_common_args(
 
     parser.add_argument("-v", "--verbose", action="store_true", default=d_true, help="输出调试日志")
     parser.add_argument("-q", "--quiet", action="store_true", default=d_true, help="只输出警告与错误")
+    try:
+        from curl_cffi.requests.impersonate import BrowserType
+        impersonate_choices = [item.value for item in BrowserType]
+    except ImportError:
+        impersonate_choices = None
     parser.add_argument(
         "--impersonate",
         default=d_none,
+        choices=impersonate_choices,
         help=f"curl_cffi 浏览器指纹（默认 {CONFIG.impersonate}，可换 chrome136 / safari18_0 等）",
     )
     parser.add_argument(
@@ -208,7 +228,7 @@ def add_common_args(
     parser.add_argument(
         "--archive",
         action=argparse.BooleanOptionalAction,
-        default=argparse.SUPPRESS if suppress_defaults else False,
+        default=argparse.SUPPRESS if suppress_defaults else CONFIG.archive_enabled,
         help="启用 Internet Archive 补足（默认关闭；用 --no-archive 显式关闭）",
     )
     # 浏览器传输开关。默认启用（见 Config.browser_enabled）；
@@ -216,7 +236,7 @@ def add_common_args(
     parser.add_argument(
         "--browser",
         action=argparse.BooleanOptionalAction,
-        default=argparse.SUPPRESS if suppress_defaults else True,
+        default=argparse.SUPPRESS if suppress_defaults else CONFIG.browser_enabled,
         help="用无头浏览器抓取页面（默认启用；用 --no-browser 退回纯 HTTP）",
     )
     # 限速二选一：--speed 是档位预设，--delay 是精确覆盖。
@@ -227,7 +247,7 @@ def add_common_args(
     rate.add_argument("--speed", choices=list(SPEED_TIERS), default=d_none, help=_SPEED_HELP)
     rate.add_argument(
         "--delay",
-        type=float,
+        type=_positive_float,
         default=d_none,
         help=(
             "请求间隔下限（秒），上限为下限 +2；精确覆盖档位，"
@@ -235,7 +255,8 @@ def add_common_args(
         ),
     )
     parser.add_argument(
-        "--limit", type=int, default=d_zero, help="每阶段最多处理 N 项（冒烟测试用）"
+        "--limit", type=_nonnegative_int, default=d_zero,
+        help="每阶段最多处理 N 项（0 表示不限；冒烟测试用）"
     )
 
 
@@ -295,11 +316,18 @@ def build_parser() -> argparse.ArgumentParser:
     )
 
     sub.add_parser("emit", help="仅根据已有数据重新生成产物（离线）", parents=[_common_parent()])
-    sub.add_parser("discover", help="只枚举站点结构", parents=[_common_parent()])
+    p_discover = sub.add_parser("discover", help="只枚举站点结构", parents=[_common_parent()])
+    p_discover.add_argument("--i-have-read-robots", action="store_true",
+                            help="确认已阅读目标站点 robots.txt 并理解抓取策略")
     sub.add_parser("report", help="输出进度报告", parents=[_common_parent()])
 
     p_verify = sub.add_parser("verify", help="校验归档结果", parents=[_common_parent()])
     p_verify.add_argument("--sample", type=int, default=5, help="内容抽查篇数")
+    p_verify.add_argument(
+        "--skip-content-sample",
+        action="store_true",
+        help="跳过依赖本地原始 HTML 缓存的内容抽查（报告会标明未检查）",
+    )
 
     p_login = sub.add_parser(
         "login",
@@ -376,6 +404,9 @@ class SyncContext:
         self.results: list[StageResult] = []
         self.unavailable: list[UnavailableRecord] = []
         self._prev_manifest: dict[str, Any] = read_json(cfg.manifest_path, default={}) or {}
+        # Persist product data before any progress snapshot. A completed key
+        # must never become durable ahead of the content it represents.
+        self.progress.before_save = self.save_data
 
     # ------------------------------------------------------------------ 收尾
 
@@ -425,7 +456,10 @@ class SyncContext:
             self.discussions.append(_discussion_from_dict(payload))
 
         for payload in payload_of(read_json(self.cfg.data_dir / "miniblog.json", default=[]), []) or []:
-            self.miniblog.append(MiniblogStatus(**payload))
+            if isinstance(payload, dict):
+                self.miniblog.append(MiniblogStatus(**{
+                    k: v for k, v in payload.items() if k in MiniblogStatus.__dataclass_fields__
+                }))
 
         external = payload_of(read_json(self.cfg.data_dir / "external.json", default={}), {}) or {}
         for page_id, payload in external.items():
@@ -584,7 +618,7 @@ class SyncContext:
         records.extend(fresh)
 
         known = {record.url for record in records}
-        for item in self.progress.unavailable():
+        for item in ([] if self.cfg.offline else self.progress.unavailable()):
             # 还原不出地址时退回显示内部键，总好过整条丢掉
             url = self._page_url_of(item) or item.key
             if url in known:
@@ -802,6 +836,7 @@ def _status_from_dict(payload: Any) -> SourceStatus:
         retryable=bool(payload.get("retryable", False)),
         wayback_url=payload.get("waybackUrl"),
         wayback_timestamp=payload.get("waybackTimestamp"),
+        wayback_status=payload.get("waybackStatus"),
     )
 
 
@@ -830,8 +865,8 @@ def record_source_failure(
     """
     text = detail or status.detail or status.label
     record = progress.get(key)
-    attempts = record.attempts if record is not None else 0
-    if status.retryable and attempts < RETRYABLE_MAX_ATTEMPTS:
+    failures = record.failures if record is not None else 0
+    if status.retryable and failures < RETRYABLE_MAX_ATTEMPTS:
         progress.mark_failed(key, text, stage=stage)
         return
     progress.mark_unavailable(key, text, stage=stage, url=url)
@@ -902,7 +937,8 @@ def _note_from_dict(note_id: str, payload: dict[str, Any]) -> Note:
     )
     note.status = _status_from_dict(payload.get("status"))
     for img in payload.get("images") or []:
-        note.images.append(ImageRef(**img))
+        if isinstance(img, dict):
+            note.images.append(ImageRef(**{k: v for k, v in img.items() if k in ImageRef.__dataclass_fields__}))
     note.comments = _comments_from_dict(payload)
     return note
 
@@ -1016,7 +1052,24 @@ def prepare_structure(ctx: SyncContext, stages: Sequence[str]) -> SiteStructure:
         # main 阶段依赖索引①/② 的内容来定位站外条目
         discovery.discover_bulletins()
 
-    ctx.structure = discovery.structure
+    previous = ctx.structure
+    fresh = discovery.structure
+    fresh.rooms = fresh.rooms or previous.rooms
+    fresh.meta = fresh.meta or previous.meta
+    if "bulletins" not in stages:
+        fresh.bulletins = previous.bulletins
+    if "notes" not in stages:
+        fresh.note_entries = previous.note_entries
+    if not ({"photos", "albums"} & set(stages)):
+        fresh.photo_ids = previous.photo_ids
+        fresh.album_titles = previous.album_titles
+        fresh.album_photos = previous.album_photos
+        fresh.album_status = previous.album_status
+    if "videos" not in stages:
+        fresh.videos = previous.videos
+    if "forum" not in stages:
+        fresh.forum_topics = previous.forum_topics
+    ctx.structure = fresh
     return ctx.structure
 
 
@@ -1090,9 +1143,22 @@ def stage_bulletins(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
             )
             return
         bulletin = parse_bulletin(page.html, widget.widget_id, url, widget.room_id, cfg)
+        if not bulletin.content_html:
+            existing = ctx.bulletins.get(widget.widget_id)
+            if existing is not None:
+                existing.status = bulletin.status
+            record_source_failure(
+                ctx.progress,
+                key_of(widget),
+                bulletin.status,
+                stage="bulletins",
+                url=url,
+            )
+            return
         if not bulletin.title:
             bulletin.title = widget.title
-        bulletin.status = page.status
+        if bulletin.status.availability == Availability.OK:
+            bulletin.status = page.status
         ctx.bulletins[widget.widget_id] = bulletin
         ctx.progress.mark_done(
             key_of(widget), stage="bulletins", detail=truncate(bulletin.title, 40)
@@ -1165,16 +1231,19 @@ def stage_notes(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
 
         if not page.has_content:
             # 正文拿不到，但仍保留标题/日期等元信息，页面会带提示块
-            note = Note(
-                note_id=entry.note_id,
-                widget_id=entry.widget_id,
-                title=entry.title,
-                date=entry.date,
-                comment_count=entry.comment_count,
-                source_url=url,
-                status=page.status,
-            )
-            ctx.notes[entry.note_id] = note
+            note = ctx.notes.get(entry.note_id)
+            if note is not None and note.content_html:
+                note.status = page.status
+            else:
+                ctx.notes[entry.note_id] = Note(
+                    note_id=entry.note_id,
+                    widget_id=entry.widget_id,
+                    title=entry.title,
+                    date=entry.date,
+                    comment_count=entry.comment_count,
+                    source_url=url,
+                    status=page.status,
+                )
             record_source_failure(ctx.progress, key, page.status, stage="notes", url=url)
             return
 
@@ -1258,12 +1327,19 @@ def stage_photos(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
     """阶段 4：相册图片归档。"""
     cfg = ctx.cfg
     pairs: list[tuple[str, str]] = []
-    # ``--limit`` is an album-level smoke-test limit.  Keep photos and album
-    # stages aligned so an album emitted in the same run always has its photo
-    # details eligible for processing (SUG-23).
     album_items = list(ctx.structure.photo_ids.items())
     if limit > 0:
-        album_items = album_items[:limit]
+        pending_photo_keys = set(ctx.progress.pending(
+            [f"photo:{album_id}:{photo_id}" for album_id, ids in album_items for photo_id in ids],
+            recheck_unavailable=recheck_unavailable,
+            recheck_done=force,
+        ))
+        pending_albums = [
+            (album_id, ids) for album_id, ids in album_items
+            if any(f"photo:{album_id}:{photo_id}" in pending_photo_keys for photo_id in ids)
+        ]
+        selected = {album_id for album_id, _ in pending_albums[:limit]}
+        album_items = [(album_id, ids) for album_id, ids in album_items if album_id in selected]
     for album_id, photo_ids in album_items:
         pairs.extend((album_id, pid) for pid in photo_ids)
 
@@ -1352,9 +1428,25 @@ def stage_albums(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
             photos = stored_photos
             status = ctx.structure.album_status.get(album_id) or SourceStatus()
             title = ctx.structure.album_titles.get(album_id, "")
+            if not photos and status.availability != Availability.OK:
+                existing = ctx.albums.get(album_id)
+                if existing is not None:
+                    existing.status = status
+                record_source_failure(
+                    ctx.progress, key_of(album_id), status, stage="albums", url=url
+                )
+                return
         else:
             page = ctx.resolver.resolve(url, context=f"相册 {album_id}")
             title = ctx.structure.album_titles.get(album_id, "")
+            if not page.has_content:
+                existing = ctx.albums.get(album_id)
+                if existing is not None:
+                    existing.status = page.status
+                record_source_failure(
+                    ctx.progress, key_of(album_id), page.status, stage="albums", url=url
+                )
+                return
             if page.has_content and not title:
                 title = parse_album_title(page.html, cfg)
             status = page.status
@@ -1420,6 +1512,9 @@ def stage_videos(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
         return f"video:{video.video_id}"
 
     def handler(video: Video) -> None:
+        existing = next((v for v in ctx.videos if v.video_id == video.video_id), None)
+        if existing is not None and not video.local_thumb:
+            video.local_thumb = existing.local_thumb
         if video.thumb_url:
             dest, local = ctx.media.video_thumb_path(video.video_id, video.thumb_url)
             outcome = ctx.media.download(video.thumb_url, dest, local)
@@ -1586,9 +1681,13 @@ def stage_main(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
         page = ctx.resolver.resolve(url, context=f"站外页面 {url}")
         if not page.has_content:
             # 仍保留元信息，页面会带"需登录"提示块，索引里也不会成为死链
-            ctx.external[page_id] = ExternalPage(
-                page_id=page_id, url=url, origin=origin, status=page.status
-            )
+            existing = ctx.external.get(page_id)
+            if existing is not None and existing.content_html:
+                existing.status = page.status
+            else:
+                ctx.external[page_id] = ExternalPage(
+                    page_id=page_id, url=url, origin=origin, status=page.status
+                )
             record_source_failure(
                 ctx.progress, key_of(target), page.status, stage="main", url=url
             )
@@ -1748,6 +1847,9 @@ def write_sync_report(ctx: SyncContext, *, mode: str) -> Path:
 
 def cmd_discover(args: argparse.Namespace) -> int:
     cfg = _config_from_args(args)
+    if not getattr(args, "i_have_read_robots", False) and not cfg.offline:
+        print(robots_notice(cfg))
+        return 2
     with SyncContext(cfg, use_archive=cfg.archive_enabled) as ctx:
         discovery = SiteDiscovery(ctx.resolver, cfg)
         structure = discovery.crawl_structure()
@@ -1772,7 +1874,7 @@ def cmd_sync(args: argparse.Namespace) -> int:
     cfg = _config_from_args(args)
     stages = resolve_stages(args.stages)
 
-    if not args.i_have_read_robots and not cfg.offline and not args.dry_run:
+    if not args.i_have_read_robots and not cfg.offline:
         print(robots_notice(cfg))
         return 2
 
@@ -1805,7 +1907,7 @@ def cmd_sync(args: argparse.Namespace) -> int:
             # Always revalidate discovery/list pages.  Completed progress items
             # may still have changed upstream; only unchanged detail stages
             # remain skipped afterwards.
-            ctx.resolver.revalidate = True
+            ctx.resolver.revalidate = not cfg.offline
             prepare_structure(ctx, stages)
             ctx.resolver.revalidate = False
             for name in stages:
@@ -1846,18 +1948,31 @@ def cmd_sync(args: argparse.Namespace) -> int:
             ctx.save_data()
             raise
 
-        ctx.refresh_unavailable()
+        try:
+            # StageRunner persists data before progress. Persist once more before
+            # render/report work so an emit failure cannot strand completed keys.
+            ctx.refresh_unavailable()
+            ctx.save_data()
+            if not args.no_emit:
+                log.info("生成站点产物…")
+                generate_site(ctx)
+                report = write_sync_report(ctx, mode="sync")
+                log.info("同步报告：%s", report)
+            else:
+                ctx.persist_products()
 
-        if not args.no_emit:
-            log.info("生成站点产物…")
-            generate_site(ctx)
-            report = write_sync_report(ctx, mode="sync")
-            log.info("同步报告：%s", report)
-        else:
-            ctx.persist_products()
-
-        ctx.progress.save(force=True)
-        _print_summary(ctx)
+            ctx.save_data()
+            ctx.progress.save(force=True)
+            _print_summary(ctx)
+        except KeyboardInterrupt:
+            log.warning("收到中断信号，正在保存进度…")
+            ctx.save_data()
+            ctx.progress.save(force=True)
+            return 130
+        except Exception:
+            ctx.save_data()
+            ctx.progress.save(force=True)
+            raise
     return 0
 
 
@@ -1919,7 +2034,6 @@ def _dry_run(ctx: SyncContext, stages: list[str], args: argparse.Namespace) -> i
     print(f"  讨论帖     {sum(len(v) for v in structure.forum_topics.values())} 个")
     print()
     print("确认无误后执行：npm run sync -- --i-have-read-robots")
-    write_json(cfg.data_dir / "structure.json", structure.to_dict())
     return 0
 
 
@@ -1941,11 +2055,12 @@ def cmd_report(args: argparse.Namespace) -> int:
     cfg = _config_from_args(args)
     # report 是纯读命令，不应该反过来改写进度文件
     store = ProgressStore(cfg=cfg, readonly=True)
-    print(store.report())
+    report = store.report()
+    print(report)
     path = cfg.data_dir / "progress-report.md"
     from .util import atomic_write_text
 
-    atomic_write_text(path, store.report())
+    atomic_write_text(path, report)
     print(f"（已写入 {path}）")
     return 0
 
@@ -1955,7 +2070,10 @@ def cmd_verify(args: argparse.Namespace) -> int:
     from .verify import Verifier
 
     verifier = Verifier(cfg)
-    ok = verifier.run(sample=args.sample)
+    ok = verifier.run(
+        sample=args.sample,
+        skip_content_sample=getattr(args, "skip_content_sample", False),
+    )
     print(verifier.report_text())
     return 0 if ok else 1
 
@@ -2034,9 +2152,9 @@ def _config_from_args(args: argparse.Namespace) -> Config:
     if getattr(args, "offline", False):
         overrides["offline"] = True
     # 显式跟随命令行：默认 False（关闭），--archive 打开，--no-archive 关闭
-    overrides["archive_enabled"] = bool(getattr(args, "archive", False))
+    overrides["archive_enabled"] = bool(getattr(args, "archive", CONFIG.archive_enabled))
     # 浏览器传输：默认开启，--no-browser 关闭
-    overrides["browser_enabled"] = bool(getattr(args, "browser", True))
+    overrides["browser_enabled"] = bool(getattr(args, "browser", CONFIG.browser_enabled))
     # 限速：--speed 写入档位预设，--delay 写入精确值（更具体，故优先）。
     # 两者互斥由 argparse 保证；参数写在子命令两侧时它拦不住，这里兜住。
     if getattr(args, "speed", None):
@@ -2088,6 +2206,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         raise KeyboardInterrupt
 
     signal.signal(signal.SIGINT, _sigint)
+    signal.signal(signal.SIGTERM, _sigint)
 
     handlers = {
         "sync": cmd_sync,

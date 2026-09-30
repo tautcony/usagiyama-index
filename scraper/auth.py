@@ -209,6 +209,8 @@ def check_session(
             cookie_count=len(cookies),
             state_path=path,
         )
+    except AssertionError:
+        raise
     except Exception as exc:  # noqa: BLE001 - 网络异常不该让检查本身崩掉
         return SessionStatus(
             logged_in=False,

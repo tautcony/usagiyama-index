@@ -44,6 +44,12 @@ class TestSniffImage:
     def test_svg_recognised(self) -> None:
         assert sniff_image(b'<svg xmlns="http://www.w3.org/2000/svg"></svg>') == "svg"
 
+    def test_leading_bom_whitespace_and_short_svg(self) -> None:
+        assert sniff_image(b"\xef\xbb\xbf  \xff\xd8\xff" + b"x" * 12) == "jpeg"
+        assert sniff_image(b" <svg/>") == "svg"
+        assert sniff_image(b"<?xml version='1.0'?> <svg/>") == "svg"
+        assert sniff_image(b"BMnot-a-bitmap") is None
+
 
 class TestIsValidImage:
     def test_valid_file(self, tmp_path: Path) -> None:
@@ -326,8 +332,10 @@ class _ScriptedTransport:
     def __init__(self, responses: dict[str, object]) -> None:
         self.responses = responses
         self.invalidated: list[str] = []
+        self.calls: list[str] = []
 
     def get_image(self, url: str) -> CachedResponse:
+        self.calls.append(url)
         outcome = self.responses[url]
         if isinstance(outcome, Exception):
             raise outcome
@@ -414,6 +422,23 @@ class TestFailureDiagnostics:
         )
         assert not result.ok
         assert "HTTP 418" in result.error
+
+    def test_circuit_breaker_bubbles_without_trying_more_candidates(self, cfg) -> None:
+        from scraper.http_client import CircuitBreakerOpen
+
+        breaker = CircuitBreakerOpen(RAW_URL, "熔断", 403)
+        transport = _ScriptedTransport(
+            {RAW_URL: breaker, LARGE_URL: _response(LARGE_URL, 200, JPEG)}
+        )
+        archive = MediaArchive(transport, cfg=cfg, wayback=None)
+        with pytest.raises(CircuitBreakerOpen):
+            archive.download(
+                RAW_URL,
+                cfg.media_dir / "albums" / "1" / "p.jpg",
+                "/media/albums/1/p.jpg",
+                variants=[RAW_URL, LARGE_URL],
+            )
+        assert transport.calls == [RAW_URL]
 
     def test_intermediate_failure_is_info_not_warning(self, cfg, caplog) -> None:
         """某个候选不存在是预期内的：回退成功后不该留下 WARNING。"""

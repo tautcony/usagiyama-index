@@ -9,12 +9,13 @@ from __future__ import annotations
 import json
 import logging
 import re
+import unicodedata
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Iterable, Sequence
 
 from .config import CONFIG, Config
-from .html2md import ConvertContext, html_to_markdown, unwrap_link2
+from .html2md import ConvertContext, html_to_markdown, sanitize_markdown_url, unwrap_link2
 from .index_map import FALLBACK_CATEGORY, LINKS_CATEGORY
 from .models import (
     Album,
@@ -119,10 +120,10 @@ def status_notice(status: SourceStatus) -> str:
 
     if status.http_status:
         lines.append(f"\n原站返回：`HTTP {status.http_status}`")
-    if status.wayback_url:
+    if status.wayback_url and (safe_wayback := md_safe_url(status.wayback_url)):
         stamp = status.wayback_timestamp or ""
         date = f"{stamp[0:4]}-{stamp[4:6]}-{stamp[6:8]}" if len(stamp) >= 8 else stamp
-        lines.append(f"\n快照时间：{date} · [查看原始快照]({status.wayback_url})")
+        lines.append(f"\n快照时间：{date} · [查看原始快照]({safe_wayback})")
 
     lines.append(":::")
     return "\n".join(lines)
@@ -175,18 +176,30 @@ def md_escape_link_text(value: str) -> str:
 
 
 def md_safe_url(value: str) -> str:
-    """把 URL 转成 Markdown 链接安全写法：含空格或括号时用尖括号包裹。"""
-    if not value:
-        return value
-    if any(ch in value for ch in (" ", "\t", "(", ")")):
-        return f"<{value}>"
-    return value
+    """用正文转换层同一策略处理链接目标。"""
+    return sanitize_markdown_url(value)
 
 
 def slug_anchor(text: str) -> str:
-    """生成 VitePress 标题锚点（与 markdown-it-anchor 的默认规则一致）。"""
-    cleaned = "".join(ch for ch in text.strip() if ch.isalnum() or ch in " -_")
-    return cleaned.strip().lower().replace(" ", "-")
+    """Match VitePress's heading slugify implementation."""
+    value = unicodedata.normalize("NFKD", str(text))
+    value = re.sub(r"[\u0300-\u036f]", "", value)
+    value = re.sub(r"[\x00-\x1f]", "", value)
+    value = re.sub(r"[\s~`!@#$%^&*()\-_+=[\]{}|\\;:\"'“”‘’<>,.?/]+", "-", value)
+    value = re.sub(r"-{2,}", "-", value).strip("-")
+    value = re.sub(r"^(\d)", r"_\1", value)
+    return value.lower()
+
+
+def markdown_blockquote(text: str) -> str:
+    """Prefix every line, including blank lines, to keep full text in a quote."""
+    return "\n".join(f"> {line}" for line in (text or "").split("\n"))
+
+
+def md_table_cell(value: Any) -> str:
+    """Escape a value for a Markdown table cell."""
+    text = str(value if value is not None else "").replace("\\", "\\\\")
+    return text.replace("|", "\\|").replace("\r\n", "\n").replace("\r", "\n").replace("\n", "<br>")
 
 
 # ------------------------------------------------------------------ 数据模型
@@ -357,10 +370,10 @@ class SiteEmitter:
             title = f' title="{html_attr(tip)}"' if tip else ""
             # data-caption 供站点脚本（放大预览）取用，不依赖光标提示
             data = f' data-caption="{html_attr(caption)}"' if caption else ""
-            img = f'<img src="{preview}"{attr} loading="lazy" />'
+            img = f'<img src="{html_attr(preview)}"{attr} loading="lazy" />'
             # class 是给放大预览脚本的挂载点；JS 未生效时它就是一个普通链接
             inner = (
-                f'<a class="photo-preview" href="{full}" target="_blank"{title}{data}>'
+                f'<a class="photo-preview" href="{html_attr(full)}" target="_blank"{title}{data}>'
                 f"{img}</a>"
             )
             if caption:
@@ -391,6 +404,7 @@ class SiteEmitter:
 
     def emit_external(self, page: Any) -> Path:
         """渲染一个站外（``www.douban.com``）页面。"""
+        output_path = self.cfg.docs_dir / "external" / f"{page.page_id}.md"
         blocks = [
             frontmatter(
                 {
@@ -399,7 +413,7 @@ class SiteEmitter:
                     "origin": page.origin,
                     "source": page.url,
                     "availability": str(page.status.availability),
-                    "archivedAt": now_iso()[:10],
+                    "archivedAt": self._archived_at(output_path),
                 }
             )
         ]
@@ -409,7 +423,7 @@ class SiteEmitter:
             self.report.unavailable_pages += 1
 
         if page.origin:
-            blocks.append(f"*原站索引分组：{page.origin}*")
+            blocks.append(f"*原站索引分组：{html_text(page.origin)}*")
 
         body = html_to_markdown(
             page.content_html,
@@ -428,7 +442,7 @@ class SiteEmitter:
 
         blocks.append(source_footer(page.url))
 
-        path = self.cfg.docs_dir / "external" / f"{page.page_id}.md"
+        path = output_path
         atomic_write_text(path, "\n\n".join(blocks) + "\n")
         self.report.pages.append(f"external/{page.page_id}.md")
         return path
@@ -529,13 +543,13 @@ class SiteEmitter:
                 title_text = html_text(album.title)
                 if cover:
                     cards.append(
-                        f'<a class="poster" href="{route}">'
-                        f'<img src="{cover}" alt="{title_attr}" loading="lazy" />'
+                        f'<a class="poster" href="{html_attr(route)}">'
+                        f'<img src="{html_attr(cover)}" alt="{title_attr}" loading="lazy" />'
                         f'<span>{title_text}<em>{count} 张</em></span></a>'
                     )
                 else:
                     cards.append(
-                        f'<a class="poster" href="{route}">'
+                        f'<a class="poster" href="{html_attr(route)}">'
                         f'<span>{title_text}<em>{count} 张</em></span></a>'
                     )
             blocks.append("## 海报墙\n\n" + '<div class="poster-wall">\n' + "\n".join(cards) + "\n</div>")
@@ -632,7 +646,7 @@ class SiteEmitter:
             for note in ordered:
                 route = self.ctx.route_map.get(note.note_id, f"/notes/{note.note_id}")
                 date = f" <small>{note.date[:10]}</small>" if note.date else ""
-                items.append(f"- [{note.title}]({route}){date}")
+                items.append(f"- [{md_escape_link_text(note.title)}]({route}){date}")
             blocks.append("\n".join(items))
 
         path = self.cfg.notes_dir / "index.md"
@@ -650,7 +664,7 @@ class SiteEmitter:
         items = []
         for album in albums:
             route = self.ctx.album_routes.get(album.album_id, f"/albums/{album.album_id}")
-            items.append(f"- [{album.title}]({route}) — {len(album.photos)} 张")
+            items.append(f"- [{md_escape_link_text(album.title)}]({route}) — {len(album.photos)} 张")
         blocks.append("\n".join(items))
 
         path = self.cfg.albums_dir / "index.md"
@@ -753,7 +767,7 @@ class SiteEmitter:
                         ConvertContext(route_map=self.ctx.route_map),
                         self.cfg,
                     )
-                    blocks.append(f"**{head}**\n\n> {text}")
+                    blocks.append(f"**{head}**\n\n{markdown_blockquote(text)}")
             else:
                 blocks.append("*没有回应。*")
 
@@ -923,14 +937,14 @@ class SiteEmitter:
             url = getattr(record, "url", "")
             context = getattr(record, "context", "") or ""
             status = getattr(record, "http_status", None)
-            detail = (getattr(record, "detail", "") or "").replace("|", "\\|")
+            detail = getattr(record, "detail", "") or ""
             wayback = getattr(record, "wayback_url", None)
             label = labels.get(str(availability), str(availability))
-            if wayback:
-                label = f"{label}（[快照]({wayback})）"
-            lines.append(
-                f"| {label} | {url} | {context} | {status or '-'} | {detail} |"
-            )
+            safe_wayback = md_safe_url(wayback) if wayback else ""
+            if safe_wayback:
+                label = f"{label}（[快照]({safe_wayback})）"
+            cells = (label, url, context, status or "-", detail)
+            lines.append("| " + " | ".join(md_table_cell(cell) for cell in cells) + " |")
 
         if not records:
             lines.append("| — | 无 | | | 全部内容均已成功归档 |")

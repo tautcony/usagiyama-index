@@ -42,6 +42,8 @@ from curl_cffi.requests import Session
 from curl_cffi.requests.exceptions import (
     ChunkedEncodingError,
     ConnectionError as CurlConnectionError,
+    CurlError,
+    DNSError,
     IncompleteRead,
     SSLError as CurlSSLError,
     Timeout as CurlTimeout,
@@ -49,7 +51,7 @@ from curl_cffi.requests.exceptions import (
 from tenacity import (
     RetryCallState,
     Retrying,
-    retry_if_exception_type,
+    retry_if_exception,
     stop_after_attempt,
     wait_exponential_jitter,
 )
@@ -67,7 +69,11 @@ BLOCKED_STATUS = frozenset({403, 418})
 # archive.org 的 CDX 接口尤其容易返回 429。
 RETRYABLE_STATUS = frozenset({408, 425, 429, 500, 502, 503, 504})
 # 不写入缓存的响应码。429/5xx 是暂时性状态，缓存会让下次运行永久失败。
-NO_CACHE_STATUS = frozenset({429, 500, 502, 503, 504, 508})
+NO_CACHE_STATUS = frozenset({429})
+
+
+def _should_cache_status(status: int) -> bool:
+    return status not in NO_CACHE_STATUS and status < 500
 # "内容不存在"的响应码。多数情况下 404 是确定性结论，可以直接缓存；
 # 但在 Config.untrusted_404_hosts 列出的域名上它不是 —— 见 is_untrusted_missing。
 MISSING_STATUS = 404
@@ -236,20 +242,37 @@ def migrate_flat_cache(cfg: Config) -> int:
 
         target_dir = cfg.cache_dir / cache_domain(url)
         body_path = meta_path.with_suffix(".body")
+        target_body = target_dir / body_path.name
+        target_meta = target_dir / meta_path.name
 
         # 迁移过程中可能被打断，留下"只有 body"或"只有 meta"的半截状态。
         # 这类残留无法使用，直接清掉即可（下次会重新抓取）。
+        if not body_path.is_file() and target_body.is_file():
+            # Previous run moved the body but stopped before publishing meta.
+            try:
+                target_meta.parent.mkdir(parents=True, exist_ok=True)
+                meta_path.replace(target_meta)
+                moved += 1
+            except OSError as exc:
+                log.warning("缓存迁移失败 %s：%s", meta_path.name, exc)
+            continue
         if not body_path.is_file():
             meta_path.unlink(missing_ok=True)
             continue
 
         try:
             target_dir.mkdir(parents=True, exist_ok=True)
-            body_path.replace(target_dir / body_path.name)
-            meta_path.replace(target_dir / meta_path.name)
+            # Publish metadata only after body is in place. If interrupted, the
+            # flat metadata remains and a retry can complete the migration.
+            body_path.replace(target_body)
+            meta_path.replace(target_meta)
             moved += 1
         except OSError as exc:
             log.warning("缓存迁移失败 %s：%s", meta_path.name, exc)
+
+    for orphan in cfg.cache_dir.glob("*.body"):
+        if orphan.is_file() and not orphan.with_suffix(".json").exists():
+            orphan.unlink(missing_ok=True)
 
     if moved:
         log.info("已把 %d 组旧缓存迁移到按域名分目录的新布局", moved)
@@ -528,7 +551,7 @@ class BaseFetcher:
         # such an entry as cached makes callers skip the network fetch while
         # _read_cache correctly treats it as a miss (see SUG-20).
         body_path, meta_path = self._cache_paths(url)
-        return body_path.exists() and meta_path.exists()
+        return body_path.is_file() and meta_path.is_file()
 
     def invalidate_cache(self, url: str) -> bool:
         """丢弃某个 URL 的缓存条目（调用方判定缓存内容不可用时使用）。
@@ -565,6 +588,11 @@ class BaseFetcher:
         )
 
     def _retryer(self) -> Retrying:
+        def retryable(exc: BaseException) -> bool:
+            return isinstance(exc, (_RetryableStatus, *self.retryable_exceptions)) and not isinstance(
+                exc, DNSError
+            )
+
         return Retrying(
             stop=stop_after_attempt(self.cfg.max_retries + 1),
             wait=wait_exponential_jitter(
@@ -572,7 +600,7 @@ class BaseFetcher:
                 max=self.cfg.backoff_base * 16,
                 jitter=self.cfg.backoff_base / 2,
             ),
-            retry=retry_if_exception_type((_RetryableStatus, *self.retryable_exceptions)),
+            retry=retry_if_exception(retryable),
             before_sleep=self._on_retry,
             reraise=True,
             sleep=self._sleep,
@@ -607,6 +635,10 @@ class BaseFetcher:
             raise FetchError(
                 url, f"重试 {self.cfg.max_retries} 次后仍失败：{type(exc).__name__}: {exc}"
             ) from exc
+        except CurlError as exc:
+            # Structural/request configuration errors are not retryable, but
+            # the Transport contract exposes them uniformly as FetchError.
+            raise FetchError(url, f"请求失败：{type(exc).__name__}: {exc}") from exc
 
         self.stats.bytes_downloaded += len(raw.content)
         resp = CachedResponse(
@@ -645,7 +677,7 @@ class BaseFetcher:
             log.warning("源站返回 %d，但该域名上的 404 不可信，不写缓存：%s", raw.status, url)
             return resp
         # 4xx 视为确定性结果并缓存；429 与 5xx 是暂时性的，不缓存以便下次重试
-        if raw.status in NO_CACHE_STATUS:
+        if not _should_cache_status(raw.status):
             return resp
         # 2xx 却一个字节都没有：这不是可用内容，多半是源站出错或中间层拦截。
         # 缓存下来会让这个 URL **永久失败** —— 后续运行连网络请求都不发，直接重放
@@ -682,11 +714,13 @@ class BaseFetcher:
         :param image: 这是图片子资源请求，改用图片的请求头特征
             （见 :func:`image_request_headers`）。缓存命中时该参数无影响。
         """
-        if not force:
+        # Offline mode is strictly cache-only: callers may request a forced
+        # revalidation, but it must never bypass an available local response.
+        if not force or self.offline:
             cached = self._read_cache(url)
             if cached is not None:
                 # 429/5xx 属于暂时性失败，历史缓存一律视为过期
-                if cached.status not in NO_CACHE_STATUS:
+                if _should_cache_status(cached.status):
                     if not self.offline and self._cache_is_stale(cached, url):
                         log.info("缓存中的 %d 不可信，改为重新请求：%s", cached.status, url)
                     else:
@@ -829,4 +863,4 @@ def estimate_duration(request_count: int, cfg: Config = CONFIG) -> str:
 
 def count_cached(cfg: Config, urls: Iterable[str]) -> int:
     """统计给定 URL 中有多少已在缓存内（离线可用数量）。"""
-    return sum(1 for u in urls if cache_paths(cfg, u)[0].exists())
+    return sum(1 for u in urls if all(p.is_file() for p in cache_paths(cfg, u)))

@@ -22,10 +22,15 @@ from scraper.models import (
     Bulletin,
     Comment,
     Discussion,
+    ExternalPage,
+    IndexEntry,
+    IndexGroup,
     Note,
     PhotoMeta,
+    Room,
     SourceStatus,
     Video,
+    Widget,
 )
 from scraper.util import write_json
 
@@ -180,6 +185,132 @@ class TestLoadExisting:
             assert ctx.notes == {}
             assert ctx.bulletins == {}
             assert ctx.structure.note_entries == []
+
+    def test_failed_note_refresh_preserves_archived_body(self, cfg, monkeypatch) -> None:
+        from scraper.cli import stage_notes
+        from scraper.parsers import NoteListEntry
+        from scraper.resolver import ResolvedPage
+
+        archived = Note(
+            note_id="111",
+            widget_id="17565710",
+            title="已有标题",
+            content_html="<p>保留正文</p>",
+            comments=[Comment(author="a", date="d", content_html="<p>保留评论</p>")],
+        )
+        with SyncContext(cfg, use_archive=False) as ctx:
+            ctx.notes["111"] = archived
+            ctx.structure.note_entries = [
+                NoteListEntry("111", "17565710", "新标题", "date", 1, "https://x/111")
+            ]
+            monkeypatch.setattr(
+                ctx.resolver,
+                "resolve",
+                lambda url, **kwargs: ResolvedPage(
+                    url=url,
+                    status=SourceStatus(
+                        availability=Availability.UNAVAILABLE, retryable=True
+                    ),
+                ),
+            )
+            stage_notes(ctx, show_progress=False, force=True)
+            ctx.save_data()
+
+        saved = json.loads((cfg.data_dir / "notes.json").read_text(encoding="utf-8"))["111"]
+        assert saved["content_html"] == "<p>保留正文</p>"
+        assert len(saved["comments"]) == 1
+        assert saved["status"]["availability"] == "unavailable"
+
+    def test_failed_album_refresh_preserves_existing_photo_list(self, cfg, monkeypatch) -> None:
+        from scraper.cli import stage_albums
+        from scraper.resolver import ResolvedPage
+
+        old_album = Album(album_id="A1", title="旧相册", source_url="https://x/A1")
+        old_album.photos = [PhotoMeta(photo_id="P1", album_id="A1", caption="保留照片")]
+        with SyncContext(cfg, use_archive=False) as ctx:
+            ctx.albums["A1"] = old_album
+            ctx.structure.photo_ids = {"A1": []}
+            monkeypatch.setattr(
+                ctx.resolver,
+                "resolve",
+                lambda url, **kwargs: ResolvedPage(
+                    url=url,
+                    status=SourceStatus(
+                        availability=Availability.UNAVAILABLE, retryable=True
+                    ),
+                ),
+            )
+            stage_albums(ctx, show_progress=False, force=True)
+            assert [photo.photo_id for photo in ctx.albums["A1"].photos] == ["P1"]
+            assert ctx.progress.status_of("album:A1") == "failed"
+
+    def test_failed_external_refresh_preserves_existing_body(self, cfg, monkeypatch) -> None:
+        from scraper.cli import stage_main
+        from scraper.resolver import ResolvedPage
+
+        old_page = ExternalPage(
+            page_id="topic-1", url="https://www.douban.com/topic/1/",
+            content_html="<p>保留站外正文</p>",
+        )
+        with SyncContext(cfg, use_archive=False) as ctx:
+            ctx.external["topic-1"] = old_page
+            ctx.index_groups = [
+                IndexGroup("group", entries=[IndexEntry("topic", old_page.url)])
+            ]
+            monkeypatch.setattr(
+                ctx.resolver,
+                "resolve",
+                lambda url, **kwargs: ResolvedPage(
+                    url=url,
+                    status=SourceStatus(
+                        availability=Availability.UNAVAILABLE, retryable=True
+                    ),
+                ),
+            )
+            stage_main(ctx, show_progress=False, force=True)
+            assert ctx.external["topic-1"].content_html == "<p>保留站外正文</p>"
+            assert ctx.progress.status_of("main:topic-1") == "failed"
+
+    def test_video_refresh_keeps_existing_local_thumbnail(self, cfg) -> None:
+        from scraper.cli import stage_videos
+
+        old = Video(video_id="V1", widget_id="W1", local_thumb="/media/videos/V1.jpg")
+        fresh = Video(video_id="V1", widget_id="W1")
+        with SyncContext(cfg, use_archive=False) as ctx:
+            ctx.videos = [old]
+            ctx.structure.videos = [fresh]
+            stage_videos(ctx, show_progress=False, force=True)
+            assert ctx.videos[0].local_thumb == "/media/videos/V1.jpg"
+
+    def test_missing_bulletin_container_is_retryable_not_done(self, cfg, monkeypatch) -> None:
+        from scraper.cli import stage_bulletins
+        from scraper.resolver import ResolvedPage
+
+        other_bulletin = (
+            '<div id="bulletin-1"><h2>其它</h2><div id="link-report">'
+            "其它公告正文</div></div>"
+            '<div id="bulletin-2"><h2>第二条</h2><div id="link-report">'
+            "第二条正文</div></div>"
+        )
+        with SyncContext(cfg, use_archive=False) as ctx:
+            ctx.structure.rooms = [
+                Room(
+                    room_id="R1",
+                    widgets=[Widget("bulletin", "99999999", room_id="R1", title="目标")],
+                )
+            ]
+            monkeypatch.setattr(
+                ctx.resolver,
+                "resolve",
+                lambda url, **kwargs: ResolvedPage(
+                    url=url,
+                    html=other_bulletin,
+                    status=SourceStatus(availability=Availability.OK),
+                ),
+            )
+            stage_bulletins(ctx, show_progress=False, force=True)
+            assert ctx.progress.status_of("bulletin:99999999") == "failed"
+            assert "99999999" not in ctx.bulletins
 
 
 class TestAlbumLocalRefreshedFromDisk:

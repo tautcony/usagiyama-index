@@ -23,6 +23,7 @@ from scraper.http_client import (
     OfflineCacheMiss,
     cache_domain,
     cache_paths,
+    count_cached,
     decode_html,
     fetch_site,
     image_request_headers,
@@ -92,7 +93,7 @@ class TestStatusSets:
         assert {403, 418} <= BLOCKED_STATUS
 
     def test_transient_statuses_not_cached(self) -> None:
-        assert {429, 500, 502, 503, 504} <= NO_CACHE_STATUS
+        assert {429} <= NO_CACHE_STATUS
 
     def test_retry_set_excludes_base_curl_error(self) -> None:
         """WARN-6：重试集合不能含基类 ``CurlError``，否则 ``ImpersonateError``
@@ -570,10 +571,61 @@ class TestOffline:
         offline = Fetcher(cfg, session=FakeSession(), sleep=sleeper.append, offline=True)
         assert offline.fetch("https://x/a").content == b"cached"
 
+    def test_offline_force_still_uses_cache(self, cfg, sleeper) -> None:
+        session = FakeSession([FakeResponse(200, b"cached")])
+        Fetcher(cfg, session=session, sleep=sleeper.append).fetch("https://x/a")
+        offline_session = FakeSession()
+        offline = Fetcher(cfg, session=offline_session, sleep=sleeper.append, offline=True)
+        assert offline.fetch("https://x/a", force=True).content == b"cached"
+        assert offline_session.calls == []
+
     def test_offline_miss_raises(self, cfg, sleeper) -> None:
         offline = Fetcher(cfg, session=FakeSession(), sleep=sleeper.append, offline=True)
         with pytest.raises(OfflineCacheMiss):
             offline.fetch("https://x/never-fetched")
+
+
+class TestTransportErrorNormalization:
+    @pytest.mark.parametrize("error_name", ["InvalidURL", "MissingSchema", "TooManyRedirects"])
+    def test_non_retryable_curl_errors_become_fetch_error(self, cfg, sleeper, error_name) -> None:
+        from curl_cffi.requests import exceptions
+
+        error_type = getattr(exceptions, error_name)
+
+        class RaisingSession(FakeSession):
+            def get(self, url, headers=None, **kwargs):
+                self.calls.append((url, dict(headers or {})))
+                raise error_type("bad request")
+
+        session = RaisingSession()
+        fetcher = Fetcher(cfg, session=session, sleep=sleeper.append)
+        with pytest.raises(FetchError):
+            fetcher.fetch("/view/photo/raw/public/p1.jpg")
+        assert len(session.calls) == 1
+
+    def test_dns_error_is_not_retried(self, cfg, sleeper) -> None:
+        from curl_cffi.requests.exceptions import DNSError
+
+        class RaisingSession(FakeSession):
+            def get(self, url, headers=None, **kwargs):
+                self.calls.append((url, dict(headers or {})))
+                raise DNSError("dns failed")
+
+        session = RaisingSession()
+        with pytest.raises(FetchError):
+            Fetcher(cfg, session=session, sleep=sleeper.append).fetch("https://x/")
+        assert len(session.calls) == 1
+
+
+@pytest.mark.parametrize("status", [501, 520, 522])
+def test_server_errors_are_not_cached(cfg, sleeper, status) -> None:
+    session = FakeSession([FakeResponse(status), FakeResponse(status)])
+    fetcher = Fetcher(cfg, session=session, sleep=sleeper.append)
+    fetcher.fetch("https://x/transient")
+    body, _ = cache_paths(cfg, "https://x/transient")
+    assert not body.exists()
+    fetcher.fetch("https://x/transient")
+    assert len(session.calls) == 2
 
 
 class TestStats:
@@ -700,6 +752,34 @@ class TestFlatCacheMigration:
         )
         assert migrate_flat_cache(cfg) == 0
         assert not (cfg.cache_dir / f"{key}.json").exists()
+
+    def test_orphan_body_removed(self, cfg) -> None:
+        cfg.cache_dir.mkdir(parents=True, exist_ok=True)
+        body = cfg.cache_dir / "orphan.body"
+        body.write_bytes(b"unused")
+        assert migrate_flat_cache(cfg) == 0
+        assert not body.exists()
+        assert count_cached(cfg, ["https://x/orphan"]) == 0
+
+    def test_interrupted_body_move_is_completed_from_domain_cache(self, cfg, monkeypatch) -> None:
+        from pathlib import Path
+
+        url = "https://site.douban.com/211330/"
+        self._write_flat(cfg, url)
+        flat_meta = next(cfg.cache_dir.glob("*.json"))
+        real_replace = Path.replace
+
+        def stop_after_body(path, target):
+            if path.suffix == ".json":
+                raise OSError("simulated interruption")
+            return real_replace(path, target)
+
+        monkeypatch.setattr(Path, "replace", stop_after_body)
+        assert migrate_flat_cache(cfg) == 0
+        monkeypatch.setattr(Path, "replace", real_replace)
+        assert flat_meta.exists()
+        assert migrate_flat_cache(cfg) == 1
+        assert not flat_meta.exists()
 
     def test_corrupt_meta_removed(self, cfg) -> None:
         cfg.cache_dir.mkdir(parents=True, exist_ok=True)

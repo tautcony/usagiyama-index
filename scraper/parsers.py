@@ -202,10 +202,15 @@ def parse_bulletin(html: str, bulletin_id: str, url: str, room_id: str = "",
     soup = make_soup(html, cfg)
 
     container = soup.find(id=f"bulletin-{bulletin_id}")
-    scope = container if isinstance(container, Tag) else soup
+    link_reports = soup.find_all(id="link-report")
+    # A single unscoped report can still represent a simple legacy room page.
+    # With multiple reports, page-level fallback could silently archive a sibling.
+    scope = container if isinstance(container, Tag) else (
+        soup if len(link_reports) == 1 else None
+    )
 
     title = ""
-    heading = scope.find("h2")
+    heading = scope.find("h2") if isinstance(scope, Tag) else None
     if isinstance(heading, Tag):
         span = heading.find("span")
         title = " ".join((span or heading).get_text(" ").split())
@@ -213,10 +218,9 @@ def parse_bulletin(html: str, bulletin_id: str, url: str, room_id: str = "",
         node = soup.find("title")
         title = clean_title(node.get_text()) if isinstance(node, Tag) else bulletin_id
 
-    body = scope.find(id="link-report")
+    body = scope.find(id="link-report") if isinstance(scope, Tag) else None
     content = _content_html(body) if isinstance(body, Tag) else ""
-    if not content and scope is soup:
-        content = _link_report(soup)
+    retryable = not isinstance(container, Tag) and len(link_reports) != 1
 
     return Bulletin(
         bulletin_id=bulletin_id,
@@ -226,7 +230,8 @@ def parse_bulletin(html: str, bulletin_id: str, url: str, room_id: str = "",
         source_url=url,
         status=SourceStatus(
             availability="ok" if content.strip() else "unavailable",
-            detail="" if content.strip() else "未找到公告内容容器",
+            detail="" if content.strip() else "未找到目标公告内容容器",
+            retryable=retryable,
         ),
     )
 
@@ -244,8 +249,12 @@ def parse_total_pages(html: str) -> int | None:
     调用方拿到 ``None`` 时通常按单页处理，但必须显式打日志，方便排查"抓到
     的列表页数对不上"这类问题。
     """
-    match = re.search(r'data-total-page="(\d+)"', html or "")
-    return int(match.group(1)) if match else None
+    soup = make_soup(html or "", CONFIG)
+    node = soup.select_one("[data-total-page]")
+    if not isinstance(node, Tag):
+        return None
+    value = str(node.get("data-total-page", "")).strip()
+    return int(value) if value.isdigit() else None
 
 
 #: 分页链接里的页偏移，形如 ``?start=30``
@@ -576,7 +585,7 @@ def parse_comment_items(scope: BeautifulSoup | Tag) -> list[Comment]:
 
         avatar = item.select_one(".pic img")
         author_node = item.select_one(".content .author")
-        body = item.select_one(".content p")
+        body_nodes = item.select(".content p")
         author = ""
         date = ""
         if isinstance(author_node, Tag):
@@ -588,7 +597,9 @@ def parse_comment_items(scope: BeautifulSoup | Tag) -> list[Comment]:
             Comment(
                 author=author,
                 date=date,
-                content_html=body.decode_contents() if isinstance(body, Tag) else "",
+                content_html="\n\n".join(
+                    body.decode_contents() for body in body_nodes if isinstance(body, Tag)
+                ),
                 avatar_url=str(avatar.get("src", "")) if isinstance(avatar, Tag) else "",
                 comment_id=cid,
             )
@@ -818,10 +829,20 @@ def parse_video_list(html: str, widget_id: str, cfg: Config = CONFIG) -> list[Vi
                 thumb_url=thumb,
                 # 优酷外链常带百分号编码（%xx），必须解码才是可用的真实地址；
                 # 即使 external 已解码（不含 %xx），unquote 也是幂等的。
-                external_url=unquote(external),
+                external_url=(
+                    unquote(external)
+                    if urlparse(
+                        unquote(external) if re.search(r"%[0-9A-Fa-f]{2}", external) else external
+                    ).scheme in {"http", "https"}
+                    else ""
+                ),
                 date=date_match.group(1) if date_match else "",
                 source_url=href,
-                status=SourceStatus(availability="ok"),
+                status=SourceStatus(
+                    availability="ok" if title and thumb and external else "unavailable",
+                    detail="视频条目缺少标题、缩略图或外链" if not (title and thumb and external) else "",
+                    retryable=not (title and thumb and external),
+                ),
             )
         )
     return videos

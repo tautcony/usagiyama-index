@@ -86,12 +86,10 @@ BLOCKED_HOSTS: tuple[str, ...] = (
 # playwright 的异常类型。延迟导入，使得未安装 playwright 时本模块仍可导入
 # （测试环境可能没装；纯离线测试也不该依赖它）。
 try:  # pragma: no cover - 取决于环境是否安装 playwright
-    from playwright.sync_api import Error as PlaywrightError
     from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 
     PLAYWRIGHT_RETRYABLE_EXCEPTIONS: tuple[type[BaseException], ...] = (
         PlaywrightTimeoutError,
-        PlaywrightError,
     )
 except ImportError:  # pragma: no cover
     PLAYWRIGHT_RETRYABLE_EXCEPTIONS = ()
@@ -444,12 +442,15 @@ class BrowserFetcher(BaseFetcher):
 
     def finalize(self) -> FetchStats:
         """把内部 curl 图片请求的统计并入，保证同步报告数字完整。"""
+        if getattr(self, "_finalized_stats", None) is not None:
+            return self._finalized_stats
         stats = super().finalize()
         stats.merge(self._image_fetcher.stats)
         # 图片 fetcher 有独立时钟；运行时间应取两者覆盖区间的最大值，
         # 否则只统计浏览器导航的耗时，会低估总运行时间（见 SUG-19）。
         image_elapsed = time.monotonic() - self._image_fetcher._started_at
         stats.elapsed = max(stats.elapsed, image_elapsed)
+        self._finalized_stats = stats
         return stats
 
 
@@ -485,6 +486,8 @@ def detect_chrome_ua(cfg: Config = CONFIG, *, refresh: bool = False) -> str:
                 ua = ua.replace("HeadlessChrome", "Chrome")
             finally:
                 browser.close()
+    except AssertionError:
+        raise
     except Exception as exc:  # noqa: BLE001 - 探测失败不该影响主流程
         log.warning("探测 Chrome UA 失败（%s），回退到配置值", exc)
         return cfg.user_agent

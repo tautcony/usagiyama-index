@@ -32,6 +32,16 @@ const defuseVueBraces = (md: any): void => {
   })
 }
 
+const defuseActiveHtml = (md: any): void => {
+  const activeHtml = /<\s*\/?\s*(?:script|iframe|object|embed|svg|math)\b|<[^>]*\son[a-z]+\s*=|<[^>]*\ssrcdoc\s*=|<[^>]*\b(?:href|src)\s*=\s*["']?\s*(?:javascript|data):/i
+  for (const type of ['html_inline', 'html_block']) {
+    md.renderer.rules[type] = (tokens: any[], idx: number) => {
+      const content = tokens[idx].content
+      return activeHtml.test(content) ? escapeHtml(content) : content
+    }
+  }
+}
+
 export default defineConfig({
   base: process.env.BASE_PATH ?? '/',
   lang: 'zh-CN',
@@ -42,10 +52,15 @@ export default defineConfig({
   // 站点由 scraper 归档生成，正文里大量使用单换行表示折行。
   // 开启 breaks 才能忠实还原豆瓣原文的 <br> 语义（见 scraper/html2md.py）。
   markdown: {
+    // Keep safe generated cards renderable, but escape raw HTML with executable
+    // elements, event handlers, srcdoc, or dangerous URL schemes.
+    config: (md) => {
+      defuseVueBraces(md)
+      defuseActiveHtml(md)
+    },
     breaks: true,
     lineNumbers: false,
     image: { lazyLoading: true },
-    config: defuseVueBraces,
   },
 
   // 关键：把死链检查交给构建流程。任何指向不存在的 md / 图片都会让构建失败，

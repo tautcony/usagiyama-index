@@ -18,6 +18,7 @@ from scraper.config import (
     speed_tier,
     speed_tier_name,
 )
+from scraper.cli import _status_from_dict
 
 
 def _config_for(monkeypatch: pytest.MonkeyPatch, *argv: str) -> Config:
@@ -81,6 +82,10 @@ class TestSpeedArg:
 
 
 class TestConfigFromArgs:
+    def test_source_status_round_trip_includes_wayback_status(self) -> None:
+        status = _status_from_dict({"availability": "archived", "waybackStatus": 200})
+        assert status.wayback_status == 200
+
     def test_default_keeps_config_delays(self, monkeypatch: pytest.MonkeyPatch) -> None:
         cfg = _config_for(monkeypatch, "sync")
         assert (cfg.delay_min, cfg.delay_max) == (CONFIG.delay_min, CONFIG.delay_max)
@@ -95,6 +100,32 @@ class TestConfigFromArgs:
         # argparse 的互斥拦不住；那种写法下更具体的 --delay 生效。
         cfg = _config_for(monkeypatch, "--speed", "fast", "sync", "--delay", "0.5")
         assert (cfg.delay_min, cfg.delay_max) == (0.5, 2.5)
+
+    def test_environment_transport_defaults_are_preserved(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        import dataclasses
+        configured = dataclasses.replace(CONFIG, archive_enabled=True, browser_enabled=False)
+        monkeypatch.setattr(cli, "CONFIG", configured)
+        monkeypatch.setattr(cli, "ensure_dirs", lambda cfg: None)
+        cfg = cli._config_from_args(cli.build_parser().parse_args(["sync"]))
+        assert cfg.archive_enabled is True
+        assert cfg.browser_enabled is False
+
+    def test_explicit_transport_flags_override_environment(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        import dataclasses
+        configured = dataclasses.replace(CONFIG, archive_enabled=True, browser_enabled=False)
+        monkeypatch.setattr(cli, "CONFIG", configured)
+        monkeypatch.setattr(cli, "ensure_dirs", lambda cfg: None)
+        cfg = cli._config_from_args(cli.build_parser().parse_args(
+            ["sync", "--no-archive", "--browser"]
+        ))
+        assert cfg.archive_enabled is False
+        assert cfg.browser_enabled is True
+
+    @pytest.mark.parametrize("args", [["sync", "--limit", "-1"], ["sync", "--delay", "0"],
+                                       ["sync", "--impersonate", "bogus"]])
+    def test_invalid_common_values_rejected(self, args: list[str]) -> None:
+        with pytest.raises(SystemExit):
+            cli.build_parser().parse_args(args)
 
 
 class TestRateWarning:

@@ -38,6 +38,7 @@ from .http_client import (
     MISSING_STATUS,
     BlockedError,
     CachedResponse,
+    CircuitBreakerOpen,
     FetchError,
     OfflineCacheMiss,
 )
@@ -53,7 +54,6 @@ MAGIC_PREFIXES: tuple[tuple[bytes, str], ...] = (
     (b"\x89PNG\r\n\x1a\n", "png"),
     (b"GIF87a", "gif"),
     (b"GIF89a", "gif"),
-    (b"BM", "bmp"),
 )
 
 # 真实格式 → 落盘后缀。``jpeg`` 一律落 ``.jpg`` —— ``.jpeg`` 是等价写法，
@@ -88,7 +88,7 @@ ORIGINAL_MEDIA_SUBDIR = "original"
 # （旧版本归档留下过 ``.jpg``，现在详情页 ``<img>`` 给的是 ``.webp``），
 # 取 webp —— 像素尺寸与 jpg 相同、体积小得多，正适合网格里显示。
 # 点击预览看到的仍是原图（``original/`` 下的实拍文件），见 docs 主题的 lightbox。
-PREVIEW_SUFFIX_ORDER = (".webp", ".jpg", ".jpeg", ".png", ".gif")
+PREVIEW_SUFFIX_ORDER = (".webp", ".jpg", ".jpeg", ".png", ".gif", ".svg", ".bmp")
 
 # 图片尺寸升级顺序（按可用性与质量）
 NOTE_SIZE_ORDER = ("raw", "large", "medium", "small")
@@ -101,15 +101,22 @@ ORIGINAL_SIZE_ORDER = ("raw", "large", "photo", "m", "thumb")
 
 def sniff_image(data: bytes) -> str | None:
     """识别图片格式；返回 ``None`` 表示不是可识别的图片。"""
-    if not data or len(data) < 12:
+    if not data:
         return None
+    head = data.lstrip(b"\xef\xbb\xbf\x00\t\n\r ")
     for prefix, name in MAGIC_PREFIXES:
-        if data.startswith(prefix):
+        if head.startswith(prefix):
             return name
+    if head.startswith(b"BM"):
+        # BITMAPFILEHEADER + a plausible DIB header and pixel offset.
+        if (len(head) >= 14 and head[6:10] == b"\0\0\0\0"
+                and int.from_bytes(head[10:14], "little") >= 14):
+            return "bmp"
+        return None
     # WebP: RIFF....WEBP
-    if data.startswith(b"RIFF") and data[8:12] == b"WEBP":
+    if head.startswith(b"RIFF") and head[8:12] == b"WEBP":
         return "webp"
-    head = data[:512].lstrip()
+    head = head[:512].lower()
     if head.startswith(b"<svg") or (head.startswith(b"<?xml") and b"<svg" in head):
         return "svg"
     return None
@@ -243,6 +250,14 @@ def album_original_variants(url: str) -> list[str]:
 
 def basename_of(url: str, fallback: str = "image") -> str:
     name = Path(urlparse(url).path).name or fallback
+    return _safe_filename(name, fallback)
+
+
+def _safe_filename(value: str, fallback: str) -> str:
+    """Keep file names inside the supported portable ASCII set."""
+    name = re.sub(r"[^A-Za-z0-9._-]+", "_", str(value)).lstrip(".")
+    if not name:
+        name = fallback
     return name if "." in name else f"{name}.jpg"
 
 
@@ -299,7 +314,7 @@ class MediaArchive:
         原图另有 :meth:`album_original_path`，两者分目录存放。
         """
         suffix = Path(urlparse(url).path).suffix or ".jpg"
-        name = f"{photo_id}{suffix}"
+        name = _safe_filename(f"{photo_id}{suffix}", "photo.jpg")
         return (
             self.cfg.media_dir / "albums" / album_id / name,
             f"{ALBUM_MEDIA_PREFIX}/{album_id}/{name}",
@@ -308,7 +323,7 @@ class MediaArchive:
     def album_original_path(self, album_id: str, photo_id: str, url: str = "") -> tuple[Path, str]:
         """**原图**（"查看原图"的 ``raw`` 尺寸）的落盘路径。"""
         suffix = Path(urlparse(url).path).suffix or ".jpg"
-        name = f"{photo_id}{suffix}"
+        name = _safe_filename(f"{photo_id}{suffix}", "photo.jpg")
         return (
             self.cfg.media_dir / "albums" / album_id / ORIGINAL_MEDIA_SUBDIR / name,
             f"{ALBUM_MEDIA_PREFIX}/{album_id}/{ORIGINAL_MEDIA_SUBDIR}/{name}",
@@ -383,7 +398,7 @@ class MediaArchive:
 
     def video_thumb_path(self, video_id: str, url: str = "") -> tuple[Path, str]:
         suffix = Path(urlparse(url).path).suffix or ".jpg"
-        name = f"{video_id}{suffix}"
+        name = _safe_filename(f"{video_id}{suffix}", "video.jpg")
         return (
             self.cfg.media_dir / "videos" / name,
             f"{VIDEO_MEDIA_PREFIX}/{name}",
@@ -474,6 +489,8 @@ class MediaArchive:
         for candidate in variants or [url]:
             try:
                 resp = self.fetcher.get_image(candidate)
+            except CircuitBreakerOpen:
+                raise
             except (BlockedError, FetchError, OfflineCacheMiss) as exc:
                 note = describe_failure(exc)
                 failures.append(f"{candidate} → {note}")

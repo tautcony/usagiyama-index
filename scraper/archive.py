@@ -27,7 +27,7 @@ from dataclasses import dataclass
 from urllib.parse import urlencode, urlparse, urlunparse
 
 from .config import CONFIG, Config
-from .http_client import BlockedError, FetchError, Fetcher, OfflineCacheMiss
+from .http_client import BlockedError, CircuitBreakerOpen, FetchError, Fetcher, OfflineCacheMiss
 
 log = logging.getLogger("usagi.archive")
 
@@ -163,6 +163,8 @@ class WaybackClient:
 
         try:
             payload = self._fetcher.get_html(f"{CDX_API}?{urlencode(params)}")
+        except CircuitBreakerOpen:
+            raise
         except (BlockedError, FetchError, OfflineCacheMiss) as exc:
             log.debug("CDX 查询失败 %s：%s", url, exc)
             return []
@@ -220,6 +222,8 @@ class WaybackClient:
         """抓取快照的原始 HTML（``id_`` 修饰，未被 Wayback 改写）。"""
         try:
             return self._fetcher.get_html(snapshot.raw_url)
+        except CircuitBreakerOpen:
+            raise
         except (BlockedError, FetchError, OfflineCacheMiss) as exc:
             log.warning("快照抓取失败 %s：%s", snapshot.raw_url, exc)
             return None
@@ -249,6 +253,8 @@ class WaybackClient:
             # 这同样是一次"要一张图片"的请求，用图片的请求头特征。
             # 这里不带 Referer：archive.org 没有防盗链，也没必要把来源页告诉它。
             resp = self._fetcher.fetch(raw_url, raise_for_blocked=False, image=True)
+        except CircuitBreakerOpen:
+            raise
         except (BlockedError, FetchError, OfflineCacheMiss) as exc:
             log.debug("快照图片抓取失败 %s：%s", raw_url, exc)
             return None

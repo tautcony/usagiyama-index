@@ -96,6 +96,12 @@ class TestSlugAnchor:
     def test_chinese_kept(self) -> None:
         assert slug_anchor("聲之形") == "聲之形"
 
+    def test_matches_vitepress_punctuation_and_nfkd_rules(self) -> None:
+        assert slug_anchor("轻音！系列") == "轻音-系列"
+        assert slug_anchor("玉子市场＆玉子爱情故事") == "玉子市场-玉子爱情故事"
+        assert slug_anchor("École déjà") == "ecole-deja"
+        assert slug_anchor("2026 标题") == "_2026-标题"
+
 
 def _note(note_id: str = "1", **kwargs) -> Note:
     note = Note(
@@ -351,6 +357,20 @@ class TestEmitUnavailableReport:
         text = SiteEmitter(cfg).emit_unavailable_report(records).read_text(encoding="utf-8")
         assert "含\\|竖线" in text
 
+    def test_all_table_fields_escape_pipes_and_newlines(self, cfg) -> None:
+        from scraper.resolver import UnavailableRecord
+
+        records = [UnavailableRecord(
+            url="https://x/a|b",
+            availability=Availability.UNAVAILABLE,
+            context="context|line\nnext",
+            detail="detail|line\nnext",
+        )]
+        text = SiteEmitter(cfg).emit_unavailable_report(records).read_text(encoding="utf-8")
+        assert "https://x/a\\|b" in text
+        assert "context\\|line<br>next" in text
+        assert "detail\\|line<br>next" in text
+
 
 class TestEmitHome:
     def test_home_page_generated(self, cfg) -> None:
@@ -373,6 +393,16 @@ class TestEmitHome:
         assert "/media/site/avatar.jpg" in text
         assert "聲之形" in text
 
+    def test_html_attribute_paths_are_escaped(self, cfg) -> None:
+        album = Album(album_id="1", title="album")
+        album.photos = [PhotoMeta(
+            photo_id="1", album_id="1", local='/media/x.jpg"><img src=x onerror=alert(1)>'
+        )]
+        emitter = SiteEmitter(cfg, EmitContext(album_routes={"1": '/albums/1"><img src=x>'}))
+        text = emitter.emit_home({"name": "site"}, [], [album]).read_text(encoding="utf-8")
+        assert 'x.jpg"><img src=x' not in text
+        assert "&quot;" in text
+
 
 class TestEmitNotesIndex:
     def test_index_lists_entries_with_badges(self, cfg) -> None:
@@ -393,6 +423,15 @@ class TestEmitNotesIndex:
         assert "[A](/notes/1)" in text
         assert "badge-unavailable" in text
         assert "需要登录" in text
+
+    def test_link_titles_escape_square_brackets(self, cfg) -> None:
+        note = _note("1", title="C# [笔记] 标题")
+        fallback = SiteEmitter(cfg).emit_notes_index([], {"1": note}, fallback_notes=[note])
+        assert r"C# \[笔记\] 标题" in fallback.read_text(encoding="utf-8")
+
+    def test_album_index_titles_escape_square_brackets(self, cfg) -> None:
+        text = SiteEmitter(cfg).emit_albums_index([Album(album_id="1", title="相册 [一]")])
+        assert r"相册 \[一\]" in text.read_text(encoding="utf-8")
 
 
 class TestHtmlEscaping:
@@ -475,6 +514,42 @@ class TestAlbumCaptionEscaping:
         text = SiteEmitter(cfg).emit_album(album).read_text(encoding="utf-8")
         assert "{{" not in text
         assert "&#123;&#123; 花括号 &#125;&#125;" in text
+
+    def test_local_paths_cannot_break_html_attributes(self, cfg) -> None:
+        album = Album(album_id="1", title="相册")
+        album.photos = [PhotoMeta(
+            photo_id="1", album_id="1", local='/media/x.jpg"><img src=x onerror=alert(1)>'
+        )]
+        text = SiteEmitter(cfg).emit_album(album).read_text(encoding="utf-8")
+        assert 'x.jpg"><img src=x' not in text
+        assert "&quot;" in text
+
+
+class TestEmitBoard:
+    def test_multiline_comment_stays_inside_blockquote(self, cfg) -> None:
+        from scraper.models import Comment, Discussion
+
+        discussion = Discussion(
+            discussion_id="1", forum_id="forum", title="话题", source_url="https://x/"
+        )
+        discussion.comments = [Comment(author="a", content_html="<p>第一段</p><p>## 不是标题</p>")]
+        text = SiteEmitter(cfg).emit_board([discussion]).read_text(encoding="utf-8")
+        assert "> 第一段\n> \n> ## 不是标题" in text
+
+
+class TestEmitExternal:
+    def test_archived_at_is_stable_across_days(self, cfg, monkeypatch) -> None:
+        from scraper import emit as emit_module
+        from scraper.models import ExternalPage
+
+        page = ExternalPage(page_id="topic-1", url="https://x/", content_html="<p>body</p>")
+        values = iter(["2026-09-30T12:00:00+08:00", "2026-10-01T12:00:00+08:00"])
+        monkeypatch.setattr(emit_module, "now_iso", lambda: next(values))
+        emitter = SiteEmitter(cfg)
+        path = emitter.emit_external(page)
+        first = path.read_text(encoding="utf-8")
+        emitter.emit_external(page)
+        assert path.read_text(encoding="utf-8") == first
 
 
 class TestVideoEscaping:

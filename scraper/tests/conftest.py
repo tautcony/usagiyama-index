@@ -103,6 +103,14 @@ def forbid_real_transport(request: pytest.FixtureRequest, monkeypatch: pytest.Mo
 
     monkeypatch.setattr(http_module.Fetcher, "_build_session", _offline_session)
     monkeypatch.setattr(browser_module.PlaywrightDriver, "__init__", _forbidden_driver)
+    import curl_cffi.requests as curl_requests
+    monkeypatch.setattr(curl_requests, "Session", _offline_session)
+    try:
+        import playwright.sync_api as playwright_api
+    except ImportError:
+        pass
+    else:
+        monkeypatch.setattr(playwright_api, "sync_playwright", _forbidden_driver)
 
 
 @pytest.fixture(autouse=True)
