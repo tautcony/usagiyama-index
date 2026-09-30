@@ -1,0 +1,27 @@
+scraper/cli.py
+  s_caca6a0306cbdb::t_ff1126c72df6bf 80,731-735,1634-1652
+scraper/config.py
+  s_caca6a0306cbdb::t_3113f7bba116dc 293-295
+scraper/emit.py
+  s_caca6a0306cbdb::t_ca948996731f0e 214,790,796-802,804-805
+scraper/models.py
+  s_caca6a0306cbdb::t_708025f7eeee49 334-336
+scraper/parsers.py
+  s_caca6a0306cbdb::t_c545f701a12bc2 11,778-780,790-792,798-820
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "afb7336c3558ee27d4ab9d96303f9ed293124e90",
+  "prompts": {},
+  "sessions": {
+    "s_caca6a0306cbdb": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0f0c4-f011-7832-9015-a703f68ab538",
+        "model": "unknown"
+      },
+      "human_author": "TautCony <i@tautcony.xyz>"
+    }
+  }
+}
