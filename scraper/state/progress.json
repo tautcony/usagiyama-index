@@ -2,8 +2,8 @@
   "version": 1,
   "parserRevision": 6,
   "site": "https://site.douban.com/211330/",
-  "startedAt": "2026-09-15T14:40:42+08:00",
-  "updatedAt": "2026-09-15T14:43:26+08:00",
+  "startedAt": "2026-09-30T17:34:46+08:00",
+  "updatedAt": "2026-09-30T17:39:56+08:00",
   "totals": {
     "done": 702,
     "unavailable": 0,
@@ -15,6 +15,7 @@
       "stage": "albums",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:53+08:00",
       "detail": "HTT纪念册（22 张）",
       "meta": {}
@@ -23,6 +24,7 @@
       "stage": "albums",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:53+08:00",
       "detail": "商店街日常（24 张）",
       "meta": {}
@@ -31,6 +33,7 @@
       "stage": "albums",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:53+08:00",
       "detail": "相册（114 张）",
       "meta": {}
@@ -39,6 +42,7 @@
       "stage": "albums",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:53+08:00",
       "detail": "海报墙（26 张）",
       "meta": {}
@@ -47,6 +51,7 @@
       "stage": "albums",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:53+08:00",
       "detail": "幕后&周边（179 张）",
       "meta": {}
@@ -55,6 +60,7 @@
       "stage": "albums",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:53+08:00",
       "detail": "相册（158 张）",
       "meta": {}
@@ -63,6 +69,7 @@
       "stage": "bulletins",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "About PPK",
       "meta": {}
@@ -71,6 +78,7 @@
       "stage": "bulletins",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "公告栏",
       "meta": {}
@@ -79,6 +87,7 @@
       "stage": "bulletins",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "公告栏",
       "meta": {}
@@ -87,6 +96,7 @@
       "stage": "bulletins",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "索引①",
       "meta": {}
@@ -95,6 +105,7 @@
       "stage": "bulletins",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "索引②",
       "meta": {}
@@ -103,6 +114,7 @@
       "stage": "bulletins",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "公告栏",
       "meta": {}
@@ -111,6 +123,7 @@
       "stage": "bulletins",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "公告栏",
       "meta": {}
@@ -119,6 +132,7 @@
       "stage": "forum",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:53+08:00",
       "detail": "5 条回应",
       "meta": {}
@@ -127,6 +141,7 @@
       "stage": "main",
       "status": "done",
       "attempts": 2,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:46:28+08:00",
       "detail": "山田尚子：“珍视角色”——唯有这一点，无论创作什么作品，我都会绝不动摇地坚守下… · 0 评论",
       "meta": {
@@ -136,15 +151,17 @@
     "miniblog:13430546": {
       "stage": "miniblog",
       "status": "done",
-      "attempts": 1,
-      "updatedAt": "2026-09-14T21:27:53+08:00",
-      "detail": "20 条动态",
+      "attempts": 2,
+      "failures": 0,
+      "updatedAt": "2026-09-30T17:39:56+08:00",
+      "detail": "881 条动态（45 页）",
       "meta": {}
     },
     "note:274238773": {
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《玉子市场》的人物魅力 · 5 图 · 1 评论",
       "meta": {
@@ -156,6 +173,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "轻音学讲义笔记 第1回 《轻音》的主题 · 7 图 · 0 评论",
       "meta": {
@@ -167,6 +185,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "轻音学讲义笔记 第2回 《轻音》与暗喻 · 26 图 · 0 评论",
       "meta": {
@@ -178,6 +197,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "轻音学讲义笔记 第3回 角色与关键道具（前篇） · 33 图 · 7 评论",
       "meta": {
@@ -189,6 +209,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:50+08:00",
       "detail": "所以人们才会彼此寻求——《境界的彼方》第5话演出小析 · 12 图 · 1 评论",
       "meta": {
@@ -200,6 +221,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《电影 轻音！》全程解说 · 1 图 · 3 评论",
       "meta": {
@@ -211,6 +233,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《玉子爱情故事》导演寄语 · 1 图 · 0 评论",
       "meta": {
@@ -222,6 +245,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《玉子爱情故事》官网故事简介 · 1 图 · 0 评论",
       "meta": {
@@ -233,6 +257,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《电影 轻音！》与《玉子》中的“宇宙” · 0 图 · 0 评论",
       "meta": {
@@ -244,6 +269,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:50+08:00",
       "detail": "《中二病也要谈恋爱！》片尾解读 · 25 图 · 4 评论",
       "meta": {
@@ -255,6 +281,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "蒲公英与咖啡——《玉子爱情故事》特报2解读 · 0 图 · 0 评论",
       "meta": {
@@ -266,6 +293,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《玉子爱情故事》预告片考察汇总及作品展望 · 17 图 · 1 评论",
       "meta": {
@@ -277,6 +305,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "4/19《玉子市场》温习上映会&制作人员漫谈会活动报告 · 5 图 · 0 评论",
       "meta": {
@@ -288,6 +317,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《玉子爱情故事》官网山田尚子导演访谈（前篇） · 2 图 · 1 评论",
       "meta": {
@@ -299,6 +329,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《玉子爱情故事》官网山田尚子导演访谈（后篇） · 7 图 · 4 评论",
       "meta": {
@@ -310,6 +341,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《玉子爱情故事》excite山田尚子导演访谈（前篇） · 0 图 · 1 评论",
       "meta": {
@@ -321,6 +353,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《玉子爱情故事》excite山田尚子导演访谈（后篇） · 0 图 · 0 评论",
       "meta": {
@@ -332,6 +365,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "玉子爱情故事☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -343,6 +377,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "电影☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -354,6 +389,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "电影充☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -365,6 +401,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "兔子山商店街・天使之歌——《玉子爱情故事》试论 · 0 图 · 2 评论",
       "meta": {
@@ -376,6 +413,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:50+08:00",
       "detail": "《Free! Eternal Summer》第12话演出分析 · 65 图 · 0 评论",
       "meta": {
@@ -387,6 +425,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《电影 轻音！》片尾与The Who及电影《四重人格》 · 23 图 · 4 评论",
       "meta": {
@@ -398,6 +437,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "通过电影《四重人格》解读《电影 轻音！》片尾 · 5 图 · 1 评论",
       "meta": {
@@ -409,6 +449,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "By always thinking…☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -420,6 +461,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《玉子爱情故事》初感——喜爱山田作品的理由 · 1 图 · 4 评论",
       "meta": {
@@ -431,6 +473,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《玉子爱情故事》解读：By always thinking unto them. · 3 图 · 1 评论",
       "meta": {
@@ -442,6 +485,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《玉子爱情故事》解读：月球与地球，火星♂与金星♀ · 9 图 · 1 评论",
       "meta": {
@@ -453,6 +497,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《玉子爱情故事》解读：雏子的回忆与玉子手中的年糕石的消失 · 4 图 · 0 评论",
       "meta": {
@@ -464,6 +509,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《玉子爱情故事》解读：新干线=倒计时，接住传声筒=终点 · 3 图 · 0 评论",
       "meta": {
@@ -475,6 +521,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《玉子爱情故事》解读：踏脚石=电影胶片，新干线=电影胶片=踏脚石 · 8 图 · 0 评论",
       "meta": {
@@ -486,6 +533,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《玉子爱情故事》解读：感情的传播方向 · 17 图 · 1 评论",
       "meta": {
@@ -497,6 +545,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《玉子爱情故事》总论：感情架起桥梁 · 14 图 · 1 评论",
       "meta": {
@@ -508,6 +557,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《玉子爱情故事》解读：磁极，反转的磁带与传声筒 · 5 图 · 2 评论",
       "meta": {
@@ -519,6 +569,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《玉子爱情故事》解读：河川的彼方与此方，小绿的成长 · 8 图 · 4 评论",
       "meta": {
@@ -530,6 +581,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《玉子爱情故事》解读：雏子的三次帮助，玉子的重生 · 4 图 · 5 评论",
       "meta": {
@@ -541,6 +593,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《玉子爱情故事》ED解读：真苹果与假苹果，熊猫与狗 · 35 图 · 15 评论",
       "meta": {
@@ -552,6 +605,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "米饭☆Papico · 0 图 · 2 评论",
       "meta": {
@@ -563,6 +617,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《玉子爱情故事》获第18届文化厅媒体艺术节动画部门新人奖 · 2 图 · 0 评论",
       "meta": {
@@ -574,6 +629,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "“过桥的故事”与“架桥的故事”——对比《电影 轻音！》与《玉子爱情故事》 · 3 图 · 4 评论",
       "meta": {
@@ -585,6 +641,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "一步一个脚印☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -596,6 +653,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "羊☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -607,6 +665,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "烤肉☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -618,6 +677,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "玉子与饼藏☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -629,6 +689,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:50+08:00",
       "detail": "《吹响悠风号》第一回演出小析 · 8 图 · 5 评论",
       "meta": {
@@ -640,6 +701,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:50+08:00",
       "detail": "《吹响悠风号》第二回演出小析 · 5 图 · 9 评论",
       "meta": {
@@ -651,6 +713,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:50+08:00",
       "detail": "《吹响悠风号》第三回演出小析 · 8 图 · 3 评论",
       "meta": {
@@ -662,6 +725,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "电影☆上映☆悠风☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -673,6 +737,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:50+08:00",
       "detail": "《吹响悠风号》第四回演出小析 · 9 图 · 11 评论",
       "meta": {
@@ -684,6 +749,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:50+08:00",
       "detail": "《吹响悠风号》第五回演出小析 · 15 图 · 6 评论",
       "meta": {
@@ -695,6 +761,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:50+08:00",
       "detail": "《吹响悠风号》第六回演出小析 · 9 图 · 5 评论",
       "meta": {
@@ -706,6 +773,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:50+08:00",
       "detail": "《吹响悠风号》第七回演出小析 · 19 图 · 6 评论",
       "meta": {
@@ -717,6 +785,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:50+08:00",
       "detail": "《吹响悠风号》第八回演出小析 · 20 图 · 20 评论",
       "meta": {
@@ -728,6 +797,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "高中生☆Papico · 0 图 · 2 评论",
       "meta": {
@@ -739,6 +809,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《吹响悠风号》第九回演出小析 · 12 图 · 8 评论",
       "meta": {
@@ -750,6 +821,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《吹响悠风号》第十回演出小析 · 12 图 · 5 评论",
       "meta": {
@@ -761,6 +833,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《吹响悠风号》第十一回演出小析 · 20 图 · 6 评论",
       "meta": {
@@ -772,6 +845,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《吹响悠风号》第十二回演出小析 · 17 图 · 8 评论",
       "meta": {
@@ -783,6 +857,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《吹响悠风号》评论音轨笔记1 · 5 图 · 5 评论",
       "meta": {
@@ -794,6 +869,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《吹响悠风号》最终回演出小析 · 23 图 · 17 评论",
       "meta": {
@@ -805,6 +881,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "庆祝☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -816,6 +893,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《吹响悠风号》导演石原立也×系列演出山田尚子对谈（《Megami Magazi… · 14 图 · 4 评论",
       "meta": {
@@ -827,6 +905,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《吹响悠风号》石原立也导演访谈（《Animedia》2015年8月号） · 4 图 · 3 评论",
       "meta": {
@@ -838,6 +917,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "牙医☆Papico · 0 图 · 2 评论",
       "meta": {
@@ -849,6 +929,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "秋意渐露☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -860,6 +941,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《吹响悠风号》评论音轨笔记2 · 9 图 · 4 评论",
       "meta": {
@@ -871,6 +953,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《吹响悠风号》评论音轨笔记3 · 16 图 · 3 评论",
       "meta": {
@@ -882,6 +965,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《轻音！！》剧情结构解析——决定将来与前路的故事 · 11 图 · 5 评论",
       "meta": {
@@ -893,6 +977,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《轻音！！》片尾“Listen!!”解析 · 11 图 · 2 评论",
       "meta": {
@@ -904,6 +989,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《吹响悠风号 Official Fan Book》石原立也×山田尚子×武田绫乃… · 7 图 · 5 评论",
       "meta": {
@@ -915,6 +1001,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《吹响悠风号 Official Fan Book》每集精彩看点评说（石原立也×… · 13 图 · 4 评论",
       "meta": {
@@ -926,6 +1013,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "星星与音乐☆Papico · 1 图 · 1 评论",
       "meta": {
@@ -937,6 +1025,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《聲之形》原作者大今良时＆导演山田尚子寄语 · 2 图 · 3 评论",
       "meta": {
@@ -948,6 +1037,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "想让她们再穿一次校服——山田尚子导演谈《电影 轻音！》（《电影旬报》2011年… · 2 图 · 2 评论",
       "meta": {
@@ -959,6 +1049,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "通过电影《纯真》解读《电影 轻音！》片尾 · 9 图 · 1 评论",
       "meta": {
@@ -970,6 +1061,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "Tutti☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -981,6 +1073,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "第二届京阿尼＆Do答谢会：导演对谈＆山田尚子导演签名会活动报告 · 34 图 · 4 评论",
       "meta": {
@@ -992,6 +1085,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "2015年☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -1003,6 +1097,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "抱着正面决胜负的态度制作的“青春动画”——《吹响悠风号》石原立也×山田尚子访谈… · 22 图 · 12 评论",
       "meta": {
@@ -1014,6 +1109,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "新星★Papico · 3 图 · 1 评论",
       "meta": {
@@ -1025,6 +1121,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "创作者☆Papico · 1 图 · 0 评论",
       "meta": {
@@ -1036,6 +1133,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "再过不久☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -1047,6 +1145,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "电影《聲之形》首张宣传画浅谈 · 1 图 · 0 评论",
       "meta": {
@@ -1058,6 +1157,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "兔子与新月☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -1069,6 +1169,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "电影《聲之形》导演山田尚子谈选角理由 · 3 图 · 0 评论",
       "meta": {
@@ -1080,6 +1181,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "电影《聲之形》配音演员获选感言 · 9 图 · 0 评论",
       "meta": {
@@ -1091,6 +1193,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "薯片☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -1102,6 +1205,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "电影《聲之形》配音完成感想 · 3 图 · 1 评论",
       "meta": {
@@ -1113,6 +1217,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "电影《聲之形》导演山田尚子创作感言（《Animedia》2016年9月号） · 1 图 · 0 评论",
       "meta": {
@@ -1124,6 +1229,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "诚实用心地面对作品——导演山田尚子谈电影《聲之形》（《Newtype》2016… · 1 图 · 0 评论",
       "meta": {
@@ -1135,6 +1241,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "电影《聲之形》配乐牛尾宪辅＆主题歌演唱者aiko寄语 · 2 图 · 0 评论",
       "meta": {
@@ -1146,6 +1253,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "难能可贵，惹人怜爱——导演山田尚子谈电影《聲之形》（《Animage》2016… · 3 图 · 0 评论",
       "meta": {
@@ -1157,6 +1265,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《电影 轻音！》英国首映见面会导演问答 · 1 图 · 0 评论",
       "meta": {
@@ -1168,6 +1277,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "聲之形☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -1179,6 +1289,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《剧场版 吹响悠风号》特别上映（电影《聲之形》公映纪念）见面会报告 · 1 图 · 1 评论",
       "meta": {
@@ -1190,6 +1301,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "肯定世界的电影——《聲之形》导演山田尚子访谈（《Quick Japan》Vol… · 2 图 · 0 评论",
       "meta": {
@@ -1201,6 +1313,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "“约定”的手语，在缠绕的手指中展现“表情”——导演山田尚子谈电影《聲之形》（《… · 1 图 · 0 评论",
       "meta": {
@@ -1212,6 +1325,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "描绘人的“真心”——电影《聲之形》导演山田尚子访谈（《周刊少年Magazine… · 1 图 · 0 评论",
       "meta": {
@@ -1223,6 +1337,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "通过“存在于世上”的他们传达的东西——电影《聲之形》导演山田尚子访谈（Comi… · 14 图 · 1 评论",
       "meta": {
@@ -1234,6 +1349,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "耳朵听不见是硝子的一种个性——电影《聲之形》导演山田尚子访谈（excite专访… · 3 图 · 0 评论",
       "meta": {
@@ -1245,6 +1361,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "让将也发出使他好好活下去的第一声啼哭——电影《聲之形》导演山田尚子访谈（exc… · 4 图 · 0 评论",
       "meta": {
@@ -1256,6 +1373,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "与山田尚子导演面对面创作的音乐——电影《聲之形》配乐牛尾宪辅访谈（Anime!… · 4 图 · 0 评论",
       "meta": {
@@ -1267,6 +1385,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "想让观众觉得作品中的世界就在身边——电影《聲之形》导演山田尚子访谈（Real … · 6 图 · 0 评论",
       "meta": {
@@ -1278,6 +1397,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "电影《聲之形》☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -1289,6 +1409,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "电影《聲之形》首映见面会报告摘要汇总 · 3 图 · 0 评论",
       "meta": {
@@ -1300,6 +1421,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "电影《聲之形》映后座谈会报告1（登台者：山田尚子） · 1 图 · 0 评论",
       "meta": {
@@ -1311,6 +1433,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "电影《聲之形》映后座谈会报告2（登台者：山田尚子、西屋太志） · 8 图 · 0 评论",
       "meta": {
@@ -1322,6 +1445,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "通过添加声音、色彩与动作，描写痛苦前方的出口——电影《聲之形》导演山田尚子访谈… · 3 图 · 0 评论",
       "meta": {
@@ -1333,6 +1457,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "相信观众的感性与想象力——电影《聲之形》导演山田尚子访谈（Lmaga.jp） · 1 图 · 0 评论",
       "meta": {
@@ -1344,6 +1469,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "山田尚子导演是位名副其实的“电影作家”——分析电影《聲之形》的演出法（Real… · 4 图 · 0 评论",
       "meta": {
@@ -1355,6 +1481,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "聲之形☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -1366,6 +1493,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "喜爱的东西☆Papico · 0 图 · 1 评论",
       "meta": {
@@ -1377,6 +1505,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "极音☆Papico · 1 图 · 0 评论",
       "meta": {
@@ -1388,6 +1517,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "聲之形☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -1399,6 +1529,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "3月1日☆Papico · 0 图 · 1 评论",
       "meta": {
@@ -1410,6 +1541,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "春☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -1421,6 +1553,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "玉子☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -1432,6 +1565,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "这部作品能让我直面创作的根源——电影《聲之形》导演山田尚子访谈（《Animes… · 5 图 · 0 评论",
       "meta": {
@@ -1443,6 +1577,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "电影《聲之形》制作笔记（场刊） · 6 图 · 0 评论",
       "meta": {
@@ -1454,6 +1589,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "电影《聲之形》导演山田尚子×配乐牛尾宪辅对谈（场刊） · 4 图 · 0 评论",
       "meta": {
@@ -1465,6 +1601,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "结尾的曲子是在京都动画附近的河滩上边哭边想到的——电影《聲之形》配乐牛尾宪辅访… · 4 图 · 1 评论",
       "meta": {
@@ -1476,6 +1613,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "电影《聲之形》初感：一部温柔到骨子里的电影 · 14 图 · 4 评论",
       "meta": {
@@ -1487,6 +1625,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "影像与音乐的反复结构／引用重松清《咖喱饭》的意义——记者饭田一史谈电影《聲之形》 · 4 图 · 1 评论",
       "meta": {
@@ -1498,6 +1637,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "出来啦☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -1509,6 +1649,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "希望做成一部能让观众觉得自己得到原谅的作品——电影《聲之形》编剧吉田玲子访谈（… · 1 图 · 0 评论",
       "meta": {
@@ -1520,6 +1661,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "通过画面与声音给予观众影像体验——电影《聲之形》导演山田尚子访谈（Making… · 4 图 · 0 评论",
       "meta": {
@@ -1531,6 +1673,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "《聲之形》原作者大今良时问答摘录（漫画FANBOOK） · 4 图 · 1 评论",
       "meta": {
@@ -1542,6 +1685,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "欺凌与听障并非本作的主题，这是一个描写沟通的故事——《聲之形》原作者大今良时访… · 3 图 · 2 评论",
       "meta": {
@@ -1553,6 +1697,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "她真的是个表里如一的好孩子——电影《聲之形》川井美树CV潘惠美访谈（Makin… · 2 图 · 0 评论",
       "meta": {
@@ -1564,6 +1709,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "起用的理由与意外的发现——松冈茉优×山田尚子导演《聲之形》对谈（mynavi） · 4 图 · 0 评论",
       "meta": {
@@ -1575,6 +1721,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "电影☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -1586,6 +1733,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "梦境☆Papico · 0 图 · 1 评论",
       "meta": {
@@ -1597,6 +1745,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "夏天……☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -1608,6 +1757,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "创作☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -1619,6 +1769,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "哇～☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -1630,6 +1781,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "红色夹克衫☆Papico · 0 图 · 1 评论",
       "meta": {
@@ -1641,6 +1793,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "丽兹与青鸟☆Papico · 1 图 · 2 评论",
       "meta": {
@@ -1652,6 +1805,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "玉子与青鸟☆Papico · 0 图 · 6 评论",
       "meta": {
@@ -1663,6 +1817,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "丽兹与青鸟☆Papico · 1 图 · 2 评论",
       "meta": {
@@ -1674,6 +1829,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "丽兹与青鸟☆Papico · 0 图 · 2 评论",
       "meta": {
@@ -1685,6 +1841,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "丽兹与青鸟☆Papico · 5 图 · 0 评论",
       "meta": {
@@ -1696,6 +1853,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "丽兹亦青鸟☆Papico · 0 图 · 0 评论",
       "meta": {
@@ -1707,6 +1865,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:48+08:00",
       "detail": "谈谈丽兹☆喜欢的场景☆Papico · 0 图 · 1 评论",
       "meta": {
@@ -1718,6 +1877,7 @@
       "stage": "notes",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T18:44:49+08:00",
       "detail": "《轻音》小彩蛋：漫画卷数与纯和忧加入轻音部的暗示 · 4 图 · 4 评论",
       "meta": {
@@ -1729,6 +1889,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:22:13+08:00",
       "detail": "【2期OP2】紬那双脚一看就是练过芭蕾的（受过精英教育的大小姐）。",
       "meta": {}
@@ -1737,6 +1898,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:22:10+08:00",
       "detail": "",
       "meta": {}
@@ -1745,6 +1907,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:22:07+08:00",
       "detail": "",
       "meta": {}
@@ -1753,6 +1916,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:22:05+08:00",
       "detail": "",
       "meta": {}
@@ -1761,6 +1925,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:22:02+08:00",
       "detail": "【5周年&BD-BOX发售纪念】《Animedia》2014年3月号附录海报",
       "meta": {}
@@ -1769,6 +1934,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:22:00+08:00",
       "detail": "【5周年&BD-BOX发售纪念】《Newtype》2014年3月号附录海报",
       "meta": {}
@@ -1777,6 +1943,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:58+08:00",
       "detail": "【5周年&BD-BOX发售纪念】《Animage》2014年3月号拉页",
       "meta": {}
@@ -1785,6 +1952,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:55+08:00",
       "detail": "出自《Animedia》2014年7月号",
       "meta": {}
@@ -1793,6 +1961,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:53+08:00",
       "detail": "出自《Animage》2014年7月号 原画：山田尚子",
       "meta": {}
@@ -1801,6 +1970,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:50+08:00",
       "detail": "出自《Animedia》2014年11月号（万圣节！） 原画：山田尚子",
       "meta": {}
@@ -1809,6 +1979,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:48+08:00",
       "detail": "",
       "meta": {}
@@ -1817,6 +1988,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:45+08:00",
       "detail": "",
       "meta": {}
@@ -1825,6 +1997,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:43+08:00",
       "detail": "",
       "meta": {}
@@ -1833,6 +2006,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:40+08:00",
       "detail": "アニメ『けいおん！』5周年アニバーサリーを記念して、コルグ「RK-100S けい",
       "meta": {}
@@ -1841,6 +2015,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:38+08:00",
       "detail": "",
       "meta": {}
@@ -1849,6 +2024,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:36+08:00",
       "detail": "",
       "meta": {}
@@ -1857,6 +2033,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:33+08:00",
       "detail": "",
       "meta": {}
@@ -1865,6 +2042,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:28+08:00",
       "detail": "",
       "meta": {}
@@ -1873,6 +2051,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:26+08:00",
       "detail": "",
       "meta": {}
@@ -1881,6 +2060,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:24+08:00",
       "detail": "",
       "meta": {}
@@ -1889,6 +2069,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:21+08:00",
       "detail": "",
       "meta": {}
@@ -1897,6 +2078,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:19+08:00",
       "detail": "",
       "meta": {}
@@ -1905,6 +2087,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:00+08:00",
       "detail": "【03】两人所做的手势是同伴的表现（玉子和神奈做的手势）。咖啡杯上的两只骆驼象征",
       "meta": {}
@@ -1913,6 +2096,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:03+08:00",
       "detail": "【01】豆大与吾平→概念的对立：传统与革新、地方性与全球性。玉子喜欢从两人的中间",
       "meta": {}
@@ -1921,6 +2105,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:05+08:00",
       "detail": "【小说】围裙胸口上印着的神秘生物，像插着牙签的年糕，因而深得我心。在被馅子说“那",
       "meta": {}
@@ -1929,6 +2114,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:08+08:00",
       "detail": "【ED】唱片→月球=记忆=过去。地球→咖啡=现实=现在。宇宙与闪耀的繁星=未来与",
       "meta": {}
@@ -1937,6 +2123,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:10+08:00",
       "detail": "",
       "meta": {}
@@ -1945,6 +2132,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:13+08:00",
       "detail": "",
       "meta": {}
@@ -1953,6 +2141,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:16+08:00",
       "detail": "",
       "meta": {}
@@ -1961,6 +2150,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:19+08:00",
       "detail": "Newtype 2014年4月号",
       "meta": {}
@@ -1969,6 +2159,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:21+08:00",
       "detail": "",
       "meta": {}
@@ -1977,6 +2168,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:24+08:00",
       "detail": "娘TYPE(ニャンタイプ) 2014年5月号",
       "meta": {}
@@ -1985,6 +2177,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:26+08:00",
       "detail": "",
       "meta": {}
@@ -1993,6 +2186,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:26+08:00",
       "detail": "Animage 2014-05",
       "meta": {}
@@ -2001,6 +2195,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:29+08:00",
       "detail": "",
       "meta": {}
@@ -2009,6 +2204,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:31+08:00",
       "detail": "【青鸟】小绿家",
       "meta": {}
@@ -2017,6 +2213,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:34+08:00",
       "detail": "娘TYPE 2014年6月号",
       "meta": {}
@@ -2025,6 +2222,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:36+08:00",
       "detail": "【青鸟】",
       "meta": {}
@@ -2033,6 +2231,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:38+08:00",
       "detail": "【青鸟】唱片店",
       "meta": {}
@@ -2041,6 +2240,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:41+08:00",
       "detail": "【青鸟】花店",
       "meta": {}
@@ -2049,6 +2249,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:46+08:00",
       "detail": "【青鸟】",
       "meta": {}
@@ -2057,6 +2258,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:48+08:00",
       "detail": "【青鸟】",
       "meta": {}
@@ -2065,6 +2267,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:50+08:00",
       "detail": "【青鸟】",
       "meta": {}
@@ -2073,6 +2276,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:53+08:00",
       "detail": "Newtype (ニュータイプ) 2014年6月号",
       "meta": {}
@@ -2081,6 +2285,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:55+08:00",
       "detail": "【场刊最后一页】两人牵着传声筒回到了商店街",
       "meta": {}
@@ -2089,6 +2294,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:57+08:00",
       "detail": "桝形商店街に見に行ったら洲崎さんの記入ありました。 https://twitte",
       "meta": {}
@@ -2097,6 +2303,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:53+08:00",
       "detail": "原画：山田尚子。山田非常喜欢小江（详见： http://d.hatena.ne.",
       "meta": {}
@@ -2105,6 +2312,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:51+08:00",
       "detail": "出自《中二病也要谈恋爱！》BD第1卷小册子。ED部分分镜以及山田尚子的制作心得。",
       "meta": {}
@@ -2113,6 +2321,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:48+08:00",
       "detail": "",
       "meta": {}
@@ -2121,6 +2330,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:46+08:00",
       "detail": "出自《中二病也要谈恋爱！戀》BD第1卷小册子。ED部分分镜以及山田尚子的制作心得",
       "meta": {}
@@ -2129,6 +2339,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:44+08:00",
       "detail": "Newtype 2015年4月号",
       "meta": {}
@@ -2137,6 +2348,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:41+08:00",
       "detail": "AnimeJapan2015「響け！ユーフォニアム」 https://twitt",
       "meta": {}
@@ -2145,6 +2357,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:39+08:00",
       "detail": "AnimeJapan2015「響け！ユーフォニアム」 https://twitt",
       "meta": {}
@@ -2153,6 +2366,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:37+08:00",
       "detail": "「響け！ユーフォニアム」REDステージでは、劇中で演奏もしていただいている『洗足",
       "meta": {}
@@ -2161,6 +2375,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:35+08:00",
       "detail": "",
       "meta": {}
@@ -2169,6 +2384,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:32+08:00",
       "detail": "",
       "meta": {}
@@ -2177,6 +2393,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:29+08:00",
       "detail": "",
       "meta": {}
@@ -2185,6 +2402,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:24+08:00",
       "detail": "",
       "meta": {}
@@ -2193,6 +2411,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:21+08:00",
       "detail": "",
       "meta": {}
@@ -2201,6 +2420,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:19+08:00",
       "detail": "",
       "meta": {}
@@ -2209,6 +2429,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:16+08:00",
       "detail": "",
       "meta": {}
@@ -2217,6 +2438,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:13+08:00",
       "detail": "",
       "meta": {}
@@ -2225,6 +2447,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:11+08:00",
       "detail": "",
       "meta": {}
@@ -2233,6 +2456,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:09+08:00",
       "detail": "",
       "meta": {}
@@ -2241,6 +2465,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:07+08:00",
       "detail": "",
       "meta": {}
@@ -2249,6 +2474,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:04+08:00",
       "detail": "",
       "meta": {}
@@ -2257,6 +2483,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:01+08:00",
       "detail": "",
       "meta": {}
@@ -2265,6 +2492,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:26:59+08:00",
       "detail": "",
       "meta": {}
@@ -2273,6 +2501,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:26:56+08:00",
       "detail": "",
       "meta": {}
@@ -2281,6 +2510,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:26:54+08:00",
       "detail": "",
       "meta": {}
@@ -2289,6 +2519,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:26:51+08:00",
       "detail": "",
       "meta": {}
@@ -2297,6 +2528,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:26:49+08:00",
       "detail": "",
       "meta": {}
@@ -2305,6 +2537,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:26:46+08:00",
       "detail": "",
       "meta": {}
@@ -2313,6 +2546,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:26:43+08:00",
       "detail": "5月15日は高坂麗奈の誕生日なのです！！おめでとう麗奈！ということで、石原監督が",
       "meta": {}
@@ -2321,6 +2555,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:26:41+08:00",
       "detail": "from《響け！ユーフォニアム GUIDE BOOK》",
       "meta": {}
@@ -2329,6 +2564,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:26:38+08:00",
       "detail": "",
       "meta": {}
@@ -2337,6 +2573,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:26:33+08:00",
       "detail": "",
       "meta": {}
@@ -2345,6 +2582,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:26:30+08:00",
       "detail": "",
       "meta": {}
@@ -2353,6 +2591,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:26:28+08:00",
       "detail": "",
       "meta": {}
@@ -2361,6 +2600,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:26:25+08:00",
       "detail": "",
       "meta": {}
@@ -2369,6 +2609,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:26:23+08:00",
       "detail": "",
       "meta": {}
@@ -2377,6 +2618,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:26:20+08:00",
       "detail": "",
       "meta": {}
@@ -2385,6 +2627,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:26:18+08:00",
       "detail": "",
       "meta": {}
@@ -2393,6 +2636,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:26:13+08:00",
       "detail": "",
       "meta": {}
@@ -2401,6 +2645,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:26:10+08:00",
       "detail": "",
       "meta": {}
@@ -2409,6 +2654,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:26:08+08:00",
       "detail": "",
       "meta": {}
@@ -2417,6 +2663,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:26:06+08:00",
       "detail": "",
       "meta": {}
@@ -2425,6 +2672,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:26:03+08:00",
       "detail": "",
       "meta": {}
@@ -2433,6 +2681,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:26:01+08:00",
       "detail": "",
       "meta": {}
@@ -2441,6 +2690,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:25:58+08:00",
       "detail": "",
       "meta": {}
@@ -2449,6 +2699,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:25:56+08:00",
       "detail": "",
       "meta": {}
@@ -2457,6 +2708,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:25:53+08:00",
       "detail": "",
       "meta": {}
@@ -2465,6 +2717,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:25:51+08:00",
       "detail": "",
       "meta": {}
@@ -2473,6 +2726,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:25:47+08:00",
       "detail": "",
       "meta": {}
@@ -2481,6 +2735,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:25:45+08:00",
       "detail": "",
       "meta": {}
@@ -2489,6 +2744,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:25:42+08:00",
       "detail": "",
       "meta": {}
@@ -2497,6 +2753,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:25:40+08:00",
       "detail": "",
       "meta": {}
@@ -2505,6 +2762,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:25:38+08:00",
       "detail": "",
       "meta": {}
@@ -2513,6 +2771,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:25:36+08:00",
       "detail": "",
       "meta": {}
@@ -2521,6 +2780,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:25:31+08:00",
       "detail": "",
       "meta": {}
@@ -2529,6 +2789,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:25:28+08:00",
       "detail": "",
       "meta": {}
@@ -2537,6 +2798,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:25:26+08:00",
       "detail": "https://twitter.com/goriko7188/status/63",
       "meta": {}
@@ -2545,6 +2807,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:25:21+08:00",
       "detail": "Drama CD",
       "meta": {}
@@ -2553,6 +2816,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:25:18+08:00",
       "detail": "ED",
       "meta": {}
@@ -2561,6 +2825,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:25:13+08:00",
       "detail": "OP",
       "meta": {}
@@ -2569,6 +2834,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:25:11+08:00",
       "detail": "OST",
       "meta": {}
@@ -2577,6 +2843,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:25:08+08:00",
       "detail": "Radio CD",
       "meta": {}
@@ -2585,6 +2852,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:25:05+08:00",
       "detail": "",
       "meta": {}
@@ -2593,6 +2861,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:25:03+08:00",
       "detail": "Fan Book 2015年9月23日发售 http://anime-eupho",
       "meta": {}
@@ -2601,6 +2870,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:25:00+08:00",
       "detail": "《Animedia》2015年10月号附录长海报（1028mm×372mm）。原",
       "meta": {}
@@ -2609,6 +2879,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:24:57+08:00",
       "detail": "",
       "meta": {}
@@ -2617,6 +2888,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:24:55+08:00",
       "detail": "Megami MAGAZINE DELUXE Vol.25 2015年11月号",
       "meta": {}
@@ -2625,6 +2897,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:24:52+08:00",
       "detail": "",
       "meta": {}
@@ -2633,6 +2906,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:24:49+08:00",
       "detail": "",
       "meta": {}
@@ -2641,6 +2915,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:24:47+08:00",
       "detail": "悠风CV四人组 by 池田晶子",
       "meta": {}
@@ -2649,6 +2924,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:24:44+08:00",
       "detail": "《剧场版 吹响悠风号～欢迎来到北宇治高中吹奏乐部～》 keyvisual",
       "meta": {}
@@ -2657,6 +2933,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:24:42+08:00",
       "detail": "《剧场版 吹响悠风号～欢迎来到北宇治高中吹奏乐部～》 传单正面",
       "meta": {}
@@ -2665,6 +2942,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:24:40+08:00",
       "detail": "《剧场版 吹响悠风号～欢迎来到北宇治高中吹奏乐部～》 传单背面",
       "meta": {}
@@ -2673,6 +2951,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:24:37+08:00",
       "detail": "",
       "meta": {}
@@ -2681,6 +2960,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:24:35+08:00",
       "detail": "",
       "meta": {}
@@ -2689,6 +2969,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:24:32+08:00",
       "detail": "",
       "meta": {}
@@ -2697,6 +2978,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:24:30+08:00",
       "detail": "",
       "meta": {}
@@ -2705,6 +2987,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:24:25+08:00",
       "detail": "",
       "meta": {}
@@ -2713,6 +2996,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:24:23+08:00",
       "detail": "",
       "meta": {}
@@ -2721,6 +3005,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:24:20+08:00",
       "detail": "",
       "meta": {}
@@ -2729,6 +3014,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:24:18+08:00",
       "detail": "",
       "meta": {}
@@ -2737,6 +3023,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:24:15+08:00",
       "detail": "",
       "meta": {}
@@ -2745,6 +3032,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:24:12+08:00",
       "detail": "",
       "meta": {}
@@ -2753,6 +3041,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:24:09+08:00",
       "detail": "",
       "meta": {}
@@ -2761,6 +3050,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:24:08+08:00",
       "detail": "",
       "meta": {}
@@ -2769,6 +3059,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:24:03+08:00",
       "detail": "",
       "meta": {}
@@ -2777,6 +3068,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:24:00+08:00",
       "detail": "",
       "meta": {}
@@ -2785,6 +3077,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:23:57+08:00",
       "detail": "",
       "meta": {}
@@ -2793,6 +3086,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:23:57+08:00",
       "detail": "",
       "meta": {}
@@ -2801,6 +3095,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:23:55+08:00",
       "detail": "",
       "meta": {}
@@ -2809,6 +3104,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:23:45+08:00",
       "detail": "",
       "meta": {}
@@ -2817,6 +3113,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:23:37+08:00",
       "detail": "",
       "meta": {}
@@ -2825,6 +3122,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:23:32+08:00",
       "detail": "摄影前后对比。上面是加入摄影处理前的素材，下面是加入处理后的完成画面。通过摄影处",
       "meta": {}
@@ -2833,6 +3131,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:23:29+08:00",
       "detail": "乐器设定（by 高桥博行）",
       "meta": {}
@@ -2841,6 +3140,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:23:27+08:00",
       "detail": "乐器设定（by 高桥博行）",
       "meta": {}
@@ -2849,6 +3149,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:23:24+08:00",
       "detail": "乐器设定（by 高桥博行）",
       "meta": {}
@@ -2857,6 +3158,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:23:19+08:00",
       "detail": "乐器设定（by 高桥博行）",
       "meta": {}
@@ -2865,6 +3167,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:23:17+08:00",
       "detail": "第八集山顶场景的分镜（by 山田尚子）。丽奈的手指在久美子脸上划动，触摸久美子的",
       "meta": {}
@@ -2873,6 +3176,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:23:09+08:00",
       "detail": "第八集山顶场景的分镜（by 山田尚子）。丽奈的手指在久美子脸上划动，触摸久美子的",
       "meta": {}
@@ -2881,6 +3185,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:22:59+08:00",
       "detail": "第八集山顶场景的分镜（by 山田尚子）。丽奈的手指在久美子脸上划动，触摸久美子的",
       "meta": {}
@@ -2889,6 +3194,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:22:52+08:00",
       "detail": "第八集山顶场景的分镜（by 山田尚子）。丽奈的手指在久美子脸上划动，触摸久美子的",
       "meta": {}
@@ -2897,6 +3203,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:22:50+08:00",
       "detail": "",
       "meta": {}
@@ -2905,6 +3212,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:22:45+08:00",
       "detail": "",
       "meta": {}
@@ -2913,6 +3221,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:22:43+08:00",
       "detail": "【《剧场版 吹响悠风号～欢迎来到北宇治高中吹奏乐部～》上映倒计时 by 山田尚子",
       "meta": {}
@@ -2921,6 +3230,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:22:40+08:00",
       "detail": "TVシリーズ２期新ビジュアル",
       "meta": {}
@@ -2929,6 +3239,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:22:37+08:00",
       "detail": "",
       "meta": {}
@@ -2937,6 +3248,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:22:34+08:00",
       "detail": "",
       "meta": {}
@@ -2945,6 +3257,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:22:31+08:00",
       "detail": "",
       "meta": {}
@@ -2953,6 +3266,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:22:29+08:00",
       "detail": "",
       "meta": {}
@@ -2961,6 +3275,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:22:26+08:00",
       "detail": "『劇場版 響け！ユーフォニアム～北宇治高校吹奏楽部へようこそ～』Blu-ray ",
       "meta": {}
@@ -2969,6 +3284,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:22:24+08:00",
       "detail": "",
       "meta": {}
@@ -2977,6 +3293,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:22:22+08:00",
       "detail": "",
       "meta": {}
@@ -2985,6 +3302,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:22:20+08:00",
       "detail": "",
       "meta": {}
@@ -2993,6 +3311,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:22:17+08:00",
       "detail": "",
       "meta": {}
@@ -3001,6 +3320,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:22:15+08:00",
       "detail": "映画「聲の形」公開記念「劇場版 響け！ユーフォニアム」特別上映舞台挨拶、遅い時間",
       "meta": {}
@@ -3009,6 +3329,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:35:09+08:00",
       "detail": "（关于这张宣传画）“在玉子的表情中加入了坚韧、（对恋爱的）恐惧、孩子气这些要素。",
       "meta": {}
@@ -3017,6 +3338,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:35:02+08:00",
       "detail": "http://tamakolovestory.com/ main visual ",
       "meta": {}
@@ -3025,6 +3347,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:34:55+08:00",
       "detail": "C85京都动画展位上发放的《玉子爱情故事》宣传单（背面），《玉子爱情故事》导演寄",
       "meta": {}
@@ -3033,6 +3356,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:34:50+08:00",
       "detail": "http://www.kyotoanimation.co.jp/img/newy",
       "meta": {}
@@ -3041,6 +3365,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:34:44+08:00",
       "detail": "http://www.kyotoanimation.co.jp/informat",
       "meta": {}
@@ -3049,6 +3374,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:34:44+08:00",
       "detail": "去字 http://www.kyotoanimation.co.jp/infor",
       "meta": {}
@@ -3057,6 +3383,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:34:44+08:00",
       "detail": "http://tamakolovestory.com/ main visual ",
       "meta": {}
@@ -3065,6 +3392,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:34:32+08:00",
       "detail": "http://www.kyotoanimation.co.jp/books/ta",
       "meta": {}
@@ -3073,6 +3401,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:34:26+08:00",
       "detail": "http://tamakolovestory.com/special/comme",
       "meta": {}
@@ -3081,6 +3410,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:34:20+08:00",
       "detail": "http://tamakolovestory.com/special/comme",
       "meta": {}
@@ -3089,6 +3419,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:34:13+08:00",
       "detail": "http://tamakolovestory.com/special/comme",
       "meta": {}
@@ -3097,6 +3428,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:34:07+08:00",
       "detail": "http://tamakolovestory.com/special/comme",
       "meta": {}
@@ -3105,6 +3437,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:34:01+08:00",
       "detail": "http://tamakolovestory.com/special/comme",
       "meta": {}
@@ -3113,6 +3446,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:33:56+08:00",
       "detail": "http://tamakolovestory.com/special/comme",
       "meta": {}
@@ -3121,6 +3455,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:33:50+08:00",
       "detail": "电影场刊封面",
       "meta": {}
@@ -3129,6 +3464,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:33:44+08:00",
       "detail": "《吹响悠风号》（響け！ユーフォニアム） http://anime-eupho.c",
       "meta": {}
@@ -3137,6 +3473,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:33:37+08:00",
       "detail": "《吹响悠风号》（響け！ユーフォニアム） http://anime-eupho.c",
       "meta": {}
@@ -3145,6 +3482,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:33:30+08:00",
       "detail": "《吹响悠风号》（響け！ユーフォニアム） http://anime-eupho.c",
       "meta": {}
@@ -3153,6 +3491,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:33:23+08:00",
       "detail": "《剧场版 吹响悠风号～欢迎来到北宇治高中吹奏乐部～》2016年4月23日上映！",
       "meta": {}
@@ -3161,6 +3500,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:33:17+08:00",
       "detail": "《剧场版 吹响悠风号～欢迎来到北宇治高中吹奏乐部～》新海报",
       "meta": {}
@@ -3169,6 +3509,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:33:10+08:00",
       "detail": "电影《聲之形》9月17日上映！导演：山田尚子，剧本：吉田玲子，角色设计：西屋太志",
       "meta": {}
@@ -3177,6 +3518,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:33:03+08:00",
       "detail": "电影《聲之形》9月17日上映！导演：山田尚子，剧本：吉田玲子，角色设计：西屋太志",
       "meta": {}
@@ -3185,6 +3527,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:32:58+08:00",
       "detail": "",
       "meta": {}
@@ -3193,6 +3536,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:32:51+08:00",
       "detail": "《吹响悠风号》新作电影霙与希美的故事，片名为“丽兹与青鸟”，2018年4月21日",
       "meta": {}
@@ -3201,6 +3545,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 2,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:50:15+08:00",
       "detail": "",
       "meta": {}
@@ -3209,6 +3554,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 2,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:50:15+08:00",
       "detail": "诸行无常，唯有祈福方能克服世间苦难。 琵琶与德子的祈福，或者说山田导演肯定世界、",
       "meta": {}
@@ -3217,6 +3563,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:16+08:00",
       "detail": "制作组在京都老字号糕点店“养老轩”取材时拍摄的纪念照（2012年3月） http",
       "meta": {}
@@ -3225,6 +3572,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:16+08:00",
       "detail": "http://p.twipple.jp/5afqZ 「星とピエロ」のお店「喫茶華",
       "meta": {}
@@ -3233,6 +3581,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:14+08:00",
       "detail": "「京アニ&Do C・T・F・K 2013」，石原立也、武本康弘、堀口悠紀子、山田",
       "meta": {}
@@ -3241,6 +3590,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:14+08:00",
       "detail": "桝形商店街 2014.03",
       "meta": {}
@@ -3249,6 +3599,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:12+08:00",
       "detail": "桝形商店街 2014.03",
       "meta": {}
@@ -3257,6 +3608,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:09+08:00",
       "detail": "桝形商店街 2014.03",
       "meta": {}
@@ -3265,6 +3617,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:07+08:00",
       "detail": "新宿ピカデリー",
       "meta": {}
@@ -3273,6 +3626,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:05+08:00",
       "detail": "新宿ピカデリー",
       "meta": {}
@@ -3281,6 +3635,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:02+08:00",
       "detail": "新宿ピカデリー",
       "meta": {}
@@ -3289,6 +3644,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:21:00+08:00",
       "detail": "新宿ピカデリー",
       "meta": {}
@@ -3297,6 +3653,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:20:57+08:00",
       "detail": "新宿ピカデリー",
       "meta": {}
@@ -3305,6 +3662,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:20:55+08:00",
       "detail": "新宿ピカデリー",
       "meta": {}
@@ -3313,6 +3671,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:20:55+08:00",
       "detail": "新宿ピカデリー",
       "meta": {}
@@ -3321,6 +3680,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:20:53+08:00",
       "detail": "新宿ピカデリー",
       "meta": {}
@@ -3329,6 +3689,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:20:49+08:00",
       "detail": "新宿ピカデリー",
       "meta": {}
@@ -3337,6 +3698,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:20:46+08:00",
       "detail": "预售票特典 photo by @tc103103",
       "meta": {}
@@ -3345,6 +3707,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:20:43+08:00",
       "detail": "新宿駅",
       "meta": {}
@@ -3353,6 +3716,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:20:41+08:00",
       "detail": "新宿駅",
       "meta": {}
@@ -3361,6 +3725,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:20:36+08:00",
       "detail": "新宿駅",
       "meta": {}
@@ -3369,6 +3734,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:20:33+08:00",
       "detail": "新宿駅",
       "meta": {}
@@ -3377,6 +3743,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:20:30+08:00",
       "detail": "新宿駅",
       "meta": {}
@@ -3385,6 +3752,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:20:28+08:00",
       "detail": "新宿駅",
       "meta": {}
@@ -3393,6 +3761,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:20:23+08:00",
       "detail": "アニメイト新宿",
       "meta": {}
@@ -3401,6 +3770,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:20:20+08:00",
       "detail": "【4/19 たまこまーけっと おさらい上映会＆スタッフトークショー】【京都文化博",
       "meta": {}
@@ -3409,6 +3779,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:20:15+08:00",
       "detail": "【4/19 たまこまーけっと おさらい上映会＆スタッフトークショー】【京都文化博",
       "meta": {}
@@ -3417,6 +3788,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:20:12+08:00",
       "detail": "【4/19 たまこまーけっと おさらい上映会＆スタッフトークショー】【京都文化博",
       "meta": {}
@@ -3425,6 +3797,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:20:10+08:00",
       "detail": "【4/19 たまこまーけっと おさらい上映会＆スタッフトークショー】【京都文化博",
       "meta": {}
@@ -3433,6 +3806,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:20:08+08:00",
       "detail": "【4/19 たまこまーけっと おさらい上映会＆スタッフトークショー】【京都文化博",
       "meta": {}
@@ -3441,6 +3815,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:20:06+08:00",
       "detail": "【4/19 たまこまーけっと おさらい上映会＆スタッフトークショー】【京都文化博",
       "meta": {}
@@ -3449,6 +3824,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:20:04+08:00",
       "detail": "【4/19 たまこまーけっと おさらい上映会＆スタッフトークショー】【京都文化博",
       "meta": {}
@@ -3457,6 +3833,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:20:01+08:00",
       "detail": "【4/19 たまこまーけっと おさらい上映会＆スタッフトークショー】【京都文化博",
       "meta": {}
@@ -3465,6 +3842,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:19:58+08:00",
       "detail": "【4/19 たまこまーけっと おさらい上映会＆スタッフトークショー】【京都文化博",
       "meta": {}
@@ -3473,6 +3851,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:19:56+08:00",
       "detail": "【4/19 たまこまーけっと おさらい上映会＆スタッフトークショー】【京都文化博",
       "meta": {}
@@ -3481,6 +3860,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:19:54+08:00",
       "detail": "【4/19 たまこまーけっと おさらい上映会＆スタッフトークショー】【京都文化博",
       "meta": {}
@@ -3489,6 +3869,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:19:51+08:00",
       "detail": "【4/19 たまこまーけっと おさらい上映会＆スタッフトークショー】【京都文化博",
       "meta": {}
@@ -3497,6 +3878,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:19:49+08:00",
       "detail": "【4/19 たまこまーけっと おさらい上映会＆スタッフトークショー】【京都文化博",
       "meta": {}
@@ -3505,6 +3887,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:19:45+08:00",
       "detail": "【たまこラブストーリー 】今日行った【京都 養老軒】たまこ取材協力にもなっている",
       "meta": {}
@@ -3513,6 +3896,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:19:42+08:00",
       "detail": "电影《玉子爱情故事》早期入场特典，玉子写给乔伊的明信片。（photo by @h",
       "meta": {}
@@ -3521,6 +3905,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:19:40+08:00",
       "detail": "电影《玉子爱情故事》早期入场特典，玉子写给乔伊的明信片。（photo by @h",
       "meta": {}
@@ -3529,6 +3914,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:19:37+08:00",
       "detail": "http://www.cinematoday.jp/image/N0062531",
       "meta": {}
@@ -3537,6 +3923,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:19:37+08:00",
       "detail": "「見てくれた方々の勇気の一つに」 映画『たまこラブストーリー』初日舞台挨拶レポー",
       "meta": {}
@@ -3545,6 +3932,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:19:35+08:00",
       "detail": "「見てくれた方々の勇気の一つに」 映画『たまこラブストーリー』初日舞台挨拶レポー",
       "meta": {}
@@ -3553,6 +3941,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:19:33+08:00",
       "detail": "",
       "meta": {}
@@ -3561,6 +3950,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:19:30+08:00",
       "detail": "",
       "meta": {}
@@ -3569,6 +3959,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:19:28+08:00",
       "detail": "劇場版アニメ『たまこラブストーリー』がついに公開。公開初日には洲崎綾・田丸篤志・",
       "meta": {}
@@ -3577,6 +3968,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:19:26+08:00",
       "detail": "",
       "meta": {}
@@ -3585,6 +3977,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:19:23+08:00",
       "detail": "玉子→《第凡内早餐》、小绿→《七年之痒》、史织→《乱世佳人》、神奈→《卡萨布兰卡",
       "meta": {}
@@ -3593,6 +3986,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:19:21+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11835",
       "meta": {}
@@ -3601,6 +3995,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:19:21+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11835",
       "meta": {}
@@ -3609,6 +4004,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:19:18+08:00",
       "detail": "",
       "meta": {}
@@ -3617,6 +4013,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:19:16+08:00",
       "detail": "",
       "meta": {}
@@ -3625,6 +4022,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:19:14+08:00",
       "detail": "",
       "meta": {}
@@ -3633,6 +4031,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:19:08+08:00",
       "detail": "",
       "meta": {}
@@ -3641,6 +4040,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:19:06+08:00",
       "detail": "《玉子爱情故事》第2周早期入场特典明信片。与第1周玉子写给乔伊的明信片相呼应，这",
       "meta": {}
@@ -3649,6 +4049,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:19:03+08:00",
       "detail": "《玉子爱情故事》第2周早期入场特典明信片。与第1周玉子写给乔伊的明信片相呼应，这",
       "meta": {}
@@ -3657,6 +4058,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:18:58+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11840",
       "meta": {}
@@ -3665,6 +4067,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:18:56+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11840",
       "meta": {}
@@ -3673,6 +4076,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:18:53+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11840",
       "meta": {}
@@ -3681,6 +4085,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:18:51+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11840",
       "meta": {}
@@ -3689,6 +4094,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:18:49+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11840",
       "meta": {}
@@ -3697,6 +4103,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:18:46+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11840",
       "meta": {}
@@ -3705,6 +4112,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:18:44+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11840",
       "meta": {}
@@ -3713,6 +4121,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:18:41+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11840",
       "meta": {}
@@ -3721,6 +4130,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:18:41+08:00",
       "detail": "http://ameblo.jp/kyousei-t/entry-1183772",
       "meta": {}
@@ -3729,6 +4139,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:18:37+08:00",
       "detail": "http://ameblo.jp/kyousei-t/entry-1183772",
       "meta": {}
@@ -3737,6 +4148,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:18:34+08:00",
       "detail": "http://ameblo.jp/kyousei-t/entry-1183772",
       "meta": {}
@@ -3745,6 +4157,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:18:32+08:00",
       "detail": "京都アニメーション本社。たまこ一色。（2014年5月3日 photo by @l",
       "meta": {}
@@ -3753,6 +4166,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:18:29+08:00",
       "detail": "【出町桝形商店街】jojo风黑板画",
       "meta": {}
@@ -3761,6 +4175,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:18:26+08:00",
       "detail": "【出町桝形商店街】jojo风黑板画",
       "meta": {}
@@ -3769,6 +4184,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:18:24+08:00",
       "detail": "（photo by @tamako1231love）",
       "meta": {}
@@ -3777,6 +4193,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:18:19+08:00",
       "detail": "（photo by @tamako1231love）",
       "meta": {}
@@ -3785,6 +4202,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:18:17+08:00",
       "detail": "（photo by @tamako1231love）",
       "meta": {}
@@ -3793,6 +4211,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:18:14+08:00",
       "detail": "（photo by @tamako1231love）",
       "meta": {}
@@ -3801,6 +4220,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:18:11+08:00",
       "detail": "（photo by @tamako1231love）",
       "meta": {}
@@ -3809,6 +4229,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:18:07+08:00",
       "detail": "（photo by @tamako1231love）",
       "meta": {}
@@ -3817,6 +4238,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:18:05+08:00",
       "detail": "（photo by @tamako1231love）",
       "meta": {}
@@ -3825,6 +4247,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:18:02+08:00",
       "detail": "（photo by @tamako1231love）",
       "meta": {}
@@ -3833,6 +4256,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:18:00+08:00",
       "detail": "（photo by @tamako1231love）",
       "meta": {}
@@ -3841,6 +4265,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:17:58+08:00",
       "detail": "（photo by @tamako1231love）",
       "meta": {}
@@ -3849,6 +4274,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:17:55+08:00",
       "detail": "（photo by @tamako1231love）",
       "meta": {}
@@ -3857,6 +4283,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:17:53+08:00",
       "detail": "（photo by @tamako1231love）",
       "meta": {}
@@ -3865,6 +4292,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:17:50+08:00",
       "detail": "（photo by @tamako1231love）",
       "meta": {}
@@ -3873,6 +4301,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:17:48+08:00",
       "detail": "（photo by @tamako1231love）",
       "meta": {}
@@ -3881,6 +4310,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:17:45+08:00",
       "detail": "（photo by @tamako1231love）",
       "meta": {}
@@ -3889,6 +4319,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:17:43+08:00",
       "detail": "（photo by @tamako1231love）",
       "meta": {}
@@ -3897,6 +4328,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:17:41+08:00",
       "detail": "（photo by @tamako1231love）",
       "meta": {}
@@ -3905,6 +4337,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:17:36+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11841",
       "meta": {}
@@ -3913,6 +4346,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:17:34+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11841",
       "meta": {}
@@ -3921,6 +4355,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:17:34+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11841",
       "meta": {}
@@ -3929,6 +4364,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:17:34+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11841",
       "meta": {}
@@ -3937,6 +4373,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:17:29+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11841",
       "meta": {}
@@ -3945,6 +4382,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:17:27+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11841",
       "meta": {}
@@ -3953,6 +4391,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:17:24+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11841",
       "meta": {}
@@ -3961,6 +4400,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:17:22+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11841",
       "meta": {}
@@ -3969,6 +4409,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:17:17+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11844",
       "meta": {}
@@ -3977,6 +4418,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:17:15+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11844",
       "meta": {}
@@ -3985,6 +4427,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:17:12+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11844",
       "meta": {}
@@ -3993,6 +4436,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:17:10+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11844",
       "meta": {}
@@ -4001,6 +4445,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:17:07+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11844",
       "meta": {}
@@ -4009,6 +4454,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:17:04+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11844",
       "meta": {}
@@ -4017,6 +4463,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:17:02+08:00",
       "detail": "《玉子爱情故事》第3周早期入场特典",
       "meta": {}
@@ -4025,6 +4472,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:17:00+08:00",
       "detail": "《玉子爱情故事》第3周早期入场特典",
       "meta": {}
@@ -4033,6 +4481,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:57+08:00",
       "detail": "《玉子爱情故事》第3周早期入场特典",
       "meta": {}
@@ -4041,6 +4490,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:54+08:00",
       "detail": "出町桝形商店街",
       "meta": {}
@@ -4049,6 +4499,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:52+08:00",
       "detail": "http://p.twipple.jp/OD08P",
       "meta": {}
@@ -4057,6 +4508,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:49+08:00",
       "detail": "http://ameblo.jp/nekokanekoneko/entry-11",
       "meta": {}
@@ -4065,6 +4517,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:44+08:00",
       "detail": "http://ameblo.jp/nekokanekoneko/entry-11",
       "meta": {}
@@ -4073,6 +4526,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:42+08:00",
       "detail": "http://ameblo.jp/nekokanekoneko/entry-11",
       "meta": {}
@@ -4081,6 +4535,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:39+08:00",
       "detail": "http://ameblo.jp/nekokanekoneko/entry-11",
       "meta": {}
@@ -4089,6 +4544,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:36+08:00",
       "detail": "http://ameblo.jp/nekokanekoneko/entry-11",
       "meta": {}
@@ -4097,6 +4553,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:33+08:00",
       "detail": "http://ameblo.jp/nekokanekoneko/entry-11",
       "meta": {}
@@ -4105,6 +4562,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:31+08:00",
       "detail": "http://ameblo.jp/nekokanekoneko/entry-11",
       "meta": {}
@@ -4113,6 +4571,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:29+08:00",
       "detail": "http://ameblo.jp/nekokanekoneko/entry-11",
       "meta": {}
@@ -4121,6 +4580,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:26+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11847",
       "meta": {}
@@ -4129,6 +4589,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:23+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11854",
       "meta": {}
@@ -4137,6 +4598,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:23+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11854",
       "meta": {}
@@ -4145,6 +4607,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:23+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11854",
       "meta": {}
@@ -4153,6 +4616,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:23+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11854",
       "meta": {}
@@ -4161,6 +4625,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:23+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11854",
       "meta": {}
@@ -4169,6 +4634,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:23+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11854",
       "meta": {}
@@ -4177,6 +4643,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:23+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11854",
       "meta": {}
@@ -4185,6 +4652,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:23+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11854",
       "meta": {}
@@ -4193,6 +4661,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:23+08:00",
       "detail": "出町桝形商店街",
       "meta": {}
@@ -4201,6 +4670,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:22+08:00",
       "detail": "バトントワリング振り付け 本庄千穂 http://ameblo.jp/diva1",
       "meta": {}
@@ -4209,6 +4679,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:22+08:00",
       "detail": "（茶話 アニメ）「たまこラブストーリー」 心の揺れ 震わす映像（藤津亮太・アニメ",
       "meta": {}
@@ -4217,6 +4688,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:19+08:00",
       "detail": "新宿ピカデリー前のアニメイトで山田尚子監督（？）らしき書き込みを発見。 http",
       "meta": {}
@@ -4225,6 +4697,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:17+08:00",
       "detail": "映画「たまこラブストーリー」第4弾入場者プレゼント。山田尚子監督による初期イメー",
       "meta": {}
@@ -4233,6 +4706,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:14+08:00",
       "detail": "映画「たまこラブストーリー」第4弾入場者プレゼント。山田尚子監督による初期イメー",
       "meta": {}
@@ -4241,6 +4715,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:16:12+08:00",
       "detail": "洲崎、小川、山田、瀬波、田丸 http://ameblo.jp/clown-ha",
       "meta": {}
@@ -4249,6 +4724,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:14:50+08:00",
       "detail": "【山田尚子、小川太一、瀬波里梨】大ヒット御礼！ 山田尚子監督を始めとする制作陣が",
       "meta": {}
@@ -4257,6 +4733,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:14:48+08:00",
       "detail": "LAWSON映画前売り券特典",
       "meta": {}
@@ -4265,6 +4742,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:14:47+08:00",
       "detail": "",
       "meta": {}
@@ -4273,6 +4751,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:13:42+08:00",
       "detail": "",
       "meta": {}
@@ -4281,6 +4760,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:13:40+08:00",
       "detail": "【10月4日 新宿Piccadilly 《玉子爱情故事》发售纪念重映&见面会】山",
       "meta": {}
@@ -4289,6 +4769,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:13:40+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11935",
       "meta": {}
@@ -4297,6 +4778,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:13:40+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11935",
       "meta": {}
@@ -4305,6 +4787,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:13:37+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11935",
       "meta": {}
@@ -4313,6 +4796,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:13:37+08:00",
       "detail": "",
       "meta": {}
@@ -4321,6 +4805,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:13:35+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11929",
       "meta": {}
@@ -4329,6 +4814,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:13:35+08:00",
       "detail": "http://ameblo.jp/clown-happy/entry-11929",
       "meta": {}
@@ -4337,6 +4823,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:13:35+08:00",
       "detail": "https://twitter.com/kanekosandes/status/",
       "meta": {}
@@ -4345,6 +4832,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:13:29+08:00",
       "detail": "致雏子：玉子有了心爱的人，他们一定会比你和豆大还要幸福，所以请放心，替他们感到高",
       "meta": {}
@@ -4353,6 +4841,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:13:27+08:00",
       "detail": "【BD/DVD附赠照片】饼藏的珍藏照",
       "meta": {}
@@ -4361,6 +4850,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:13:24+08:00",
       "detail": "【BD/DVD附赠照片】饼藏的珍藏照",
       "meta": {}
@@ -4369,6 +4859,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:13:22+08:00",
       "detail": "【BD/DVD附赠照片】饼藏的珍藏照",
       "meta": {}
@@ -4377,6 +4868,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:13:20+08:00",
       "detail": "from 《玉子爱情故事》BD/DVD京阿尼Shop特典“恋文集”",
       "meta": {}
@@ -4385,6 +4877,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:13:18+08:00",
       "detail": "from 《玉子爱情故事》BD/DVD京阿尼Shop特典“恋文集”",
       "meta": {}
@@ -4393,6 +4886,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:13:15+08:00",
       "detail": "from 《玉子爱情故事》BD/DVD京阿尼Shop特典“恋文集”",
       "meta": {}
@@ -4401,6 +4895,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:13:13+08:00",
       "detail": "【11/8 ～11/21长崎上映】全国制霸达成，谢谢大家！ by 山田尚子",
       "meta": {}
@@ -4409,6 +4904,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:13:10+08:00",
       "detail": "祝「たまこラブストーリー」山田尚子監督 第18回文化庁メディア芸術祭アニメーショ",
       "meta": {}
@@ -4417,6 +4913,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:13:08+08:00",
       "detail": "藤森疎水",
       "meta": {}
@@ -4425,6 +4922,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:13:05+08:00",
       "detail": "http://www.hobbystock.jp/sp/tamakomarket",
       "meta": {}
@@ -4433,6 +4931,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:13:03+08:00",
       "detail": "http://www.hobbystock.jp/sp/tamakomarket",
       "meta": {}
@@ -4441,6 +4940,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:13:00+08:00",
       "detail": "http://www.hobbystock.jp/sp/tamakomarket",
       "meta": {}
@@ -4449,6 +4949,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:12:58+08:00",
       "detail": "【P's Live! 02 ～LOVE＆P's～ 2015年3月8日】 http",
       "meta": {}
@@ -4457,6 +4958,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:12:55+08:00",
       "detail": "【P's Live! 02 ～LOVE＆P's～ 2015年3月8日】 http",
       "meta": {}
@@ -4465,6 +4967,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:12:52+08:00",
       "detail": "昨晚#玉子爱情故事#在新宿Piccadilly重映，洲崎绫（玉子）与田丸笃志（饼",
       "meta": {}
@@ -4473,6 +4976,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:12:52+08:00",
       "detail": "底座是软的，年糕般的触感。",
       "meta": {}
@@ -4481,6 +4985,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:12:50+08:00",
       "detail": "【第2回 京アニ＆Do ファン感謝イベント 2015.10.31】MESSAGE",
       "meta": {}
@@ -4489,6 +4994,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:12:48+08:00",
       "detail": "【第2回 京アニ＆Do ファン感謝イベント 2015.10.31】MESSAGE",
       "meta": {}
@@ -4497,6 +5003,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:12:45+08:00",
       "detail": "【第2回 京アニ＆Do ファン感謝イベント 2015.11.1】山田尚子签名板，",
       "meta": {}
@@ -4505,6 +5012,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:12:43+08:00",
       "detail": "【第2回 京アニ＆Do ファン感謝イベント 2015.11.1】山田尚子签名板，",
       "meta": {}
@@ -4513,6 +5021,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:12:40+08:00",
       "detail": "【第2回 京アニ＆Do ファン感謝イベント 2015.11.1】山田尚子签名板，",
       "meta": {}
@@ -4521,6 +5030,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:12:37+08:00",
       "detail": "【第2回 京アニ＆Do ファン感謝イベント 2015.11.1】山田尚子签名板，",
       "meta": {}
@@ -4529,6 +5039,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:12:35+08:00",
       "detail": "【第2回 京アニ＆Do ファン感謝イベント 2015.11.1】MESSAGE ",
       "meta": {}
@@ -4537,6 +5048,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:12:32+08:00",
       "detail": "【第2回 京アニ＆Do ファン感謝イベント 2015.11.1】山田尚子签名板，",
       "meta": {}
@@ -4545,6 +5057,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:12:29+08:00",
       "detail": "【第2回 京アニ＆Do ファン感謝イベント 2015.11.1】MESSAGE ",
       "meta": {}
@@ -4553,6 +5066,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:12:27+08:00",
       "detail": "【第2回 京アニ＆Do ファン感謝イベント 2015.10.31】今天的山田尚子",
       "meta": {}
@@ -4561,6 +5075,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:12:24+08:00",
       "detail": "【第2回 京アニ＆Do ファン感謝イベント 2015.10.31】今天的山田尚子",
       "meta": {}
@@ -4569,6 +5084,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:12:19+08:00",
       "detail": "第二届京阿尼＆Do答谢会官网活动报告 http://kyoanido-event",
       "meta": {}
@@ -4577,6 +5093,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:12:16+08:00",
       "detail": "第二届京阿尼＆Do答谢会官网活动报告 http://kyoanido-event",
       "meta": {}
@@ -4585,6 +5102,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:12:14+08:00",
       "detail": "出自桝形商店街交流笔记",
       "meta": {}
@@ -4593,6 +5111,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:12:11+08:00",
       "detail": "http://www.chatterbox.tips/# !【レポート】京アニ＆",
       "meta": {}
@@ -4601,6 +5120,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:12:09+08:00",
       "detail": "第二届京阿尼＆Do答谢会场刊中山田尚子的插图留言。",
       "meta": {}
@@ -4609,6 +5129,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:12:07+08:00",
       "detail": "《玉子爱情故事》的原画集中有一封玉子写的信。",
       "meta": {}
@@ -4617,6 +5138,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:12:04+08:00",
       "detail": "【金子有希@kanekosanndesu】常盤みどりちゃん、ハピバー！ 今でも誕",
       "meta": {}
@@ -4625,6 +5147,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:12:01+08:00",
       "detail": "【「洲崎綾の7.6」公式@suzakiaya7_6】【9/8「たまこまーけっと」",
       "meta": {}
@@ -4633,6 +5156,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:59+08:00",
       "detail": "【「洲崎綾の7.6」公式@suzakiaya7_6】【9/8「たまこまーけっと」",
       "meta": {}
@@ -4641,6 +5165,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:11:57+08:00",
       "detail": "9/8「たまこまーけっと」セレクション上映舞台挨拶",
       "meta": {}
@@ -4649,6 +5174,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:10:57+08:00",
       "detail": "《聲之形》剧场动画化！原作者大今良时＆导演山田尚子寄语 http://site.",
       "meta": {}
@@ -4657,6 +5183,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:10:55+08:00",
       "detail": "宣传画1 无logo（640x881）",
       "meta": {}
@@ -4665,6 +5192,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:10:52+08:00",
       "detail": "官网首页图1（2000x1214）",
       "meta": {}
@@ -4673,6 +5201,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:10:50+08:00",
       "detail": "宣传画1（1000x1376）",
       "meta": {}
@@ -4681,6 +5210,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:10:48+08:00",
       "detail": "",
       "meta": {}
@@ -4689,6 +5219,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:10:46+08:00",
       "detail": "",
       "meta": {}
@@ -4697,6 +5228,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:10:44+08:00",
       "detail": "",
       "meta": {}
@@ -4705,6 +5237,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:10:41+08:00",
       "detail": "",
       "meta": {}
@@ -4713,6 +5246,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:10:38+08:00",
       "detail": "",
       "meta": {}
@@ -4721,6 +5255,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:10:35+08:00",
       "detail": "",
       "meta": {}
@@ -4729,6 +5264,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:10:33+08:00",
       "detail": "聴覚障がい者の少女との交流描く『聲の形』 映画化への期待 http://colu",
       "meta": {}
@@ -4737,6 +5273,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:10:30+08:00",
       "detail": "",
       "meta": {}
@@ -4745,6 +5282,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:10:28+08:00",
       "detail": "",
       "meta": {}
@@ -4753,6 +5291,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:10:26+08:00",
       "detail": "",
       "meta": {}
@@ -4761,6 +5300,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:10:23+08:00",
       "detail": "",
       "meta": {}
@@ -4769,6 +5309,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:10:21+08:00",
       "detail": "",
       "meta": {}
@@ -4777,6 +5318,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:10:18+08:00",
       "detail": "",
       "meta": {}
@@ -4785,6 +5327,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:10:16+08:00",
       "detail": "補聴器メーカー シバントス株式会社とのタイアップが決定！ http://koen",
       "meta": {}
@@ -4793,6 +5336,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:10:16+08:00",
       "detail": "映画「聲の形」大今良時が入野自由の声を聞き「将也を主人公にしてくれた」 http",
       "meta": {}
@@ -4801,6 +5345,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:10:16+08:00",
       "detail": "石田将也（小学生） cv.松冈茉优",
       "meta": {}
@@ -4809,6 +5354,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:10:13+08:00",
       "detail": "石田将也（小学生） cv.松冈茉优",
       "meta": {}
@@ -4817,6 +5363,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:10:08+08:00",
       "detail": "电影《聲之形》导演山田尚子创作感言（《Animedia》2016年9月号） ht",
       "meta": {}
@@ -4825,6 +5372,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:10:05+08:00",
       "detail": "诚实用心地面对作品——导演山田尚子谈电影《聲之形》（《Newtype》2016年",
       "meta": {}
@@ -4833,6 +5381,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:10:03+08:00",
       "detail": "难能可贵，惹人怜爱——导演山田尚子谈电影《聲之形》（《Animage》2016年",
       "meta": {}
@@ -4841,6 +5390,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:57+08:00",
       "detail": "【映画『聲の形』完成披露上映会】【photo by @tmokhrs】",
       "meta": {}
@@ -4849,6 +5399,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:55+08:00",
       "detail": "【映画『聲の形』完成披露上映会】【photo by @tmokhrs】",
       "meta": {}
@@ -4857,6 +5408,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:52+08:00",
       "detail": "【映画『聲の形』完成披露上映会】【photo by @tmokhrs】",
       "meta": {}
@@ -4865,6 +5417,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:50+08:00",
       "detail": "【映画『聲の形』完成披露上映会】【photo by @tmokhrs】",
       "meta": {}
@@ -4873,6 +5426,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:47+08:00",
       "detail": "完成披露舞台挨拶",
       "meta": {}
@@ -4881,6 +5435,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:45+08:00",
       "detail": "完成披露舞台挨拶",
       "meta": {}
@@ -4889,6 +5444,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:42+08:00",
       "detail": "完成披露舞台挨拶",
       "meta": {}
@@ -4897,6 +5453,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:42+08:00",
       "detail": "完成披露舞台挨拶",
       "meta": {}
@@ -4905,6 +5462,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:42+08:00",
       "detail": "完成披露舞台挨拶",
       "meta": {}
@@ -4913,6 +5471,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:42+08:00",
       "detail": "完成披露舞台挨拶",
       "meta": {}
@@ -4921,6 +5480,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:42+08:00",
       "detail": "完成披露舞台挨拶",
       "meta": {}
@@ -4929,6 +5489,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:42+08:00",
       "detail": "完成披露舞台挨拶",
       "meta": {}
@@ -4937,6 +5498,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:40+08:00",
       "detail": "完成披露舞台挨拶",
       "meta": {}
@@ -4945,6 +5507,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:37+08:00",
       "detail": "完成披露舞台挨拶",
       "meta": {}
@@ -4953,6 +5516,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:35+08:00",
       "detail": "完成披露上映会",
       "meta": {}
@@ -4961,6 +5525,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:33+08:00",
       "detail": "完成披露上映会",
       "meta": {}
@@ -4969,6 +5534,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:28+08:00",
       "detail": "完成披露上映会",
       "meta": {}
@@ -4977,6 +5543,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:24+08:00",
       "detail": "完成披露舞台挨拶",
       "meta": {}
@@ -4985,6 +5552,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:24+08:00",
       "detail": "完成披露舞台挨拶",
       "meta": {}
@@ -4993,6 +5561,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:20+08:00",
       "detail": "完成披露舞台挨拶 http://natalie.mu/comic/news/19",
       "meta": {}
@@ -5001,6 +5570,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:18+08:00",
       "detail": "完成披露上映会 http://natalie.mu/eiga/news/1993",
       "meta": {}
@@ -5009,6 +5579,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:15+08:00",
       "detail": "完成披露上映会 http://natalie.mu/eiga/news/1993",
       "meta": {}
@@ -5017,6 +5588,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:13+08:00",
       "detail": "完成披露舞台挨拶",
       "meta": {}
@@ -5025,6 +5597,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:11+08:00",
       "detail": "完成披露上映会 http://www.animatetimes.com/news",
       "meta": {}
@@ -5033,6 +5606,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:05+08:00",
       "detail": "完成披露上映会 http://www.animatetimes.com/news",
       "meta": {}
@@ -5041,6 +5615,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:02+08:00",
       "detail": "http://www.animatetimes.com/news/details",
       "meta": {}
@@ -5049,6 +5624,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:09:00+08:00",
       "detail": "完全披露上映会",
       "meta": {}
@@ -5057,6 +5633,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:08:57+08:00",
       "detail": "完全披露上映会",
       "meta": {}
@@ -5065,6 +5642,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:08:56+08:00",
       "detail": "《Megami MAGAZINE》2016年10月号",
       "meta": {}
@@ -5073,6 +5651,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:08:53+08:00",
       "detail": "",
       "meta": {}
@@ -5081,6 +5660,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:08:50+08:00",
       "detail": "",
       "meta": {}
@@ -5089,6 +5669,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:08:48+08:00",
       "detail": "",
       "meta": {}
@@ -5097,6 +5678,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:08:45+08:00",
       "detail": "",
       "meta": {}
@@ -5105,6 +5687,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:08:43+08:00",
       "detail": "",
       "meta": {}
@@ -5113,6 +5696,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:08:40+08:00",
       "detail": "",
       "meta": {}
@@ -5121,6 +5705,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:08:37+08:00",
       "detail": "",
       "meta": {}
@@ -5129,6 +5714,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:08:34+08:00",
       "detail": "",
       "meta": {}
@@ -5137,6 +5723,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:08:31+08:00",
       "detail": "",
       "meta": {}
@@ -5145,6 +5732,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:08:28+08:00",
       "detail": "",
       "meta": {}
@@ -5153,6 +5741,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:08:26+08:00",
       "detail": "",
       "meta": {}
@@ -5161,6 +5750,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:08:23+08:00",
       "detail": "",
       "meta": {}
@@ -5169,6 +5759,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:08:21+08:00",
       "detail": "",
       "meta": {}
@@ -5177,6 +5768,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:08:18+08:00",
       "detail": "",
       "meta": {}
@@ -5185,6 +5777,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:08:16+08:00",
       "detail": "",
       "meta": {}
@@ -5193,6 +5786,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:08:14+08:00",
       "detail": "",
       "meta": {}
@@ -5201,6 +5795,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:08:12+08:00",
       "detail": "",
       "meta": {}
@@ -5209,6 +5804,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:08:09+08:00",
       "detail": "",
       "meta": {}
@@ -5217,6 +5813,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:08:06+08:00",
       "detail": "",
       "meta": {}
@@ -5225,6 +5822,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:08:05+08:00",
       "detail": "电影《聲之形》爆米花特典文件夹图 http://koenokatachi-mov",
       "meta": {}
@@ -5233,6 +5831,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:08:02+08:00",
       "detail": "アニメディア 2016年10月号",
       "meta": {}
@@ -5241,6 +5840,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:07:59+08:00",
       "detail": "ニュータイプ 2016年10月号",
       "meta": {}
@@ -5249,6 +5849,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:07:54+08:00",
       "detail": "",
       "meta": {}
@@ -5257,6 +5858,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:07:51+08:00",
       "detail": "",
       "meta": {}
@@ -5265,6 +5867,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:07:49+08:00",
       "detail": "山田：我很喜欢松冈出演的电视剧《问题餐厅》，每周都会收看，从第一集开始就对松冈很",
       "meta": {}
@@ -5273,6 +5876,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:07:46+08:00",
       "detail": "山田：我很喜欢松冈出演的电视剧《问题餐厅》，每周都会收看，从第一集开始就对松冈很",
       "meta": {}
@@ -5281,6 +5885,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:07:43+08:00",
       "detail": "山田：我很喜欢松冈出演的电视剧《问题餐厅》，每周都会收看，从第一集开始就对松冈很",
       "meta": {}
@@ -5289,6 +5894,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:07:41+08:00",
       "detail": "",
       "meta": {}
@@ -5297,6 +5903,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:07:38+08:00",
       "detail": "",
       "meta": {}
@@ -5305,6 +5912,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:07:35+08:00",
       "detail": "山田監督と牛尾さん✿映画『聲の形』オリジナル・サウンドトラック「a shape ",
       "meta": {}
@@ -5313,6 +5921,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:07:33+08:00",
       "detail": "",
       "meta": {}
@@ -5321,6 +5930,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:07:31+08:00",
       "detail": "http://news.walkerplus.com/article/87023",
       "meta": {}
@@ -5329,6 +5939,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:07:26+08:00",
       "detail": "http://news.walkerplus.com/article/87023",
       "meta": {}
@@ -5337,6 +5948,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:07:24+08:00",
       "detail": "蟹の形",
       "meta": {}
@@ -5345,6 +5957,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:07:22+08:00",
       "detail": "",
       "meta": {}
@@ -5353,6 +5966,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:07:19+08:00",
       "detail": "",
       "meta": {}
@@ -5361,6 +5975,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:07:17+08:00",
       "detail": "山田的这张照片是在岐阜县的主题公园“养老天命反转地”取材时拍摄的。关于“养老天命",
       "meta": {}
@@ -5369,6 +5984,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:07:15+08:00",
       "detail": "映画「聲の形」牛尾憲輔インタビュー 山田尚子監督とのセッションが形づくる音楽 h",
       "meta": {}
@@ -5377,6 +5993,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:07:12+08:00",
       "detail": "映画「聲の形」牛尾憲輔インタビュー 山田尚子監督とのセッションが形づくる音楽 h",
       "meta": {}
@@ -5385,6 +6002,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:07:09+08:00",
       "detail": "",
       "meta": {}
@@ -5393,6 +6011,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:07:06+08:00",
       "detail": "",
       "meta": {}
@@ -5401,6 +6020,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:07:04+08:00",
       "detail": "",
       "meta": {}
@@ -5409,6 +6029,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:07:01+08:00",
       "detail": "",
       "meta": {}
@@ -5417,6 +6038,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:06:58+08:00",
       "detail": "",
       "meta": {}
@@ -5425,6 +6047,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:06:56+08:00",
       "detail": "",
       "meta": {}
@@ -5433,6 +6056,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:06:54+08:00",
       "detail": "",
       "meta": {}
@@ -5441,6 +6065,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:06:48+08:00",
       "detail": "",
       "meta": {}
@@ -5449,6 +6074,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:06:45+08:00",
       "detail": "",
       "meta": {}
@@ -5457,6 +6083,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:06:42+08:00",
       "detail": "",
       "meta": {}
@@ -5465,6 +6092,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:06:40+08:00",
       "detail": "",
       "meta": {}
@@ -5473,6 +6101,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:41:10+08:00",
       "detail": "",
       "meta": {}
@@ -5481,6 +6110,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:41:04+08:00",
       "detail": "",
       "meta": {}
@@ -5489,6 +6119,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:40:52+08:00",
       "detail": "",
       "meta": {}
@@ -5497,6 +6128,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:40:45+08:00",
       "detail": "",
       "meta": {}
@@ -5505,6 +6137,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:40:39+08:00",
       "detail": "",
       "meta": {}
@@ -5513,6 +6146,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:40:33+08:00",
       "detail": "",
       "meta": {}
@@ -5521,6 +6155,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:40:27+08:00",
       "detail": "",
       "meta": {}
@@ -5529,6 +6164,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:40:22+08:00",
       "detail": "",
       "meta": {}
@@ -5537,6 +6173,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:40:15+08:00",
       "detail": "",
       "meta": {}
@@ -5545,6 +6182,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:40:10+08:00",
       "detail": "【御礼】公開初日舞台挨拶・ライブビューイングにお越しいただいた皆さま、ありがとう",
       "meta": {}
@@ -5553,6 +6191,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:40:10+08:00",
       "detail": "http://mantan-web.jp/2016/09/17/20160917",
       "meta": {}
@@ -5561,6 +6200,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:40:04+08:00",
       "detail": "http://natalie.mu/comic/news/202294",
       "meta": {}
@@ -5569,6 +6209,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:39:52+08:00",
       "detail": "http://natalie.mu/comic/news/202294",
       "meta": {}
@@ -5577,6 +6218,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:39:46+08:00",
       "detail": "",
       "meta": {}
@@ -5585,6 +6227,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:39:41+08:00",
       "detail": "",
       "meta": {}
@@ -5593,6 +6236,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:39:28+08:00",
       "detail": "",
       "meta": {}
@@ -5601,6 +6245,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:39:21+08:00",
       "detail": "",
       "meta": {}
@@ -5609,6 +6254,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:39:15+08:00",
       "detail": "",
       "meta": {}
@@ -5617,6 +6263,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:39:09+08:00",
       "detail": "【新宿ピカデリー】山田尚子監督のスタッフトークショー付上映会",
       "meta": {}
@@ -5625,6 +6272,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:39:03+08:00",
       "detail": "MOVIX京都 スタッフトーク上映会",
       "meta": {}
@@ -5633,6 +6281,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:38:57+08:00",
       "detail": "【MOVIX京都 スタッフトーク付上映会】山村卓也、小川太一、山田尚子",
       "meta": {}
@@ -5641,6 +6290,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:38:51+08:00",
       "detail": "【映画『聲の形』大ヒット御礼舞台挨拶 2016.10.01】早見沙織、入野自由、",
       "meta": {}
@@ -5649,6 +6299,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:38:46+08:00",
       "detail": "【映画『聲の形』大ヒット御礼舞台挨拶 2016.10.01】早見沙織、入野自由、",
       "meta": {}
@@ -5657,6 +6308,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:38:40+08:00",
       "detail": "http://www.anime-recorder.com/ArticleDet",
       "meta": {}
@@ -5665,6 +6317,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:38:34+08:00",
       "detail": "http://www.anime-recorder.com/ArticleDet",
       "meta": {}
@@ -5673,6 +6326,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:38:29+08:00",
       "detail": "",
       "meta": {}
@@ -5681,6 +6335,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:38:23+08:00",
       "detail": "",
       "meta": {}
@@ -5689,6 +6344,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:38:16+08:00",
       "detail": "",
       "meta": {}
@@ -5697,6 +6353,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:38:16+08:00",
       "detail": "",
       "meta": {}
@@ -5705,6 +6362,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:38:11+08:00",
       "detail": "《Animedia》2016年11月号",
       "meta": {}
@@ -5713,6 +6371,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:38:05+08:00",
       "detail": "电视剧《问题餐厅》雨木千佳（松冈茉优）",
       "meta": {}
@@ -5721,6 +6380,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:37:59+08:00",
       "detail": "牛尾宪辅、山田尚子",
       "meta": {}
@@ -5729,6 +6389,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:37:53+08:00",
       "detail": "",
       "meta": {}
@@ -5737,6 +6398,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:37:47+08:00",
       "detail": "",
       "meta": {}
@@ -5745,6 +6407,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:37:40+08:00",
       "detail": "",
       "meta": {}
@@ -5753,6 +6416,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:37:35+08:00",
       "detail": "",
       "meta": {}
@@ -5761,6 +6425,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:37:28+08:00",
       "detail": "",
       "meta": {}
@@ -5769,6 +6434,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:37:21+08:00",
       "detail": "山田尚子、牛尾憲輔",
       "meta": {}
@@ -5777,6 +6443,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:37:16+08:00",
       "detail": "",
       "meta": {}
@@ -5785,6 +6452,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:37:10+08:00",
       "detail": "",
       "meta": {}
@@ -5793,6 +6461,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:36:58+08:00",
       "detail": "",
       "meta": {}
@@ -5801,6 +6470,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:36:53+08:00",
       "detail": "",
       "meta": {}
@@ -5809,6 +6479,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:36:47+08:00",
       "detail": "",
       "meta": {}
@@ -5817,6 +6488,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:36:42+08:00",
       "detail": "",
       "meta": {}
@@ -5825,6 +6497,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:36:36+08:00",
       "detail": "",
       "meta": {}
@@ -5833,6 +6506,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:36:29+08:00",
       "detail": "",
       "meta": {}
@@ -5841,6 +6515,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:36:23+08:00",
       "detail": "",
       "meta": {}
@@ -5849,6 +6524,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:36:09+08:00",
       "detail": "",
       "meta": {}
@@ -5857,6 +6533,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:36:04+08:00",
       "detail": "日本瑞穗金融集团 CM 电影《聲之形》篇 30秒 https://dou.bz/",
       "meta": {}
@@ -5865,6 +6542,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:35:58+08:00",
       "detail": "左より、山田尚子監督、音響家の増旭さん、鶴岡音響監督、音楽の牛尾憲輔さん htt",
       "meta": {}
@@ -5873,6 +6551,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:35:44+08:00",
       "detail": "【御礼舞台挨拶】本日、第40回日本アカデミー賞優秀アニメーション作品賞受賞を御礼",
       "meta": {}
@@ -5881,6 +6560,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:35:38+08:00",
       "detail": "山田尚子監督＆早見沙織、映画『聲の形』舞台挨拶で日本アカデミー賞受賞を語る ht",
       "meta": {}
@@ -5889,6 +6569,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:35:33+08:00",
       "detail": "",
       "meta": {}
@@ -5897,6 +6578,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:35:25+08:00",
       "detail": "",
       "meta": {}
@@ -5905,6 +6587,7 @@
       "stage": "photos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T20:35:20+08:00",
       "detail": "https://twitter.com/cmykpaste/status/887",
       "meta": {}
@@ -5913,6 +6596,7 @@
       "stage": "rooms",
       "status": "done",
       "attempts": 3,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:06:40+08:00",
       "detail": "宇宙的入口（5 个模块）",
       "meta": {}
@@ -5921,6 +6605,7 @@
       "stage": "rooms",
       "status": "done",
       "attempts": 3,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:06:40+08:00",
       "detail": "☆ 悠风 etc.（4 个模块）",
       "meta": {}
@@ -5929,6 +6614,7 @@
       "stage": "rooms",
       "status": "done",
       "attempts": 3,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:06:40+08:00",
       "detail": "☆ 玉子（5 个模块）",
       "meta": {}
@@ -5937,6 +6623,7 @@
       "stage": "rooms",
       "status": "done",
       "attempts": 3,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:06:40+08:00",
       "detail": "☆ 轻音（5 个模块）",
       "meta": {}
@@ -5945,6 +6632,7 @@
       "stage": "rooms",
       "status": "done",
       "attempts": 3,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:06:40+08:00",
       "detail": "留言板（1 个模块）",
       "meta": {}
@@ -5953,6 +6641,7 @@
       "stage": "rooms",
       "status": "done",
       "attempts": 3,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:06:40+08:00",
       "detail": "☆ 聲之形（4 个模块）",
       "meta": {}
@@ -5961,6 +6650,7 @@
       "stage": "rooms",
       "status": "done",
       "attempts": 3,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:06:40+08:00",
       "detail": "广播室（1 个模块）",
       "meta": {}
@@ -5969,6 +6659,7 @@
       "stage": "videos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:53+08:00",
       "detail": "【けいおん!!】けいおん学講義 第６回～輝く未来へ～",
       "meta": {}
@@ -5977,6 +6668,7 @@
       "stage": "videos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:53+08:00",
       "detail": "【けいおん!!】けいおん学講義 第５回～広がる世界と変わらぬ心",
       "meta": {}
@@ -5985,6 +6677,7 @@
       "stage": "videos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:53+08:00",
       "detail": "【画像90枚】けいおん！ラッピング電車 HO-KAGO TEA TIME TR…",
       "meta": {}
@@ -5993,6 +6686,7 @@
       "stage": "videos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:53+08:00",
       "detail": "【たまこラブストーリー】出町桝形商店街“標語”再現メイキング映像",
       "meta": {}
@@ -6001,6 +6695,7 @@
       "stage": "videos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:53+08:00",
       "detail": "TAMAKO MEMORY'S NOTE PV",
       "meta": {}
@@ -6009,6 +6704,7 @@
       "stage": "videos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:53+08:00",
       "detail": "TVアニメ『たまこまーけっと』Blu-ray Box PV",
       "meta": {}
@@ -6017,6 +6713,7 @@
       "stage": "videos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:53+08:00",
       "detail": "TVアニメ『響け！ユーフォニアム』PV第2弾",
       "meta": {}
@@ -6025,6 +6722,7 @@
       "stage": "videos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:53+08:00",
       "detail": "ボルヴィックCM『飲む自然』篇",
       "meta": {}
@@ -6033,6 +6731,7 @@
       "stage": "videos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:53+08:00",
       "detail": "《吹响悠风号2》PV第2弹",
       "meta": {}
@@ -6041,6 +6740,7 @@
       "stage": "videos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:53+08:00",
       "detail": "电影《聲之形》热映答谢见面会（2016.10.01）",
       "meta": {}
@@ -6049,6 +6749,7 @@
       "stage": "videos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:53+08:00",
       "detail": "《聲之形》ZIP!特集（20161027）",
       "meta": {}
@@ -6057,9 +6758,714 @@
       "stage": "videos",
       "status": "done",
       "attempts": 1,
+      "failures": 0,
       "updatedAt": "2026-09-14T21:27:53+08:00",
       "detail": "瑞穗金融集团 CM 电影《聲之形》篇 30秒",
       "meta": {}
     }
+  },
+  "completed": {
+    "album:13431373": "albums",
+    "album:13431474": "albums",
+    "album:13431950": "albums",
+    "album:13432051": "albums",
+    "album:13433748": "albums",
+    "album:190597061": "albums",
+    "bulletin:13430830": "bulletins",
+    "bulletin:13432767": "bulletins",
+    "bulletin:13432819": "bulletins",
+    "bulletin:16095492": "bulletins",
+    "bulletin:17754656": "bulletins",
+    "bulletin:190150869": "bulletins",
+    "bulletin:190597046": "bulletins",
+    "discussion:58596553": "forum",
+    "main:topic-499780453": "main",
+    "miniblog:13430546": "miniblog",
+    "note:274238773": "notes",
+    "note:274371246": "notes",
+    "note:274768174": "notes",
+    "note:291753270": "notes",
+    "note:314598362": "notes",
+    "note:319279183": "notes",
+    "note:323771540": "notes",
+    "note:325869921": "notes",
+    "note:326223685": "notes",
+    "note:326639941": "notes",
+    "note:332912954": "notes",
+    "note:338329832": "notes",
+    "note:347460778": "notes",
+    "note:348784334": "notes",
+    "note:350255703": "notes",
+    "note:400308340": "notes",
+    "note:409767702": "notes",
+    "note:410073605": "notes",
+    "note:410095370": "notes",
+    "note:410464332": "notes",
+    "note:412701420": "notes",
+    "note:425866593": "notes",
+    "note:429473097": "notes",
+    "note:429716807": "notes",
+    "note:430242140": "notes",
+    "note:433039361": "notes",
+    "note:433188862": "notes",
+    "note:433207087": "notes",
+    "note:433237635": "notes",
+    "note:433476997": "notes",
+    "note:433804876": "notes",
+    "note:433821101": "notes",
+    "note:434075254": "notes",
+    "note:434258171": "notes",
+    "note:434498947": "notes",
+    "note:434874102": "notes",
+    "note:435337731": "notes",
+    "note:441842568": "notes",
+    "note:460892811": "notes",
+    "note:464638733": "notes",
+    "note:467449573": "notes",
+    "note:480506533": "notes",
+    "note:485196288": "notes",
+    "note:490420693": "notes",
+    "note:493628625": "notes",
+    "note:494796780": "notes",
+    "note:496259160": "notes",
+    "note:496648491": "notes",
+    "note:497257959": "notes",
+    "note:498486997": "notes",
+    "note:499646004": "notes",
+    "note:500779951": "notes",
+    "note:501830142": "notes",
+    "note:502324234": "notes",
+    "note:502853776": "notes",
+    "note:503910662": "notes",
+    "note:504870376": "notes",
+    "note:505913072": "notes",
+    "note:506758234": "notes",
+    "note:506916664": "notes",
+    "note:507086258": "notes",
+    "note:511505892": "notes",
+    "note:511734232": "notes",
+    "note:512288929": "notes",
+    "note:515999854": "notes",
+    "note:516700383": "notes",
+    "note:518061571": "notes",
+    "note:519006182": "notes",
+    "note:519165447": "notes",
+    "note:519468055": "notes",
+    "note:520173919": "notes",
+    "note:520501904": "notes",
+    "note:520557685": "notes",
+    "note:520941015": "notes",
+    "note:521041733": "notes",
+    "note:524707046": "notes",
+    "note:525677843": "notes",
+    "note:529201220": "notes",
+    "note:531685883": "notes",
+    "note:536415117": "notes",
+    "note:541065079": "notes",
+    "note:547187777": "notes",
+    "note:550509861": "notes",
+    "note:560290293": "notes",
+    "note:569110361": "notes",
+    "note:569286438": "notes",
+    "note:572029004": "notes",
+    "note:572997848": "notes",
+    "note:575615184": "notes",
+    "note:575811208": "notes",
+    "note:575910736": "notes",
+    "note:576189949": "notes",
+    "note:577308827": "notes",
+    "note:578163214": "notes",
+    "note:580950328": "notes",
+    "note:581099972": "notes",
+    "note:581373515": "notes",
+    "note:581617831": "notes",
+    "note:581837681": "notes",
+    "note:581998436": "notes",
+    "note:582222645": "notes",
+    "note:582498318": "notes",
+    "note:583425563": "notes",
+    "note:583640613": "notes",
+    "note:583976644": "notes",
+    "note:584217092": "notes",
+    "note:585518914": "notes",
+    "note:586529041": "notes",
+    "note:586749537": "notes",
+    "note:586870147": "notes",
+    "note:589189219": "notes",
+    "note:594375309": "notes",
+    "note:599081646": "notes",
+    "note:604396376": "notes",
+    "note:608843975": "notes",
+    "note:614170395": "notes",
+    "note:617677191": "notes",
+    "note:620299921": "notes",
+    "note:620639436": "notes",
+    "note:620796838": "notes",
+    "note:621091894": "notes",
+    "note:621342820": "notes",
+    "note:621946123": "notes",
+    "note:622694100": "notes",
+    "note:623079239": "notes",
+    "note:623264433": "notes",
+    "note:623421008": "notes",
+    "note:623887272": "notes",
+    "note:624120737": "notes",
+    "note:624442255": "notes",
+    "note:626780778": "notes",
+    "note:630626923": "notes",
+    "note:634384397": "notes",
+    "note:638128887": "notes",
+    "note:641740675": "notes",
+    "note:645545220": "notes",
+    "note:649190492": "notes",
+    "note:653967636": "notes",
+    "note:657510394": "notes",
+    "note:661229588": "notes",
+    "note:666011890": "notes",
+    "note:669962541": "notes",
+    "note:673585518": "notes",
+    "note:820543319": "notes",
+    "photo:13431373:1958678825": "photos",
+    "photo:13431373:2166387472": "photos",
+    "photo:13431373:2166387484": "photos",
+    "photo:13431373:2169506384": "photos",
+    "photo:13431373:2169647140": "photos",
+    "photo:13431373:2169647195": "photos",
+    "photo:13431373:2169647247": "photos",
+    "photo:13431373:2202354528": "photos",
+    "photo:13431373:2202354598": "photos",
+    "photo:13431373:2205213756": "photos",
+    "photo:13431373:2210410720": "photos",
+    "photo:13431373:2210410765": "photos",
+    "photo:13431373:2210410788": "photos",
+    "photo:13431373:2212412958": "photos",
+    "photo:13431373:2212784068": "photos",
+    "photo:13431373:2258785557": "photos",
+    "photo:13431373:2258821711": "photos",
+    "photo:13431373:2258821723": "photos",
+    "photo:13431373:2258821729": "photos",
+    "photo:13431373:2258821734": "photos",
+    "photo:13431373:2258821745": "photos",
+    "photo:13431373:2365804009": "photos",
+    "photo:13431474:1957277283": "photos",
+    "photo:13431474:1959844738": "photos",
+    "photo:13431474:1996423402": "photos",
+    "photo:13431474:2166190063": "photos",
+    "photo:13431474:2166378056": "photos",
+    "photo:13431474:2170665665": "photos",
+    "photo:13431474:2170665770": "photos",
+    "photo:13431474:2173567878": "photos",
+    "photo:13431474:2173567946": "photos",
+    "photo:13431474:2178175510": "photos",
+    "photo:13431474:2178351015": "photos",
+    "photo:13431474:2178353727": "photos",
+    "photo:13431474:2178425187": "photos",
+    "photo:13431474:2179697635": "photos",
+    "photo:13431474:2181143706": "photos",
+    "photo:13431474:2181572242": "photos",
+    "photo:13431474:2181572244": "photos",
+    "photo:13431474:2181572245": "photos",
+    "photo:13431474:2181572251": "photos",
+    "photo:13431474:2181572252": "photos",
+    "photo:13431474:2181572254": "photos",
+    "photo:13431474:2182628193": "photos",
+    "photo:13431474:2205779176": "photos",
+    "photo:13431474:2364483332": "photos",
+    "photo:13431950:2166376847": "photos",
+    "photo:13431950:2166435127": "photos",
+    "photo:13431950:2200015182": "photos",
+    "photo:13431950:2200861569": "photos",
+    "photo:13431950:2232513810": "photos",
+    "photo:13431950:2234055946": "photos",
+    "photo:13431950:2234055947": "photos",
+    "photo:13431950:2234055985": "photos",
+    "photo:13431950:2239226557": "photos",
+    "photo:13431950:2239226658": "photos",
+    "photo:13431950:2239226731": "photos",
+    "photo:13431950:2239226808": "photos",
+    "photo:13431950:2239226888": "photos",
+    "photo:13431950:2239226950": "photos",
+    "photo:13431950:2239227008": "photos",
+    "photo:13431950:2239227182": "photos",
+    "photo:13431950:2239227224": "photos",
+    "photo:13431950:2239227297": "photos",
+    "photo:13431950:2241841692": "photos",
+    "photo:13431950:2241841722": "photos",
+    "photo:13431950:2241841772": "photos",
+    "photo:13431950:2243377385": "photos",
+    "photo:13431950:2243377430": "photos",
+    "photo:13431950:2243377487": "photos",
+    "photo:13431950:2243377542": "photos",
+    "photo:13431950:2243377566": "photos",
+    "photo:13431950:2243377603": "photos",
+    "photo:13431950:2243933012": "photos",
+    "photo:13431950:2244822775": "photos",
+    "photo:13431950:2248643461": "photos",
+    "photo:13431950:2248643500": "photos",
+    "photo:13431950:2248643540": "photos",
+    "photo:13431950:2251573544": "photos",
+    "photo:13431950:2251573587": "photos",
+    "photo:13431950:2251573676": "photos",
+    "photo:13431950:2254469322": "photos",
+    "photo:13431950:2254469351": "photos",
+    "photo:13431950:2254469374": "photos",
+    "photo:13431950:2254842065": "photos",
+    "photo:13431950:2257267548": "photos",
+    "photo:13431950:2257267627": "photos",
+    "photo:13431950:2257267782": "photos",
+    "photo:13431950:2258494512": "photos",
+    "photo:13431950:2258494520": "photos",
+    "photo:13431950:2258494526": "photos",
+    "photo:13431950:2258494535": "photos",
+    "photo:13431950:2262703581": "photos",
+    "photo:13431950:2262703604": "photos",
+    "photo:13431950:2262703673": "photos",
+    "photo:13431950:2262703730": "photos",
+    "photo:13431950:2262703792": "photos",
+    "photo:13431950:2262703845": "photos",
+    "photo:13431950:2262703901": "photos",
+    "photo:13431950:2262703945": "photos",
+    "photo:13431950:2262703966": "photos",
+    "photo:13431950:2263305171": "photos",
+    "photo:13431950:2264797199": "photos",
+    "photo:13431950:2264797201": "photos",
+    "photo:13431950:2264797203": "photos",
+    "photo:13431950:2264797205": "photos",
+    "photo:13431950:2264797207": "photos",
+    "photo:13431950:2264797316": "photos",
+    "photo:13431950:2264797318": "photos",
+    "photo:13431950:2266578809": "photos",
+    "photo:13431950:2269884360": "photos",
+    "photo:13431950:2271176194": "photos",
+    "photo:13431950:2271176239": "photos",
+    "photo:13431950:2271176294": "photos",
+    "photo:13431950:2279774924": "photos",
+    "photo:13431950:2290788805": "photos",
+    "photo:13431950:2292502413": "photos",
+    "photo:13431950:2292502446": "photos",
+    "photo:13431950:2303994470": "photos",
+    "photo:13431950:2303994623": "photos",
+    "photo:13431950:2303994754": "photos",
+    "photo:13431950:2303994881": "photos",
+    "photo:13431950:2303995009": "photos",
+    "photo:13431950:2303995199": "photos",
+    "photo:13431950:2303995398": "photos",
+    "photo:13431950:2303995473": "photos",
+    "photo:13431950:2303995496": "photos",
+    "photo:13431950:2316880432": "photos",
+    "photo:13431950:2316880434": "photos",
+    "photo:13431950:2316880441": "photos",
+    "photo:13431950:2316880468": "photos",
+    "photo:13431950:2316880487": "photos",
+    "photo:13431950:2316880514": "photos",
+    "photo:13431950:2316880539": "photos",
+    "photo:13431950:2321232981": "photos",
+    "photo:13431950:2321232996": "photos",
+    "photo:13431950:2321233051": "photos",
+    "photo:13431950:2325379522": "photos",
+    "photo:13431950:2325379526": "photos",
+    "photo:13431950:2325379527": "photos",
+    "photo:13431950:2325379531": "photos",
+    "photo:13431950:2325379532": "photos",
+    "photo:13431950:2325379540": "photos",
+    "photo:13431950:2325379541": "photos",
+    "photo:13431950:2325379542": "photos",
+    "photo:13431950:2325379543": "photos",
+    "photo:13431950:2331045721": "photos",
+    "photo:13431950:2331045937": "photos",
+    "photo:13431950:2336465998": "photos",
+    "photo:13431950:2357622184": "photos",
+    "photo:13431950:2358848019": "photos",
+    "photo:13431950:2358848056": "photos",
+    "photo:13431950:2358848102": "photos",
+    "photo:13431950:2358848124": "photos",
+    "photo:13431950:2366783722": "photos",
+    "photo:13431950:2370025986": "photos",
+    "photo:13431950:2370624737": "photos",
+    "photo:13431950:2370624739": "photos",
+    "photo:13431950:2370624740": "photos",
+    "photo:13431950:2378691234": "photos",
+    "photo:13432051:2163288734": "photos",
+    "photo:13432051:2163353566": "photos",
+    "photo:13432051:2164499043": "photos",
+    "photo:13432051:2164782924": "photos",
+    "photo:13432051:2164782926": "photos",
+    "photo:13432051:2164783992": "photos",
+    "photo:13432051:2173264901": "photos",
+    "photo:13432051:2179621299": "photos",
+    "photo:13432051:2179820964": "photos",
+    "photo:13432051:2179966427": "photos",
+    "photo:13432051:2180123580": "photos",
+    "photo:13432051:2180281333": "photos",
+    "photo:13432051:2180422110": "photos",
+    "photo:13432051:2180569719": "photos",
+    "photo:13432051:2180667769": "photos",
+    "photo:13432051:2219280775": "photos",
+    "photo:13432051:2226059646": "photos",
+    "photo:13432051:2231502954": "photos",
+    "photo:13432051:2290788923": "photos",
+    "photo:13432051:2316880996": "photos",
+    "photo:13432051:2330538206": "photos",
+    "photo:13432051:2356113752": "photos",
+    "photo:13432051:2379525549": "photos",
+    "photo:13432051:2500516321": "photos",
+    "photo:13432051:2507748862": "photos",
+    "photo:13432051:2770778841": "photos",
+    "photo:13433748:1957323037": "photos",
+    "photo:13433748:1978864379": "photos",
+    "photo:13433748:2161277517": "photos",
+    "photo:13433748:2175543380": "photos",
+    "photo:13433748:2175543384": "photos",
+    "photo:13433748:2175543387": "photos",
+    "photo:13433748:2178440036": "photos",
+    "photo:13433748:2178440039": "photos",
+    "photo:13433748:2178440043": "photos",
+    "photo:13433748:2178487010": "photos",
+    "photo:13433748:2178515878": "photos",
+    "photo:13433748:2178515882": "photos",
+    "photo:13433748:2178515885": "photos",
+    "photo:13433748:2178515891": "photos",
+    "photo:13433748:2178515896": "photos",
+    "photo:13433748:2178535602": "photos",
+    "photo:13433748:2179894018": "photos",
+    "photo:13433748:2179894021": "photos",
+    "photo:13433748:2179894023": "photos",
+    "photo:13433748:2179894025": "photos",
+    "photo:13433748:2179894029": "photos",
+    "photo:13433748:2179894031": "photos",
+    "photo:13433748:2180152368": "photos",
+    "photo:13433748:2180208471": "photos",
+    "photo:13433748:2180208477": "photos",
+    "photo:13433748:2180208480": "photos",
+    "photo:13433748:2180208483": "photos",
+    "photo:13433748:2180208487": "photos",
+    "photo:13433748:2180208489": "photos",
+    "photo:13433748:2180208492": "photos",
+    "photo:13433748:2180208497": "photos",
+    "photo:13433748:2180208503": "photos",
+    "photo:13433748:2180208506": "photos",
+    "photo:13433748:2180208507": "photos",
+    "photo:13433748:2180208509": "photos",
+    "photo:13433748:2180208511": "photos",
+    "photo:13433748:2180417322": "photos",
+    "photo:13433748:2180602043": "photos",
+    "photo:13433748:2180602045": "photos",
+    "photo:13433748:2180627410": "photos",
+    "photo:13433748:2180656564": "photos",
+    "photo:13433748:2180656568": "photos",
+    "photo:13433748:2180657717": "photos",
+    "photo:13433748:2180658289": "photos",
+    "photo:13433748:2180746707": "photos",
+    "photo:13433748:2180779670": "photos",
+    "photo:13433748:2180791822": "photos",
+    "photo:13433748:2181099869": "photos",
+    "photo:13433748:2181099873": "photos",
+    "photo:13433748:2181144589": "photos",
+    "photo:13433748:2181144790": "photos",
+    "photo:13433748:2181340871": "photos",
+    "photo:13433748:2181600945": "photos",
+    "photo:13433748:2181676280": "photos",
+    "photo:13433748:2181676281": "photos",
+    "photo:13433748:2181681974": "photos",
+    "photo:13433748:2181681976": "photos",
+    "photo:13433748:2181681978": "photos",
+    "photo:13433748:2181681979": "photos",
+    "photo:13433748:2181681982": "photos",
+    "photo:13433748:2181681988": "photos",
+    "photo:13433748:2181681992": "photos",
+    "photo:13433748:2181681994": "photos",
+    "photo:13433748:2181698651": "photos",
+    "photo:13433748:2181698654": "photos",
+    "photo:13433748:2181698659": "photos",
+    "photo:13433748:2181701028": "photos",
+    "photo:13433748:2181736997": "photos",
+    "photo:13433748:2181737007": "photos",
+    "photo:13433748:2181871561": "photos",
+    "photo:13433748:2181871566": "photos",
+    "photo:13433748:2181871572": "photos",
+    "photo:13433748:2181871579": "photos",
+    "photo:13433748:2181871581": "photos",
+    "photo:13433748:2181871583": "photos",
+    "photo:13433748:2181871587": "photos",
+    "photo:13433748:2181871590": "photos",
+    "photo:13433748:2181871594": "photos",
+    "photo:13433748:2181871597": "photos",
+    "photo:13433748:2181871602": "photos",
+    "photo:13433748:2181871604": "photos",
+    "photo:13433748:2181871609": "photos",
+    "photo:13433748:2181871614": "photos",
+    "photo:13433748:2181871617": "photos",
+    "photo:13433748:2181871618": "photos",
+    "photo:13433748:2181871621": "photos",
+    "photo:13433748:2181971682": "photos",
+    "photo:13433748:2181971687": "photos",
+    "photo:13433748:2181971689": "photos",
+    "photo:13433748:2181971691": "photos",
+    "photo:13433748:2181971692": "photos",
+    "photo:13433748:2181971696": "photos",
+    "photo:13433748:2181971699": "photos",
+    "photo:13433748:2181971701": "photos",
+    "photo:13433748:2182256936": "photos",
+    "photo:13433748:2182256938": "photos",
+    "photo:13433748:2182256947": "photos",
+    "photo:13433748:2182256949": "photos",
+    "photo:13433748:2182256956": "photos",
+    "photo:13433748:2182257184": "photos",
+    "photo:13433748:2182561012": "photos",
+    "photo:13433748:2182561016": "photos",
+    "photo:13433748:2182561020": "photos",
+    "photo:13433748:2182722973": "photos",
+    "photo:13433748:2182765197": "photos",
+    "photo:13433748:2182995931": "photos",
+    "photo:13433748:2183076624": "photos",
+    "photo:13433748:2183077774": "photos",
+    "photo:13433748:2183077777": "photos",
+    "photo:13433748:2183077779": "photos",
+    "photo:13433748:2183077784": "photos",
+    "photo:13433748:2183077788": "photos",
+    "photo:13433748:2183077792": "photos",
+    "photo:13433748:2183078642": "photos",
+    "photo:13433748:2183927537": "photos",
+    "photo:13433748:2183927539": "photos",
+    "photo:13433748:2183927542": "photos",
+    "photo:13433748:2183927546": "photos",
+    "photo:13433748:2183927548": "photos",
+    "photo:13433748:2183927550": "photos",
+    "photo:13433748:2183927551": "photos",
+    "photo:13433748:2183927553": "photos",
+    "photo:13433748:2184639758": "photos",
+    "photo:13433748:2184699872": "photos",
+    "photo:13433748:2184841837": "photos",
+    "photo:13433748:2185505482": "photos",
+    "photo:13433748:2185568017": "photos",
+    "photo:13433748:2185568022": "photos",
+    "photo:13433748:2185637201": "photos",
+    "photo:13433748:2185890606": "photos",
+    "photo:13433748:2185942759": "photos",
+    "photo:13433748:2186455095": "photos",
+    "photo:13433748:2190430562": "photos",
+    "photo:13433748:2203776223": "photos",
+    "photo:13433748:2204080047": "photos",
+    "photo:13433748:2204080048": "photos",
+    "photo:13433748:2204080220": "photos",
+    "photo:13433748:2204080222": "photos",
+    "photo:13433748:2204081056": "photos",
+    "photo:13433748:2204081057": "photos",
+    "photo:13433748:2204429331": "photos",
+    "photo:13433748:2206404740": "photos",
+    "photo:13433748:2206404958": "photos",
+    "photo:13433748:2206405013": "photos",
+    "photo:13433748:2206405443": "photos",
+    "photo:13433748:2207525773": "photos",
+    "photo:13433748:2207525948": "photos",
+    "photo:13433748:2207526020": "photos",
+    "photo:13433748:2210407586": "photos",
+    "photo:13433748:2215597959": "photos",
+    "photo:13433748:2216984177": "photos",
+    "photo:13433748:2226685443": "photos",
+    "photo:13433748:2226685457": "photos",
+    "photo:13433748:2226685464": "photos",
+    "photo:13433748:2231972989": "photos",
+    "photo:13433748:2231973028": "photos",
+    "photo:13433748:2256254826": "photos",
+    "photo:13433748:2258428255": "photos",
+    "photo:13433748:2278942566": "photos",
+    "photo:13433748:2278942575": "photos",
+    "photo:13433748:2279302962": "photos",
+    "photo:13433748:2279302965": "photos",
+    "photo:13433748:2279302968": "photos",
+    "photo:13433748:2279302969": "photos",
+    "photo:13433748:2279313783": "photos",
+    "photo:13433748:2279315466": "photos",
+    "photo:13433748:2279470609": "photos",
+    "photo:13433748:2279781610": "photos",
+    "photo:13433748:2279781621": "photos",
+    "photo:13433748:2293999747": "photos",
+    "photo:13433748:2293999753": "photos",
+    "photo:13433748:2298686205": "photos",
+    "photo:13433748:2314125077": "photos",
+    "photo:13433748:2322535656": "photos",
+    "photo:13433748:2322535712": "photos",
+    "photo:13433748:2374719315": "photos",
+    "photo:13433748:2378929645": "photos",
+    "photo:13433748:2378929647": "photos",
+    "photo:13433748:2378951041": "photos",
+    "photo:190597061:2274635572": "photos",
+    "photo:190597061:2330179939": "photos",
+    "photo:190597061:2330179943": "photos",
+    "photo:190597061:2330538650": "photos",
+    "photo:190597061:2337700877": "photos",
+    "photo:190597061:2337700898": "photos",
+    "photo:190597061:2337700928": "photos",
+    "photo:190597061:2337700995": "photos",
+    "photo:190597061:2337701039": "photos",
+    "photo:190597061:2337701066": "photos",
+    "photo:190597061:2352179005": "photos",
+    "photo:190597061:2356059248": "photos",
+    "photo:190597061:2356059253": "photos",
+    "photo:190597061:2356113809": "photos",
+    "photo:190597061:2365195198": "photos",
+    "photo:190597061:2365665740": "photos",
+    "photo:190597061:2365756062": "photos",
+    "photo:190597061:2369553430": "photos",
+    "photo:190597061:2369553432": "photos",
+    "photo:190597061:2372979098": "photos",
+    "photo:190597061:2372979101": "photos",
+    "photo:190597061:2373108413": "photos",
+    "photo:190597061:2373347224": "photos",
+    "photo:190597061:2373866191": "photos",
+    "photo:190597061:2375955336": "photos",
+    "photo:190597061:2375955353": "photos",
+    "photo:190597061:2375955366": "photos",
+    "photo:190597061:2375955384": "photos",
+    "photo:190597061:2376005576": "photos",
+    "photo:190597061:2376008503": "photos",
+    "photo:190597061:2376008504": "photos",
+    "photo:190597061:2376008506": "photos",
+    "photo:190597061:2376008510": "photos",
+    "photo:190597061:2376008511": "photos",
+    "photo:190597061:2376008512": "photos",
+    "photo:190597061:2376008514": "photos",
+    "photo:190597061:2376008517": "photos",
+    "photo:190597061:2376008518": "photos",
+    "photo:190597061:2376009455": "photos",
+    "photo:190597061:2376009461": "photos",
+    "photo:190597061:2376009470": "photos",
+    "photo:190597061:2376016219": "photos",
+    "photo:190597061:2376016221": "photos",
+    "photo:190597061:2376016224": "photos",
+    "photo:190597061:2376023174": "photos",
+    "photo:190597061:2376023176": "photos",
+    "photo:190597061:2376070056": "photos",
+    "photo:190597061:2376071101": "photos",
+    "photo:190597061:2376071102": "photos",
+    "photo:190597061:2376073268": "photos",
+    "photo:190597061:2376073534": "photos",
+    "photo:190597061:2376073535": "photos",
+    "photo:190597061:2377253320": "photos",
+    "photo:190597061:2377494277": "photos",
+    "photo:190597061:2377494278": "photos",
+    "photo:190597061:2377676036": "photos",
+    "photo:190597061:2377676045": "photos",
+    "photo:190597061:2377676059": "photos",
+    "photo:190597061:2377676063": "photos",
+    "photo:190597061:2377676067": "photos",
+    "photo:190597061:2377676086": "photos",
+    "photo:190597061:2377676106": "photos",
+    "photo:190597061:2377676118": "photos",
+    "photo:190597061:2377676130": "photos",
+    "photo:190597061:2377676162": "photos",
+    "photo:190597061:2377676325": "photos",
+    "photo:190597061:2377676350": "photos",
+    "photo:190597061:2377706474": "photos",
+    "photo:190597061:2378205067": "photos",
+    "photo:190597061:2378295415": "photos",
+    "photo:190597061:2378593875": "photos",
+    "photo:190597061:2378929805": "photos",
+    "photo:190597061:2379014908": "photos",
+    "photo:190597061:2379408635": "photos",
+    "photo:190597061:2379408661": "photos",
+    "photo:190597061:2379525370": "photos",
+    "photo:190597061:2379525375": "photos",
+    "photo:190597061:2379669896": "photos",
+    "photo:190597061:2379669898": "photos",
+    "photo:190597061:2379669900": "photos",
+    "photo:190597061:2380210960": "photos",
+    "photo:190597061:2380210973": "photos",
+    "photo:190597061:2380748905": "photos",
+    "photo:190597061:2380899556": "photos",
+    "photo:190597061:2381034291": "photos",
+    "photo:190597061:2381034295": "photos",
+    "photo:190597061:2381237615": "photos",
+    "photo:190597061:2381237618": "photos",
+    "photo:190597061:2381237620": "photos",
+    "photo:190597061:2381275389": "photos",
+    "photo:190597061:2381324527": "photos",
+    "photo:190597061:2381324546": "photos",
+    "photo:190597061:2381451447": "photos",
+    "photo:190597061:2381451450": "photos",
+    "photo:190597061:2381451458": "photos",
+    "photo:190597061:2381451463": "photos",
+    "photo:190597061:2381451466": "photos",
+    "photo:190597061:2381451469": "photos",
+    "photo:190597061:2381451471": "photos",
+    "photo:190597061:2381451472": "photos",
+    "photo:190597061:2381451475": "photos",
+    "photo:190597061:2381451477": "photos",
+    "photo:190597061:2381451478": "photos",
+    "photo:190597061:2381451479": "photos",
+    "photo:190597061:2381451481": "photos",
+    "photo:190597061:2381451484": "photos",
+    "photo:190597061:2381451486": "photos",
+    "photo:190597061:2381451489": "photos",
+    "photo:190597061:2381451492": "photos",
+    "photo:190597061:2381451494": "photos",
+    "photo:190597061:2381451497": "photos",
+    "photo:190597061:2381451498": "photos",
+    "photo:190597061:2381602914": "photos",
+    "photo:190597061:2381619988": "photos",
+    "photo:190597061:2381620001": "photos",
+    "photo:190597061:2381620010": "photos",
+    "photo:190597061:2381791430": "photos",
+    "photo:190597061:2381840651": "photos",
+    "photo:190597061:2381840656": "photos",
+    "photo:190597061:2382332015": "photos",
+    "photo:190597061:2383186718": "photos",
+    "photo:190597061:2383417238": "photos",
+    "photo:190597061:2384517184": "photos",
+    "photo:190597061:2385140339": "photos",
+    "photo:190597061:2385681699": "photos",
+    "photo:190597061:2385687454": "photos",
+    "photo:190597061:2385702152": "photos",
+    "photo:190597061:2385702156": "photos",
+    "photo:190597061:2386694466": "photos",
+    "photo:190597061:2386745938": "photos",
+    "photo:190597061:2387673456": "photos",
+    "photo:190597061:2387673459": "photos",
+    "photo:190597061:2387790245": "photos",
+    "photo:190597061:2388079455": "photos",
+    "photo:190597061:2389001869": "photos",
+    "photo:190597061:2391405190": "photos",
+    "photo:190597061:2391405192": "photos",
+    "photo:190597061:2391602265": "photos",
+    "photo:190597061:2391665037": "photos",
+    "photo:190597061:2391733963": "photos",
+    "photo:190597061:2392127234": "photos",
+    "photo:190597061:2393166078": "photos",
+    "photo:190597061:2395406011": "photos",
+    "photo:190597061:2395406019": "photos",
+    "photo:190597061:2395406025": "photos",
+    "photo:190597061:2395406037": "photos",
+    "photo:190597061:2395406048": "photos",
+    "photo:190597061:2395406055": "photos",
+    "photo:190597061:2395406062": "photos",
+    "photo:190597061:2395406071": "photos",
+    "photo:190597061:2395406080": "photos",
+    "photo:190597061:2395406112": "photos",
+    "photo:190597061:2407554111": "photos",
+    "photo:190597061:2422306589": "photos",
+    "photo:190597061:2422306596": "photos",
+    "photo:190597061:2459298089": "photos",
+    "photo:190597061:2459298175": "photos",
+    "photo:190597061:2493478091": "photos",
+    "room:2793793": "rooms",
+    "room:2794117": "rooms",
+    "room:2794121": "rooms",
+    "room:2794136": "rooms",
+    "room:2794240": "rooms",
+    "room:3598399": "rooms",
+    "room:3598411": "rooms",
+    "video:287857": "videos",
+    "video:428467": "videos",
+    "video:536849": "videos",
+    "video:537786": "videos",
+    "video:563408": "videos",
+    "video:567344": "videos",
+    "video:597741": "videos",
+    "video:634910": "videos",
+    "video:763778": "videos",
+    "video:771903": "videos",
+    "video:780374": "videos",
+    "video:783649": "videos"
   }
 }

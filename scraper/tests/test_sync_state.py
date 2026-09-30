@@ -178,6 +178,67 @@ class TestLoadExisting:
             ctx.load_existing()
             assert ctx.structure.forum_topics["13466509"] == [("58596553", "【小站论坛开放】")]
 
+    def test_miniblog_stage_follows_all_pages(self, cfg, monkeypatch) -> None:
+        from scraper.cli import stage_miniblog
+        from scraper.resolver import ResolvedPage
+
+        first = '''<div class="status-item" data-sid="1"><p class="text">说：</p>
+          <blockquote>第一页动态</blockquote></div><div class="paginator">
+          <link rel="next" href="?start=20"></div>'''
+        second = '''<div class="status-item" data-sid="2"><p class="text">说：</p>
+          <blockquote>第二页动态</blockquote></div><div class="paginator"></div>'''
+        fetched: list[str] = []
+        pages = {0: first, 20: second}
+
+        with SyncContext(cfg, use_archive=False) as ctx:
+            ctx.structure.rooms = [Room(
+                room_id="2793793",
+                widgets=[Widget(kind="miniblog", widget_id="13430546", room_id="2793793")],
+            )]
+
+            def resolve(url: str, **_kwargs: object) -> ResolvedPage:
+                fetched.append(url)
+                start = 20 if "start=20" in url else 0
+                return ResolvedPage(url=url, html=pages[start], status=SourceStatus(availability=Availability.OK))
+
+            monkeypatch.setattr(ctx.resolver, "resolve", resolve)
+            stage_miniblog(ctx, show_progress=False, force=True)
+
+        assert fetched == [
+            cfg.miniblog_url("13430546"),
+            cfg.miniblog_url("13430546", 20),
+        ]
+        assert [status.status_id for status in ctx.miniblog] == ["1", "2"]
+
+    def test_offline_missing_miniblog_page_is_not_reported_complete(self, cfg, monkeypatch) -> None:
+        from dataclasses import replace
+
+        from scraper.cli import stage_miniblog
+        from scraper.resolver import ResolvedPage
+
+        offline_cfg = replace(cfg, offline=True)
+        first = '''<div class="status-item" data-sid="1"><p class="text">说：</p>
+          <blockquote>第一页动态</blockquote></div><div class="paginator">
+          <link rel="next" href="?start=20"></div>'''
+
+        with SyncContext(offline_cfg, use_archive=False) as ctx:
+            ctx.structure.rooms = [Room(
+                room_id="2793793",
+                widgets=[Widget(kind="miniblog", widget_id="13430546", room_id="2793793")],
+            )]
+
+            def resolve(url: str, **_kwargs: object) -> ResolvedPage:
+                if "start=20" in url:
+                    return ResolvedPage(url=url, status=SourceStatus(availability=Availability.UNAVAILABLE))
+                return ResolvedPage(url=url, html=first, status=SourceStatus(availability=Availability.OK))
+
+            monkeypatch.setattr(ctx.resolver, "resolve", resolve)
+            result = stage_miniblog(ctx, show_progress=False, force=True)
+
+            assert result.failed == 1
+            assert not ctx.progress.is_done("miniblog:13430546")
+            assert [status.status_id for status in ctx.miniblog] == ["1"]
+
     def test_missing_files_are_safe(self, cfg) -> None:
         ensure_dirs(cfg)
         with SyncContext(cfg, use_archive=False) as ctx:

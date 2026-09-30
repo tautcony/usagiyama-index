@@ -331,6 +331,9 @@ class MiniblogStatus:
     link_url: str = ""
     link_title: str = ""
     image_url: str = ""
+    content: str = ""
+    object_kind: str = ""
+    object_id: str = ""
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)

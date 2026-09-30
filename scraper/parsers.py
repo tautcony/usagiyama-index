@@ -8,7 +8,7 @@ from __future__ import annotations
 import copy
 import logging
 import re
-from urllib.parse import unquote, urlparse
+from urllib.parse import unquote, urljoin, urlparse
 
 from bs4 import BeautifulSoup, Tag
 
@@ -775,7 +775,9 @@ def parse_miniblog(html: str, cfg: Config = CONFIG) -> list[MiniblogStatus]:
         link = item.select_one("h5 a[href]")
         text_node = item.select_one(".text")
         desc_node = item.select_one(".description")
-        media = item.select_one(".media img")
+        if not isinstance(desc_node, Tag):
+            desc_node = item.select_one("blockquote")
+        media = item.select_one(".media img, .attachments img")
 
         statuses.append(
             MiniblogStatus(
@@ -785,9 +787,35 @@ def parse_miniblog(html: str, cfg: Config = CONFIG) -> list[MiniblogStatus]:
                 link_url=str(link.get("href", "")) if isinstance(link, Tag) else "",
                 link_title=" ".join(link.get_text(" ").split()) if isinstance(link, Tag) else "",
                 image_url=str(media.get("src", "")) if isinstance(media, Tag) else "",
+                content=" ".join(desc_node.get_text(" ").split()) if isinstance(desc_node, Tag) else "",
+                object_kind=str(item.get("data-object-kind", "")),
+                object_id=str(item.get("data-object-id", "")),
             )
         )
     return statuses
+
+
+def parse_miniblog_next_url(html: str, page_url: str, cfg: Config = CONFIG) -> str:
+    """返回广播室分页器的下一页地址；无下一页时返回空字符串。"""
+    soup = make_soup(html or "", cfg)
+    node = soup.select_one('.paginator link[rel="next"][href], .paginator a[rel="next"][href]')
+    if not isinstance(node, Tag):
+        # 兼容老结构：下一页地址藏在「后页」链接中。
+        node = next(
+            (anchor for anchor in soup.select(".paginator a[href]")
+             if "后页" in anchor.get_text("", strip=True)),
+            None,
+        )
+    if not isinstance(node, Tag):
+        return ""
+    href = str(node.get("href", "")).strip()
+    if not href:
+        return ""
+    # 豆瓣小站分页链接常以站点根目录为根（/widget/...），但实际抓取
+    # 路径包含站点 ID（/211330/widget/...），需要保留 cfg.base_url 前缀。
+    if href.startswith("/") and not href.startswith(f"/{cfg.site_id}/"):
+        return f"{cfg.base_url}{href}"
+    return urljoin(page_url, href)
 
 
 # ---------------------------------------------------------------------- 视频

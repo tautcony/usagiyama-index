@@ -211,6 +211,7 @@ class EmitContext:
 
     route_map: dict[str, str] = field(default_factory=dict)
     album_routes: dict[str, str] = field(default_factory=dict)
+    photo_album_routes: dict[str, str] = field(default_factory=dict)
     external_routes: dict[str, str] = field(default_factory=dict)
 
 
@@ -786,13 +787,22 @@ class SiteEmitter:
         ]
         for item in statuses:
             head = item.text or "更新"
-            title = item.link_title or item.link_url
+            title = item.link_title or ("查看归档" if item.link_url else "")
             line = f"- **{head}**"
             if item.date:
                 line += f" <small>{item.date}</small>"
             if title:
                 link = item.link_url or "#"
+                note_match = re.search(r"/note/(\d+)/?", link)
+                if note_match:
+                    link = self.ctx.route_map.get(note_match.group(1), "#")
+                elif item.object_kind == "1025" and item.object_id:
+                    album_route = self.ctx.photo_album_routes.get(item.object_id)
+                    if album_route:
+                        link = album_route
                 line += f"\n  - [{md_escape_link_text(title)}]({md_safe_url(link)})"
+            if item.content:
+                line += f"\n  - {item.content}"
             blocks.append(line)
         if not statuses:
             blocks.append("*未能归档到动态。*")

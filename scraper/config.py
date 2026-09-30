@@ -290,8 +290,9 @@ class Config:
     def discussion_url(self, forum_id: str, discussion_id: str) -> str:
         return f"{self.base_url}/widget/forum/{forum_id}/discussion/{discussion_id}/"
 
-    def miniblog_url(self, widget_id: str) -> str:
-        return f"{self.base_url}/widget/miniblog/{widget_id}/"
+    def miniblog_url(self, widget_id: str, start: int = 0) -> str:
+        url = f"{self.base_url}/widget/miniblog/{widget_id}/"
+        return f"{url}?start={start}" if start else url
 
     # ---------- 图片 Referer ----------
     @property

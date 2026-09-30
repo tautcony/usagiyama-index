@@ -571,6 +571,34 @@ class TestMiniblog:
         assert "小彩蛋" in s.link_title
         assert s.date == "十一月26"
 
+    def test_plain_status_keeps_quoted_text(self) -> None:
+        html = '''<div class="status-item" data-sid="2" data-action="2">
+          <p class="text">说：</p><blockquote>今天也很开心</blockquote></div>'''
+        status = parse_miniblog(html)[0]
+        assert status.text == "说："
+        assert status.content == "今天也很开心"
+
+    def test_next_page_url(self) -> None:
+        from scraper.parsers import parse_miniblog_next_url
+
+        html = '<div class="paginator"><link rel="next" href="?start=20"></div>'
+        assert parse_miniblog_next_url(
+            html, "https://site.douban.com/211330/widget/miniblog/13430546/"
+        ) == "https://site.douban.com/211330/widget/miniblog/13430546/?start=20"
+
+    def test_root_relative_next_page_preserves_site_id(self) -> None:
+        from scraper.parsers import parse_miniblog_next_url
+
+        html = '<div class="paginator"><link rel="next" href="/widget/miniblog/13430546/?start=20"></div>'
+        assert parse_miniblog_next_url(
+            html, "https://site.douban.com/211330/widget/miniblog/13430546/"
+        ) == "https://site.douban.com/211330/widget/miniblog/13430546/?start=20"
+
+    def test_missing_next_page(self) -> None:
+        from scraper.parsers import parse_miniblog_next_url
+
+        assert parse_miniblog_next_url("<div class='paginator'></div>", "https://example.test/") == ""
+
 # 独立列表页结构：<div class="note-item" id="note-{id}"> + .note-hd h3 a
 STANDALONE_LIST_HTML = """
 <html><head><title>日记 (豆瓣)</title></head><body><h1>日记</h1>

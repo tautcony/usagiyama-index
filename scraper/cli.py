@@ -77,6 +77,7 @@ from .parsers import (
     parse_bulletin,
     parse_discussion,
     parse_miniblog,
+    parse_miniblog_next_url,
     parse_note,
     parse_photo_detail,
 )
@@ -727,6 +728,11 @@ class SyncContext:
         for page in self.external.values():
             self.emitter.ctx.external_routes.setdefault(page.url.rstrip("/"), page.route)
         self.emitter.ctx.album_routes = {aid: f"/albums/{aid}" for aid in self.albums}
+        self.emitter.ctx.photo_album_routes = {
+            photo.photo_id: self.emitter.ctx.album_routes.get(album.album_id, f"/albums/{album.album_id}")
+            for album in self.albums.values()
+            for photo in album.photos
+        }
 
     def save_data(self) -> None:
         """把中间产物写入 ``data/``（供 ``emit`` 与人工查看）。"""
@@ -1625,7 +1631,25 @@ def stage_miniblog(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
             return
         statuses = parse_miniblog(page.html, cfg)
         merge_by(ctx.miniblog, statuses, lambda s: s.status_id)
-        ctx.progress.mark_done(key, stage="miniblog", detail=f"{len(statuses)} 条动态")
+        page_count = 1
+        visited_urls = {url}
+        while True:
+            next_url = parse_miniblog_next_url(page.html, page.url or url, cfg)
+            if not next_url or next_url in visited_urls:
+                break
+            visited_urls.add(next_url)
+            next_page = ctx.resolver.resolve(next_url, context=f"广播室 {widget.title} 第 {page_count + 1} 页")
+            if not next_page.has_content:
+                if ctx.progress.readonly:
+                    raise RuntimeError(f"离线缓存缺少广播室后续页，尚未完整抓取：{next_url}")
+                record_source_failure(ctx.progress, key, next_page.status, stage="miniblog", url=next_url)
+                return
+            page = next_page
+            page_count += 1
+            next_statuses = parse_miniblog(page.html, cfg)
+            merge_by(statuses, next_statuses, lambda s: s.status_id)
+            merge_by(ctx.miniblog, next_statuses, lambda s: s.status_id)
+        ctx.progress.mark_done(key, stage="miniblog", detail=f"{len(statuses)} 条动态（{page_count} 页）")
 
     result = runner.run(widgets, handler, key_of, desc="广播室", limit=limit)
     ctx.results.append(result)

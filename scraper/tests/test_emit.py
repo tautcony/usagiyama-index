@@ -19,10 +19,35 @@ from scraper.models import (
     Availability,
     IndexEntry,
     IndexGroup,
+    MiniblogStatus,
     Note,
     PhotoMeta,
     SourceStatus,
 )
+
+
+class TestBroadcast:
+    def test_archived_note_links_to_local_mirror(self, cfg) -> None:
+        emitter = SiteEmitter(cfg, EmitContext(route_map={"820543319": "/notes/820543319"}))
+        text = emitter.emit_broadcast([MiniblogStatus(
+            status_id="1", text="写了新日记",
+            link_url="https://site.douban.com/211330/widget/notes/15416684/note/820543319/",
+            link_title="日记标题",
+        )]).read_text(encoding="utf-8")
+
+        assert "](/notes/820543319)" in text
+        assert "site.douban.com" not in text
+
+    def test_photo_upload_links_to_local_album(self, cfg) -> None:
+        emitter = SiteEmitter(cfg, EmitContext(photo_album_routes={"2500516321": "/albums/13432051"}))
+        text = emitter.emit_broadcast([MiniblogStatus(
+            status_id="2", text="上传了1张照片到小站相册",
+            link_url="https://douc.cc/3oPvh5", link_title="海报墙",
+            object_kind="1025", object_id="2500516321",
+        )]).read_text(encoding="utf-8")
+
+        assert "](/albums/13432051)" in text
+        assert "douc.cc" not in text
 
 
 class TestFrontmatter:
