@@ -109,6 +109,10 @@ class ConvertContext:
     album_routes: dict[str, str] = field(default_factory=dict)
     # 站外页面 URL → 站内路由（已归档的 /topic/、/note/ 等）
     external_routes: dict[str, str] = field(default_factory=dict)
+    # forum discussion id → stable local topic anchor
+    discussion_routes: dict[str, str] = field(default_factory=dict)
+    # video id → stable local module occurrence anchor
+    video_routes: dict[str, str] = field(default_factory=dict)
     # 是否保留未归档图片的远程 URL（否则丢弃，避免裂图）
     keep_remote_images: bool = True
 
@@ -192,6 +196,22 @@ class DoubanConverter(MarkdownConverter):
             # 未归档 → 保留外链，避免制造死链
             return href
 
+        discussion_match = re.search(
+            r"/widget/forum/\d+/discussion/(\d+)(?:/|$)", urlparse(href).path or href
+        )
+        if discussion_match:
+            route = self.ctx.discussion_routes.get(discussion_match.group(1))
+            if route:
+                return route
+
+        video_match = re.search(
+            r"/widget/videos/\d+/video/(\d+)(?:/|$)", urlparse(href).path or href
+        )
+        if video_match:
+            route = self.ctx.video_routes.get(video_match.group(1))
+            if route:
+                return route
+
         album_match = ALBUM_PATH_RE.search(urlparse(href).path or href)
         if album_match:
             album_id = album_match.group(1)
@@ -207,6 +227,20 @@ class DoubanConverter(MarkdownConverter):
             route = self.ctx.external_routes.get(key)
             if route:
                 return route
+
+        # 同一条豆瓣链接在正文里常见 http/https、www/裸域和尾斜杠的不同写法。
+        # 外站目标按页面 ID 去重后只保存了一个原始 URL，因此用 host + path
+        # 匹配已有路由，避免这些等价写法漏改写。查询参数与 fragment 不改变页面身份。
+        parsed = urlparse(href)
+        host = (parsed.hostname or "").lower().removeprefix("www.")
+        path = (parsed.path or "/").rstrip("/") or "/"
+        if host:
+            for key, route in self.ctx.external_routes.items():
+                candidate = urlparse(key)
+                candidate_host = (candidate.hostname or "").lower().removeprefix("www.")
+                candidate_path = (candidate.path or "/").rstrip("/") or "/"
+                if host == candidate_host and path == candidate_path:
+                    return route
 
         return href
 

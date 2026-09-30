@@ -1,6 +1,10 @@
-"""索引①/② 解析为分类映射。
+"""解析索引①/② 中 room 内的手工文章编排。
 
-首页的两条公告栏是站长**手工编排的分类目录**：
+文章的 room 归属以站点结构中的 ``Room.widgets`` 为准：日记 URL 中的
+widget ID 指向原站 room。索引①/② 的公告栏提供 room 内的精选文章顺序，
+不取代 room 这一分类层级。
+
+首页的两条公告栏例如包含：
 
     ☆【穹庐下的魔女】
     <a>…访谈（CREA）</a>
@@ -9,9 +13,7 @@
     <a>电影《聲之形》配乐牛尾宪辅＆主题歌演唱者aiko寄语</a>
     …
 
-因此它天然就是 VitePress 的 sidebar 结构 —— 保留站长的编排意图，
-比按抓取顺序平铺 144 篇文章体验好得多。本模块把它解析成结构化数据，
-作为 sidebar 的**唯一事实源**。
+本模块把公告解析成结构化数据，供文章索引保留这些精选顺序。
 """
 
 from __future__ import annotations
@@ -19,13 +21,13 @@ from __future__ import annotations
 import logging
 import re
 from dataclasses import dataclass
-from typing import Callable
+from typing import Callable, Sequence
 
 from bs4 import BeautifulSoup, NavigableString, Tag
 
 from .config import CONFIG, Config
 from .html2md import unwrap_link2
-from .models import Availability, IndexEntry, IndexGroup
+from .models import Availability, IndexEntry, IndexGroup, Room
 from .parsers import NOTE_PATH_RE
 
 log = logging.getLogger("usagi.index")
@@ -37,9 +39,14 @@ SECTION_MARKER_RE = re.compile(r"[○●]\s*([^：:（(\n]+?)\s*[：:（(]?\s*$"
 # 分组标题里括号内的豆列链接
 DOULIST_LABEL = "豆列"
 
-# 未在索引中出现的日记归入此分区
-FALLBACK_CATEGORY = "尚子的房间"
+# 没有作品主题或无法从源 room 确认归属的日记归入此分区
+OTHER_CATEGORY = "其他"
+FALLBACK_CATEGORY = OTHER_CATEGORY
 LINKS_CATEGORY = "常用链接"
+
+# 房间标题是文章归属的主层级。首页“宇宙的入口”里的普通日记没有作品主题，
+# 归入“其他”；有主题的房间保留原始 room 标题。
+OTHER_ROOM_TITLE = "宇宙的入口"
 
 
 @dataclass
@@ -75,7 +82,9 @@ def _clean_group_title(raw: str) -> str:
     return re.sub(r"[（(]\s*[)）]\s*$", "", title).strip()
 
 
-def parse_index(content_html: str, cfg: Config = CONFIG) -> list[IndexGroup]:
+def parse_index(
+    content_html: str, cfg: Config = CONFIG, *, source_bulletin_id: str = ""
+) -> list[IndexGroup]:
     """把一条索引公告的 HTML 解析成分组列表。"""
     if not content_html or not content_html.strip():
         return []
@@ -90,7 +99,13 @@ def parse_index(content_html: str, cfg: Config = CONFIG) -> list[IndexGroup]:
         if not cleaned:
             return
         current = _GroupBuilder(title=cleaned)
-        groups.append(IndexGroup(title=cleaned, doulist_url=None, entries=current.entries))
+        groups.append(IndexGroup(
+            title=cleaned,
+            doulist_url=None,
+            entries=current.entries,
+            source_bulletin_id=source_bulletin_id,
+            position=len(groups),
+        ))
 
     def on_text(text: str) -> None:
         if not text.strip():
@@ -135,6 +150,7 @@ def parse_index(content_html: str, cfg: Config = CONFIG) -> list[IndexGroup]:
                 url=href,
                 note_id=note_id,
                 status=Availability.NOT_FETCHED,
+                position=len(current.entries),
             )
         )
 
@@ -158,6 +174,27 @@ def build_note_to_group(
             # 同一篇出现在多个分组时保留首次出现的位置
             mapping.setdefault(entry.note_id, (group.title, order))
     return mapping
+
+
+def build_widget_to_room(rooms: Sequence[Room]) -> dict[str, Room]:
+    """从站点房间结构构建 notes widget 到原始 Room 的映射。
+
+    文章 URL 中的 widget ID 对应 ``Room.widgets``。索引公告只用于组织 room
+    内的文章顺序，不覆盖这个来源归属；没有作品主题的首页日记归入“其他”。
+    """
+    mapping: dict[str, Room] = {}
+    for room in rooms:
+        for widget in room.widgets:
+            if widget.kind == "notes":
+                mapping[widget.widget_id] = room
+    return mapping
+
+
+def room_category_title(room: Room | None) -> str:
+    """返回 room 在文章索引中的标题；无主题或无来源的文章归入“其他”。"""
+    if room is None or room.title == OTHER_ROOM_TITLE:
+        return OTHER_CATEGORY
+    return room.title
 
 
 def index_entry_urls(groups: list[IndexGroup]) -> list[IndexEntry]:

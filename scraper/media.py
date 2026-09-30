@@ -488,7 +488,11 @@ class MediaArchive:
         failures: list[str] = []
         for candidate in variants or [url]:
             try:
-                resp = self.fetcher.get_image(candidate)
+                resp = (
+                    self.fetcher.get_image(candidate, force=True)
+                    if force
+                    else self.fetcher.get_image(candidate)
+                )
             except CircuitBreakerOpen:
                 raise
             except (BlockedError, FetchError, OfflineCacheMiss) as exc:
@@ -574,13 +578,19 @@ class MediaArchive:
             )
         return refs
 
-    def archive_note_images(self, refs: list[ImageRef], note_id: str) -> dict[str, str]:
+    def archive_note_images(
+        self, refs: list[ImageRef], note_id: str, *, force: bool = False
+    ) -> dict[str, str]:
         """下载日记配图，返回 ``{源URL: 站内URL}`` 映射供 Markdown 重写。"""
         mapping: dict[str, str] = {}
         for ref in refs:
             dest, local_url = self.note_image_path(note_id, ref.src)
             result = self.download(
-                ref.src, dest, local_url, variants=note_image_variants(ref.src)
+                ref.src,
+                dest,
+                local_url,
+                variants=note_image_variants(ref.src),
+                force=force,
             )
             ref.archived = result.ok
             ref.bytes = result.size_bytes
@@ -589,6 +599,14 @@ class MediaArchive:
                 # 落盘后缀可能被纠正过，映射要用纠正后的站内 URL
                 ref.local = result.local_url
                 mapping[ref.src] = result.local_url
+            elif force:
+                # 强制检查失败时保留旧归档图，避免临时网络故障使已保存正文裂图。
+                existing = self._existing_archived(dest)
+                if existing is not None:
+                    ref.archived = True
+                    ref.local = with_name(local_url, existing.name)
+                    ref.bytes = existing.stat().st_size
+                    mapping[ref.src] = ref.local
         return mapping
 
     def archive_site_asset(self, url: str, name: str) -> str:

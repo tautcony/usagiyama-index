@@ -41,10 +41,19 @@ uv run python -m scraper.cli <子命令> [参数]
 | `--dry-run` | 只预估规模与耗时，不抓取 |
 | `--i-have-read-robots` | 知情门槛，见下 |
 | `--stages a,b,c` | 只跑指定阶段（`rooms,bulletins,notes,photos,albums,videos,forum,miniblog,main`） |
-| `--force` | 忽略进度，强制重抓 |
+| `--force` | 全站忽略进度并重新请求页面；联网时跳过 HTTP 响应缓存 |
+| `--full-check-note NOTE_ID` | 全量检查指定豆瓣日记；可重复传入多个 ID |
 | `--recheck-unavailable` | 重新探测此前标记为不可访问的页面 |
 | `--no-emit` | 只抓取，不生成站点 |
 | `--progress` / `--no-progress` | 显示 / 隐藏进度条 |
+
+普通 `sync` 每次从 room 和各模块列表重新发现内容 ID，并合并标题、日期、回应数和模块归属等列表元数据；再补抓新发现、上次失败或明确要求重试的项目。已完成文章详情会跳过，不会因为列表页有变化就全量重抓所有文章。需要重新检查单篇时，使用 `--full-check-note NOTE_ID`。例如：
+
+```sh
+npm run sync -- --i-have-read-robots --full-check-note 261864994
+```
+
+对 room 列表中的文章，该选项重新请求正文、配图和评论分页，并在联网时绕过这些资源的 HTTP 缓存；对外链形式的 `/note/{ID}/`，会强制刷新对应的主站归档页。配图刷新失败时继续使用旧归档图。`--force` 保留为全站强制重抓操作。
 
 `npm run report` 生成的 `data/progress-report.md` 分开显示整体累计成功数和当前续跑状态。累计数按唯一 key 计数，项目成功归档后不会因重试失败或解析器版本变化而回退。
 
@@ -372,7 +381,7 @@ handler 主动标记后，兜底逻辑不会再把它改写成 `done`。
               ▼                   ▼
       ┌───────────────┐    ┌──────────────┐    ┌─────────────┐
       │ index_map.py  │───▶│ emit.py      │───▶│ verify.py   │
-      │ 索引→分类      │    │ 产物生成      │    │ 校验        │
+      │ 源拓扑 / 引用  │    │ 统一结构投影  │    │ 校验        │
       └───────────────┘    └──────────────┘    └─────────────┘
 ```
 
@@ -390,7 +399,7 @@ handler 主动标记后，兜底逻辑不会再把它改写成 `done`。
 | `discover.py` | 结构发现 | 房间 → 模块 → 分页枚举 ID 全集 |
 | `parsers.py` | HTML → 数据模型 | 选择器集中，源站改版时定位点明确 |
 | `html2md.py` | HTML → Markdown | 三段式流水线，见下 |
-| `index_map.py` | 索引①/② → 分类 | sidebar 的唯一事实源 |
+| `index_map.py` | 索引①/② → 人工引用视图 | 保留来源公告、组顺序、标签和重复引用；不决定文章源归属 |
 | `media.py` | 图片归档 | 尺寸升级 + magic bytes 校验 + IA 兜底 |
 | `progress.py` | 进度与断点续接 | 原子写入 + 阶段执行器 |
 | `emit.py` | 产物生成 | 幂等，全部以 manifest 为输入 |

@@ -166,6 +166,25 @@ def parse_room_nav(html: str, cfg: Config = CONFIG) -> list[tuple[str, str, str]
     return rooms
 
 
+def parse_active_room_id(html: str, cfg: Config = CONFIG) -> str | None:
+    """Return the room selected in the source navigation, if one is marked active.
+
+    The home page URL is an alias for its selected room. Comparing the nav href
+    with ``site_url`` cannot identify that room because the source href points
+    to ``/room/{id}/`` and redirects to the home page.
+    """
+    soup = make_soup(html, cfg)
+    for anchor in soup.select(".nav-items .on a[href], .nav-items .active a[href]"):
+        match = ROOM_LINK_RE.search(urlparse(str(anchor.get("href", ""))).path)
+        if match:
+            return match.group(1)
+    for node in soup.select(".nav-items .on[href], .nav-items .active[href]"):
+        match = ROOM_LINK_RE.search(urlparse(str(node.get("href", ""))).path)
+        if match:
+            return match.group(1)
+    return None
+
+
 def parse_widgets(html: str, room_id: str, cfg: Config = CONFIG) -> list[Widget]:
     """解析房间页面内的功能模块清单。"""
     soup = make_soup(html, cfg)
@@ -181,10 +200,24 @@ def parse_widgets(html: str, room_id: str, cfg: Config = CONFIG) -> list[Widget]
         seen.add((kind, widget_id))
         heading = node.find("h2")
         title = ""
+        declared_count = None
+        preview_count = None
         if isinstance(heading, Tag):
             span = heading.find("span")
             title = " ".join((span or heading).get_text(" ").split())
-        widgets.append(Widget(kind=kind, widget_id=widget_id, room_id=room_id, title=title))
+            count_match = re.search(r"\((\d+)\)", heading.get_text(" "))
+            if count_match:
+                declared_count = int(count_match.group(1))
+        if kind == "videos":
+            preview_count = len(node.select(".item-video"))
+        widgets.append(Widget(
+            kind=kind,
+            widget_id=widget_id,
+            room_id=room_id,
+            title=title,
+            declared_count=declared_count,
+            preview_count=preview_count,
+        ))
     return widgets
 
 

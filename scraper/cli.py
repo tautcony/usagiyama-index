@@ -31,6 +31,8 @@ from pathlib import Path
 from typing import Any, Sequence
 from urllib.parse import urlparse
 
+from bs4 import BeautifulSoup
+
 from . import auth
 from .archive import WaybackClient
 from .browser import BrowserFetcher, detect_chrome_ua
@@ -47,13 +49,9 @@ from .config import (
 from .discover import SiteDiscovery, SiteStructure, enumerate_album_photos
 from .emit import EmitContext, SiteEmitter
 from .http_client import CircuitBreakerOpen, Fetcher, estimate_duration
+from .html2md import unwrap_link2
 from .transport import Transport
-from .index_map import (
-    FALLBACK_CATEGORY,
-    build_note_to_group,
-    group_by_category,
-    parse_index,
-)
+from .index_map import parse_index
 from .media import MediaArchive, album_image_variants, album_original_variants
 from .models import (
     Album,
@@ -65,6 +63,7 @@ from .models import (
     MiniblogStatus,
     Note,
     PhotoMeta,
+    RoomArticleSection,
     SourceStatus,
     Video,
 )
@@ -100,13 +99,23 @@ ALL_STAGES = (
     "videos",
     "forum",
     "miniblog",
-    # 站外页面（www.douban.com 的 /topic/、/note/）需要登录才能访问，
+    # 站外页面（www.douban.com 的 /topic/、/note/），
     # 因此单独成一个阶段，便于登录后配合 --recheck-unavailable 单独补抓。
     "main",
 )
 
 #: 站外页面的域名（索引①/② 里指向这些域名的条目需要登录）
 EXTERNAL_HOSTS = ("www.douban.com", "douban.com")
+EXCLUDED_DOUBAN_HOSTS = {"site.douban.com", "sec.douban.com", "accounts.douban.com"}
+
+
+def _is_douban_main_host(host: str) -> bool:
+    """判断是否为可归档的豆瓣主站子域名，不包含小站、风控和登录域名。"""
+    host = (host or "").lower().rstrip(".")
+    return (
+        host == "douban.com"
+        or (host.endswith(".douban.com") and host not in EXCLUDED_DOUBAN_HOSTS)
+    )
 
 ROBOTS_NOTICE = """
 ⚠️  抓取前请确认你已阅读目标站点的 robots.txt：
@@ -292,7 +301,14 @@ def build_parser() -> argparse.ArgumentParser:
 
     p_sync = sub.add_parser("sync", help="抓取并生成站点（增量）", parents=[_common_parent()])
     p_sync.add_argument("--dry-run", action="store_true", help="只预估规模与耗时，不抓取")
-    p_sync.add_argument("--force", action="store_true", help="忽略进度，强制重抓")
+    p_sync.add_argument("--force", action="store_true", help="全站忽略进度；联网时跳过缓存重抓")
+    p_sync.add_argument(
+        "--full-check-note",
+        action="append",
+        default=[],
+        metavar="NOTE_ID",
+        help="全量检查指定豆瓣日记（正文、配图、评论；可重复传入多个 ID）",
+    )
     p_sync.add_argument(
         "--recheck-unavailable",
         action="store_true",
@@ -478,6 +494,7 @@ class SyncContext:
                         url=e.get("url", ""),
                         note_id=e.get("noteId"),
                         status=Availability(e.get("status", "not_fetched")),
+                        position=int(e.get("position", 0)),
                     )
                     for e in group.get("entries", [])
                 ]
@@ -486,6 +503,8 @@ class SyncContext:
                         title=group.get("title", ""),
                         doulist_url=group.get("doulistUrl"),
                         entries=entries,
+                        source_bulletin_id=str(group.get("sourceBulletinId", "")),
+                        position=int(group.get("position", 0)),
                     )
                 )
 
@@ -514,13 +533,18 @@ class SyncContext:
         from .models import Room, Widget
 
         self.structure.meta = payload.get("meta") or {}
+        room_payloads = payload.get("rooms") or []
+        self.structure.home_room_id = str(payload.get("homeRoomId", "")) or next(
+            (str(item.get("room_id", "")) for item in room_payloads if item.get("is_home")),
+            str(room_payloads[0].get("room_id", "")) if room_payloads else "",
+        )
 
-        for room_payload in payload.get("rooms") or []:
+        for room_payload in room_payloads:
             room = Room(
                 room_id=str(room_payload.get("room_id", "")),
                 title=room_payload.get("title", ""),
                 url=room_payload.get("url", ""),
-                is_home=bool(room_payload.get("is_home")),
+                is_home=(str(room_payload.get("room_id", "")) == self.structure.home_room_id),
             )
             room.status = _status_from_dict(room_payload.get("status"))
             for widget_payload in room_payload.get("widgets") or []:
@@ -530,9 +554,21 @@ class SyncContext:
                         widget_id=str(widget_payload.get("widget_id", "")),
                         room_id=room.room_id,
                         title=widget_payload.get("title", ""),
+                        declared_count=widget_payload.get("declared_count"),
+                        preview_count=widget_payload.get("preview_count"),
                     )
                 )
             self.structure.rooms.append(room)
+
+        room_by_album = {
+            widget.widget_id: room.room_id
+            for room in self.structure.rooms
+            for widget in room.widgets
+            if widget.kind == "photos"
+        }
+        for album_id, album in self.albums.items():
+            if album_id in room_by_album:
+                album.room_id = room_by_album[album_id]
 
         self.structure.bulletins = [
             _bulletin_from_dict(str(item.get("bulletin_id", "")), item)
@@ -685,18 +721,33 @@ class SyncContext:
 
         刻意放在"生成"而非"抓取"阶段：抓取阶段可能因断点续接而整体跳过，
         但索引结构任何时候都必须能从已归档内容里重建出来。
-        按分组标题去重，避免同一分组在 sidebar 里出现两次。
+        保留同名分组和重复引用；其稳定身份由来源公告与源顺序决定。
         """
         self.index_groups = []
-        seen: set[str] = set()
-        for bulletin in self.bulletins.values():
-            if not any(kw in bulletin.title for kw in INDEX_BULLETIN_KEYWORDS):
+        bulletins = self.bulletins
+        ordered_widgets = [
+            (widget.widget_id, widget.title)
+            for room in self.structure.rooms
+            for widget in room.widgets
+            if widget.kind == "bulletin"
+            and any(kw in widget.title for kw in INDEX_BULLETIN_KEYWORDS)
+        ]
+        if not ordered_widgets:
+            # Older partial snapshots may not contain the room/widget graph.
+            ordered_widgets = [
+                (bid, bulletin.title)
+                for bid, bulletin in bulletins.items()
+                if any(kw in bulletin.title for kw in INDEX_BULLETIN_KEYWORDS)
+            ]
+        for bulletin_id, _title in ordered_widgets:
+            bulletin = bulletins.get(bulletin_id)
+            if bulletin is None:
                 continue
-            for group in parse_index(bulletin.content_html, self.cfg):
-                if group.title in seen:
-                    log.debug("跳过分组重复：%s", group.title)
-                    continue
-                seen.add(group.title)
+            for group in parse_index(
+                bulletin.content_html,
+                self.cfg,
+                source_bulletin_id=bulletin.bulletin_id,
+            ):
                 self.index_groups.append(group)
         log.info(
             "索引分组：%d 个（%d 条目）",
@@ -725,13 +776,45 @@ class SyncContext:
         self.emitter.ctx.external_routes = {
             page.url: page.route for page in self.external.values()
         }
+        self.emitter.ctx.discussion_routes = {
+            discussion.discussion_id: f"/board#discussion-{discussion.discussion_id}"
+            for discussion in self.discussions
+        }
+        room_by_widget = {
+            widget.widget_id: room.room_id
+            for room in self.structure.rooms
+            for widget in room.widgets
+        }
+        self.emitter.ctx.video_routes = {
+            video.video_id: (
+                f"/rooms/{room_by_widget[video.widget_id]}#video-{video.video_id}"
+            )
+            for video in self.videos
+            if video.widget_id in room_by_widget
+        }
         for page in self.external.values():
             self.emitter.ctx.external_routes.setdefault(page.url.rstrip("/"), page.route)
         self.emitter.ctx.album_routes = {aid: f"/albums/{aid}" for aid in self.albums}
         self.emitter.ctx.photo_album_routes = {
-            photo.photo_id: self.emitter.ctx.album_routes.get(album.album_id, f"/albums/{album.album_id}")
+            photo.photo_id: (
+                self.emitter.ctx.album_routes.get(album.album_id, f"/albums/{album.album_id}")
+                + f"#photo-{photo.photo_id}"
+            )
             for album in self.albums.values()
             for photo in album.photos
+        }
+        self.emitter.ctx.photo_image_routes = {
+            photo.photo_id: photo.local
+            for album in self.albums.values()
+            for photo in album.photos
+            if photo.local
+        }
+        self.emitter.ctx.note_image_routes = {
+            note.note_id: next(
+                (image.local for image in note.images if image.archived and image.local),
+                "",
+            )
+            for note in self.notes.values()
         }
 
     def save_data(self) -> None:
@@ -1143,6 +1226,22 @@ def stage_bulletins(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
     """阶段 2：公告栏 / 索引①/②。"""
     cfg = ctx.cfg
     widgets = ctx.structure.widgets_of("bulletin")
+
+    # prepare_structure 已重新抓取并解析这些 room 页面。用最新正文刷新已归档的
+    # 公告/索引，而不要求用户为了发现新增链接而重抓普通日记详情。
+    for bulletin in ctx.structure.bulletins:
+        if not bulletin.content_html:
+            continue
+        existing = ctx.bulletins.get(bulletin.bulletin_id)
+        if existing is None:
+            ctx.bulletins[bulletin.bulletin_id] = bulletin
+            continue
+        existing.room_id = bulletin.room_id or existing.room_id
+        existing.title = bulletin.title or existing.title
+        existing.content_html = bulletin.content_html
+        existing.source_url = bulletin.source_url or existing.source_url
+        existing.status = bulletin.status
+
     runner = StageRunner(
         ctx.progress,
         "bulletins",
@@ -1196,7 +1295,7 @@ COMMENTS_PER_PAGE = 10
 
 
 def _collect_note_comments(
-    ctx: SyncContext, html: str, note_url: str, title: str
+    ctx: SyncContext, html: str, note_url: str, title: str, *, force: bool = False
 ) -> list[Comment]:
     """收集一篇日记的全部评论（含翻页）。
 
@@ -1208,7 +1307,11 @@ def _collect_note_comments(
 
     for index in range(1, total_pages):
         sub_url = f"{note_url}?start={index * step}"
-        page = ctx.resolver.resolve(sub_url, context=f"日记评论 {truncate(title, 30)} 第 {index + 1} 页")
+        page = ctx.resolver.resolve(
+            sub_url,
+            force=force,
+            context=f"日记评论 {truncate(title, 30)} 第 {index + 1} 页",
+        )
         if page.has_content:
             comments.extend(parse_note_comments(page.html, ctx.cfg))
 
@@ -1225,13 +1328,26 @@ def _collect_note_comments(
 
 
 def stage_notes(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
-                recheck_unavailable: bool = False, force: bool = False) -> StageResult:
+                recheck_unavailable: bool = False, force: bool = False,
+                full_check_note_ids: set[str] | None = None) -> StageResult:
     """阶段 3：日记详情 + 配图归档。"""
     cfg = ctx.cfg
     entries = ctx.structure.note_entries
+    full_check_note_ids = full_check_note_ids or set()
     if not entries:
         log.warning("没有发现日记列表，跳过")
         return StageResult(stage="notes")
+
+    # 列表是每次同步都会刷新的入口数据。把标题、日期、回应数和 widget 归属
+    # 合并到已有文章元数据，不因此请求已完成文章的正文详情。
+    for entry in entries:
+        existing = ctx.notes.get(entry.note_id)
+        if existing is None:
+            continue
+        existing.widget_id = entry.widget_id or existing.widget_id
+        existing.title = entry.title or existing.title
+        existing.date = entry.date or existing.date
+        existing.comment_count = entry.comment_count
 
     runner = StageRunner(
         ctx.progress,
@@ -1240,6 +1356,7 @@ def stage_notes(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
         show_progress=show_progress,
         recheck_unavailable=recheck_unavailable,
         recheck_done=force,
+        recheck_keys={f"note:{note_id}" for note_id in full_check_note_ids},
     )
 
     def key_of(entry: Any) -> str:
@@ -1248,7 +1365,8 @@ def stage_notes(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
     def handler(entry: Any) -> None:
         key = key_of(entry)
         url = cfg.note_url(entry.widget_id, entry.note_id)
-        page = ctx.resolver.resolve(url, context=f"日记 {entry.title}")
+        full_check = force or entry.note_id in full_check_note_ids
+        page = ctx.resolver.resolve(url, force=full_check, context=f"日记 {entry.title}")
 
         if not page.has_content:
             # 正文拿不到，但仍保留标题/日期等元信息，页面会带提示块
@@ -1281,12 +1399,14 @@ def stage_notes(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
         # 归档配图并建立重写映射
         refs = ctx.media.collect_note_images(note.content_html, note.note_id)
         if refs:
-            ctx.media.archive_note_images(refs, note.note_id)
+            ctx.media.archive_note_images(refs, note.note_id, force=full_check)
         note.images = refs
 
         # 归档评论。评论是服务端静态渲染的，免登录即可拿到；
         # 数量多时 note URL 支持 ?start=N 翻页（每页 10 条）。
-        note.comments = _collect_note_comments(ctx, page.html, url, entry.title)
+        note.comments = _collect_note_comments(
+            ctx, page.html, url, entry.title, force=full_check
+        )
 
         ctx.notes[note.note_id] = note
         ctx.progress.mark_done(
@@ -1426,6 +1546,12 @@ def stage_albums(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
     """
     cfg = ctx.cfg
     album_ids = list(ctx.structure.photo_ids.keys())
+    room_by_album = {
+        widget.widget_id: room.room_id
+        for room in ctx.structure.rooms
+        for widget in room.widgets
+        if widget.kind == "photos"
+    }
     if not album_ids:
         return StageResult(stage="albums")
 
@@ -1480,6 +1606,7 @@ def stage_albums(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
         album = Album(
             album_id=album_id,
             title=title or f"相册 {album_id}",
+            room_id=room_by_album.get(album_id, ""),
             source_url=url,
             status=status,
         )
@@ -1667,28 +1794,84 @@ def _external_page_id(url: str) -> str:
 
 
 def _external_targets(ctx: SyncContext) -> list[tuple[str, str, str]]:
-    """从索引①/② 里找出指向豆瓣主站的条目，返回 ``[(page_id, url, origin)]``。"""
+    """找出已采集内容中指向豆瓣主站的链接，返回 ``[(page_id, url, origin)]``。
+
+    手工索引只是链接来源之一。正文里的豆瓣日记链接（例如 ``/note/{id}/``）
+    也需要进入站外页清单，否则转换器没有本地路由可用，只能保留原站外链。
+    """
     seen: set[str] = set()
     targets: list[tuple[str, str, str]] = []
+
+    def add(url: str, origin: str) -> None:
+        url = unwrap_link2((url or "").strip())
+        if not url:
+            return
+        host = (urlparse(url).hostname or "").lower()
+        if not _is_douban_main_host(host):
+            return
+        page_id = _external_page_id(url)
+        if page_id in seen:
+            return
+        seen.add(page_id)
+        targets.append((page_id, url, origin))
+
     for group in ctx.index_groups:
         for entry in group.entries:
-            url = (entry.url or "").strip()
-            if not url:
-                continue
-            host = (urlparse(url).hostname or "").lower()
-            if host not in EXTERNAL_HOSTS:
-                continue
-            page_id = _external_page_id(url)
-            if page_id in seen:
-                continue
-            seen.add(page_id)
-            targets.append((page_id, url, group.title))
+            add(entry.url, group.title)
+
+    # 收录已加载的所有会进入 Markdown 的 HTML 内容，而不只扫描手工目录；评论
+    # 也是链接来源。目标集合在抓取阶段开始前固定，因此本轮不会递归扩张。
+    content_groups: list[tuple[str, str]] = []
+    notes = list(getattr(ctx, "notes", {}).values())
+    bulletins = list(getattr(ctx, "bulletins", {}).values())
+    fresh_bulletins = list(getattr(getattr(ctx, "structure", None), "bulletins", []))
+    discussions = list(getattr(ctx, "discussions", []))
+    external_pages = list(getattr(ctx, "external", {}).values())
+    content_groups.extend((note.content_html, f"日记 {note.note_id}") for note in notes)
+    content_groups.extend(
+        (bulletin.content_html, f"公告 {bulletin.bulletin_id}")
+        for bulletin in bulletins
+    )
+    content_groups.extend(
+        (bulletin.content_html, f"公告 {bulletin.bulletin_id}")
+        for bulletin in fresh_bulletins
+    )
+    for note in notes:
+        content_groups.extend(
+            (comment.content_html, f"日记 {note.note_id} 的评论")
+            for comment in note.comments
+        )
+    for discussion in discussions:
+        content_groups.append((discussion.content_html, f"讨论 {discussion.discussion_id}"))
+        content_groups.extend(
+            (comment.content_html, f"讨论 {discussion.discussion_id} 的评论")
+            for comment in discussion.comments
+        )
+    for page in external_pages:
+        content_groups.append((page.content_html, f"站外页面 {page.page_id}"))
+        content_groups.extend(
+            (comment.content_html, f"站外页面 {page.page_id} 的评论")
+            for comment in page.comments
+        )
+
+    for video in getattr(ctx, "videos", []):
+        add(video.external_url, f"视频 {video.video_id}")
+    for status in getattr(ctx, "miniblog", []):
+        add(status.link_url, f"广播动态 {status.status_id}")
+
+    for content, origin in content_groups:
+        if not content:
+            continue
+        soup = BeautifulSoup(content, "lxml")
+        for anchor in soup.find_all("a", href=True):
+            add(str(anchor.get("href", "")), origin)
     return targets
 
 
 def stage_main(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
-               recheck_unavailable: bool = False, force: bool = False) -> StageResult:
-    """阶段 9：补抓索引里指向豆瓣主站的页面（需要登录）。
+               recheck_unavailable: bool = False, force: bool = False,
+               full_check_note_ids: set[str] | None = None) -> StageResult:
+    """阶段 9：补抓已采集内容链接到的豆瓣主站页面（需要登录）。
 
     这些页面未登录会 302 到 ``sec.douban.com``，因此只在登录后才有内容。
     用独立的 key（``main:{page_id}``）而不是复用 notes 的 key，
@@ -1699,6 +1882,14 @@ def stage_main(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
         ctx.build_index_groups()
 
     targets = _external_targets(ctx)
+    full_check_note_ids = full_check_note_ids or set()
+    target_ids = {target[0] for target in targets}
+    site_note_ids = {entry.note_id for entry in ctx.structure.note_entries}
+    for note_id in sorted(full_check_note_ids):
+        page_id = f"note-{note_id}"
+        if page_id not in target_ids and note_id not in site_note_ids:
+            targets.append((page_id, f"https://www.douban.com/note/{note_id}/", "单篇全量检查"))
+            target_ids.add(page_id)
     if not targets:
         log.info("索引里没有指向站外（%s）的条目，跳过", "/".join(EXTERNAL_HOSTS))
         return StageResult(stage="main")
@@ -1710,6 +1901,10 @@ def stage_main(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
         show_progress=show_progress,
         recheck_unavailable=recheck_unavailable,
         recheck_done=force,
+        recheck_keys={
+            f"main:note-{note_id}"
+            for note_id in full_check_note_ids
+        },
     )
 
     def key_of(target: tuple[str, str, str]) -> str:
@@ -1717,7 +1912,11 @@ def stage_main(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
 
     def handler(target: tuple[str, str, str]) -> None:
         page_id, url, origin = target
-        page = ctx.resolver.resolve(url, context=f"站外页面 {url}")
+        note_id = page_id.removeprefix("note-")
+        full_check = force or note_id in full_check_note_ids
+        page = ctx.resolver.resolve(
+            url, force=full_check, context=f"站外页面 {url}"
+        )
         if not page.has_content:
             # 仍保留元信息，页面会带"需登录"提示块，索引里也不会成为死链
             existing = ctx.external.get(page_id)
@@ -1769,17 +1968,36 @@ def generate_site(ctx: SyncContext, *, verbose: bool = False) -> dict[str, Any]:
     ctx.rebuild_context()
     ctx.build_index_groups()
 
-    # 分类归属：索引①/② 优先，未覆盖的归入 尚子的房间
-    mapping = build_note_to_group(ctx.index_groups)
-    categories = group_by_category(list(ctx.notes.keys()), mapping)
-    for note_id, note in ctx.notes.items():
-        group_title, order = mapping.get(note_id, (FALLBACK_CATEGORY, 0))
-        note.category = group_title
-        note.index_order = order
-
-    notes_by_category = categories
-    fallback_ids = notes_by_category.get(FALLBACK_CATEGORY, [])
-    fallback_notes = [ctx.notes[nid] for nid in fallback_ids if nid in ctx.notes]
+    # Source memberships are projected per widget. Curated index order remains
+    # an independent view and never changes a note's source-list position.
+    room_sections: list[RoomArticleSection] = []
+    note_list_order: dict[str, list[str]] = {}
+    for entry in ctx.structure.note_entries:
+        ids = note_list_order.setdefault(entry.widget_id, [])
+        if entry.note_id not in ids:
+            ids.append(entry.note_id)
+    notes_by_widget: dict[str, list[Note]] = {}
+    for note in ctx.notes.values():
+        notes_by_widget.setdefault(note.widget_id, []).append(note)
+    for room in ctx.structure.rooms:
+        for widget in room.widgets:
+            if widget.kind != "notes":
+                continue
+            by_id = {note.note_id: note for note in notes_by_widget.get(widget.widget_id, [])}
+            ordered = [by_id[note_id] for note_id in note_list_order.get(widget.widget_id, [])
+                       if note_id in by_id]
+            seen = {note.note_id for note in ordered}
+            ordered.extend(sorted(
+                (note for note in by_id.values() if note.note_id not in seen),
+                key=lambda note: note.date,
+                reverse=True,
+            ))
+            room_sections.append(RoomArticleSection(
+                room=room,
+                title=widget.title or "日记",
+                widget_id=widget.widget_id,
+                notes=ordered,
+            ))
 
     # 站点素材（头像）
     avatar_local = ""
@@ -1787,7 +2005,18 @@ def generate_site(ctx: SyncContext, *, verbose: bool = False) -> dict[str, Any]:
     if avatar_url:
         avatar_local = ctx.media.archive_site_asset(avatar_url, "avatar.jpg")
 
-    albums = sorted(ctx.albums.values(), key=lambda a: a.album_id)
+    albums = [
+        ctx.albums[widget.widget_id]
+        for room in ctx.structure.rooms
+        for widget in room.widgets
+        if widget.kind == "photos" and widget.widget_id in ctx.albums
+    ]
+    # Preserve any archived album whose source widget is missing from this
+    # partial structure snapshot, after the source-ordered memberships.
+    seen_album_ids = {album.album_id for album in albums}
+    albums.extend(
+        album for album_id, album in ctx.albums.items() if album_id not in seen_album_ids
+    )
     notes = ctx.notes
 
     # 逐篇渲染
@@ -1807,6 +2036,7 @@ def generate_site(ctx: SyncContext, *, verbose: bool = False) -> dict[str, Any]:
         ctx.structure.meta,
         ctx.index_groups,
         albums,
+        rooms=ctx.structure.rooms,
         avatar_local=avatar_local,
         stats={
             "notes": len(notes),
@@ -1815,8 +2045,17 @@ def generate_site(ctx: SyncContext, *, verbose: bool = False) -> dict[str, Any]:
             "videos": len(ctx.videos),
         },
     )
-    ctx.emitter.emit_notes_index(ctx.index_groups, notes, fallback_notes=fallback_notes)
-    ctx.emitter.emit_albums_index(albums)
+    ctx.emitter.emit_notes_index(ctx.index_groups, notes, room_sections=room_sections)
+    ctx.emitter.emit_curated_index(ctx.index_groups, notes)
+    ctx.emitter.emit_room_pages(
+        ctx.structure.rooms,
+        notes,
+        albums,
+        ctx.videos,
+        list(ctx.bulletins.values()),
+        note_entries=ctx.structure.note_entries,
+    )
+    ctx.emitter.emit_albums_index(albums, ctx.videos)
     ctx.emitter.emit_about(about_bulletin, ctx.structure.meta)
     ctx.emitter.emit_videos(ctx.videos)
     ctx.emitter.emit_board(ctx.discussions)
@@ -1829,10 +2068,10 @@ def generate_site(ctx: SyncContext, *, verbose: bool = False) -> dict[str, Any]:
     ctx.emitter.emit_sidebar(
         ctx.index_groups,
         notes,
-        fallback_notes=fallback_notes,
         albums=albums,
-        videos_count=len(ctx.videos),
         external_count=len(external_pages),
+        room_sections=room_sections,
+        rooms=ctx.structure.rooms,
     )
 
     ctx.emitter.emit_unavailable_report(ctx.unavailable)
@@ -1912,6 +2151,12 @@ def cmd_discover(args: argparse.Namespace) -> int:
 def cmd_sync(args: argparse.Namespace) -> int:
     cfg = _config_from_args(args)
     stages = resolve_stages(args.stages)
+    full_check_note_ids = set(getattr(args, "full_check_note", []) or [])
+    invalid_ids = sorted(note_id for note_id in full_check_note_ids if not note_id.isdigit())
+    if invalid_ids:
+        raise SystemExit("日记 ID 必须是数字：" + ", ".join(invalid_ids))
+    if full_check_note_ids and not ({"notes", "main"} & set(stages)):
+        raise SystemExit("--full-check-note 需要包含 notes 或 main 阶段")
 
     if not args.i_have_read_robots and not cfg.offline:
         print(robots_notice(cfg))
@@ -1948,15 +2193,24 @@ def cmd_sync(args: argparse.Namespace) -> int:
             # remain skipped afterwards.
             ctx.resolver.revalidate = not cfg.offline
             prepare_structure(ctx, stages)
-            ctx.resolver.revalidate = False
+            # --force means a whole-archive refresh, including bypassing HTTP
+            # response caches. Per-note refreshes pass force only to their own
+            # article and comment-page requests in stage_notes.
+            ctx.resolver.revalidate = bool(args.force and not cfg.offline)
             for name in stages:
                 func = STAGE_FUNCS[name]
+                extra = (
+                    {"full_check_note_ids": full_check_note_ids}
+                    if name in {"notes", "main"}
+                    else {}
+                )
                 func(
                     ctx,
                     show_progress=args.progress,
                     limit=args.limit,
                     recheck_unavailable=args.recheck_unavailable,
                     force=args.force,
+                    **extra,
                 )
         except CircuitBreakerOpen as exc:
             log.error("已熔断停止：%s", exc)

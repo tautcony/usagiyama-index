@@ -62,7 +62,7 @@ media.py       图片归档：URL 升级、带 Referer 下载、完整性校验�
 auth.py        登录会话管理（工具不接触密码，只保存 cookies）
 archive.py     Internet Archive（Wayback Machine）补足客户端
 progress.py    ProgressStore 状态机 + StageRunner 阶段执行器
-index_map.py   把索引①/② 公告解析为分类映射（sidebar 唯一事实源）
+index_map.py   把索引①/② 公告解析为人工引用视图
 parsers.py     HTML → 结构化数据（各选择器集中于此）
 html2md.py     HTML 片段 → Markdown（含 link2 解码、站内链接重写）
 emit.py        产物生成：Markdown 页面、sidebar、manifest、索引页、不可访问清单
@@ -228,7 +228,8 @@ Chrome。代码不手写 TLS 指纹，也不轮换 UA、代理或会话。无头
 
 ### 4.1 准备结构（prepare_structure / discover.py）
 
-按站点层级逐层发现内容 ID 全集（所有列表页都走 HTTP 磁盘缓存，重复运行零成本）：
+按站点层级逐层发现内容 ID 全集。联网同步会重新请求 room 和列表入口以发现上游变化；
+文章详情由进度表独立控制，只补抓新发现、失败或明确要求重查的条目：
 
 1. `discover_rooms`：抓首页 → 解析房间导航 → 逐个房间抓取其功能模块
    （`bulletin / notes / photos / videos / forum / miniblog` 六大类 `Widget`）。
@@ -246,7 +247,8 @@ Chrome。代码不手写 TLS 指纹，也不轮换 UA、代理或会话。无头
 
 每个阶段都通过 `StageRunner.run` 执行：
 - 用 `ProgressStore.pending` 筛出「仍需处理」的项（已完成自动跳过；
-  `--force` 强制重抓；`--recheck-unavailable` 重新探测已标记不可达的项）。
+  `--force` 全站强制重抓；`--full-check-note NOTE_ID` 只重抓指定文章；
+  `--recheck-unavailable` 重新探测已标记不可达的项）。
 - `handler` 抛 `CircuitBreakerOpen` 会冒泡立即停止；其他异常记为 `FAILED` 并继续，
   保证单个坏页面不阻塞整体归档。
 
@@ -254,13 +256,13 @@ Chrome。代码不手写 TLS 指纹，也不轮换 UA、代理或会话。无头
 | --- | --- | --- |
 | **rooms** | `stage_rooms` | 结构已在准备阶段获得。逐项把房间 + 模块数标记为 done（无模块则标记 unavailable）。 |
 | **bulletins** | `stage_bulletins` | 对每个公告栏 `widget`：解析其房间页 → `parse_bulletin` 得到标题与正文 HTML。索引①/② 的解析延后到生成阶段统一重建。 |
-| **notes** | `stage_notes` | 对每篇日记：解析详情页 → `parse_note` 得到标题/日期/正文/评论数；用 `media` 归档配图并建立 `{源URL:站内URL}` 重写映射；收集评论（服务端静态渲染、免登录，按 `?start=N` 翻页，每页 10 条，按 `comment_id` 去重）。正文拿不到时仍保留列表页元信息，页面带提示块。 |
+| **notes** | `stage_notes` | 每次同步都把列表中的标题、日期、回应数和 widget 归属合并到已有元数据；仅对新发现、失败或指定重查的日记请求详情。解析正文 → `parse_note`；归档配图；收集评论分页并按 `comment_id` 去重。`--full-check-note NOTE_ID` 对 room 日记重新请求正文、配图和全部评论页，并在联网时绕过这些资源的 HTTP 缓存；配图刷新失败会保留旧归档图。正文拿不到时仍保留列表页元信息，页面带提示块。 |
 | **photos** | `stage_photos` | 对每张照片：解析详情页 → 分别归档**预览图**（页面 `<img>`，`docs/public/media/albums/{albumId}/{photoId}.{后缀}`）与**原图**（"查看原图"链接的 `raw` 尺寸，`docs/public/media/albums/{albumId}/original/{photoId}.{后缀}`）。无论成败都缓存描述，供 albums 阶段复用，避免重复请求。 |
 | **albums** | `stage_albums` | 汇总相册元信息（图片已在 photos 阶段归档）。解析相册列表页得到照片清单，复用 photos 阶段已解析的描述与已下载的本地路径。 |
 | **videos** | `stage_videos` | 对每条视频：下载缩略图到 `docs/public/media/videos/{videoId}.jpg`；正片在优酷，不抓。按 `video_id` 幂等合并。 |
 | **forum** | `stage_forum` | 对每个讨论帖：解析详情页，评论为静态渲染可完整归档。按 `discussion_id` 幂等合并。 |
 | **miniblog** | `stage_miniblog` | 对每个广播室 `widget`：解析动态流；若列表页 302，回退到房间页。按 `status_id` 幂等合并。 |
-| **main** | `stage_main` | 补抓索引①/② 里指向 `www.douban.com` 的页面（需登录，未登录会 302 到 sec.douban.com）。用独立 key `main:{page_id}`，使 `--recheck-unavailable` 只重试这些页面，不会重抓已归档的 144 篇日记。 |
+| **main** | `stage_main` | 补抓手工索引和归档正文中的豆瓣主站链接。`--full-check-note NOTE_ID` 对外链 `/note/{ID}/` 也会强制重抓；若 ID 不在当前 room 列表，则直接构造主站日记 URL。用独立 key `main:{page_id}` 管理进度。 |
 
 > 阶段顺序由 `ALL_STAGES` 定义，可用 `--stages` 重排或只跑部分阶段。
 
@@ -307,11 +309,12 @@ Chrome。代码不手写 TLS 指纹，也不轮换 UA、代理或会话。无头
 把抓取结果渲染成 VitePress 产物（以 `manifest` 为输入，幂等）：
 
 1. `rebuild_context`：重建链接重写映射表（笔记 / 站外页 / 相册的 URL → VitePress 路由）。
-2. `build_index_groups`：从已归档的公告栏内容重建索引①/② 分类结构（放在生成阶段而非
-   抓取阶段，因抓取可能被整体跳过，但索引结构任何时候都必须能从已归档内容重建）。
-3. **分类归属**：索引①/② 优先，未覆盖的日记归入 `尚子的房间`（fallback）分区。
-4. 逐篇渲染：笔记、相册、首页、笔记索引、相册索引、关于页、视频、论坛、广播、站外页、
-   sidebar、不可访问清单、manifest。
+2. `build_index_groups`：从已归档的公告栏内容重建人工索引，按公告与组内顺序保留重复标题、
+   重复目标和引用标签；索引不再决定文章的源归属。
+3. **结构投影**：文章归属和排序取自 Room → Widget → 源列表；同房间的多个日记模块分开。
+   索引①/② 另生成 `/curated/`，与 `/notes/` 的源结构列表并存。
+4. 逐篇渲染：笔记、相册、首页、房间页、人工索引、相册索引、关于页、视频、论坛、广播、
+   站外页、导航、sidebar、不可访问清单、manifest。
 5. `save_data`：把中间产物写回 `data/`（供 `emit` 与人工查看）。
 
 相册页的照片卡片刻意写成"裸 HTML + 语义化 class"，站点行为交给前端：
@@ -388,7 +391,8 @@ Chrome。代码不手写 TLS 指纹，也不轮换 UA、代理或会话。无头
 | `--speed NAME` | 请求间隔档位：`cautious`(5~7s，默认) / `normal`(2~3s) / `fast`(1~2s) |
 | `--delay N` | 请求间隔下限（秒），上限为 `N+2`；精确覆盖档位（与 `--speed` 互斥），默认 5（豆瓣 Crawl-delay） |
 | `--limit N` | 每阶段最多处理 N 项（冒烟测试用） |
-| `--force` | 忽略进度，强制重抓 |
+| `--force` | 全站忽略进度并重新请求页面；联网时跳过 HTTP 响应缓存 |
+| `--full-check-note NOTE_ID` | 只全量检查指定日记正文、配图和评论页；可重复传入多个 ID |
 | `--recheck-unavailable` | 重新探测此前标记为不可访问的页面 |
 | `--stages` | 指定要执行的阶段（逗号分隔） |
 | `--no-emit` | 只抓取，不生成站点产物 |

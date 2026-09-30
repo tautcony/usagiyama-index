@@ -231,13 +231,15 @@ class ProgressStore:
         recheck_failed: bool = True,
         recheck_unavailable: bool = False,
         recheck_done: bool = False,
+        recheck_keys: set[str] | None = None,
     ) -> list[str]:
         """从给定 key 集合中筛出仍需处理的部分（断点续接的核心）。
 
         :param recheck_failed: 上次失败的项是否重试（默认重试）。
         :param recheck_unavailable: 已标记不可得的项是否重新探测
             （默认否；``--recheck-unavailable`` 可开启）。
-        :param recheck_done: 已完成的项是否强制重抓（``--force``）。
+        :param recheck_done: 是否强制重抓全部已完成项（``--force``）。
+        :param recheck_keys: 即使已完成也要重抓的指定 key。
         """
         result: list[str] = []
         for key in keys:
@@ -247,7 +249,7 @@ class ProgressStore:
                 continue
             status = record.status
             if status == ItemStatus.DONE:
-                if recheck_done:
+                if recheck_done or (recheck_keys and key in recheck_keys):
                     result.append(key)
             elif status == ItemStatus.UNAVAILABLE:
                 if recheck_unavailable:
@@ -474,6 +476,7 @@ class StageRunner:
         show_progress: bool = True,
         recheck_unavailable: bool = False,
         recheck_done: bool = False,
+        recheck_keys: set[str] | None = None,
     ) -> None:
         self.store = store
         self.stage = stage
@@ -481,6 +484,7 @@ class StageRunner:
         self.show_progress = show_progress
         self.recheck_unavailable = recheck_unavailable
         self.recheck_done = recheck_done
+        self.recheck_keys = recheck_keys
 
     def run(
         self,
@@ -517,6 +521,7 @@ class StageRunner:
                 all_keys,
                 recheck_unavailable=self.recheck_unavailable,
                 recheck_done=self.recheck_done,
+                recheck_keys=self.recheck_keys,
             )
         )
         result.skipped = len(items) - len(pending_keys)

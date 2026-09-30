@@ -347,6 +347,8 @@ class Widget:
     widget_id: str
     room_id: str = ""
     title: str = ""
+    declared_count: int | None = None
+    preview_count: int | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -377,6 +379,7 @@ class IndexEntry:
     url: str = ""
     note_id: str | None = None
     status: Availability = Availability.NOT_FETCHED
+    position: int = 0
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -384,6 +387,7 @@ class IndexEntry:
             "url": self.url,
             "noteId": self.note_id,
             "status": str(self.status),
+            "position": self.position,
         }
 
 
@@ -394,10 +398,29 @@ class IndexGroup:
     title: str
     doulist_url: str | None = None
     entries: list[IndexEntry] = field(default_factory=list)
+    source_bulletin_id: str = ""
+    position: int = 0
+
+    @property
+    def group_id(self) -> str:
+        return f"{self.source_bulletin_id}:{self.position}"
 
     def to_dict(self) -> dict[str, Any]:
         return {
             "title": self.title,
             "doulistUrl": self.doulist_url,
+            "sourceBulletinId": self.source_bulletin_id,
+            "position": self.position,
+            "groupId": self.group_id,
             "entries": [e.to_dict() for e in self.entries],
         }
+
+
+@dataclass
+class RoomArticleSection:
+    """一个 notes widget 在文章索引中的源列表投影。"""
+
+    room: Room
+    title: str
+    widget_id: str = ""
+    notes: list[Note] = field(default_factory=list)

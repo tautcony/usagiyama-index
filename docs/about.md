@@ -1,5 +1,5 @@
 ---
-title: "关于山田尚子"
+title: "关于"
 aside: false
 ---
 

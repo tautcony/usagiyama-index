@@ -1,48 +1,59 @@
 {
   "_meta": {
-    "updatedAt": "2026-09-30T17:39:56+08:00"
+    "updatedAt": "2026-09-30T22:01:52+08:00"
   },
   "meta": {
     "name": "兔子山的小站",
     "description": "《轻音！》系列、《玉子市场》、《玉子爱情故事》、《聲之形》… 世界中闪耀的光辉☆ 山田尚子作品专题站",
     "avatar": "https://img3.doubanio.com/img/site/large/6b3d50076fa7103"
   },
+  "homeRoomId": "2793793",
   "rooms": [
     {
       "room_id": "2793793",
       "title": "宇宙的入口",
       "url": "https://site.douban.com/211330/room/2793793/",
-      "is_home": false,
+      "is_home": true,
       "widgets": [
         {
           "kind": "bulletin",
           "widget_id": "16095492",
           "room_id": "2793793",
-          "title": "索引①"
+          "title": "索引①",
+          "declared_count": null,
+          "preview_count": null
         },
         {
           "kind": "bulletin",
           "widget_id": "17754656",
           "room_id": "2793793",
-          "title": "索引②"
+          "title": "索引②",
+          "declared_count": null,
+          "preview_count": null
         },
         {
           "kind": "photos",
           "widget_id": "13432051",
           "room_id": "2793793",
-          "title": "海报墙"
+          "title": "海报墙",
+          "declared_count": null,
+          "preview_count": null
         },
         {
           "kind": "bulletin",
           "widget_id": "13430830",
           "room_id": "2793793",
-          "title": "About PPK"
+          "title": "About PPK",
+          "declared_count": null,
+          "preview_count": null
         },
         {
           "kind": "notes",
           "widget_id": "17565710",
           "room_id": "2793793",
-          "title": "尚子的房间"
+          "title": "尚子的房间",
+          "declared_count": null,
+          "preview_count": null
         }
       ],
       "status": {
@@ -66,25 +77,33 @@
           "kind": "bulletin",
           "widget_id": "190597046",
           "room_id": "3598399",
-          "title": "公告栏"
+          "title": "公告栏",
+          "declared_count": null,
+          "preview_count": null
         },
         {
           "kind": "notes",
           "widget_id": "190597056",
           "room_id": "3598399",
-          "title": "日记"
+          "title": "日记",
+          "declared_count": null,
+          "preview_count": null
         },
         {
           "kind": "photos",
           "widget_id": "190597061",
           "room_id": "3598399",
-          "title": "相册"
+          "title": "相册",
+          "declared_count": null,
+          "preview_count": null
         },
         {
           "kind": "videos",
           "widget_id": "191513700",
           "room_id": "3598399",
-          "title": "视频"
+          "title": "视频",
+          "declared_count": null,
+          "preview_count": null
         }
       ],
       "status": {
@@ -108,31 +127,41 @@
           "kind": "bulletin",
           "widget_id": "13432767",
           "room_id": "2794121",
-          "title": "公告栏"
+          "title": "公告栏",
+          "declared_count": null,
+          "preview_count": null
         },
         {
           "kind": "photos",
           "widget_id": "13431474",
           "room_id": "2794121",
-          "title": "商店街日常"
+          "title": "商店街日常",
+          "declared_count": null,
+          "preview_count": null
         },
         {
           "kind": "notes",
           "widget_id": "13430893",
           "room_id": "2794121",
-          "title": "商店街日记"
+          "title": "商店街日记",
+          "declared_count": null,
+          "preview_count": null
         },
         {
           "kind": "photos",
           "widget_id": "13433748",
           "room_id": "2794121",
-          "title": "幕后&周边"
+          "title": "幕后&周边",
+          "declared_count": null,
+          "preview_count": null
         },
         {
           "kind": "videos",
           "widget_id": "13431492",
           "room_id": "2794121",
-          "title": "视频"
+          "title": "视频",
+          "declared_count": null,
+          "preview_count": null
         }
       ],
       "status": {
@@ -156,31 +185,41 @@
           "kind": "bulletin",
           "widget_id": "13432819",
           "room_id": "2794136",
-          "title": "公告栏"
+          "title": "公告栏",
+          "declared_count": null,
+          "preview_count": null
         },
         {
           "kind": "photos",
           "widget_id": "13431373",
           "room_id": "2794136",
-          "title": "HTT纪念册"
+          "title": "HTT纪念册",
+          "declared_count": null,
+          "preview_count": null
         },
         {
           "kind": "notes",
           "widget_id": "15416684",
           "room_id": "2794136",
-          "title": "日记"
+          "title": "日记",
+          "declared_count": null,
+          "preview_count": null
         },
         {
           "kind": "notes",
           "widget_id": "13431360",
           "room_id": "2794136",
-          "title": "轻音学专栏"
+          "title": "轻音学专栏",
+          "declared_count": null,
+          "preview_count": null
         },
         {
           "kind": "videos",
           "widget_id": "13431215",
           "room_id": "2794136",
-          "title": "视频"
+          "title": "视频",
+          "declared_count": null,
+          "preview_count": null
         }
       ],
       "status": {
@@ -204,25 +243,33 @@
           "kind": "bulletin",
           "widget_id": "190150869",
           "room_id": "2794117",
-          "title": "公告栏"
+          "title": "公告栏",
+          "declared_count": null,
+          "preview_count": null
         },
         {
           "kind": "notes",
           "widget_id": "13431979",
           "room_id": "2794117",
-          "title": "日记"
+          "title": "日记",
+          "declared_count": null,
+          "preview_count": null
         },
         {
           "kind": "photos",
           "widget_id": "13431950",
           "room_id": "2794117",
-          "title": "相册"
+          "title": "相册",
+          "declared_count": null,
+          "preview_count": null
         },
         {
           "kind": "videos",
           "widget_id": "15768770",
           "room_id": "2794117",
-          "title": "视频"
+          "title": "视频",
+          "declared_count": null,
+          "preview_count": null
         }
       ],
       "status": {
@@ -246,7 +293,9 @@
           "kind": "forum",
           "widget_id": "13466509",
           "room_id": "2794240",
-          "title": "兔子山论坛"
+          "title": "兔子山论坛",
+          "declared_count": null,
+          "preview_count": null
         }
       ],
       "status": {
@@ -270,7 +319,9 @@
           "kind": "miniblog",
           "widget_id": "13430546",
           "room_id": "3598411",
-          "title": "兔子山快报"
+          "title": "兔子山快报",
+          "declared_count": null,
+          "preview_count": null
         }
       ],
       "status": {
@@ -2304,11 +2355,11 @@
       "source_url": "https://site.douban.com/211330/widget/videos/191513700/video/771903/",
       "local_thumb": "",
       "status": {
-        "availability": "ok",
-        "label": "已归档",
+        "availability": "unavailable",
+        "label": "原站不可访问",
         "httpStatus": null,
-        "detail": "",
-        "retryable": false,
+        "detail": "视频条目缺少标题、缩略图或外链",
+        "retryable": true,
         "waybackUrl": null,
         "waybackTimestamp": null,
         "waybackStatus": null

@@ -13,6 +13,7 @@ import unicodedata
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Iterable, Sequence
+from urllib.parse import urlparse
 
 from .config import CONFIG, Config
 from .html2md import ConvertContext, html_to_markdown, sanitize_markdown_url, unwrap_link2
@@ -25,6 +26,8 @@ from .models import (
     IndexGroup,
     MiniblogStatus,
     Note,
+    Room,
+    RoomArticleSection,
     SourceStatus,
     Video,
 )
@@ -212,7 +215,11 @@ class EmitContext:
     route_map: dict[str, str] = field(default_factory=dict)
     album_routes: dict[str, str] = field(default_factory=dict)
     photo_album_routes: dict[str, str] = field(default_factory=dict)
+    photo_image_routes: dict[str, str] = field(default_factory=dict)
+    note_image_routes: dict[str, str] = field(default_factory=dict)
     external_routes: dict[str, str] = field(default_factory=dict)
+    discussion_routes: dict[str, str] = field(default_factory=dict)
+    video_routes: dict[str, str] = field(default_factory=dict)
 
 
 @dataclass
@@ -243,6 +250,21 @@ class SiteEmitter:
         self.ctx = context or EmitContext()
         self.report = EmitReport()
 
+    def _external_route(self, url: str) -> str | None:
+        """按 host + path 查找已归档豆瓣页面，忽略协议、尾斜杠与 query。"""
+        parsed = urlparse(url)
+        host = (parsed.hostname or "").lower().removeprefix("www.")
+        path = (parsed.path or "/").rstrip("/") or "/"
+        if not host:
+            return None
+        for key, route in self.ctx.external_routes.items():
+            candidate = urlparse(key)
+            candidate_host = (candidate.hostname or "").lower().removeprefix("www.")
+            candidate_path = (candidate.path or "/").rstrip("/") or "/"
+            if host == candidate_host and path == candidate_path:
+                return route
+        return None
+
     # ------------------------------------------------------------------ 日记
 
     def emit_note(self, note: Note) -> Path:
@@ -254,6 +276,8 @@ class SiteEmitter:
             image_map={img.src: img.local for img in note.images if img.archived},
             album_routes=self.ctx.album_routes,
             external_routes=self.ctx.external_routes,
+            discussion_routes=self.ctx.discussion_routes,
+            video_routes=self.ctx.video_routes,
             keep_remote_images=False,
         )
         body = html_to_markdown(note.content_html, context, self.cfg)
@@ -262,7 +286,6 @@ class SiteEmitter:
         fm = {
             "title": note.title or f"日记 {note.note_id}",
             "date": note.date,
-            "category": note.category,
             "noteId": note.note_id,
             "source": note.source_url,
             "commentCount": note.comment_count or None,
@@ -319,6 +342,8 @@ class SiteEmitter:
             route_map=self.ctx.route_map,
             album_routes=self.ctx.album_routes,
             external_routes=self.ctx.external_routes,
+            discussion_routes=self.ctx.discussion_routes,
+            video_routes=self.ctx.video_routes,
         )
         blocks = [comment_heading(len(comments))]
         for comment in comments:
@@ -379,7 +404,10 @@ class SiteEmitter:
             )
             if caption:
                 inner += f'<p class="caption">{html_text(caption)}</p>'
-            cards.append(f'<figure class="photo-card">{inner}</figure>')
+            cards.append(
+                f'<figure class="photo-card" id="photo-{html_attr(photo.photo_id)}">'
+                f"{inner}</figure>"
+            )
 
         if cards:
             blocks.append('<div class="photo-grid">\n' + "\n".join(cards) + "\n</div>")
@@ -432,6 +460,9 @@ class SiteEmitter:
                 route_map=self.ctx.route_map,
                 album_routes=self.ctx.album_routes,
                 external_routes=self.ctx.external_routes,
+                discussion_routes=self.ctx.discussion_routes,
+                video_routes=self.ctx.video_routes,
+                keep_remote_images=False,
             ),
             self.cfg,
         )
@@ -453,8 +484,7 @@ class SiteEmitter:
         blocks = [
             frontmatter({"title": "站外文章", "aside": False}),
             "# 站外文章\n",
-            "原站索引①/② 里有一部分条目直接指向豆瓣主站（需要登录才能访问），"
-            "登录后已一并归档。\n",
+            "原站索引①/② 里有一部分条目直接指向豆瓣主站",
         ]
         if pages:
             items = []
@@ -483,6 +513,7 @@ class SiteEmitter:
         *,
         avatar_local: str = "",
         stats: dict[str, int] | None = None,
+        rooms: Sequence[Room] = (),
     ) -> Path:
         """渲染首页（还原原站观感：索引分区 + 海报墙）。"""
         name = meta.get("name", self.cfg.site_name)
@@ -503,19 +534,19 @@ class SiteEmitter:
         if avatar:
             hero["image"] = {"src": avatar, "alt": name}
 
+        home_room = next((room for room in rooms if room.is_home), None)
         features = []
-        for group in groups:
-            if group.title == LINKS_CATEGORY:
-                continue
-            anchor = slug_anchor(group.title)
-            detail = f"{len(group.entries)} 篇"
-            features.append(
-                {
-                    "title": group.title,
-                    "details": detail,
-                    "link": f"/notes/#{anchor}",
-                }
-            )
+        if home_room:
+            for widget in home_room.widgets:
+                if widget.kind == "photos":
+                    link = f"/albums/{widget.widget_id}"
+                else:
+                    link = f"/rooms/{home_room.room_id}#widget-{widget.widget_id}"
+                features.append({
+                    "title": widget.title or widget.kind,
+                    "details": f"{widget.kind} · {widget.widget_id}",
+                    "link": link,
+                })
 
         front = {"layout": "home", "hero": hero}
         if features:
@@ -532,9 +563,14 @@ class SiteEmitter:
                 f"- 视频 **{stats.get('videos', 0)}** 条\n"
             )
 
-        if albums:
+        home_album_ids = {
+            widget.widget_id for widget in home_room.widgets
+            if widget.kind == "photos"
+        } if home_room else {"13432051"}
+        home_albums = [album for album in albums if album.album_id in home_album_ids]
+        if home_albums:
             cards: list[str] = []
-            for album in albums:
+            for album in home_albums:
                 cover = next((p.local for p in album.photos if p.local), "")
                 route = self.ctx.album_routes.get(album.album_id, f"/albums/{album.album_id}")
                 count = len(album.photos)
@@ -551,7 +587,7 @@ class SiteEmitter:
                         f'<a class="poster" href="{html_attr(route)}">'
                         f'<span>{title_text}<em>{count} 张</em></span></a>'
                     )
-            blocks.append("## 海报墙\n\n" + '<div class="poster-wall">\n' + "\n".join(cards) + "\n</div>")
+            blocks.append("## 首页相册模块\n\n" + '<div class="poster-wall">\n' + "\n".join(cards) + "\n</div>")
 
         blocks.append(
             f"::: info 关于本站\n"
@@ -605,60 +641,241 @@ class SiteEmitter:
         notes: dict[str, Note],
         *,
         fallback_notes: Sequence[Note] = (),
+        room_sections: Sequence[RoomArticleSection] | None = None,
     ) -> Path:
-        """渲染 /notes/ 索引页，按原站索引分组列出全部文章。"""
+        """渲染 /notes/ 索引页，优先按原站 room 列出文章。"""
         blocks = [
             frontmatter({"title": "文章索引", "aside": False}),
             "# 文章索引\n",
             f"共收录 **{len(notes)}** 篇文章。\n",
         ]
 
-        for group in groups:
-            if group.title == LINKS_CATEGORY:
-                continue
-            blocks.append(f"## {group.title}\n")
-            if group.doulist_url:
-                blocks.append(f"[豆瓣豆列]({group.doulist_url})\n")
-            items: list[str] = []
-            for entry in group.entries:
-                route = self._resolve_entry_route(entry, notes)
-                if entry.note_id and entry.note_id in notes:
-                    note = notes[entry.note_id]
+        if room_sections is not None:
+            current_room_id = ""
+            for section in room_sections:
+                if section.room.room_id != current_room_id:
+                    current_room_id = section.room.room_id
+                    blocks.append(
+                        f"## {section.room.title}\n\n"
+                        f"[进入房间](/rooms/{section.room.room_id})\n"
+                    )
+                blocks.append(
+                    f"### {section.title}\n\n"
+                    f"[查看源模块](/rooms/{section.room.room_id}#widget-{section.widget_id})\n"
+                )
+                items: list[str] = []
+                for note in section.notes:
+                    route = self.ctx.route_map.get(note.note_id, f"/notes/{note.note_id}")
                     date = f" <small>{note.date[:10]}</small>" if note.date else ""
                     badge = ""
                     if note.status.availability != Availability.OK:
                         badge = f' <small class="badge-unavailable">{note.status.label}</small>'
                     items.append(f"- [{md_escape_link_text(note.title)}]({route}){date}{badge}")
-                else:
-                    # 已归档的站外页面指向站内路由，否则保留外链并标注未归档
-                    if route:
-                        items.append(f"- [{md_escape_link_text(entry.title)}]({route})")
+                blocks.append("\n".join(items))
+        else:
+            for group in groups:
+                if group.title == LINKS_CATEGORY:
+                    continue
+                blocks.append(f"## {group.title}\n")
+                if group.doulist_url:
+                    blocks.append(f"[豆瓣豆列]({group.doulist_url})\n")
+                items: list[str] = []
+                for entry in group.entries:
+                    route = self._resolve_entry_route(entry, notes)
+                    if entry.note_id and entry.note_id in notes:
+                        note = notes[entry.note_id]
+                        date = f" <small>{note.date[:10]}</small>" if note.date else ""
+                        badge = ""
+                        if note.status.availability != Availability.OK:
+                            badge = f' <small class="badge-unavailable">{note.status.label}</small>'
+                        items.append(f"- [{md_escape_link_text(note.title)}]({route}){date}{badge}")
                     else:
-                        badge = " <small class=\"badge-unavailable\">未归档</small>"
-                        items.append(f"- [{md_escape_link_text(entry.title)}]({md_safe_url(entry.url)}){badge}")
-            blocks.append("\n".join(items))
+                        if route:
+                            items.append(f"- [{md_escape_link_text(entry.title)}]({route})")
+                        else:
+                            badge = ' <small class="badge-unavailable">未归档</small>'
+                            items.append(
+                                f"- [{md_escape_link_text(entry.title)}]({md_safe_url(entry.url)}){badge}"
+                            )
+                blocks.append("\n".join(items))
 
-        if fallback_notes:
-            blocks.append(f"## {FALLBACK_CATEGORY}\n")
-            ordered = sorted(fallback_notes, key=lambda n: n.date, reverse=True)
-            items = []
-            for note in ordered:
-                route = self.ctx.route_map.get(note.note_id, f"/notes/{note.note_id}")
-                date = f" <small>{note.date[:10]}</small>" if note.date else ""
-                items.append(f"- [{md_escape_link_text(note.title)}]({route}){date}")
-            blocks.append("\n".join(items))
+            if fallback_notes:
+                blocks.append(f"## {FALLBACK_CATEGORY}\n")
+                ordered = sorted(fallback_notes, key=lambda n: n.date, reverse=True)
+                items = []
+                for note in ordered:
+                    route = self.ctx.route_map.get(note.note_id, f"/notes/{note.note_id}")
+                    date = f" <small>{note.date[:10]}</small>" if note.date else ""
+                    items.append(f"- [{md_escape_link_text(note.title)}]({route}){date}")
+                blocks.append("\n".join(items))
 
         path = self.cfg.notes_dir / "index.md"
         atomic_write_text(path, "\n\n".join(blocks) + "\n")
         self.report.pages.append("notes/index.md")
         return path
 
-    def emit_albums_index(self, albums: Sequence[Album]) -> Path:
-        """渲染 /albums/ 索引页。"""
+    def emit_curated_index(
+        self, groups: Sequence[IndexGroup], notes: dict[str, Note]
+    ) -> Path:
+        """Render hand-curated index references as a separate derived view."""
+        blocks = [
+            frontmatter({"title": "人工索引", "aside": False}),
+            "# 人工索引\n",
+            "以下顺序与标签来自原站公告栏。它表示站长的精选引用关系，不改变文章所属房间或日记模块。",
+        ]
+        current_bulletin = ""
+        for group in groups:
+            if group.source_bulletin_id != current_bulletin:
+                current_bulletin = group.source_bulletin_id
+                label = current_bulletin or "未标识的公告"
+                blocks.append(f"## 公告 {label}\n")
+            blocks.append(f"### {group.title}\n")
+            if group.doulist_url:
+                blocks.append(f"[豆瓣豆列]({md_safe_url(group.doulist_url)})\n")
+            items: list[str] = []
+            for entry in group.entries:
+                route = self._resolve_entry_route(entry, notes)
+                target = route or md_safe_url(entry.url)
+                items.append(f"- [{md_escape_link_text(entry.title)}]({target})")
+            blocks.append("\n".join(items) if items else "*此分组没有可解析条目。*")
+
+        path = self.cfg.docs_dir / "curated" / "index.md"
+        atomic_write_text(path, "\n\n".join(blocks) + "\n")
+        self.report.pages.append("curated/index.md")
+        return path
+
+    def emit_room_pages(
+        self,
+        rooms: Sequence[Room],
+        notes: dict[str, Note],
+        albums: Sequence[Album],
+        videos: Sequence[Video],
+        bulletins: Sequence[Bulletin],
+        *,
+        note_entries: Sequence[Any] = (),
+    ) -> list[Path]:
+        """按源站每个 Room 及其标题栏 widget 生成独立入口页。"""
+        pages: list[Path] = []
+        albums_by_widget = {album.album_id: album for album in albums}
+        notes_by_widget: dict[str, list[Note]] = {}
+        for note in notes.values():
+            notes_by_widget.setdefault(note.widget_id, []).append(note)
+        videos_by_widget: dict[str, list[Video]] = {}
+        for video in videos:
+            videos_by_widget.setdefault(video.widget_id, []).append(video)
+        bulletins_by_widget = {bulletin.bulletin_id: bulletin for bulletin in bulletins}
+
+        note_order: dict[str, list[str]] = {}
+        for entry in note_entries:
+            ids = note_order.setdefault(entry.widget_id, [])
+            if entry.note_id not in ids:
+                ids.append(entry.note_id)
+
+        for room in rooms:
+            blocks = [
+                frontmatter({"title": room.title, "aside": False}),
+                f"# {room.title}\n",
+                f"[返回文章索引](/notes/) · [返回首页](/)\n",
+            ]
+            for widget in room.widgets:
+                blocks.append(
+                    f'<span id="widget-{html_attr(widget.widget_id)}"></span>\n\n'
+                    f"## {widget.title or widget.kind}\n"
+                )
+                items: list[str] = []
+                if widget.kind == "notes":
+                    by_id = {note.note_id: note for note in notes_by_widget.get(widget.widget_id, [])}
+                    ordered = [by_id[note_id] for note_id in note_order.get(widget.widget_id, [])
+                               if note_id in by_id]
+                    seen = {note.note_id for note in ordered}
+                    ordered.extend(note for note in notes_by_widget.get(widget.widget_id, [])
+                                   if note.note_id not in seen)
+                    for note in ordered:
+                        route = self.ctx.route_map.get(note.note_id, f"/notes/{note.note_id}")
+                        date = f" <small>{note.date[:10]}</small>" if note.date else ""
+                        items.append(f"- [{md_escape_link_text(note.title)}]({route}){date}")
+                    if not items:
+                        items.append("*没有归档到文章。*")
+                elif widget.kind == "photos":
+                    album = albums_by_widget.get(widget.widget_id)
+                    if album:
+                        route = self.ctx.album_routes.get(album.album_id, f"/albums/{album.album_id}")
+                        items.append(
+                            f"- [{md_escape_link_text(album.title)}]({route}) — {len(album.photos)} 张照片"
+                        )
+                    else:
+                        items.append("*没有归档到相册。*")
+                elif widget.kind == "videos":
+                    source_url = self.cfg.videos_list_url(widget.widget_id)
+                    declared_count = widget.declared_count
+                    archived_count = widget.preview_count
+                    if archived_count is None:
+                        archived_count = len(videos_by_widget.get(widget.widget_id, []))
+                    if declared_count is not None:
+                        items.append(
+                            f"当前保存 **{archived_count}** 条，源模块标题声明 **{declared_count}** 条；"
+                            "状态：仅有房间页预览，未枚举完整列表。"
+                        )
+                    items.append(f"[打开原站视频模块]({md_safe_url(source_url)})")
+                    for video in videos_by_widget.get(widget.widget_id, []):
+                        items.append(
+                            f'<span id="video-{html_attr(video.video_id)}"></span>'
+                        )
+                        target_url = video.external_url or video.source_url
+                        target = md_safe_url(self._external_route(target_url) or target_url)
+                        items.append(f"- [{md_escape_link_text(video.title)}]({target})")
+                    if not items:
+                        items.append("[查看视频归档](/videos)")
+                elif widget.kind == "bulletin":
+                    bulletin = bulletins_by_widget.get(widget.widget_id)
+                    if bulletin:
+                        notice = status_notice(bulletin.status)
+                        if notice:
+                            items.append(notice)
+                        body = html_to_markdown(
+                            bulletin.content_html,
+                            ConvertContext(
+                                route_map=self.ctx.route_map,
+                                album_routes=self.ctx.album_routes,
+                                discussion_routes=self.ctx.discussion_routes,
+                                video_routes=self.ctx.video_routes,
+                                external_routes=self.ctx.external_routes,
+                            ),
+                            self.cfg,
+                        )
+                        if body:
+                            items.append(body)
+                        else:
+                            items.append("*公告正文未能归档。*")
+                    if widget.title.startswith("索引"):
+                        items.append("[查看人工索引](/curated/)")
+                    elif "About" in widget.title or "PPK" in widget.title:
+                        items.append("[关于山田尚子](/about)")
+                    else:
+                        if not bulletin:
+                            items.append("*公告栏内容未能归档。*")
+                elif widget.kind == "forum":
+                    items.append(f"[进入留言板](/board)")
+                elif widget.kind == "miniblog":
+                    items.append("[进入广播室](/broadcast)")
+                else:
+                    items.append(f"[查看{md_escape_link_text(widget.title or widget.kind)}](/)")
+                blocks.append("\n".join(items))
+
+            path = self.cfg.docs_dir / "rooms" / f"{room.room_id}.md"
+            atomic_write_text(path, "\n\n".join(blocks) + "\n")
+            self.report.pages.append(path.relative_to(self.cfg.docs_dir).as_posix())
+            pages.append(path)
+        return pages
+
+    def emit_albums_index(
+        self, albums: Sequence[Album], videos: Sequence[Video] = ()
+    ) -> Path:
+        """渲染包含相册与视频的 /albums/ 媒体索引页。"""
         blocks = [
             frontmatter({"title": "相册", "aside": False}),
             "# 相册\n",
-            f"共 **{len(albums)}** 个相册。\n",
+            f"共 **{len(albums)}** 个相册、**{len(videos)}** 条视频。\n",
         ]
         items = []
         for album in albums:
@@ -666,46 +883,7 @@ class SiteEmitter:
             items.append(f"- [{md_escape_link_text(album.title)}]({route}) — {len(album.photos)} 张")
         blocks.append("\n".join(items))
 
-        path = self.cfg.albums_dir / "index.md"
-        atomic_write_text(path, "\n\n".join(blocks) + "\n")
-        self.report.pages.append("albums/index.md")
-        return path
-
-    # ------------------------------------------------------------ 其他页面
-
-    def emit_about(self, bulletin: Bulletin | None, meta: dict[str, str]) -> Path:
-        """渲染「关于」页（原站 About PPK）。"""
-        blocks = [frontmatter({"title": "关于山田尚子", "aside": False})]
-
-        if bulletin and bulletin.content_html:
-            notice = status_notice(bulletin.status)
-            if notice:
-                blocks.append(notice)
-            body = html_to_markdown(
-                bulletin.content_html,
-                ConvertContext(route_map=self.ctx.route_map, album_routes=self.ctx.album_routes),
-                self.cfg,
-            )
-            blocks.append(body)
-        else:
-            blocks.append("# 关于山田尚子\n\n*内容未能归档。*")
-
-        blocks.append(
-            f"::: info 来源\n本页原为小站公告栏「{bulletin.title if bulletin else 'About PPK'}」，"
-            f"归档自 [原站]({self.cfg.site_url})。\n:::"
-        )
-        path = self.cfg.docs_dir / "about.md"
-        atomic_write_text(path, "\n\n".join(blocks) + "\n")
-        self.report.pages.append("about.md")
-        return path
-
-    def emit_videos(self, videos: Sequence[Video]) -> Path:
-        """渲染视频页（缩略图 + 优酷外链，正片不归档）。"""
-        blocks = [
-            frontmatter({"title": "视频", "aside": False}),
-            "# 视频\n",
-            f"共 **{len(videos)}** 条。"
-        ]
+        blocks.append("## 视频\n")
         cards: list[str] = []
         for video in videos:
             thumb = html_attr(video.local_thumb or video.thumb_url)
@@ -725,6 +903,50 @@ class SiteEmitter:
         else:
             blocks.append("*没有归档到视频条目。*")
 
+        path = self.cfg.albums_dir / "index.md"
+        atomic_write_text(path, "\n\n".join(blocks) + "\n")
+        self.report.pages.append("albums/index.md")
+        return path
+
+    # ------------------------------------------------------------ 其他页面
+
+    def emit_about(self, bulletin: Bulletin | None, meta: dict[str, str]) -> Path:
+        """渲染「关于」页（原站 About PPK）。"""
+        blocks = [frontmatter({"title": "关于", "aside": False})]
+
+        if bulletin and bulletin.content_html:
+            notice = status_notice(bulletin.status)
+            if notice:
+                blocks.append(notice)
+            body = html_to_markdown(
+                bulletin.content_html,
+                ConvertContext(route_map=self.ctx.route_map, album_routes=self.ctx.album_routes,
+                               external_routes=self.ctx.external_routes,
+                               discussion_routes=self.ctx.discussion_routes,
+                               video_routes=self.ctx.video_routes),
+                self.cfg,
+            )
+            blocks.append(body)
+        else:
+            blocks.append("# 关于\n\n*内容未能归档。*")
+
+        blocks.append(
+            f"::: info 来源\n本页原为小站公告栏「{bulletin.title if bulletin else 'About PPK'}」，"
+            f"归档自 [原站]({self.cfg.site_url})。\n:::"
+        )
+        path = self.cfg.docs_dir / "about.md"
+        atomic_write_text(path, "\n\n".join(blocks) + "\n")
+        self.report.pages.append("about.md")
+        return path
+
+    def emit_videos(self, videos: Sequence[Video]) -> Path:
+        """保留旧 /videos/ 地址，并指向合并后的相册页。"""
+        blocks = [
+            frontmatter({"title": "视频已并入相册", "aside": False}),
+            "# 视频已并入相册\n",
+            f"本站的 {len(videos)} 条视频已并入 [相册页面](/albums/#视频)。",
+        ]
+
         path = self.cfg.docs_dir / "videos.md"
         atomic_write_text(path, "\n\n".join(blocks) + "\n")
         self.report.pages.append("videos.md")
@@ -742,7 +964,10 @@ class SiteEmitter:
             if notice:
                 blocks.append(notice)
                 self.report.unavailable_pages += 1
-            blocks.append(f"## {md_escape_link_text(discussion.title)}\n")
+            blocks.append(
+                f'<span id="discussion-{html_attr(discussion.discussion_id)}"></span>\n\n'
+                f"## {md_escape_link_text(discussion.title)}\n"
+            )
             meta_line = " · ".join(
                 part for part in [discussion.author, discussion.date] if part
             )
@@ -750,7 +975,10 @@ class SiteEmitter:
                 blocks.append(f"*{meta_line}*\n")
             body = html_to_markdown(
                 discussion.content_html,
-                ConvertContext(route_map=self.ctx.route_map, album_routes=self.ctx.album_routes),
+                ConvertContext(route_map=self.ctx.route_map, album_routes=self.ctx.album_routes,
+                               external_routes=self.ctx.external_routes,
+                               discussion_routes=self.ctx.discussion_routes,
+                               video_routes=self.ctx.video_routes),
                 self.cfg,
             )
             blocks.append(body or "*正文未能归档。*")
@@ -761,7 +989,10 @@ class SiteEmitter:
                     head = " · ".join(part for part in [comment.author, comment.date] if part)
                     text = html_to_markdown(
                         comment.content_html,
-                        ConvertContext(route_map=self.ctx.route_map),
+                        ConvertContext(route_map=self.ctx.route_map,
+                                       external_routes=self.ctx.external_routes,
+                                       discussion_routes=self.ctx.discussion_routes,
+                                       video_routes=self.ctx.video_routes),
                         self.cfg,
                     )
                     blocks.append(f"**{head}**\n\n{markdown_blockquote(text)}")
@@ -779,38 +1010,134 @@ class SiteEmitter:
         return path
 
     def emit_broadcast(self, statuses: Sequence[MiniblogStatus]) -> Path:
-        """渲染广播室动态流。"""
-        blocks = [
-            frontmatter({"title": "广播室", "aside": False}),
-            "# 广播室\n",
-            "原站「兔子山快报」的动态流。\n",
-        ]
-        for item in statuses:
-            head = item.text or "更新"
-            title = item.link_title or ("查看归档" if item.link_url else "")
-            line = f"- **{head}**"
-            if item.date:
-                line += f" <small>{item.date}</small>"
-            if title:
-                link = item.link_url or "#"
-                note_match = re.search(r"/note/(\d+)/?", link)
-                if note_match:
-                    link = self.ctx.route_map.get(note_match.group(1), "#")
-                elif item.object_kind == "1025" and item.object_id:
-                    album_route = self.ctx.photo_album_routes.get(item.object_id)
-                    if album_route:
-                        link = album_route
-                line += f"\n  - [{md_escape_link_text(title)}]({md_safe_url(link)})"
-            if item.content:
-                line += f"\n  - {item.content}"
-            blocks.append(line)
-        if not statuses:
-            blocks.append("*未能归档到动态。*")
+        """渲染带图片的广播室卡片，并拆成独立静态分页。"""
+        page_size = 10
+        page_count = max(1, (len(statuses) + page_size - 1) // page_size)
+        page_dir = self.cfg.docs_dir / "broadcast" / "page"
 
-        path = self.cfg.docs_dir / "broadcast.md"
-        atomic_write_text(path, "\n\n".join(blocks) + "\n")
-        self.report.pages.append("broadcast.md")
-        return path
+        # 页数减少时移除本生成器之前创建的过期分页文件。
+        if page_dir.exists():
+            for stale in page_dir.glob("[0-9]*.md"):
+                if stale.stem.isdigit() and int(stale.stem) > page_count:
+                    stale.unlink()
+
+        first_path: Path | None = None
+        for page_number in range(1, page_count + 1):
+            start = (page_number - 1) * page_size
+            page_items = statuses[start : start + page_size]
+            title = "广播室" if page_number == 1 else f"广播室 · 第 {page_number} 页"
+            blocks = [
+                frontmatter({"title": title, "aside": False}),
+                "# 兔子山快报\n",
+                f"动态共 **{len(statuses)}** 条 · 第 **{page_number}/{page_count}** 页。\n",
+                '<div class="broadcast-feed">',
+            ]
+
+            for item in page_items:
+                action = html_text(item.text or "更新")
+                date = html_text(item.date)
+                date_match = re.fullmatch(r"(.+?)(\d{1,2})", item.date)
+                date_markup = ""
+                if date_match:
+                    date_markup = (
+                        '<time class="broadcast-date">'
+                        f"<span>{html_text(date_match.group(1))}</span>"
+                        f"<strong>{html_text(date_match.group(2))}</strong></time>"
+                    )
+                elif date:
+                    date_markup = f'<time class="broadcast-date">{date}</time>'
+
+                link = item.link_url or ""
+                if item.object_kind == "1015" and item.object_id:
+                    link = self.ctx.route_map.get(item.object_id) or self._external_route(link) or link
+                elif item.object_kind == "1025" and item.object_id:
+                    link = self.ctx.photo_album_routes.get(item.object_id) or self._external_route(link) or link
+                else:
+                    note_match = re.search(r"/note/(\d+)/?", link)
+                    if note_match:
+                        link = self.ctx.route_map.get(note_match.group(1), "") or self._external_route(link) or ""
+                    else:
+                        link = self._external_route(link) or link
+                safe_link = md_safe_url(link) if link else ""
+
+                headline = item.link_title or ("查看归档" if safe_link else "")
+                headline_markup = (
+                    f'<a class="broadcast-title" href="{html_attr(safe_link)}">'
+                    f"{html_text(headline)}</a>"
+                    if headline and safe_link
+                    else f'<span class="broadcast-title">{html_text(headline)}</span>' if headline else ""
+                )
+                content = (
+                    f'<p class="broadcast-content">{html_text(item.content)}</p>'
+                    if item.content
+                    else ""
+                )
+
+                image = ""
+                if item.object_kind == "1025" and item.object_id:
+                    image = self.ctx.photo_image_routes.get(item.object_id, "")
+                elif item.object_kind == "1015" and item.object_id:
+                    image = self.ctx.note_image_routes.get(item.object_id, "")
+                # 原站 CDN 对站外图片请求返回 418；只写入已经归档的本地图片，
+                # 避免生成必然失败的豆瓣图片请求。
+                image_markup = ""
+                if image:
+                    safe_image = md_safe_url(image)
+                    image_markup = (
+                        f'<img src="{html_attr(safe_image)}" alt="{html_attr(item.link_title or action)}" '
+                        'loading="lazy" decoding="async" />'
+                    )
+                    if safe_link:
+                        image_markup = f'<a class="broadcast-image" href="{html_attr(safe_link)}">{image_markup}</a>'
+                    else:
+                        image_markup = f'<div class="broadcast-image">{image_markup}</div>'
+
+                blocks.append(
+                    '<article class="broadcast-card">'
+                    f"{date_markup}"
+                    '<div class="broadcast-body">'
+                    f'<p class="broadcast-action">{action}</p>'
+                    f"{headline_markup}{content}"
+                    "</div>"
+                    f"{image_markup}"
+                    "</article>"
+                )
+
+            if not page_items:
+                blocks.append('<p class="broadcast-empty">未能归档到动态。</p>')
+            blocks.append("</div>")
+
+            if page_count > 1:
+                previous = page_number - 1
+                following = page_number + 1
+                previous_href = "/broadcast/" if previous == 1 else f"/broadcast/page/{previous}"
+                next_href = f"/broadcast/page/{following}"
+                previous_link = (
+                    f'<a class="broadcast-page-link" href="{previous_href}" rel="prev">上一页</a>'
+                    if page_number > 1
+                    else '<span class="broadcast-page-disabled">上一页</span>'
+                )
+                next_link = (
+                    f'<a class="broadcast-page-link" href="{next_href}" rel="next">下一页</a>'
+                    if page_number < page_count
+                    else '<span class="broadcast-page-disabled">下一页</span>'
+                )
+                blocks.append(
+                    '<nav class="broadcast-pagination" aria-label="广播室分页">'
+                    f"{previous_link}<span>第 {page_number} / {page_count} 页</span>{next_link}</nav>"
+                )
+
+            path = (
+                self.cfg.docs_dir / "broadcast.md"
+                if page_number == 1
+                else page_dir / f"{page_number}.md"
+            )
+            atomic_write_text(path, "\n\n".join(blocks) + "\n")
+            self.report.pages.append(path.relative_to(self.cfg.docs_dir).as_posix())
+            if page_number == 1:
+                first_path = path
+
+        return first_path or (self.cfg.docs_dir / "broadcast.md")
 
     # ------------------------------------------------------------ Sidebar
 
@@ -821,8 +1148,9 @@ class SiteEmitter:
         *,
         fallback_notes: Sequence[Note] = (),
         albums: Sequence[Album] = (),
-        videos_count: int = 0,
         external_count: int = 0,
+        room_sections: Sequence[RoomArticleSection] | None = None,
+        rooms: Sequence[Room] = (),
     ) -> Path:
         """生成 ``sidebar.generated.mts``。
 
@@ -831,6 +1159,12 @@ class SiteEmitter:
         无需额外插件或虚拟模块。
         """
         notes_sidebar: list[dict[str, Any]] = []
+        featured_labels = {
+            "聲之形": "☆ 聲之形",
+            "玉子市场＆玉子爱情故事": "☆ 玉子",
+            "轻音！系列": "☆ 轻音",
+            "吹响悠风号": "☆ 悠风 etc.",
+        }
         for group in groups:
             if group.title == LINKS_CATEGORY:
                 continue
@@ -851,7 +1185,16 @@ class SiteEmitter:
                         items.append({"text": f"{entry.title}（未归档）"})
             if items:
                 notes_sidebar.append(
-                    {"text": group.title, "collapsed": False, "items": items}
+                    {
+                        "text": featured_labels.get(group.title, group.title),
+                        **(
+                            {"link": f"/notes/#{slug_anchor(group.title)}"}
+                            if group.title in featured_labels
+                            else {}
+                        ),
+                        "collapsed": True,
+                        "items": items,
+                    }
                 )
 
         if fallback_notes:
@@ -880,33 +1223,72 @@ class SiteEmitter:
                     }
                     for album in albums
                 ],
-            }
+            },
+            {"text": "视频", "link": "/albums/#视频"},
         ]
 
-        other_sidebar = [
+        room_sidebar: list[dict[str, Any]] = []
+        note_sections = {section.widget_id: section for section in (room_sections or [])}
+        for room in rooms:
+            module_items: list[dict[str, Any]] = []
+            for widget in room.widgets:
+                widget_href = f"/rooms/{room.room_id}#widget-{widget.widget_id}"
+                section = note_sections.get(widget.widget_id)
+                if section:
+                    module_items.append({
+                        "text": widget.title or "日记",
+                        "link": widget_href,
+                        "collapsed": True,
+                        "items": [
+                            {
+                                "text": note.title,
+                                "link": self.ctx.route_map.get(note.note_id, f"/notes/{note.note_id}"),
+                            }
+                            for note in section.notes
+                        ],
+                    })
+                else:
+                    module_items.append({"text": widget.title or widget.kind, "link": widget_href})
+            room_sidebar.append({
+                "text": room.title,
+                "link": "/" if room.is_home else f"/rooms/{room.room_id}",
+                "collapsed": True,
+                "items": module_items,
+            })
+
+        index_items = room_sidebar if rooms else notes_sidebar
+        site_sidebar = [
             {
-                "text": "站内",
+                "text": "房间",
+                "collapsed": False,
+                "items": index_items,
+            },
+            {
+                "text": "归档视图",
+                "collapsed": True,
                 "items": [
-                    {"text": "文章索引", "link": "/notes/"},
-                    *([{"text": "站外文章", "link": "/external/"}] if external_count else []),
+                    {
+                        "text": "文章索引",
+                        "link": "/notes/",
+                    },
+                    {"text": "人工索引", "link": "/curated/"},
                     {"text": "相册", "link": "/albums/"},
+                    {"text": "视频", "link": "/videos"},
                     {"text": "关于山田尚子", "link": "/about"},
-                    {"text": "留言板", "link": "/board"},
-                    {"text": "广播室", "link": "/broadcast"},
-                    *([{"text": "视频", "link": "/videos"}] if videos_count else []),
+                    {"text": "留言板汇总", "link": "/board"},
+                    {"text": "广播室汇总", "link": "/broadcast"},
                 ],
             }
         ]
 
         sidebar = {
-            "/notes/": notes_sidebar,
             "/albums/": albums_sidebar,
-            "/": other_sidebar,
+            "/": site_sidebar,
         }
 
         content = (
             "// 本文件由 scraper/emit.py 自动生成，请勿手工编辑。\n"
-            "// 数据来源：原站索引①/②（站长手工编排的分类）+ 抓取到的日记。\n"
+            "// 数据来源：原站 room/widget 结构及其日记列表。\n"
             "import type { DefaultTheme } from 'vitepress'\n\n"
             "export const sidebar: DefaultTheme.Sidebar = "
             + json.dumps(sidebar, ensure_ascii=False, indent=2)
@@ -914,6 +1296,20 @@ class SiteEmitter:
         )
         atomic_write_text(self.cfg.sidebar_path, content)
         self.report.pages.append("sidebar.generated.mts")
+        nav = [
+            {"text": room.title, "link": "/" if room.is_home else f"/rooms/{room.room_id}"}
+            for room in rooms
+        ]
+        nav_content = (
+            "// 本文件由 scraper/emit.py 自动生成，请勿手工编辑。\n"
+            "import type { DefaultTheme } from 'vitepress'\n\n"
+            "export const nav: DefaultTheme.NavItem[] = "
+            + json.dumps(nav, ensure_ascii=False, indent=2)
+            + "\n"
+        )
+        nav_path = self.cfg.docs_dir / ".vitepress" / "nav.generated.mts"
+        atomic_write_text(nav_path, nav_content)
+        self.report.pages.append("nav.generated.mts")
         return self.cfg.sidebar_path
 
     # -------------------------------------------------- 不可访问清单

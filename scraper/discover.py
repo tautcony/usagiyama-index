@@ -15,6 +15,7 @@ from .models import Bulletin, PhotoMeta, Room, SourceStatus, Video, Widget
 from .parsers import (
     NoteListEntry,
     parse_album_title,
+    parse_active_room_id,
     parse_bulletin,
     parse_discussion_list,
     parse_note_list,
@@ -41,6 +42,7 @@ class SiteStructure:
     """一次完整发现的结果。"""
 
     meta: dict[str, str] = field(default_factory=dict)
+    home_room_id: str = ""
     rooms: list[Room] = field(default_factory=list)
     bulletins: list[Bulletin] = field(default_factory=list)
     note_entries: list[NoteListEntry] = field(default_factory=list)
@@ -86,6 +88,7 @@ class SiteStructure:
     def to_dict(self) -> dict[str, object]:
         return {
             "meta": self.meta,
+            "homeRoomId": self.home_room_id,
             "rooms": [r.to_dict() for r in self.rooms],
             "bulletins": [b.to_dict() for b in self.bulletins],
             "noteCount": self.note_count,
@@ -173,12 +176,14 @@ class SiteDiscovery:
         self.structure.meta = parse_site_meta(home.html, self.cfg)
 
         nav = parse_room_nav(home.html, self.cfg)
+        self.structure.home_room_id = parse_active_room_id(home.html, self.cfg) or ""
         log.info("发现 %d 个房间导航项", len(nav))
 
         rooms: list[Room] = []
         for room_id, title, url in nav:
             # 首页对应的房间会 302 回首页，直接用已抓到的 HTML
-            html = home.html if url.rstrip("/") == self.cfg.site_url.rstrip("/") else ""
+            is_home = room_id == self.structure.home_room_id
+            html = home.html if is_home else ""
             if not html:
                 page = self.resolver.resolve(url, context=f"房间 {title}")
                 if not page.has_content:
@@ -192,7 +197,7 @@ class SiteDiscovery:
                 room_id=room_id,
                 title=title,
                 url=url,
-                is_home=url.rstrip("/") == self.cfg.site_url.rstrip("/"),
+                is_home=is_home,
                 widgets=parse_widgets(html, room_id, self.cfg),
             )
             room.status = home.status if html is home.html else page.status

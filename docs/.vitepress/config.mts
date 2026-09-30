@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress'
 import { sidebar } from './sidebar.generated.mts'
+import { nav } from './nav.generated.mts'
 
 /* 归档正文来自豆瓣，什么字符都可能出现，其中 ``{{ … }}`` 要特别处理：
  * 它是 Vue 模板的插值语法，而 VitePress 会把每篇 markdown 编译成 Vue 组件，
@@ -15,6 +16,18 @@ const escapeHtml = (text: string): string =>
     .replace(/>/g, '&gt;')
     .replace(/\{/g, '&#123;')
     .replace(/\}/g, '&#125;')
+
+const siteBase = (process.env.BASE_PATH ?? '/').replace(/\/?$/, '/')
+
+const prefixHtmlRootUrls = (html: string): string => {
+  if (siteBase === '/') return html
+  const prefix = siteBase.slice(0, -1)
+  return html.replace(
+    /\bhref\s*=\s*(["'])(\/(?!\/)[^"']*)\1/gi,
+    (attribute, quote: string, url: string) =>
+      `href=${quote}${url.startsWith(siteBase) ? url : `${prefix}${url}`}${quote}`,
+  )
+}
 
 const defuseVueBraces = (md: any): void => {
   md.core.ruler.push('defuse-vue-braces', (state: any) => {
@@ -36,7 +49,7 @@ const defuseActiveHtml = (md: any): void => {
   const activeHtml = /<\s*\/?\s*(?:script|iframe|object|embed|svg|math)\b|<[^>]*\son[a-z]+\s*=|<[^>]*\ssrcdoc\s*=|<[^>]*\b(?:href|src)\s*=\s*["']?\s*(?:javascript|data):/i
   for (const type of ['html_inline', 'html_block']) {
     md.renderer.rules[type] = (tokens: any[], idx: number) => {
-      const content = tokens[idx].content
+      const content = prefixHtmlRootUrls(tokens[idx].content)
       return activeHtml.test(content) ? escapeHtml(content) : content
     }
   }
@@ -79,14 +92,7 @@ export default defineConfig({
     logo: '/media/site/avatar.jpg',
     siteTitle: '兔子山的小站',
 
-    nav: [
-      { text: '首页', link: '/' },
-      { text: '文章索引', link: '/notes/' },
-      { text: '相册', link: '/albums/' },
-      { text: '视频', link: '/videos' },
-      { text: '留言板', link: '/board' },
-      { text: '关于', link: '/about' },
-    ],
+    nav,
 
     sidebar,
 

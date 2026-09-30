@@ -1,0 +1,841 @@
+{
+  "capturedAt": "2026-09-30T21:23:47.832751+08:00",
+  "scope": "Cached source snapshot, current dirty worktree; not live-source equivalence",
+  "gitHead": "cf8060d1609dd16ecbbc3261d70dc63c2942261b",
+  "fileHashes": {
+    "scraper/models.py": "926d2bbc8f055106beb8f7abb7cbbf4b9ffbdc106d60ead2fb382af6501073b1",
+    "scraper/parsers.py": "fc39536424bf2dd9c32896950a8ec3104fee67d45311f480a4a2e076c661dd84",
+    "scraper/discover.py": "1cc4603e4ccaab99c35805fc660da5715013096e8d3a2c279813d11fb444afc4",
+    "scraper/index_map.py": "83448a1a3fa730811da6c73504ce629d182d998f16250271cfe78d0838322e52",
+    "scraper/cli.py": "8a3bfa0d5b6135dbc8f6675ecc19d4d2b4f6c509abf4cac2e1e5dae7f942e6f9",
+    "scraper/emit.py": "7d12578eb9eb0a65205a912f05128f947a3275e210c2b910d4701ad1b328bb97",
+    "scraper/html2md.py": "8c148444d194f300f5c65a1884dde2779dc955af6fddf441217dbb8c773962d5",
+    "scraper/verify.py": "7aa1abc54e85af0291b13fbe49aa0812eff603c42c9685cf11974ec94edabbff",
+    "docs/.vitepress/config.mts": "bd2fc694b0fd32bd526f22c09d7866ac474afa55bf19dacc005f14ee9f16c897",
+    "docs/.vitepress/sidebar.generated.mts": "ee36c3ace1e28f6bbe26155fdcf5a8fe44f0c82a7f194ca6b58d9028c54503e9",
+    "docs/index.md": "cc7fdb59c1dfdcc95ff23d098e60b6c8ab70cafa88ccf880cbad923cd6b7bc98",
+    "docs/notes/index.md": "34a5294c46cd87027d76b834d4db52436033f8da61e5e5f1ac6de19700c672f8",
+    "data/structure.json": "c0e4e70ad1f841a209798db796f0279185f557f66b6930cd4a33ced4a6b12972",
+    "data/notes.json": "2b782f26c2ab3ef8ef6b1570022201226b2f43aacecf026a9380e9b5616707ed",
+    "data/index.json": "ab3d039688679b3b35ca3f2b779ca802003c0bc72ecf5375ca2d19f69e3964be",
+    "data/albums.json": "d4f6e5b9470f0e52f0e4d41880353602bfc6414192a217e4c191d6bbb371f431"
+  },
+  "sourcePages": [
+    {
+      "url": "https://site.douban.com/211330/room/2794121/",
+      "bodyPath": "scraper/state/cache/site.douban.com/064f163f3ab228e0cbd714c5362ac078c1fa0a1f.body",
+      "fetchedAt": "2026-09-30T17:35:09+08:00",
+      "sha256": "2cffb815b0f27dde3efc0613d106a841e11aab0446554007db6a02b0f4308cb7",
+      "navigation": [
+        {
+          "title": "宇宙的入口",
+          "url": "https://site.douban.com/211330/room/2793793/",
+          "active": false
+        },
+        {
+          "title": "☆ 聲之形",
+          "url": "https://site.douban.com/211330/room/3598399/",
+          "active": false
+        },
+        {
+          "title": "☆ 玉子",
+          "url": "https://site.douban.com/211330/room/2794121/",
+          "active": true
+        },
+        {
+          "title": "☆ 轻音",
+          "url": "https://site.douban.com/211330/room/2794136/",
+          "active": false
+        },
+        {
+          "title": "☆ 悠风 etc.",
+          "url": "https://site.douban.com/211330/room/2794117/",
+          "active": false
+        },
+        {
+          "title": "留言板",
+          "url": "https://site.douban.com/211330/room/2794240/",
+          "active": false
+        },
+        {
+          "title": "广播室",
+          "url": "https://site.douban.com/211330/room/3598411/",
+          "active": false
+        }
+      ],
+      "widgets": [
+        {
+          "kind": "bulletin",
+          "widgetId": "13432767",
+          "position": 0,
+          "heading": "公告栏",
+          "allLinks": [],
+          "linkCount": 51
+        },
+        {
+          "kind": "photos",
+          "widgetId": "13431474",
+          "position": 1,
+          "heading": "商店街日常 ( 全部 )",
+          "allLinks": [
+            "https://site.douban.com/211330/widget/photos/13431474/"
+          ]
+        },
+        {
+          "kind": "notes",
+          "widgetId": "13430893",
+          "position": 2,
+          "heading": "商店街日记 ( 全部 )",
+          "allLinks": [
+            "https://site.douban.com/211330/widget/notes/13430893/"
+          ]
+        },
+        {
+          "kind": "photos",
+          "widgetId": "13433748",
+          "position": 3,
+          "heading": "幕后&周边 ( 全部 )",
+          "allLinks": [
+            "https://site.douban.com/211330/widget/photos/13433748/"
+          ]
+        },
+        {
+          "kind": "videos",
+          "widgetId": "13431492",
+          "position": 4,
+          "heading": "视频 (22) ( 全部 )",
+          "allLinks": [
+            "https://site.douban.com/211330/widget/videos/13431492/"
+          ],
+          "declaredCount": 22,
+          "previewCount": 3
+        }
+      ]
+    },
+    {
+      "url": "https://site.douban.com/211330/",
+      "bodyPath": "scraper/state/cache/site.douban.com/37cb111367021e312d3fb62ab94c8e61ca23c712.body",
+      "fetchedAt": "2026-09-30T17:34:50+08:00",
+      "sha256": "af8c38ee698b080921748c360cd9d52cf63520ea51b1d6a1c6991e78748f72cb",
+      "navigation": [
+        {
+          "title": "宇宙的入口",
+          "url": "https://site.douban.com/211330/room/2793793/",
+          "active": true
+        },
+        {
+          "title": "☆ 聲之形",
+          "url": "https://site.douban.com/211330/room/3598399/",
+          "active": false
+        },
+        {
+          "title": "☆ 玉子",
+          "url": "https://site.douban.com/211330/room/2794121/",
+          "active": false
+        },
+        {
+          "title": "☆ 轻音",
+          "url": "https://site.douban.com/211330/room/2794136/",
+          "active": false
+        },
+        {
+          "title": "☆ 悠风 etc.",
+          "url": "https://site.douban.com/211330/room/2794117/",
+          "active": false
+        },
+        {
+          "title": "留言板",
+          "url": "https://site.douban.com/211330/room/2794240/",
+          "active": false
+        },
+        {
+          "title": "广播室",
+          "url": "https://site.douban.com/211330/room/3598411/",
+          "active": false
+        }
+      ],
+      "widgets": [
+        {
+          "kind": "bulletin",
+          "widgetId": "16095492",
+          "position": 0,
+          "heading": "索引①",
+          "allLinks": [],
+          "linkCount": 36
+        },
+        {
+          "kind": "bulletin",
+          "widgetId": "17754656",
+          "position": 1,
+          "heading": "索引②",
+          "allLinks": [],
+          "linkCount": 68
+        },
+        {
+          "kind": "photos",
+          "widgetId": "13432051",
+          "position": 2,
+          "heading": "海报墙 ( 全部 )",
+          "allLinks": [
+            "https://site.douban.com/211330/widget/photos/13432051/"
+          ]
+        },
+        {
+          "kind": "bulletin",
+          "widgetId": "13430830",
+          "position": 3,
+          "heading": "About PPK",
+          "allLinks": [],
+          "linkCount": 39
+        },
+        {
+          "kind": "notes",
+          "widgetId": "17565710",
+          "position": 4,
+          "heading": "尚子的房间 ( 全部 )",
+          "allLinks": [
+            "https://site.douban.com/211330/widget/notes/17565710/"
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://site.douban.com/211330/room/2794136/",
+      "bodyPath": "scraper/state/cache/site.douban.com/537a24a7e2c4ee04bd6cef8927699f14e2fdd0e9.body",
+      "fetchedAt": "2026-09-30T17:35:14+08:00",
+      "sha256": "aaa0b6df8f23cf436427badfd22df463d68f0998726c288593d27f482c55ccda",
+      "navigation": [
+        {
+          "title": "宇宙的入口",
+          "url": "https://site.douban.com/211330/room/2793793/",
+          "active": false
+        },
+        {
+          "title": "☆ 聲之形",
+          "url": "https://site.douban.com/211330/room/3598399/",
+          "active": false
+        },
+        {
+          "title": "☆ 玉子",
+          "url": "https://site.douban.com/211330/room/2794121/",
+          "active": false
+        },
+        {
+          "title": "☆ 轻音",
+          "url": "https://site.douban.com/211330/room/2794136/",
+          "active": true
+        },
+        {
+          "title": "☆ 悠风 etc.",
+          "url": "https://site.douban.com/211330/room/2794117/",
+          "active": false
+        },
+        {
+          "title": "留言板",
+          "url": "https://site.douban.com/211330/room/2794240/",
+          "active": false
+        },
+        {
+          "title": "广播室",
+          "url": "https://site.douban.com/211330/room/3598411/",
+          "active": false
+        }
+      ],
+      "widgets": [
+        {
+          "kind": "bulletin",
+          "widgetId": "13432819",
+          "position": 0,
+          "heading": "公告栏",
+          "allLinks": [],
+          "linkCount": 37
+        },
+        {
+          "kind": "photos",
+          "widgetId": "13431373",
+          "position": 1,
+          "heading": "HTT纪念册 ( 全部 )",
+          "allLinks": [
+            "https://site.douban.com/211330/widget/photos/13431373/"
+          ]
+        },
+        {
+          "kind": "notes",
+          "widgetId": "15416684",
+          "position": 2,
+          "heading": "日记 ( 全部 )",
+          "allLinks": [
+            "https://site.douban.com/211330/widget/notes/15416684/"
+          ]
+        },
+        {
+          "kind": "notes",
+          "widgetId": "13431360",
+          "position": 3,
+          "heading": "轻音学专栏 ( 全部 )",
+          "allLinks": [
+            "https://site.douban.com/211330/widget/notes/13431360/"
+          ]
+        },
+        {
+          "kind": "videos",
+          "widgetId": "13431215",
+          "position": 4,
+          "heading": "视频 (7) ( 全部 )",
+          "allLinks": [
+            "https://site.douban.com/211330/widget/videos/13431215/"
+          ],
+          "declaredCount": 7,
+          "previewCount": 3
+        }
+      ]
+    },
+    {
+      "url": "https://site.douban.com/211330/room/3598411/",
+      "bodyPath": "scraper/state/cache/site.douban.com/58f0d145a14c4072e7f9ad121877cb628b9a8221.body",
+      "fetchedAt": "2026-09-30T17:35:31+08:00",
+      "sha256": "7866def0eee6a4aa2dc7827a3400fab5ea8736b5255dcdf5dbaf9afdbd6d6c8f",
+      "navigation": [
+        {
+          "title": "宇宙的入口",
+          "url": "https://site.douban.com/211330/room/2793793/",
+          "active": false
+        },
+        {
+          "title": "☆ 聲之形",
+          "url": "https://site.douban.com/211330/room/3598399/",
+          "active": false
+        },
+        {
+          "title": "☆ 玉子",
+          "url": "https://site.douban.com/211330/room/2794121/",
+          "active": false
+        },
+        {
+          "title": "☆ 轻音",
+          "url": "https://site.douban.com/211330/room/2794136/",
+          "active": false
+        },
+        {
+          "title": "☆ 悠风 etc.",
+          "url": "https://site.douban.com/211330/room/2794117/",
+          "active": false
+        },
+        {
+          "title": "留言板",
+          "url": "https://site.douban.com/211330/room/2794240/",
+          "active": false
+        },
+        {
+          "title": "广播室",
+          "url": "https://site.douban.com/211330/room/3598411/",
+          "active": true
+        }
+      ],
+      "widgets": [
+        {
+          "kind": "miniblog",
+          "widgetId": "13430546",
+          "position": 0,
+          "heading": "兔子山快报 ( 全部 )",
+          "allLinks": [
+            "https://site.douban.com/211330/widget/miniblog/13430546/"
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://site.douban.com/211330/room/3598399/",
+      "bodyPath": "scraper/state/cache/site.douban.com/7e65a6f00c41b06c5370df599ff8f39bba0200cb.body",
+      "fetchedAt": "2026-09-30T17:35:02+08:00",
+      "sha256": "ae3d349f4f76d10927b63bc67aa95c732e185a4d4269a174866890eda091bb00",
+      "navigation": [
+        {
+          "title": "宇宙的入口",
+          "url": "https://site.douban.com/211330/room/2793793/",
+          "active": false
+        },
+        {
+          "title": "☆ 聲之形",
+          "url": "https://site.douban.com/211330/room/3598399/",
+          "active": true
+        },
+        {
+          "title": "☆ 玉子",
+          "url": "https://site.douban.com/211330/room/2794121/",
+          "active": false
+        },
+        {
+          "title": "☆ 轻音",
+          "url": "https://site.douban.com/211330/room/2794136/",
+          "active": false
+        },
+        {
+          "title": "☆ 悠风 etc.",
+          "url": "https://site.douban.com/211330/room/2794117/",
+          "active": false
+        },
+        {
+          "title": "留言板",
+          "url": "https://site.douban.com/211330/room/2794240/",
+          "active": false
+        },
+        {
+          "title": "广播室",
+          "url": "https://site.douban.com/211330/room/3598411/",
+          "active": false
+        }
+      ],
+      "widgets": [
+        {
+          "kind": "bulletin",
+          "widgetId": "190597046",
+          "position": 0,
+          "heading": "公告栏",
+          "allLinks": [],
+          "linkCount": 1
+        },
+        {
+          "kind": "notes",
+          "widgetId": "190597056",
+          "position": 1,
+          "heading": "日记 ( 全部 )",
+          "allLinks": [
+            "https://site.douban.com/211330/widget/notes/190597056/"
+          ]
+        },
+        {
+          "kind": "photos",
+          "widgetId": "190597061",
+          "position": 2,
+          "heading": "相册 ( 全部 )",
+          "allLinks": [
+            "https://site.douban.com/211330/widget/photos/190597061/"
+          ]
+        },
+        {
+          "kind": "videos",
+          "widgetId": "191513700",
+          "position": 3,
+          "heading": "视频 (20) ( 全部 )",
+          "allLinks": [
+            "https://site.douban.com/211330/widget/videos/191513700/"
+          ],
+          "declaredCount": 20,
+          "previewCount": 3
+        }
+      ]
+    },
+    {
+      "url": "https://site.douban.com/211330/room/2794117/",
+      "bodyPath": "scraper/state/cache/site.douban.com/c7fbf72bd701bb390aadb37edc68a6721a4e7fdd.body",
+      "fetchedAt": "2026-09-30T17:35:20+08:00",
+      "sha256": "e5363d1649a6cb11ef6e7f1cde11c3bd16a1edaaf3367250ffac232b79f7b1ff",
+      "navigation": [
+        {
+          "title": "宇宙的入口",
+          "url": "https://site.douban.com/211330/room/2793793/",
+          "active": false
+        },
+        {
+          "title": "☆ 聲之形",
+          "url": "https://site.douban.com/211330/room/3598399/",
+          "active": false
+        },
+        {
+          "title": "☆ 玉子",
+          "url": "https://site.douban.com/211330/room/2794121/",
+          "active": false
+        },
+        {
+          "title": "☆ 轻音",
+          "url": "https://site.douban.com/211330/room/2794136/",
+          "active": false
+        },
+        {
+          "title": "☆ 悠风 etc.",
+          "url": "https://site.douban.com/211330/room/2794117/",
+          "active": true
+        },
+        {
+          "title": "留言板",
+          "url": "https://site.douban.com/211330/room/2794240/",
+          "active": false
+        },
+        {
+          "title": "广播室",
+          "url": "https://site.douban.com/211330/room/3598411/",
+          "active": false
+        }
+      ],
+      "widgets": [
+        {
+          "kind": "bulletin",
+          "widgetId": "190150869",
+          "position": 0,
+          "heading": "公告栏",
+          "allLinks": [],
+          "linkCount": 7
+        },
+        {
+          "kind": "notes",
+          "widgetId": "13431979",
+          "position": 1,
+          "heading": "日记 ( 全部 )",
+          "allLinks": [
+            "https://site.douban.com/211330/widget/notes/13431979/"
+          ]
+        },
+        {
+          "kind": "photos",
+          "widgetId": "13431950",
+          "position": 2,
+          "heading": "相册 ( 全部 )",
+          "allLinks": [
+            "https://site.douban.com/211330/widget/photos/13431950/"
+          ]
+        },
+        {
+          "kind": "videos",
+          "widgetId": "15768770",
+          "position": 3,
+          "heading": "视频 (7) ( 全部 )",
+          "allLinks": [
+            "https://site.douban.com/211330/widget/videos/15768770/"
+          ],
+          "declaredCount": 7,
+          "previewCount": 3
+        }
+      ]
+    },
+    {
+      "url": "https://site.douban.com/211330/room/2794240/",
+      "bodyPath": "scraper/state/cache/site.douban.com/e3841cc624638d9234c9f541643f4a89831bf90e.body",
+      "fetchedAt": "2026-09-30T17:35:23+08:00",
+      "sha256": "569afdfb2b18026f29d69f7e5e9beb9876794233d28df5f1a4ac0271b2cc4ff3",
+      "navigation": [
+        {
+          "title": "宇宙的入口",
+          "url": "https://site.douban.com/211330/room/2793793/",
+          "active": false
+        },
+        {
+          "title": "☆ 聲之形",
+          "url": "https://site.douban.com/211330/room/3598399/",
+          "active": false
+        },
+        {
+          "title": "☆ 玉子",
+          "url": "https://site.douban.com/211330/room/2794121/",
+          "active": false
+        },
+        {
+          "title": "☆ 轻音",
+          "url": "https://site.douban.com/211330/room/2794136/",
+          "active": false
+        },
+        {
+          "title": "☆ 悠风 etc.",
+          "url": "https://site.douban.com/211330/room/2794117/",
+          "active": false
+        },
+        {
+          "title": "留言板",
+          "url": "https://site.douban.com/211330/room/2794240/",
+          "active": true
+        },
+        {
+          "title": "广播室",
+          "url": "https://site.douban.com/211330/room/3598411/",
+          "active": false
+        }
+      ],
+      "widgets": [
+        {
+          "kind": "forum",
+          "widgetId": "13466509",
+          "position": 0,
+          "heading": "兔子山论坛 发言 需要关注才能发布",
+          "allLinks": [
+            "javascript:;"
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://site.douban.com/211330/room/2793793/",
+      "bodyPath": "scraper/state/cache/site.douban.com/f58320329a8ca15452d326a6fac06296d50fb7c4.body",
+      "fetchedAt": "2026-09-30T17:34:56+08:00",
+      "sha256": "db07d4f6c5a1107d8aa626edac6f6ddd832e7f3888fa4d17c9cc0d1c8375171b",
+      "navigation": [
+        {
+          "title": "宇宙的入口",
+          "url": "https://site.douban.com/211330/room/2793793/",
+          "active": true
+        },
+        {
+          "title": "☆ 聲之形",
+          "url": "https://site.douban.com/211330/room/3598399/",
+          "active": false
+        },
+        {
+          "title": "☆ 玉子",
+          "url": "https://site.douban.com/211330/room/2794121/",
+          "active": false
+        },
+        {
+          "title": "☆ 轻音",
+          "url": "https://site.douban.com/211330/room/2794136/",
+          "active": false
+        },
+        {
+          "title": "☆ 悠风 etc.",
+          "url": "https://site.douban.com/211330/room/2794117/",
+          "active": false
+        },
+        {
+          "title": "留言板",
+          "url": "https://site.douban.com/211330/room/2794240/",
+          "active": false
+        },
+        {
+          "title": "广播室",
+          "url": "https://site.douban.com/211330/room/3598411/",
+          "active": false
+        }
+      ],
+      "widgets": [
+        {
+          "kind": "bulletin",
+          "widgetId": "16095492",
+          "position": 0,
+          "heading": "索引①",
+          "allLinks": [],
+          "linkCount": 36
+        },
+        {
+          "kind": "bulletin",
+          "widgetId": "17754656",
+          "position": 1,
+          "heading": "索引②",
+          "allLinks": [],
+          "linkCount": 68
+        },
+        {
+          "kind": "photos",
+          "widgetId": "13432051",
+          "position": 2,
+          "heading": "海报墙 ( 全部 )",
+          "allLinks": [
+            "https://site.douban.com/211330/widget/photos/13432051/"
+          ]
+        },
+        {
+          "kind": "bulletin",
+          "widgetId": "13430830",
+          "position": 3,
+          "heading": "About PPK",
+          "allLinks": [],
+          "linkCount": 39
+        },
+        {
+          "kind": "notes",
+          "widgetId": "17565710",
+          "position": 4,
+          "heading": "尚子的房间 ( 全部 )",
+          "allLinks": [
+            "https://site.douban.com/211330/widget/notes/17565710/"
+          ]
+        }
+      ]
+    }
+  ],
+  "sourceNavigationRoomIds": [
+    "2793793",
+    "3598399",
+    "2794121",
+    "2794136",
+    "2794117",
+    "2794240",
+    "3598411"
+  ],
+  "counts": {
+    "rooms": 7,
+    "widgets": 25,
+    "widgetKinds": {
+      "bulletin": 7,
+      "photos": 6,
+      "notes": 6,
+      "videos": 4,
+      "forum": 1,
+      "miniblog": 1
+    },
+    "notes": 144,
+    "indexedUniqueNotes": 94,
+    "unindexedNotes": 50,
+    "albums": 6,
+    "videos": 12,
+    "bulletins": 7
+  },
+  "noteWidgetCounts": {
+    "13430893": 26,
+    "13431360": 3,
+    "13431979": 25,
+    "15416684": 10,
+    "17565710": 45,
+    "190597056": 35
+  },
+  "roomHomeFlags": [
+    {
+      "roomId": "2793793",
+      "isHome": false
+    },
+    {
+      "roomId": "3598399",
+      "isHome": false
+    },
+    {
+      "roomId": "2794121",
+      "isHome": false
+    },
+    {
+      "roomId": "2794136",
+      "isHome": false
+    },
+    {
+      "roomId": "2794117",
+      "isHome": false
+    },
+    {
+      "roomId": "2794240",
+      "isHome": false
+    },
+    {
+      "roomId": "3598411",
+      "isHome": false
+    }
+  ],
+  "albumOwnership": [
+    {
+      "albumId": "13431373",
+      "storedRoomId": "",
+      "sourceWidgetRoomId": "2794136"
+    },
+    {
+      "albumId": "13431474",
+      "storedRoomId": "",
+      "sourceWidgetRoomId": "2794121"
+    },
+    {
+      "albumId": "13431950",
+      "storedRoomId": "",
+      "sourceWidgetRoomId": "2794117"
+    },
+    {
+      "albumId": "13432051",
+      "storedRoomId": "",
+      "sourceWidgetRoomId": "2793793"
+    },
+    {
+      "albumId": "13433748",
+      "storedRoomId": "",
+      "sourceWidgetRoomId": "2794121"
+    },
+    {
+      "albumId": "190597061",
+      "storedRoomId": "",
+      "sourceWidgetRoomId": "3598399"
+    }
+  ],
+  "indexGroups": [
+    {
+      "title": "穹庐下的魔女",
+      "entries": 1
+    },
+    {
+      "title": "聲之形",
+      "entries": 34
+    },
+    {
+      "title": "轻音！系列",
+      "entries": 10
+    },
+    {
+      "title": "玉子市场＆玉子爱情故事",
+      "entries": 25
+    },
+    {
+      "title": "吹响悠风号",
+      "entries": 22
+    },
+    {
+      "title": "其他作品",
+      "entries": 3
+    },
+    {
+      "title": "常用链接",
+      "entries": 5
+    }
+  ],
+  "renderedNotesHeadings": [
+    "☆ 聲之形",
+    "☆ 玉子",
+    "☆ 轻音",
+    "☆ 悠风 etc.",
+    "其他"
+  ],
+  "homeFeatureTargetsMissingHeading": [
+    {
+      "title": "穹庐下的魔女",
+      "details": "1 篇",
+      "link": "/notes/#穹庐下的魔女"
+    },
+    {
+      "title": "聲之形",
+      "details": "34 篇",
+      "link": "/notes/#聲之形"
+    },
+    {
+      "title": "轻音！系列",
+      "details": "10 篇",
+      "link": "/notes/#轻音-系列"
+    },
+    {
+      "title": "玉子市场＆玉子爱情故事",
+      "details": "25 篇",
+      "link": "/notes/#玉子市场-玉子爱情故事"
+    },
+    {
+      "title": "吹响悠风号",
+      "details": "22 篇",
+      "link": "/notes/#吹响悠风号"
+    },
+    {
+      "title": "其他作品",
+      "details": "3 篇",
+      "link": "/notes/#其他作品"
+    }
+  ],
+  "roomPagesExist": true,
+  "widgetPagesExist": false,
+  "builtDomObservation": {
+    "path": "docs/.vitepress/dist/notes/index.html",
+    "sha256": "e2bcae8ef3f1513309f2b316866db8492d81c5a6c2c743593adcd33f6359ed4d",
+    "noteHeadingIds": [
+      "☆-聲之形",
+      "☆-玉子",
+      "☆-轻音",
+      "☆-悠风-etc",
+      "其他"
+    ],
+    "missingHomeFeatureTargets": [
+      "/notes/#穹庐下的魔女",
+      "/notes/#聲之形",
+      "/notes/#轻音-系列",
+      "/notes/#玉子市场-玉子爱情故事",
+      "/notes/#吹响悠风号",
+      "/notes/#其他作品"
+    ],
+    "scope": "Existing build artifact; rerun docs:build before interpreting as current"
+  }
+}
