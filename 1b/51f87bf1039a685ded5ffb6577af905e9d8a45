@@ -1,0 +1,52 @@
+data/albums.json
+  h_3705811fa4502c 3
+data/bulletins.json
+  h_3705811fa4502c 3
+data/external.json
+  h_3705811fa4502c 3
+data/notes.json
+  h_3705811fa4502c 3
+data/structure.json
+  h_3705811fa4502c 3
+data/unavailable.md
+  h_3705811fa4502c 3
+data/updated-at.json
+  h_3705811fa4502c 2
+docs/notes/291753270.md
+  h_3705811fa4502c 188
+docs/notes/319279183.md
+  h_3705811fa4502c 144,194
+docs/notes/347460778.md
+  h_3705811fa4502c 14
+docs/notes/429473097.md
+  h_3705811fa4502c 88,90,96-97
+docs/notes/433207087.md
+  h_3705811fa4502c 13
+docs/notes/433804876.md
+  h_3705811fa4502c 54
+docs/notes/434075254.md
+  h_3705811fa4502c 111
+docs/notes/518061571.md
+  h_3705811fa4502c 82,109
+docs/notes/519006182.md
+  h_3705811fa4502c 56
+docs/notes/524707046.md
+  h_3705811fa4502c 13
+docs/notes/583976644.md
+  h_3705811fa4502c 19
+docs/notes/614170395.md
+  h_3705811fa4502c 23
+scraper/state/manifest.json
+  h_3705811fa4502c 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "1b51f87bf1039a685ded5ffb6577af905e9d8a45",
+  "prompts": {},
+  "humans": {
+    "h_3705811fa4502c": {
+      "author": "TautCony <i@tautcony.xyz>"
+    }
+  }
+}
