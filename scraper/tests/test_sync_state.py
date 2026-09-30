@@ -677,6 +677,29 @@ class TestTransientMissingIsRetryable:
         assert ctx.unavailable == []
 
 
+class TestSaveDataTimestamps:
+    def test_unchanged_product_json_keeps_meta_timestamp(self, cfg, monkeypatch) -> None:
+        import scraper.cli as cli_module
+
+        moments = iter(("2026-09-30T10:00:00+08:00", "2026-09-30T11:00:00+08:00",
+                        "2026-09-30T12:00:00+08:00"))
+        monkeypatch.setattr(cli_module, "now_iso", lambda: next(moments))
+        with SyncContext(cfg, use_archive=False) as ctx:
+            ctx.save_data()
+            path = cfg.data_dir / "notes.json"
+            first_bytes = path.read_bytes()
+            first_updated = json.loads(first_bytes)["_meta"]["updatedAt"]
+
+            ctx.save_data()
+            assert path.read_bytes() == first_bytes
+            assert json.loads(path.read_text(encoding="utf-8"))["_meta"]["updatedAt"] == first_updated
+
+            ctx.structure.meta["description"] = "changed"
+            ctx.save_data()
+            structure = json.loads((cfg.data_dir / "structure.json").read_text(encoding="utf-8"))
+            assert structure["_meta"]["updatedAt"] == "2026-09-30T12:00:00+08:00"
+
+
 class TestNoEmitStillPersists:
     """``--no-emit`` 只表示"不渲染站点"，抓到的东西必须照样落盘。
 

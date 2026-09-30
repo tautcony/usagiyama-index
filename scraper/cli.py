@@ -732,44 +732,59 @@ class SyncContext:
         """把中间产物写入 ``data/``（供 ``emit`` 与人工查看）。"""
         cfg = self.cfg
         updated_at = now_iso()
+        changed = False
 
         def stamped(value: Any) -> Any:
             if isinstance(value, dict):
                 return {"_meta": {"updatedAt": updated_at}, **value}
             return value
 
-        write_json(
+        def write_stamped_json(path: Path, value: Any) -> None:
+            nonlocal changed
+            previous = read_json(path, default=None)
+            previous_content = (
+                {key: item for key, item in previous.items() if key != "_meta"}
+                if isinstance(previous, dict) and isinstance(previous.get("_meta"), dict)
+                else previous
+            )
+            if previous is not None and previous_content == value:
+                return
+            write_json(path, stamped(value))
+            changed = True
+
+        write_stamped_json(
             cfg.data_dir / "notes.json",
-            stamped({nid: n.to_dict() for nid, n in sorted(self.notes.items())}),
+            {nid: n.to_dict() for nid, n in sorted(self.notes.items())},
         )
-        write_json(
+        write_stamped_json(
             cfg.data_dir / "albums.json",
-            stamped({aid: a.to_dict() for aid, a in sorted(self.albums.items())}),
+            {aid: a.to_dict() for aid, a in sorted(self.albums.items())},
         )
-        write_json(
+        write_stamped_json(
             cfg.data_dir / "bulletins.json",
-            stamped({bid: b.to_dict() for bid, b in sorted(self.bulletins.items())}),
+            {bid: b.to_dict() for bid, b in sorted(self.bulletins.items())},
         )
-        write_json(cfg.data_dir / "videos.json", stamped([v.to_dict() for v in self.videos]))
-        write_json(cfg.data_dir / "forum.json", stamped([d.to_dict() for d in self.discussions]))
-        write_json(cfg.data_dir / "miniblog.json", stamped([m.to_dict() for m in self.miniblog]))
-        write_json(
+        write_stamped_json(cfg.data_dir / "videos.json", [v.to_dict() for v in self.videos])
+        write_stamped_json(cfg.data_dir / "forum.json", [d.to_dict() for d in self.discussions])
+        write_stamped_json(cfg.data_dir / "miniblog.json", [m.to_dict() for m in self.miniblog])
+        write_stamped_json(
             cfg.data_dir / "external.json",
-            stamped({pid: p.to_dict() for pid, p in sorted(self.external.items())}),
+            {pid: p.to_dict() for pid, p in sorted(self.external.items())},
         )
-        write_json(
+        write_stamped_json(
             cfg.data_dir / "index.json",
-            stamped([g.to_dict() for g in self.index_groups]),
+            [g.to_dict() for g in self.index_groups],
         )
-        write_json(cfg.data_dir / "structure.json", stamped(self.structure.to_dict()))
+        write_stamped_json(cfg.data_dir / "structure.json", self.structure.to_dict())
         write_json(
             cfg.data_dir / "unavailable.json",
             [asdict(record) for record in self.unavailable],
         )
-        write_json(
-            cfg.data_dir / "updated-at.json",
-            {"updatedAt": updated_at, "source": "sync"},
-        )
+        if changed or not (cfg.data_dir / "updated-at.json").exists():
+            write_json(
+                cfg.data_dir / "updated-at.json",
+                {"updatedAt": updated_at, "source": "sync"},
+            )
 
     def build_manifest(self) -> dict[str, Any]:
         """内容级单一事实源。"""

@@ -508,8 +508,6 @@ class SiteEmitter:
                 continue
             anchor = slug_anchor(group.title)
             detail = f"{len(group.entries)} 篇"
-            if group.doulist_url:
-                detail += f" · [豆列]({group.doulist_url})"
             features.append(
                 {
                     "title": group.title,
@@ -611,7 +609,7 @@ class SiteEmitter:
         blocks = [
             frontmatter({"title": "文章索引", "aside": False}),
             "# 文章索引\n",
-            f"共收录 **{len(notes)}** 篇文章，分组沿用原站站长手工编排的索引①/②。\n",
+            f"共收录 **{len(notes)}** 篇文章。\n",
         ]
 
         for group in groups:
@@ -705,9 +703,7 @@ class SiteEmitter:
         blocks = [
             frontmatter({"title": "视频", "aside": False}),
             "# 视频\n",
-            f"共 **{len(videos)}** 条。正片托管在优酷，本站仅归档标题、缩略图与原始链接。\n",
-            "::: info 说明\n豆瓣小站的视频模块只保存缩略图，视频本身存放在外部平台，"
-            "因此无法随本站一起离线保存。\n:::",
+            f"共 **{len(videos)}** 条。"
         ]
         cards: list[str] = []
         for video in videos:
