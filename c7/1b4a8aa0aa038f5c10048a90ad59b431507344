@@ -1,0 +1,36 @@
+scraper/emit.py
+  h_3705811fa4502c 612,706
+docs/index.md
+  s_caca6a0306cbdb::t_cccd077fc1e4e5 4
+docs/notes/index.md
+  s_caca6a0306cbdb::t_3b73516c019fde 9
+docs/videos.md
+  s_caca6a0306cbdb::t_722806ddc63977 9
+scraper/cli.py
+  s_caca6a0306cbdb::t_0704dcfa54adaf 735,742-755,757,759,761,763,765,767-770,772,774,776,778,783-787
+scraper/state/manifest.json
+  s_caca6a0306cbdb::t_ae3b448b727fb0 4
+scraper/tests/test_sync_state.py
+  s_caca6a0306cbdb::t_a58ef009c1aede 680-702
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "c71b4a8aa0aa038f5c10048a90ad59b431507344",
+  "prompts": {},
+  "humans": {
+    "h_3705811fa4502c": {
+      "author": "TautCony <i@tautcony.xyz>"
+    }
+  },
+  "sessions": {
+    "s_caca6a0306cbdb": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0f0c4-f011-7832-9015-a703f68ab538",
+        "model": "unknown"
+      },
+      "human_author": "TautCony <i@tautcony.xyz>"
+    }
+  }
+}
