@@ -1,0 +1,81 @@
+.github/workflows/deploy-docs.yml
+  s_caca6a0306cbdb::t_2cea250e113984 30-40,47-57
+data/progress-report.md
+  s_caca6a0306cbdb::t_28289f405e6ac1 1,4-26,32,41,44,46-47,49
+docs/.vitepress/config.mts
+  s_caca6a0306cbdb::t_d0bb7846e61658 35-44,55-60
+reviews/2026-09-30/fix-checklist.md
+  s_caca6a0306cbdb::t_4b112e1531b2ed 1-309
+scraper/README.md
+  s_caca6a0306cbdb::t_8a21073220e9fe 49-50
+scraper/SCRAPER.md
+  s_caca6a0306cbdb::t_6b5113cde7ebc5 41
+scraper/archive.py
+  s_caca6a0306cbdb::t_7a6746cef90082 30,166-167,225-226,256-257
+scraper/auth.py
+  s_caca6a0306cbdb::t_e519b86db2f6ba 212-213
+scraper/browser.py
+  s_caca6a0306cbdb::t_d18df999453bb6 445-446,453,489-490
+scraper/cli.py
+  s_caca6a0306cbdb::t_33429883d79002 174-187,209-213,217,231,239,250,258-259,319-321,326-330,407-409,459-462,621,839,868-869,940-941,1055-1072,1146-1157,1160-1161,1234-1246,1332-1342,1431-1438,1442-1449,1515-1517,1684-1690,1850-1852,1877,1910,1951-1962,1964-1975,2058-2059,2063,2073-2076,2155,2157,2209
+scraper/emit.py
+  s_caca6a0306cbdb::t_ac198bdf2ba59c 12,18,123,126,179-180,184-202,373,376,407,416,426,445,546-547,552,649,667,770,940,943-947
+scraper/html2md.py
+  s_caca6a0306cbdb::t_f7b6997a5a9dfd 73-76,123-132,170-171
+scraper/http_client.py
+  s_caca6a0306cbdb::t_51d924b573fba0 45-46,54,72-76,245-246,250-258,265-268,273-276,554,591-595,603,638-641,680,717-719,723,866
+scraper/media.py
+  s_caca6a0306cbdb::t_4d29fc2517fb89 41,91,104,106,108,110-115,117,119,253-260,317,326,401,492-493
+scraper/models.py
+  s_caca6a0306cbdb::t_08f27592bef6cb 84-91
+scraper/parsers.py
+  s_caca6a0306cbdb::t_a0bddaac62a6c9 205-210,213,221,223,233-234,252-257,588,600-602,832-838,841-845
+scraper/progress.py
+  s_caca6a0306cbdb::t_2dee778c8d634b 87,99,110,135-138,142,154-159,167-169,172,194-195,204,283-286,338-344,352,355,359-376,506-514,562-568
+scraper/resolver.py
+  s_caca6a0306cbdb::t_8d1ce6eba3d66c 297-298
+scraper/tests/conftest.py
+  s_caca6a0306cbdb::t_800b5f849f49c4 106-113
+scraper/tests/test_browser_fetcher.py
+  s_caca6a0306cbdb::t_cb210f2dee5ff4 22,217,220,224-226
+scraper/tests/test_cli.py
+  s_caca6a0306cbdb::t_42fb2a175246cc 21,85-88,104-129
+scraper/tests/test_comments.py
+  s_caca6a0306cbdb::t_9017084df9a25e 75-83
+scraper/tests/test_emit.py
+  s_caca6a0306cbdb::t_7b6f2e47c11fd6 99-104,360-373,396-405,427-435,518-553
+scraper/tests/test_html2md.py
+  s_caca6a0306cbdb::t_ecb63fd2fa0468 60-86,144-153
+scraper/tests/test_http_client.py
+  s_caca6a0306cbdb::t_242157d76d3244 26,96,574-581,588-630,756-783
+scraper/tests/test_media.py
+  s_caca6a0306cbdb::t_ed573af2721a41 47-52,335,338,426-442
+scraper/tests/test_parsers.py
+  s_caca6a0306cbdb::t_c9faf1ace35317 282-285,547-562,679,682-687
+scraper/tests/test_progress.py
+  s_caca6a0306cbdb::t_0e19e66c22cfea 140,155-181,184-192,403-441,485-524
+scraper/tests/test_sync_state.py
+  s_caca6a0306cbdb::t_532bc1a88dbd57 25-27,30,33,189-314
+scraper/tests/test_transport_guard.py
+  s_caca6a0306cbdb::t_5d76b883b9c226 1-22
+scraper/tests/test_verify.py
+  s_caca6a0306cbdb::t_a8be0e7effcd09 123-146,167-232,244-251,316-323,343-349,516-579
+scraper/verify.py
+  s_caca6a0306cbdb::t_3a6e11c0019c2b 33,90,99-104,137-148,159-179,214,226-236,238,240,257-261,268-272,276-294,306,375,517-531,534-544,547,550-568,570,573,576-635,637-639,641
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "d31bb69ba8cfed1cd1248fad5fc898cda78bf00b",
+  "prompts": {},
+  "sessions": {
+    "s_caca6a0306cbdb": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0f0c4-f011-7832-9015-a703f68ab538",
+        "model": "unknown"
+      },
+      "human_author": "TautCony <i@tautcony.xyz>"
+    }
+  }
+}
