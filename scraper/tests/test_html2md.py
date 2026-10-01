@@ -274,3 +274,8 @@ class TestPlainTextRoundTrip:
 )
 def test_smoke(html: str, expected: str) -> None:
     assert html_to_markdown(html) == expected
+
+
+def test_nested_empty_clear_container_does_not_destroy_pending_nodes():
+    html = '<div class="clear"><span><em></em></span></div><p>正文保留</p>'
+    assert html_to_markdown(html) == '正文保留'

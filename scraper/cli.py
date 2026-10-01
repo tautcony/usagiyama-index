@@ -51,7 +51,7 @@ from .config import (
 )
 from .discover import SiteDiscovery, SiteStructure, enumerate_album_photos
 from .emit import EmitContext, SiteEmitter
-from .http_client import CircuitBreakerOpen, Fetcher, cache_paths, estimate_duration
+from .http_client import CachedResponse, CircuitBreakerOpen, Fetcher, cache_paths, estimate_duration
 from .html2md import unwrap_link2
 from .transport import Transport
 from .index_map import parse_index
@@ -61,6 +61,7 @@ from .links import (
     resolved_link_targets, scan_external_links,
 )
 from .link_policy import classify_external_link
+from .external_recovery import ExternalRecovery, cached_short_destinations, external_image_variants, usable_article
 from .external_articles import (
     detect_capture_access_failure,
     extract_image_sources,
@@ -354,6 +355,10 @@ def build_parser() -> argparse.ArgumentParser:
     p_sync.add_argument(
         "--skip-failed", action="store_true",
         help="external 阶段跳过此前失败的抓取项（包括图片），继续处理其余项目",
+    )
+    p_sync.add_argument(
+        "--external-pages-only", action="store_true",
+        help="external 阶段仅恢复文章页面，暂缓图片抓取",
     )
     p_sync.add_argument("--no-emit", action="store_true", help="只抓取，不生成站点产物")
     p_sync.add_argument(
@@ -2105,11 +2110,21 @@ def stage_external(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
                    recheck_unavailable: bool = False, force: bool = False,
                    skip_domains: set[str] | None = None,
                    skip_failed: bool = False,
-                   concurrency: int = 1) -> StageResult:
-    """抓取分类器标记为文章或短链的外部目标，只保存原始响应，不解析正文。"""
+                   concurrency: int = 1, pages_only: bool = False) -> StageResult:
+    """恢复外部文章与短链，验证正文并保存原始响应，再归档正文图片。"""
     cfg = ctx.cfg
     skip_domains = skip_domains or set()
     links = resolved_link_targets(scan_external_links(cfg.docs_dir), ctx.external_captures)
+    # Resolved short links can disappear from the grouped queue while their
+    # original failed progress keys remain. Finish those keys too, preserving
+    # the old reference and its verified destination.
+    for url, capture in ctx.external_captures.items():
+        if capture.get("fetchStatus") in {"fetched", "resolved_non_article", "resolved_pending_article"}:
+            continue
+        policy = classify_external_link(url)
+        if policy["action"] in {"fetch_article", "resolve"}:
+            links.setdefault(url, {**policy, "domain": capture.get("domain", ""),
+                                   "references": capture.get("references", [])})
     targets = [
         (url, target) for url, target in links.items()
         if target.get("action") in {"fetch_article", "resolve"}
@@ -2131,6 +2146,7 @@ def stage_external(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
     worker_fetchers: list[Any] = []
     worker_media_archives: list[MediaArchive] = []
     worker_lock = threading.Lock()
+    short_destinations = cached_short_destinations(cfg)
 
     def fetcher_for_worker() -> Any:
         if concurrency == 1:
@@ -2203,6 +2219,16 @@ def stage_external(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
                 ctx.progress.mark_unavailable(
                     key_of(target), reason, stage="external", url=url
                 )
+            elif not usable_article(CachedResponse(
+                url, int(record.get("httpStatus") or 200), raw,
+                str(record.get("contentType") or ""), final_url=final_url,
+            )):
+                record["fetchStatus"] = "unparsed"
+                record["failureReason"] = "no_article_body"
+                ctx.save_external_capture(url, record)
+                ctx.progress.mark_failed(
+                    key_of(target), "已缓存 HTML 缺少有效正文", stage="external",
+                )
 
     def handler(target: tuple[str, dict[str, Any]]) -> None:
         url, link = target
@@ -2216,9 +2242,27 @@ def stage_external(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
             "fetchStatus": "failed",
             "parseStatus": "pending",
         }
+        previous = ctx.external_captures.get(url, {})
+        for field in ('archivedImages', 'imageFailures', 'localAlternatives'):
+            if previous.get(field):
+                record[field] = previous[field]
         try:
             fetcher = fetcher_for_worker()
-            response = fetcher.fetch(url, force=force)
+            recovery = ExternalRecovery(cfg, fetcher, short_destinations=short_destinations)
+            try:
+                recovered = recovery.fetch(
+                    url, action=str(link.get("action") or "fetch_article"),
+                    references=link.get("references", []),
+                    force=force or (recheck_unavailable and not cfg.offline),
+                )
+            finally:
+                recovery.close()
+            record.update(recovered.metadata())
+            response = recovered.response
+            if response is None:
+                record["failureDetail"] = "所有抓取路径均失败；详见 recoveryAttempts"
+                ctx.save_external_capture(url, record)
+                raise RuntimeError(record["failureDetail"])
             if link.get("action") == "resolve" and response.from_cache and not response.final_url:
                 # Older cache metadata did not retain redirect destinations.
                 response = fetcher.fetch(url, force=True)
@@ -2236,7 +2280,13 @@ def stage_external(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
             final_policy = classify_external_link(resolved_url)
             record["finalCategory"] = final_policy["category"]
             record["finalAction"] = final_policy["action"]
-            if not response.ok:
+            if recovered.method == "exhausted":
+                record["fetchStatus"] = "http_error" if not response.ok else "unparsed"
+                record["failureDetail"] = "未取得有效文章正文；详见 recoveryAttempts"
+            elif link.get("action") == "resolve" and final_policy["action"] not in {"fetch_article", "resolve"} and resolved_url != url:
+                # Redirect destinations remain useful even if the metadata page is gone.
+                record["fetchStatus"] = "resolved_non_article"
+            elif not response.ok:
                 record["fetchStatus"] = "http_error"
             elif link.get("action") == "resolve" and resolved_url != final_url:
                 record["fetchStatus"] = (
@@ -2271,7 +2321,7 @@ def stage_external(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
                         return
                 except ValueError:
                     pass
-                body_path, _ = cache_paths(cfg, url)
+                body_path, _ = cache_paths(cfg, response.url)
                 record["rawResponse"] = str(body_path.relative_to(cfg.data_dir.parent))
                 access_failure = detect_capture_access_failure(
                     response.content, response.content_type,
@@ -2307,7 +2357,7 @@ def stage_external(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
             targets, handler, key_of, desc="外部文章原始抓取", limit=limit
         )
         image_items: list[tuple[str, str, str, str]] = []
-        for article_url, capture in list(ctx.external_captures.items()):
+        for article_url, capture in (() if pages_only else list(ctx.external_captures.items())):
             if capture.get("fetchStatus") != "fetched":
                 continue
             final_url = str(capture.get("finalUrl") or article_url)
@@ -2341,8 +2391,12 @@ def stage_external(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
             )
             capture = ctx.external_captures.get(article_url, {})
             image_referer = str(capture.get("finalUrl") or article_url)
+            timestamp = str((capture.get("snapshot") or {}).get("timestamp") or "")
+            variants = external_image_variants(image_url, timestamp=timestamp if cfg.archive_enabled else '',
+                                               archive_enabled=cfg.archive_enabled)
             downloaded = media.download(
                 image_url, dest, local_url, referer=image_referer,
+                variants=variants, allow_archive=False,
                 max_bytes=20 * 1024 * 1024,
             )
             if not downloaded.ok:
@@ -2687,6 +2741,7 @@ def cmd_sync(args: argparse.Namespace) -> int:
                     extra["skip_domains"] = skip_domains
                     extra["concurrency"] = args.concurrency
                     extra["skip_failed"] = getattr(args, "skip_failed", False)
+                    extra["pages_only"] = getattr(args, "external_pages_only", False)
                 func(
                     ctx,
                     show_progress=args.progress,

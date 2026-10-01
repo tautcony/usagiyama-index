@@ -25,6 +25,8 @@ class ExternalArticle:
     references: tuple[dict[str, Any], ...]
     adapter: str
     image_map: dict[str, str]
+    snapshot: dict[str, Any] | None = None
+    republication: dict[str, Any] | None = None
 
     @property
     def domain_slug(self) -> str:
@@ -40,12 +42,31 @@ DOMAIN_ADAPTERS: dict[str, tuple[str, ...]] = {
     # Hatena Blog's page shell contains the profile, recent posts and other
     # sidebar modules inside #content. Select the article body directly so the
     # generic density fallback cannot turn that whole shell into an article.
+    "kyotoanimation.co.jp": ("article.blogArticle .content", "article .entry", ".entry-content", ".entry", ".post"),
+    "mantan-web.jp": (".article_text__wrap", ".article-body", ".entry"),
+    "cinema.pia.co.jp": ("#mainNewsMain",),
+    "kansai.pia.co.jp": ("#detail_main_contents",),
+    "ddnavi.com": ("#article_body", ".entry-content", "[itemprop=articleBody]"),
+    "moca-news.net": ("#main-area-article",),
+    "anifav.com": (".mod-editableArea",),
+    "news.qq.com": ("#Cnt-Main-Article-QQ",),
+    "kogyotsushin.com": ("#main",),
+    "excite.co.jp": (".article-body", "#newsBody", "#NewsBody", "#articleBody"),
+    "watch-watcher.xyz": (".text",),
+    "cocolog-nifty.com": (".entry-content",),
+    "hanakotoba.name": ("#content > section:first-of-type article.content",),
+    "anime-recorder.com": ("#ArticleDetail_data", ".entry-content",),
+    "rdm.ne.jp": (".detailin",),
+    "rittor-music.jp": (".detailin",),
+    "blogspot.com": (".post-body",),
+    "weblog.to": (".article-body-inner", ".article-body"),
+    "hatena.ne.jp": (".section", ".entry-content"),
     "hatenablog.jp": (".entry-content.hatenablog-entry", ".entry-content"),
     "hatenablog.com": (".entry-content.hatenablog-entry", ".entry-content"),
     "hatenadiary.org": (".entry-content.hatenablog-entry", ".entry-content"),
     "ameblo.jp": ("#entryBody", ".skin-entryBody", ".articleText", "article"),
-    "fc2.com": (".entry_body", ".entry-body"),
-    "blog.jp": (".article-body-inner", ".article-body", ".entry-content"),
+    "fc2.com": (".entry_body", ".entry-body", ".entry_article", ".mainEntryBody", ".ently_text", ".entry > .index", "#main .entry"),
+    "blog.jp": (".article-body-inner", ".article-body", ".entry-content", ".blogbody"),
     "livedoor.jp": (".article-body-inner", ".article-body", ".blogbody"),
     "livedoor.biz": (".blogbody",),
     "natalie.mu": ("article.NA_article", ".NA_powerpush_body", "article"),
@@ -55,7 +76,7 @@ DOMAIN_ADAPTERS: dict[str, tuple[str, ...]] = {
     "koenokatachi-movie.com": (".news-content", ".news_detail", ".newsDetail"),
     # These official sites currently return a news index for some archived
     # article URLs. Do not let <main> turn the index into the requested article.
-    "anime-eupho.com": (".news-detail", ".news_detail", ".article-body"),
+    "anime-eupho.com": (".newsContentList .content", ".news-detail", ".news_detail", ".article-body"),
     "tamakolovestory.com": (
         "#newsIndexData", ".interview", ".specialContents", "#content"
     ),
@@ -72,6 +93,11 @@ REMOVE_SELECTORS = (
     ".sidebar", ".sidewrapper", ".author-profile", ".article-share",
     ".share-buttons", ".sns-share", ".social-share", ".related-entries",
     ".related-articles", ".recommended-articles", ".news-navigation",
+    "#bookmarkBox", ".news_page", ".fb-comments", ".newsMovies",
+    "#ArticleDetail_data_pertinent", "#ArticleDetail_data_imageList_btn",
+    ".entry_navi", ".pagenav-outer", ".comment_area", ".relate_dl",
+    ".socialicons", ".infoarea", ".posted", ".blogHeader",
+    ".ft", ".vctitle", ".vctab", ".vctool",
     ".sp-navigation", ".sp-footer-navigation", ".sp-sideblock",
 )
 
@@ -99,9 +125,46 @@ def detect_capture_access_failure(
     return None
 
 
+def article_minimum_text(adapter: str) -> int:
+    if adapter == "cocolog-nifty.com":
+        return 20
+    return 40 if adapter.startswith("hatenablog") or adapter == "hatenadiary.org" else 80
+
+
 def _select_body(
-    soup: BeautifulSoup, host: str, path: str = ""
+    soup: BeautifulSoup, host: str, path: str = "", fragment: str = ""
 ) -> tuple[Tag | None, str]:
+    if _host_matches(host, 'kogyotsushin.com') and not re.fullmatch(r'/archives/minitheater/\d{6}/\d+\.php', path):
+        return None, 'kogyotsushin.com'
+    if host in {'rdm.ne.jp', 'rittor-music.jp'} and path.rstrip('/') == '/sound/column/tamacomanu':
+        return soup.select_one('.maincont .listbox'), 'tamacomanu-collection'
+    if host in {'priority1.blog51.fc2.com', 'priority1.blog.fc2.com'} and path == '/blog-category-3.html':
+        return soup.select_one('.primary'), 'fc2-collection'
+    if _host_matches(host, "fc2.com") and (match := re.search(r'/blog-entry-(\d+)\.html', path)):
+        # Some themes reuse .entry_body for every comment. The post's stable
+        # heading ID distinguishes its body from the comment containers.
+        anchor = soup.find(id=match.group(1))
+        if anchor and anchor.parent and "entry" in (anchor.parent.get("class") or []):
+            return anchor.parent, "fc2.com"
+        heading = soup.find(id="e" + match.group(1))
+        if heading:
+            body = heading.find_next("div", class_="entry_body")
+            if body and len(body.get_text(" ", strip=True)) >= 80:
+                return body, "fc2.com"
+        # This theme reuses entry_article for comments outside the post.
+        body = soup.select_one('.entry_container > .entry_article')
+        if body:
+            return body, "fc2.com"
+    if _host_matches(host, "tbs.co.jp"):
+        # News indexes contain several unrelated posts. Only the exact linked
+        # fragment can identify the archived item.
+        anchor = soup.find(id=fragment) if fragment else None
+        if anchor is None:
+            return None, "tbs.co.jp"
+        if path == '/anime/k-on/index-j.html' and fragment == 'bdbox2':
+            return anchor, 'tbs.co.jp'
+        body = anchor if "news_box" in (anchor.get("class") or []) else anchor.find_next_sibling("div", class_="news_title")
+        return (body, "tbs.co.jp") if body else (None, "tbs.co.jp")
     for domain, selectors in DOMAIN_ADAPTERS.items():
         if _host_matches(host, domain):
             # FC2 category/archive pages contain many .entry_body elements.
@@ -113,7 +176,7 @@ def _select_body(
                 # Publisher-specific selectors already isolate the article
                 # body, so a short post can still be valid. Keep the higher
                 # floor for generic page-wide heuristics below.
-                minimum_text = 40 if domain.startswith("hatenablog") or domain == "hatenadiary.org" else 80
+                minimum_text = article_minimum_text(domain)
                 nodes = [
                     candidate for candidate in soup.select(selector)
                     if len(candidate.get_text(" ", strip=True)) >= minimum_text
@@ -178,6 +241,7 @@ def parse_capture(url: str, capture: dict[str, Any], workspace: Path) -> Externa
     for selector, attr in (
         ("meta[property='og:title']", "content"),
         ("meta[name='twitter:title']", "content"),
+        ("article.blogArticle .blogTitle h3", None),
         ("h1", None),
         ("title", None),
     ):
@@ -186,9 +250,11 @@ def parse_capture(url: str, capture: dict[str, Any], workspace: Path) -> Externa
         if candidate.strip():
             title = re.sub(r"\s+", " ", candidate).strip()
             break
-    body, adapter = _select_body(soup, host, urlparse(final_url).path)
+    body, adapter = _select_body(soup, host, urlparse(final_url).path, urlparse(final_url).fragment)
     if body is None:
         return None
+    if adapter == "tbs.co.jp" and (heading := body.find("h3")):
+        title = heading.get_text(" ", strip=True)
     image_map = {
         str(source): str(local)
         for source, local in (capture.get("archivedImages") or {}).items()
@@ -210,7 +276,7 @@ def parse_capture(url: str, capture: dict[str, Any], workspace: Path) -> Externa
             image.attrs.pop("data-original", None)
     _strip_site_extras(body, host)
     text = body.get_text(" ", strip=True)
-    minimum_text = 40 if adapter.startswith("hatenablog") or adapter == "hatenadiary.org" else 80
+    minimum_text = article_minimum_text(adapter)
     if len(text) < minimum_text or re.search(r"(?i)domain (?:has )?expired|404 not found|page not found", text[:500]):
         return None
     page_id = hashlib.sha256(url.encode("utf-8")).hexdigest()[:20]
@@ -234,6 +300,8 @@ def parse_capture(url: str, capture: dict[str, Any], workspace: Path) -> Externa
         references=tuple(references),
         adapter=adapter,
         image_map=image_map,
+        snapshot=capture.get("snapshot"),
+        republication=capture.get("republication"),
     )
 
 
@@ -253,7 +321,7 @@ def extract_image_sources(
     final_url = str(capture.get("finalUrl") or url)
     host = (urlparse(final_url).hostname or urlparse(url).hostname or "").lower()
     soup = BeautifulSoup(decode_html(raw, str(capture.get("contentType", ""))), "lxml")
-    body, _ = _select_body(soup, host, urlparse(final_url).path)
+    body, _ = _select_body(soup, host, urlparse(final_url).path, urlparse(final_url).fragment)
     if body is None:
         return []
     _strip_site_extras(body, host)

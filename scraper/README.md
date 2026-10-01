@@ -47,6 +47,7 @@ uv run python -m scraper.cli <子命令> [参数]
 | `--force` | 全站忽略进度并重新请求页面；联网时跳过 HTTP 响应缓存 |
 | `--full-check-note NOTE_ID` | 全量检查指定豆瓣日记；可重复传入多个 ID |
 | `--recheck-unavailable` | 重新探测此前标记为不可访问的页面 |
+| `--external-pages-only` | external 阶段只恢复页面，暂缓图片，可随后续抓 |
 | `--no-emit` | 只抓取，不生成站点 |
 | `--progress` / `--no-progress` | 显示 / 隐藏进度条 |
 
@@ -64,6 +65,18 @@ uv run python -m scraper.cli sync --stages external --concurrency 3 --i-have-rea
 ```
 
 确认小批次结果后可去掉 `--limit 2` 续跑。符合文章条件的页面原始 HTML 保存在 `scraper/state/cache/`，抓取元数据在 `data/external-captures.json`；短链会读取重定向最终地址并重新分类。`metadata`、`review` 和 `skip` 不会进入该阶段。正文提取、评论、媒体处理由后续解析阶段负责。
+
+外链失败恢复会依次检查保留文章 ID 的发布站迁移地址、HTTPS 地址、浏览器与 HTTP 传输。通过正文选择器和错误页检查后才记为成功；HTTP 200 的密码页、空壳页不会作为文章。
+
+启用 `--archive` 时，外链阶段通过 Internet Archive 的 availability 接口查询公开历史快照，再获取 `id_` 原始响应。查询接口漏报时会直接请求邻近快照回放，并以最终重定向地址中的真实时间戳为准。该路径独立于小站阶段的 CDX 补足，因此 CDX 暂时不可用时仍可恢复外链。快照图片优先取同一时期的 `im_` 响应。每次尝试的地址、状态、失败原因及成功来源保存在 `external-captures.json` 的 `recoveryAttempts`、`captureUrl`、`snapshot`；生成页明确展示历史快照日期。失效短链还会从已缓存的豆瓣源页面提取明确的展开地址，并记录证据文件；存在冲突或只有文字线索时不会猜测地址。
+
+```sh
+uv run python -m scraper.cli sync --stages external --archive --recheck-unavailable --i-have-read-robots
+```
+
+京阿尼 2020 年改版后的日记重新分配了文章 ID，不能把旧 `?p=ID` 直接替换为 `/diary/archives/ID`。旧文章从原地址的历史快照恢复，避免归档同号的另一篇文章。纯离线运行不会查询恢复接口或改写进度。
+
+对已核实的官方转载，抓取器要求转载正文明确引用原地址，并在生成页标注“官方转载”。动态排行榜只在原引用明确对应已核实的历史周榜时恢复到该周页面，不把今天的排行当成历史内容。原文不可得但已有译文或摘译时，外链索引另列可读版本，保留原链接失败状态。
 
 `--skip-domain` 可重复指定；域名本身及其子域名都会跳过。跳过只对本次运行生效，不会把目标写成永久完成，移除参数后仍可续抓。
 `--skip-failed` 仅影响本次 external 阶段的失败项选择；失败状态保留在进度记录中，去掉参数后仍可重试。它同时适用于文章原始抓取和图片抓取。

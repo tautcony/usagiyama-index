@@ -550,6 +550,20 @@ class SiteEmitter:
                 "archivedAt": self._archived_at(output_path),
             }),
         ]
+        if article.snapshot:
+            snapshot = article.snapshot
+            blocks.append(
+                "::: info 历史快照\n"
+                f"正文来自 Internet Archive [{snapshot.get('date', '')} 快照]"
+                f"({snapshot.get('waybackUrl', '')})。\n:::"
+            )
+        if article.republication:
+            republication = article.republication
+            blocks.append(
+                "::: info 官方转载\n"
+                f"原链接失效，正文取自 [{republication.get('label', '官方转载页')}]"
+                f"({republication.get('url', '')})；该页面明确引用原链接。\n:::"
+            )
         references = list(article.references)
         if references:
             rendered = []

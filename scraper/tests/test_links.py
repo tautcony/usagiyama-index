@@ -73,3 +73,19 @@ def test_short_link_to_article_uses_target_domain_and_keeps_provenance() -> None
     assert result[actual]["domain"] == "ameblo.jp"
     assert result[actual]["action"] == "fetch_article"
     assert result[actual]["resolvedFrom"] == [{"url": short, "references": [reference]}]
+
+
+def test_failed_original_keeps_explicit_translation_alternative(cfg, monkeypatch):
+    from scraper.links import emit_links_index
+    url = 'https://example.com/article/lost'
+    captures = {url: {'fetchStatus': 'http_error', 'localAlternatives': [
+        {'kind': '已归档译文', 'title': '本地译文', 'route': '/notes/1'}
+    ]}}
+    monkeypatch.setattr('scraper.links.scan_external_links', lambda _: {
+        url: {'requestedUrl': url, 'domain': 'example.com', 'action': 'fetch_article', 'category': '文章', 'references': []}
+    })
+    emit_links_index(cfg, captures=captures)
+    text = (cfg.docs_dir / 'links/index.md').read_text()
+    assert '原链接尚不可恢复' in text
+    assert '[本地译文](/notes/1)' in text
+    assert captures[url]['fetchStatus'] == 'http_error'

@@ -825,7 +825,7 @@ export const sidebar: DefaultTheme.Sidebar = {
           "link": "/external/"
         },
         {
-          "text": "外部文章（125）",
+          "text": "外部文章（250）",
           "link": "/external-articles/"
         },
         {

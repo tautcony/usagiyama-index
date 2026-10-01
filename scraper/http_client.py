@@ -31,6 +31,7 @@ import hashlib
 import json
 import logging
 import random
+import re
 import threading
 import time
 from dataclasses import dataclass, field
@@ -361,9 +362,16 @@ class RawResponse:
 def decode_html(content: bytes, content_type: str = "") -> str:
     """按 content-type 的 charset 解码，缺省 utf-8，失败则替换。"""
     charset = "utf-8"
-    lowered = (content_type or "").lower()
-    if "charset=" in lowered:
-        charset = lowered.split("charset=", 1)[1].split(";")[0].strip() or "utf-8"
+    header = re.search(r"charset\s*=\s*[\"']?([a-zA-Z0-9_.-]+)", content_type or "", re.I)
+    if header:
+        charset = header.group(1)
+    else:
+        # Historical Japanese pages often omit the HTTP charset and declare
+        # Shift_JIS, EUC-JP or ISO-2022-JP only in HTML. Browser DOM captures
+        # explicitly declare UTF-8, so the header must take precedence.
+        meta = re.search(rb"<meta\b[^>]*charset\s*=\s*[\"']?([a-zA-Z0-9_.-]+)", content[:8192], re.I)
+        if meta:
+            charset = meta.group(1).decode("ascii")
     try:
         return content.decode(charset, errors="replace")
     except LookupError:

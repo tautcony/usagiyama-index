@@ -1,0 +1,675 @@
+{
+  "date": "2026-10-01",
+  "baselineFailureCount": 125,
+  "initialFailuresNow": {
+    "fetched": 98,
+    "http_error": 6,
+    "resolved_non_article": 20,
+    "resolved_pending_article": 1
+  },
+  "parsedCaptureCount": 250,
+  "newImageFiles": 694,
+  "imageFiles": 2059,
+  "publicArchiveChecks": {
+    "commoncrawlAPI": [
+      {
+        "url": "http://anifav.com/topics/20140719_3734.html",
+        "index": "CC-MAIN-2014-35",
+        "endpoint": "https://index.commoncrawl.org/CC-MAIN-2014-35-index?url=http%3A%2F%2Fanifav.com%2Ftopics%2F20140719_3734.html&output=json&filter=status%3A200",
+        "error": "HTTP Error 503: Service Temporarily Unavailable"
+      },
+      {
+        "url": "http://ameblo.jp/nekokanekoneko/entry-11848710846.html",
+        "index": "CC-MAIN-2014-23",
+        "endpoint": "https://index.commoncrawl.org/CC-MAIN-2014-23-index?url=http%3A%2F%2Fameblo.jp%2Fnekokanekoneko%2Fentry-11848710846.html&output=json&filter=status%3A200",
+        "error": "HTTP Error 504: Gateway Time-out"
+      },
+      {
+        "url": "http://keisukeyuki.blogspot.com/2014/05/blog-post.html",
+        "index": "CC-MAIN-2014-35",
+        "endpoint": "https://index.commoncrawl.org/CC-MAIN-2014-35-index?url=http%3A%2F%2Fkeisukeyuki.blogspot.com%2F2014%2F05%2Fblog-post.html&output=json&filter=status%3A200",
+        "error": "HTTP Error 504: Gateway Time-out"
+      },
+      {
+        "url": "http://houtaruu.weblog.to/archives/6879881.html",
+        "index": "CC-MAIN-2016-40",
+        "endpoint": "https://index.commoncrawl.org/CC-MAIN-2016-40-index?url=http%3A%2F%2Fhoutaruu.weblog.to%2Farchives%2F6879881.html&output=json&filter=status%3A200",
+        "error": "HTTP Error 503: Service Temporarily Unavailable"
+      },
+      {
+        "url": "http://houtaruu.weblog.to/archives/7271602.html",
+        "index": "CC-MAIN-2016-50",
+        "endpoint": "https://index.commoncrawl.org/CC-MAIN-2016-50-index?url=http%3A%2F%2Fhoutaruu.weblog.to%2Farchives%2F7271602.html&output=json&filter=status%3A200",
+        "error": "HTTP Error 503: Service Temporarily Unavailable"
+      },
+      {
+        "url": "http://www.asahi.com/articles/DA3S12553913.html",
+        "index": "CC-MAIN-2016-40",
+        "endpoint": "https://index.commoncrawl.org/CC-MAIN-2016-40-index?url=http%3A%2F%2Fwww.asahi.com%2Farticles%2FDA3S12553913.html&output=json&filter=status%3A200",
+        "error": "HTTP Error 503: Service Temporarily Unavailable"
+      }
+    ],
+    "commoncrawlRawIndex": [
+      {
+        "crawl": "CC-MAIN-2014-42",
+        "surtKey": "com,anifav)/topics/20140719_3734.html",
+        "indexFile": "https://data.commoncrawl.org/cc-index/collections/CC-MAIN-2014-42/indexes/cdx-00014.gz",
+        "offset": 165395398,
+        "length": 181470,
+        "hits": [],
+        "recordsChecked": 3000
+      },
+      {
+        "crawl": "CC-MAIN-2014-42",
+        "surtKey": "jp,ameblo)/nekokanekoneko/entry-11848710846.html",
+        "indexFile": "https://data.commoncrawl.org/cc-index/collections/CC-MAIN-2014-42/indexes/cdx-00250.gz",
+        "offset": 153252113,
+        "length": 184034,
+        "hits": [],
+        "recordsChecked": 3000
+      },
+      {
+        "crawl": "CC-MAIN-2014-42",
+        "surtKey": "com,blogspot,keisukeyuki)/2014/05/blog-post.html",
+        "indexFile": "https://data.commoncrawl.org/cc-index/collections/CC-MAIN-2014-42/indexes/cdx-00030.gz",
+        "offset": 454840093,
+        "length": 188397,
+        "hits": [],
+        "recordsChecked": 3000
+      },
+      {
+        "crawl": "CC-MAIN-2016-40",
+        "surtKey": "to,weblog,houtaruu)/archives/6879881.html",
+        "indexFile": "https://data.commoncrawl.org/cc-index/collections/CC-MAIN-2016-40/indexes/cdx-00291.gz",
+        "offset": 367524787,
+        "length": 179320,
+        "hits": [],
+        "recordsChecked": 3000
+      },
+      {
+        "crawl": "CC-MAIN-2016-40",
+        "surtKey": "to,weblog,houtaruu)/archives/7271602.html",
+        "indexFile": "https://data.commoncrawl.org/cc-index/collections/CC-MAIN-2016-40/indexes/cdx-00291.gz",
+        "offset": 367524787,
+        "length": 179320,
+        "hits": [],
+        "recordsChecked": 3000
+      },
+      {
+        "crawl": "CC-MAIN-2016-40",
+        "surtKey": "com,asahi)/articles/da3s12553913.html",
+        "indexFile": "https://data.commoncrawl.org/cc-index/collections/CC-MAIN-2016-40/indexes/cdx-00020.gz",
+        "offset": 213774219,
+        "length": 189840,
+        "hits": [],
+        "recordsChecked": 3000
+      }
+    ],
+    "arquivoPT": [
+      {
+        "url": "http://ameblo.jp/nekokanekoneko/entry-11848710846.html",
+        "endpoint": "https://arquivo.pt/textsearch?versionHistory=http%3A%2F%2Fameblo.jp%2Fnekokanekoneko%2Fentry-11848710846.html&maxItems=3",
+        "results": {
+          "serviceName": "Arquivo.pt - the Portuguese web-archive",
+          "linkToService": "https://arquivo.pt",
+          "next_page": "https://arquivo.pt/textsearch?versionHistory=http%3A%2F%2Fameblo.jp%2Fnekokanekoneko%2Fentry-11848710846.html&maxItems=3&offset=3",
+          "estimated_nr_results": 0,
+          "response_items": []
+        }
+      },
+      {
+        "url": "http://houtaruu.weblog.to/archives/6879881.html",
+        "endpoint": "https://arquivo.pt/textsearch?versionHistory=http%3A%2F%2Fhoutaruu.weblog.to%2Farchives%2F6879881.html&maxItems=3",
+        "results": {
+          "serviceName": "Arquivo.pt - the Portuguese web-archive",
+          "linkToService": "https://arquivo.pt",
+          "next_page": "https://arquivo.pt/textsearch?versionHistory=http%3A%2F%2Fhoutaruu.weblog.to%2Farchives%2F6879881.html&maxItems=3&offset=3",
+          "estimated_nr_results": 0,
+          "response_items": []
+        }
+      },
+      {
+        "url": "http://houtaruu.weblog.to/archives/7271602.html",
+        "endpoint": "https://arquivo.pt/textsearch?versionHistory=http%3A%2F%2Fhoutaruu.weblog.to%2Farchives%2F7271602.html&maxItems=3",
+        "results": {
+          "serviceName": "Arquivo.pt - the Portuguese web-archive",
+          "linkToService": "https://arquivo.pt",
+          "next_page": "https://arquivo.pt/textsearch?versionHistory=http%3A%2F%2Fhoutaruu.weblog.to%2Farchives%2F7271602.html&maxItems=3&offset=3",
+          "estimated_nr_results": 0,
+          "response_items": []
+        }
+      },
+      {
+        "url": "http://keisukeyuki.blogspot.com/2014/05/blog-post.html",
+        "endpoint": "https://arquivo.pt/textsearch?versionHistory=http%3A%2F%2Fkeisukeyuki.blogspot.com%2F2014%2F05%2Fblog-post.html&maxItems=3",
+        "results": {
+          "serviceName": "Arquivo.pt - the Portuguese web-archive",
+          "linkToService": "https://arquivo.pt",
+          "next_page": "https://arquivo.pt/textsearch?versionHistory=http%3A%2F%2Fkeisukeyuki.blogspot.com%2F2014%2F05%2Fblog-post.html&maxItems=3&offset=3",
+          "estimated_nr_results": 0,
+          "response_items": []
+        }
+      },
+      {
+        "url": "http://www.asahi.com/articles/DA3S12553913.html",
+        "endpoint": "https://arquivo.pt/textsearch?versionHistory=http%3A%2F%2Fwww.asahi.com%2Farticles%2FDA3S12553913.html&maxItems=3",
+        "results": {
+          "serviceName": "Arquivo.pt - the Portuguese web-archive",
+          "linkToService": "https://arquivo.pt",
+          "next_page": "https://arquivo.pt/textsearch?versionHistory=http%3A%2F%2Fwww.asahi.com%2Farticles%2FDA3S12553913.html&maxItems=3&offset=3",
+          "estimated_nr_results": 0,
+          "response_items": []
+        }
+      }
+    ]
+  },
+  "remaining": [
+    {
+      "url": "http://ameblo.jp/nekokanekoneko/entry-11848710846.html",
+      "fetchStatus": "http_error",
+      "localAlternatives": [
+        {
+          "kind": "已归档关联照片（原文未恢复）",
+          "title": "原相册保留的四张博客照片",
+          "route": "/albums/13433748#photo-2183077792"
+        }
+      ],
+      "attempts": [
+        {
+          "url": "https://ameblo.jp/nekokanekoneko/entry-11848710846.html",
+          "transport": "primary",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://ameblo.jp/nekokanekoneko/entry-11848710846.html",
+          "transport": "http",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "http://ameblo.jp/nekokanekoneko/entry-11848710846.html",
+          "transport": "primary",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "http://ameblo.jp/nekokanekoneko/entry-11848710846.html",
+          "transport": "http",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://archive.org/wayback/available?url=http%3A%2F%2Fameblo.jp%2Fnekokanekoneko%2Fentry-11848710846.html",
+          "result": "no_snapshot"
+        },
+        {
+          "url": "https://archive.org/wayback/available?url=https%3A%2F%2Fameblo.jp%2Fnekokanekoneko%2Fentry-11848710846.html",
+          "result": "no_snapshot"
+        },
+        {
+          "url": "https://web.archive.org/web/20180101000000id_/http://ameblo.jp/nekokanekoneko/entry-11848710846.html",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20180101000000id_/https://ameblo.jp/nekokanekoneko/entry-11848710846.html",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20000101000000id_/http://ameblo.jp/nekokanekoneko/entry-11848710846.html",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20000101000000id_/https://ameblo.jp/nekokanekoneko/entry-11848710846.html",
+          "httpStatus": 404,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "url": "http://anifav.com/topics/20140719_3734.html",
+      "fetchStatus": "unparsed",
+      "localAlternatives": [
+        {
+          "kind": "已归档译文",
+          "title": "兔子山商店街・天使之歌——《玉子爱情故事》试论",
+          "route": "/notes/412701420"
+        }
+      ],
+      "attempts": [
+        {
+          "url": "https://anifav.com/topics/20140719_3734.html",
+          "transport": "primary",
+          "error": "RuntimeError: 缓存未命中（未发起网络请求）"
+        },
+        {
+          "url": "https://anifav.com/topics/20140719_3734.html",
+          "transport": "http",
+          "error": "RuntimeError: 缓存未命中（未发起网络请求）"
+        },
+        {
+          "url": "http://anifav.com/topics/20140719_3734.html",
+          "transport": "primary",
+          "httpStatus": 200,
+          "accepted": false
+        },
+        {
+          "url": "http://anifav.com/topics/20140719_3734.html",
+          "transport": "http",
+          "httpStatus": 200,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20160406232505id_/http://anifav.com:80/topics/20140719_3734.html",
+          "httpStatus": 200,
+          "accepted": false
+        },
+        {
+          "url": "https://archive.org/wayback/available?url=https%3A%2F%2Fanifav.com%2Ftopics%2F20140719_3734.html",
+          "result": "no_snapshot"
+        },
+        {
+          "url": "https://web.archive.org/web/20140719000000id_/http://anifav.com/topics/20140719_3734.html",
+          "httpStatus": 200,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20140719000000id_/https://anifav.com/topics/20140719_3734.html",
+          "httpStatus": 200,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20000101000000id_/http://anifav.com/topics/20140719_3734.html",
+          "httpStatus": 200,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20000101000000id_/https://anifav.com/topics/20140719_3734.html",
+          "httpStatus": 200,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20140719000000id_/http://anifav.com/topics/20140719_3734.html",
+          "httpStatus": 200,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20160406232505id_/http://anifav.com:80/topics/20140719_3734.html",
+          "httpStatus": 200,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20000101000000id_/https://anifav.com/topics/20140719_3734.html",
+          "httpStatus": 200,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20140719000000id_/https://anifav.com/topics/20140719_3734.html",
+          "httpStatus": 200,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20000101000000id_/http://anifav.com/topics/20140719_3734.html",
+          "httpStatus": 200,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "url": "http://houtaruu.weblog.to/archives/6879881.html",
+      "fetchStatus": "http_error",
+      "localAlternatives": [
+        {
+          "kind": "已归档译文",
+          "title": "《剧场版 吹响悠风号》特别上映见面会报告",
+          "route": "/notes/580950328"
+        }
+      ],
+      "attempts": [
+        {
+          "url": "https://houtaruu.weblog.to/archives/6879881.html",
+          "transport": "primary",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://houtaruu.weblog.to/archives/6879881.html",
+          "transport": "http",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "http://houtaruu.weblog.to/archives/6879881.html",
+          "transport": "primary",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "http://houtaruu.weblog.to/archives/6879881.html",
+          "transport": "http",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://archive.org/wayback/available?url=http%3A%2F%2Fhoutaruu.weblog.to%2Farchives%2F6879881.html",
+          "result": "no_snapshot"
+        },
+        {
+          "url": "https://archive.org/wayback/available?url=https%3A%2F%2Fhoutaruu.weblog.to%2Farchives%2F6879881.html",
+          "result": "no_snapshot"
+        },
+        {
+          "url": "https://web.archive.org/web/20180101000000id_/http://houtaruu.weblog.to/archives/6879881.html",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20180101000000id_/https://houtaruu.weblog.to/archives/6879881.html",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20000101000000id_/http://houtaruu.weblog.to/archives/6879881.html",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20000101000000id_/https://houtaruu.weblog.to/archives/6879881.html",
+          "httpStatus": 404,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "url": "http://houtaruu.weblog.to/archives/7271602.html",
+      "fetchStatus": "http_error",
+      "localAlternatives": [
+        {
+          "kind": "已归档摘译（含多篇报告，不能替代单篇原文）",
+          "title": "电影《聲之形》首映见面会报告摘要汇总",
+          "route": "/notes/583976644"
+        }
+      ],
+      "attempts": [
+        {
+          "url": "https://houtaruu.weblog.to/archives/7271602.html",
+          "transport": "primary",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://houtaruu.weblog.to/archives/7271602.html",
+          "transport": "http",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "http://houtaruu.weblog.to/archives/7271602.html",
+          "transport": "primary",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "http://houtaruu.weblog.to/archives/7271602.html",
+          "transport": "http",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://archive.org/wayback/available?url=http%3A%2F%2Fhoutaruu.weblog.to%2Farchives%2F7271602.html",
+          "result": "no_snapshot"
+        },
+        {
+          "url": "https://archive.org/wayback/available?url=https%3A%2F%2Fhoutaruu.weblog.to%2Farchives%2F7271602.html",
+          "result": "no_snapshot"
+        },
+        {
+          "url": "https://web.archive.org/web/20180101000000id_/http://houtaruu.weblog.to/archives/7271602.html",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20180101000000id_/https://houtaruu.weblog.to/archives/7271602.html",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20000101000000id_/http://houtaruu.weblog.to/archives/7271602.html",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20000101000000id_/https://houtaruu.weblog.to/archives/7271602.html",
+          "httpStatus": 404,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "url": "http://keisukeyuki.blogspot.jp/2014/05/blog-post.html",
+      "fetchStatus": "http_error",
+      "localAlternatives": [],
+      "attempts": [
+        {
+          "url": "https://keisukeyuki.blogspot.com/2014/05/blog-post.html",
+          "transport": "primary",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://keisukeyuki.blogspot.com/2014/05/blog-post.html",
+          "transport": "http",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://keisukeyuki.blogspot.jp/2014/05/blog-post.html",
+          "transport": "primary",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://keisukeyuki.blogspot.jp/2014/05/blog-post.html",
+          "transport": "http",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "http://keisukeyuki.blogspot.jp/2014/05/blog-post.html",
+          "transport": "primary",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "http://keisukeyuki.blogspot.jp/2014/05/blog-post.html",
+          "transport": "http",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://archive.org/wayback/available?url=http%3A%2F%2Fkeisukeyuki.blogspot.jp%2F2014%2F05%2Fblog-post.html",
+          "result": "no_snapshot"
+        },
+        {
+          "url": "https://archive.org/wayback/available?url=https%3A%2F%2Fkeisukeyuki.blogspot.com%2F2014%2F05%2Fblog-post.html",
+          "result": "no_snapshot"
+        },
+        {
+          "url": "https://archive.org/wayback/available?url=https%3A%2F%2Fkeisukeyuki.blogspot.jp%2F2014%2F05%2Fblog-post.html",
+          "result": "no_snapshot"
+        },
+        {
+          "url": "https://archive.org/wayback/available?url=http%3A%2F%2Fkeisukeyuki.blogspot.com%2F2014%2F05%2Fblog-post.html",
+          "result": "no_snapshot"
+        },
+        {
+          "url": "https://web.archive.org/web/20180101000000id_/http://keisukeyuki.blogspot.jp/2014/05/blog-post.html",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20180101000000id_/https://keisukeyuki.blogspot.com/2014/05/blog-post.html",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20000101000000id_/http://keisukeyuki.blogspot.jp/2014/05/blog-post.html",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20000101000000id_/https://keisukeyuki.blogspot.com/2014/05/blog-post.html",
+          "httpStatus": 404,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "url": "http://www.asahi.com/articles/DA3S12553913.html",
+      "fetchStatus": "http_error",
+      "localAlternatives": [
+        {
+          "kind": "已归档译文",
+          "title": "“约定”的手语，在缠绕的手指中展现“表情”",
+          "route": "/notes/581373515"
+        }
+      ],
+      "attempts": [
+        {
+          "url": "https://www.asahi.com/articles/DA3S12553913.html",
+          "transport": "primary",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://www.asahi.com/articles/DA3S12553913.html",
+          "transport": "http",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "http://www.asahi.com/articles/DA3S12553913.html",
+          "transport": "primary",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "http://www.asahi.com/articles/DA3S12553913.html",
+          "transport": "http",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20210820124803id_/https://www.asahi.com/articles/DA3S12553913.html",
+          "httpStatus": 200,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20210820124803id_/https://www.asahi.com/articles/DA3S12553913.html",
+          "httpStatus": 200,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20150623034110id_/http://www.asahi.com/notfound/notfound.htm",
+          "httpStatus": 200,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20180101000000id_/http://www.asahi.com/articles/DA3S12553913.html",
+          "httpStatus": 200,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20180101000000id_/https://www.asahi.com/articles/DA3S12553913.html",
+          "httpStatus": 200,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20000101000000id_/http://www.asahi.com/articles/DA3S12553913.html",
+          "httpStatus": 200,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20000101000000id_/https://www.asahi.com/articles/DA3S12553913.html",
+          "httpStatus": 200,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20000101000000id_/http://www.asahi.com/articles/DA3S12553913.html",
+          "httpStatus": 200,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20180101000000id_/https://www.asahi.com/articles/DA3S12553913.html",
+          "httpStatus": 200,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20000101000000id_/https://www.asahi.com/articles/DA3S12553913.html",
+          "httpStatus": 200,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20180101000000id_/http://www.asahi.com/articles/DA3S12553913.html",
+          "httpStatus": 200,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20210820124803id_/https://www.asahi.com/articles/DA3S12553913.html",
+          "httpStatus": 200,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "url": "https://douc.cc/3T9jc2",
+      "fetchStatus": "http_error",
+      "localAlternatives": [
+        {
+          "kind": "同一公告的官方资料（短链原地址未确认）",
+          "title": "「けいおん!!」Blu-ray BOX，2014年11月19日发行",
+          "route": "/external-articles/www.tbs.co.jp/c7dffbdeb585a2b19181"
+        }
+      ],
+      "attempts": [
+        {
+          "url": "https://douc.cc/3T9jc2",
+          "transport": "primary",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://douc.cc/3T9jc2",
+          "transport": "http",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://archive.org/wayback/available?url=https%3A%2F%2Fdouc.cc%2F3T9jc2",
+          "result": "no_snapshot"
+        },
+        {
+          "url": "https://archive.org/wayback/available?url=http%3A%2F%2Fdou.bz%2F3T9jc2",
+          "result": "no_snapshot"
+        },
+        {
+          "url": "https://archive.org/wayback/available?url=http%3A%2F%2Fdouc.cc%2F3T9jc2",
+          "result": "no_snapshot"
+        },
+        {
+          "url": "https://web.archive.org/web/20180101000000id_/http://dou.bz/3T9jc2",
+          "httpStatus": 404,
+          "accepted": false
+        },
+        {
+          "url": "https://web.archive.org/web/20000101000000id_/http://dou.bz/3T9jc2",
+          "httpStatus": 404,
+          "accepted": false
+        }
+      ]
+    }
+  ]
+}

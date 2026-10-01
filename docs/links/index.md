@@ -6,9 +6,9 @@ aside: false
 # 外部链接索引
 
 
-共登记 810 个 URL，按域名和类型分类；引用位置指向使用该链接的本地页面。
+共登记 735 个 URL，按域名和类型分类；引用位置指向使用该链接的本地页面。
 
-类型统计：其他网页（文章 / 官网 / 博客） 330；回链服务端点 1；图片 / 全景资料链接 9；百科资料 30；短链接 17；社交帖子 / 个人主页 25；视频平台 130；豆列 6；豆瓣作品 / 人物 / 搜索 75；豆瓣其他页面 179；豆瓣日记 / 话题 2；音乐平台 6。
+类型统计：其他网页（文章 / 官网 / 博客） 266；回链服务端点 1；图片 / 全景资料链接 9；百科资料 30；短链接 2；社交帖子 / 个人主页 29；视频平台 130；豆列 6；豆瓣作品 / 人物 / 搜索 75；豆瓣其他页面 179；豆瓣日记 / 话题 2；音乐平台 6。
 
 自动队列只收 `fetch_article` 与 `resolve`；`metadata` 仅登记，`review` 等待判定，`skip` 禁止请求。
 
@@ -53,10 +53,10 @@ aside: false
   - 使用来源：[☆ 轻音 · 公告栏](/rooms/2794136#widget-13432819) · 第 44 行
 - [http://ameblo.jp/marjoram-nail/entry-11954282533.html](/external-articles/ameblo.jp/739070d2e9bd44416a13) · [原站](http://ameblo.jp/marjoram-nail/entry-11954282533.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/2St1gh](https://douc.cc/2St1gh)；来自：[广播室 · 第 43 页](/broadcast/page/43) · 第 28 行
-- [http://ameblo.jp/nekokanekoneko/entry-11847828802.html](http://ameblo.jp/nekokanekoneko/entry-11847828802.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://ameblo.jp/nekokanekoneko/entry-11847828802.html](/external-articles/ameblo.jp/334e23a40d5e2b72bdf1) · [原站](http://ameblo.jp/nekokanekoneko/entry-11847828802.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/1jLuHq](https://douc.cc/1jLuHq)；来自：[广播室 · 第 63 页](/broadcast/page/63) · 第 14 行
-  - 使用来源：[幕后&周边](/albums/13433748) · 第 81 行
 - [http://ameblo.jp/nekokanekoneko/entry-11848710846.html](http://ameblo.jp/nekokanekoneko/entry-11848710846.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+  - 原链接尚不可恢复；可读已归档关联照片（原文未恢复）：[原相册保留的四张博客照片](/albums/13433748#photo-2183077792)
   - 解析自 [https://douc.cc/2d88lw](https://douc.cc/2d88lw)；来自：[广播室 · 第 62 页](/broadcast/page/62) · 第 26 行
   - 使用来源：[幕后&周边](/albums/13433748) · 第 77 行
 - [http://ameblo.jp/yuri-yamaoka/entry-11844315181.html?timestamp=1399477239](/external-articles/ameblo.jp/fc9a67794838d425ba14) · [原站](http://ameblo.jp/yuri-yamaoka/entry-11844315181.html?timestamp=1399477239) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
@@ -67,10 +67,11 @@ aside: false
 ## anifav.com
 
 - [http://anifav.com/topics/20140719_3734.html](http://anifav.com/topics/20140719_3734.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+  - 原链接尚不可恢复；可读已归档译文：[兔子山商店街・天使之歌——《玉子爱情故事》试论](/notes/412701420)
   - 解析自 [https://douc.cc/0Xz8hN](https://douc.cc/0Xz8hN)；来自：[广播室 · 第 57 页](/broadcast/page/57) · 第 24 行
   - 使用来源：[广播室 · 第 55 页](/broadcast/page/55) · 第 28 行
   - 使用来源：[兔子山商店街・天使之歌——《玉子爱情故事》试论](/notes/412701420) · 第 11 行
-- [http://anifav.com/topics/20140719_3735.html](http://anifav.com/topics/20140719_3735.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://anifav.com/topics/20140719_3735.html](/external-articles/anifav.com/0dd47089c37750dde0c2) · [原站](http://anifav.com/topics/20140719_3735.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/4tyQLP](https://douc.cc/4tyQLP)；来自：[广播室 · 第 57 页](/broadcast/page/57) · 第 22 行
 
 ## animaru.jp
@@ -102,8 +103,6 @@ aside: false
   - 使用来源：[《吹响悠风号》第一回演出小析](/notes/493628625) · 第 26 行
 - [http://anime-eupho.com/character/chart/](http://anime-eupho.com/character/chart/) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`review`
   - 使用来源：[《吹响悠风号》第三回演出小析](/notes/496259160) · 第 43 行
-- [http://anime-eupho.com/news/?id=53](http://anime-eupho.com/news/?id=53) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[相册](/albums/13431950) · 第 62 行
 - [http://anime-eupho.com/story/01/](http://anime-eupho.com/story/01/) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`review`
   - 解析自 [https://douc.cc/0hLsQZ](https://douc.cc/0hLsQZ)；来自：[广播室 · 第 37 页](/broadcast/page/37) · 第 30 行
   - 解析自 [https://douc.cc/0hLsQZ](https://douc.cc/0hLsQZ)；来自：[广播室 · 第 38 页](/broadcast/page/38) · 第 18 行
@@ -128,7 +127,7 @@ aside: false
 
 ## b.hatena.ne.jp
 
-- [http://b.hatena.ne.jp/articles/201312/17482](http://b.hatena.ne.jp/articles/201312/17482) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://b.hatena.ne.jp/articles/201312/17482](/external-articles/hatenanews.com/2b795a2e03b87a0a1270) · [原站](http://b.hatena.ne.jp/articles/201312/17482) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/2jhVcU](https://douc.cc/2jhVcU)；来自：[广播室 · 第 83 页](/broadcast/page/83) · 第 28 行
 
 ## baike.baidu.com
@@ -165,16 +164,16 @@ aside: false
 
 ## billy106.blog.fc2.com
 
-- [http://billy106.blog.fc2.com/blog-entry-12.html](http://billy106.blog.fc2.com/blog-entry-12.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://billy106.blog.fc2.com/blog-entry-12.html](/external-articles/billy106.blog.fc2.com/fc1feaeece380bb9e9ff) · [原站](http://billy106.blog.fc2.com/blog-entry-12.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/053ccv](https://douc.cc/053ccv)；来自：[广播室 · 第 67 页](/broadcast/page/67) · 第 28 行
 
 ## blog.livedoor.jp
 
-- [http://blog.livedoor.jp/geek/archives/51455776.html](http://blog.livedoor.jp/geek/archives/51455776.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://blog.livedoor.jp/geek/archives/51455776.html](/external-articles/akibablog.blog.jp/05d1afdac1f57d1d1088) · [原站](http://blog.livedoor.jp/geek/archives/51455776.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/2Gym3q](https://douc.cc/2Gym3q)；来自：[广播室 · 第 51 页](/broadcast/page/51) · 第 14 行
-- [http://blog.livedoor.jp/geek/archives/51456007.html](http://blog.livedoor.jp/geek/archives/51456007.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://blog.livedoor.jp/geek/archives/51456007.html](/external-articles/akibablog.blog.jp/7e8d043c531ea5ab41cb) · [原站](http://blog.livedoor.jp/geek/archives/51456007.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/46ywkQ](https://douc.cc/46ywkQ)；来自：[广播室 · 第 48 页](/broadcast/page/48) · 第 14 行
-- [http://blog.livedoor.jp/geek/archives/51506551.html](http://blog.livedoor.jp/geek/archives/51506551.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://blog.livedoor.jp/geek/archives/51506551.html](/external-articles/akibablog.blog.jp/bfec4617331f786cc1df) · [原站](http://blog.livedoor.jp/geek/archives/51506551.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/238Q58](https://douc.cc/238Q58)；来自：[广播室 · 第 31 页](/broadcast/page/31) · 第 32 行
 
 ## blog.sina.com.cn
@@ -239,7 +238,7 @@ aside: false
 
 ## cinema.pia.co.jp
 
-- [http://cinema.pia.co.jp/news/164225/57046/](http://cinema.pia.co.jp/news/164225/57046/) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://cinema.pia.co.jp/news/164225/57046/](/external-articles/cinema.pia.co.jp/0a46bf7d9b9ef2201087) · [原站](http://cinema.pia.co.jp/news/164225/57046/) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/1uaaS8](https://douc.cc/1uaaS8)；来自：[广播室 · 第 70 页](/broadcast/page/70) · 第 16 行
 
 ## cinemacity.co.jp
@@ -249,20 +248,15 @@ aside: false
 
 ## columii.jp
 
-- [http://columii.jp/movie/column/article-841.html](http://columii.jp/movie/column/article-841.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://columii.jp/movie/column/article-841.html](/external-articles/columii.jp/5fe6e734f410423d7c7b) · [原站](http://columii.jp/movie/column/article-841.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/3pqa1m](https://douc.cc/3pqa1m)；来自：[广播室 · 第 23 页](/broadcast/page/23) · 第 22 行
-  - 使用来源：[相册](/albums/190597061) · 第 158 行
 
 ## d.hatena.ne.jp
 
-- [http://d.hatena.ne.jp/SomeCameRunning/touch/20111203](http://d.hatena.ne.jp/SomeCameRunning/touch/20111203) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[☆ 轻音 · 公告栏](/rooms/2794136#widget-13432819) · 第 37 行
-- [http://d.hatena.ne.jp/beaux25/20131203/1386080367](http://d.hatena.ne.jp/beaux25/20131203/1386080367) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://d.hatena.ne.jp/beaux25/20131203/1386080367](/external-articles/labanane92.hatenablog.com/8253caba3ec00bcb9636) · [原站](http://d.hatena.ne.jp/beaux25/20131203/1386080367) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/1XtmXX](https://douc.cc/1XtmXX)；来自：[广播室 · 第 84 页](/broadcast/page/84) · 第 32 行
-- [http://d.hatena.ne.jp/ike_tomo/20140501/1398959756](http://d.hatena.ne.jp/ike_tomo/20140501/1398959756) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://d.hatena.ne.jp/ike_tomo/20140501/1398959756](/external-articles/d.hatena.ne.jp/ed425cbc6b9393904587) · [原站](http://d.hatena.ne.jp/ike_tomo/20140501/1398959756) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/0Tl2BW](https://douc.cc/0Tl2BW)；来自：[广播室 · 第 67 页](/broadcast/page/67) · 第 20 行
-- [http://d.hatena.ne.jp/los_endos/20131201/13859](http://d.hatena.ne.jp/los_endos/20131201/13859) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[相册](/albums/13431950) · 第 124 行
 - [http://d.hatena.ne.jp/los_endos/20131201/1385905981](/external-articles/los-endos.hatenablog.com/4237a6abfc75a954fb96) · [原站](http://d.hatena.ne.jp/los_endos/20131201/1385905981) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/38f1le](https://douc.cc/38f1le)；来自：[广播室 · 第 85 页](/broadcast/page/85) · 第 18 行
 - [http://d.hatena.ne.jp/los_endos/20140420/1398003204](/external-articles/los-endos.hatenablog.com/5620308984340be43771) · [原站](http://d.hatena.ne.jp/los_endos/20140420/1398003204) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
@@ -277,10 +271,8 @@ aside: false
   - 解析自 [https://douc.cc/1R2NDD](https://douc.cc/1R2NDD)；来自：[广播室 · 第 48 页](/broadcast/page/48) · 第 20 行
 - [http://d.hatena.ne.jp/los_endos/20150215/1424009846](/external-articles/los-endos.hatenablog.com/6feb18d5432c1a6d3e9b) · [原站](http://d.hatena.ne.jp/los_endos/20150215/1424009846) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/0oNLii](https://douc.cc/0oNLii)；来自：[广播室 · 第 39 页](/broadcast/page/39) · 第 30 行
-- [http://d.hatena.ne.jp/makaronisan/20140426/1398523055](http://d.hatena.ne.jp/makaronisan/20140426/1398523055) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://d.hatena.ne.jp/makaronisan/20140426/1398523055](/external-articles/makaronisan.hatenablog.com/42de451785c45bdb730c) · [原站](http://d.hatena.ne.jp/makaronisan/20140426/1398523055) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/0ilPva](https://douc.cc/0ilPva)；来自：[广播室 · 第 70 页](/broadcast/page/70) · 第 32 行
-- [http://d.hatena.ne.jp/tatsu2/20120724/p1](http://d.hatena.ne.jp/tatsu2/20120724/p1) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[☆ 悠风 etc. · 公告栏](/rooms/2794117#widget-190150869) · 第 55 行
 - [http://d.hatena.ne.jp/tunderealrovski/20130315/p1](/external-articles/tunderealrovski.hatenadiary.org/7b8ec9cfcb3a2472dbc9) · [原站](http://d.hatena.ne.jp/tunderealrovski/20130315/p1) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/1LyX1P](https://douc.cc/1LyX1P)；来自：[广播室 · 第 86 页](/broadcast/page/86) · 第 24 行
 - [http://d.hatena.ne.jp/ukkah/20131105/p1](/external-articles/ukkah.hatenadiary.org/ef8422ab39dcbb3f6c25) · [原站](http://d.hatena.ne.jp/ukkah/20131105/p1) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
@@ -290,7 +282,7 @@ aside: false
 
 ## ddnavi.com
 
-- [http://ddnavi.com/news/193933/](http://ddnavi.com/news/193933/) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://ddnavi.com/news/193933/](/external-articles/ddnavi.com/e13e8dfc0f794e64594d) · [原站](http://ddnavi.com/news/193933/) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/3aub4M](https://douc.cc/3aub4M)；来自：[广播室 · 第 62 页](/broadcast/page/62) · 第 28 行
 
 ## dic.nicovideo.jp
@@ -303,43 +295,11 @@ aside: false
 - [http://dic.pixiv.net/a/%E3%81%91%E3%81%84%E3%81%8A%E3%82%93!!3%E5%B9%B42%E7%B5%84](http://dic.pixiv.net/a/%E3%81%91%E3%81%84%E3%81%8A%E3%82%93!!3%E5%B9%B42%E7%B5%84) · 百科资料 · 抓取策略：`metadata`
   - 使用来源：[☆ 轻音 · 公告栏](/rooms/2794136#widget-13432819) · 第 43 行
 
-## dou.bz
-
-- [https://dou.bz/0vMqgF](https://dou.bz/0vMqgF) · 短链接 · 抓取策略：`resolve`
-  - 使用来源：[海报墙](/albums/13432051) · 第 15 行
-- [https://dou.bz/0wRXIb](https://dou.bz/0wRXIb) · 短链接 · 抓取策略：`resolve`
-  - 使用来源：[相册](/albums/190597061) · 第 79 行
-- [https://dou.bz/1pDOrE](https://dou.bz/1pDOrE) · 短链接 · 抓取策略：`resolve`
-  - 使用来源：[幕后&周边](/albums/13433748) · 第 21 行
-- [https://dou.bz/1vpgzh](https://dou.bz/1vpgzh) · 短链接 · 抓取策略：`resolve`
-  - 使用来源：[相册](/albums/190597061) · 第 79 行
-- [https://dou.bz/3fRkJT](https://dou.bz/3fRkJT) · 短链接 · 抓取策略：`resolve`
-  - 使用来源：[相册](/albums/190597061) · 第 17 行
-- [https://dou.bz/3yQaKK](https://dou.bz/3yQaKK) · 短链接 · 抓取策略：`resolve`
-  - 使用来源：[海报墙](/albums/13432051) · 第 15 行
-- [https://dou.bz/3ysQT1](https://dou.bz/3ysQT1) · 短链接 · 抓取策略：`resolve`
-  - 使用来源：[海报墙](/albums/13432051) · 第 15 行
-
 ## douc.cc
 
-- [https://douc.cc/0rpuuO](https://douc.cc/0rpuuO) · 短链接 · 抓取策略：`resolve`
-  - 使用来源：[广播室 · 第 84 页](/broadcast/page/84) · 第 16 行
-- [https://douc.cc/0vMqgF](https://douc.cc/0vMqgF) · 短链接 · 抓取策略：`resolve`
-  - 使用来源：[广播室 · 第 25 页](/broadcast/page/25) · 第 16 行
-- [https://douc.cc/1FFTJy](https://douc.cc/1FFTJy) · 短链接 · 抓取策略：`resolve`
-  - 使用来源：[广播室 · 第 36 页](/broadcast/page/36) · 第 24 行
-- [https://douc.cc/1UMqh3](https://douc.cc/1UMqh3) · 短链接 · 抓取策略：`resolve`
-  - 使用来源：[广播室 · 第 50 页](/broadcast/page/50) · 第 32 行
-- [https://douc.cc/2b9fIW](https://douc.cc/2b9fIW) · 短链接 · 抓取策略：`resolve`
-  - 使用来源：[广播室 · 第 77 页](/broadcast/page/77) · 第 20 行
 - [https://douc.cc/3T9jc2](https://douc.cc/3T9jc2) · 短链接 · 抓取策略：`resolve`
+  - 原链接尚不可恢复；可读同一公告的官方资料（短链原地址未确认）：[「けいおん!!」Blu-ray BOX，2014年11月19日发行](/external-articles/www.tbs.co.jp/c7dffbdeb585a2b19181)
   - 使用来源：[广播室 · 第 57 页](/broadcast/page/57) · 第 14 行
-- [https://douc.cc/3WxegX](https://douc.cc/3WxegX) · 短链接 · 抓取策略：`resolve`
-  - 使用来源：[广播室 · 第 56 页](/broadcast/page/56) · 第 26 行
-- [https://douc.cc/3vicON](https://douc.cc/3vicON) · 短链接 · 抓取策略：`resolve`
-  - 使用来源：[广播室 · 第 54 页](/broadcast/page/54) · 第 14 行
-- [https://douc.cc/3yQaKK](https://douc.cc/3yQaKK) · 短链接 · 抓取策略：`resolve`
-  - 使用来源：[广播室 · 第 25 页](/broadcast/page/25) · 第 16 行
 
 ## eco.mtk.nao.ac.jp
 
@@ -359,7 +319,7 @@ aside: false
 
 ## gensoutoshi.blog96.fc2.com
 
-- [http://gensoutoshi.blog96.fc2.com/blog-entry-305.html](http://gensoutoshi.blog96.fc2.com/blog-entry-305.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://gensoutoshi.blog96.fc2.com/blog-entry-305.html](/external-articles/gensoutoshi.blog96.fc2.com/1e920e923059c5a4afe9) · [原站](http://gensoutoshi.blog96.fc2.com/blog-entry-305.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/47UF7v](https://douc.cc/47UF7v)；来自：[广播室 · 第 51 页](/broadcast/page/51) · 第 22 行
 
 ## hayabusa.open2ch.net
@@ -381,8 +341,10 @@ aside: false
 ## houtaruu.weblog.to
 
 - [http://houtaruu.weblog.to/archives/6879881.html](http://houtaruu.weblog.to/archives/6879881.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+  - 原链接尚不可恢复；可读已归档译文：[《剧场版 吹响悠风号》特别上映见面会报告](/notes/580950328)
   - 使用来源：[《剧场版 吹响悠风号》特别上映（电影《聲之形》公映纪念）见面会报告](/notes/580950328) · 第 13 行
 - [http://houtaruu.weblog.to/archives/7271602.html](http://houtaruu.weblog.to/archives/7271602.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+  - 原链接尚不可恢复；可读已归档摘译（含多篇报告，不能替代单篇原文）：[电影《聲之形》首映见面会报告摘要汇总](/notes/583976644)
   - 使用来源：[电影《聲之形》首映见面会报告摘要汇总](/notes/583976644) · 第 12 行
 
 ## htt123.blog.jp
@@ -457,11 +419,6 @@ aside: false
 - [http://jin115.com/archives/52000173.html](/external-articles/jin115.com/0f6b2c9ba60edcb1047c) · [原站](http://jin115.com/archives/52000173.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/3io9VJ](https://douc.cc/3io9VJ)；来自：[广播室 · 第 80 页](/broadcast/page/80) · 第 28 行
 
-## kansai.pia.co.jp
-
-- [http://kansai.pia.co.jp/interview/cinema/2016-10/koenokatachi-movie.html](http://kansai.pia.co.jp/interview/cinema/2016-10/koenokatachi-movie.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[通过添加声音、色彩与动作，描写痛苦前方的出口——电影《聲之形》导演山田尚子访谈（琵雅关西版WEB）](/notes/586529041) · 第 12 行
-
 ## keisukeyuki.blogspot.jp
 
 - [http://keisukeyuki.blogspot.jp/2014/05/blog-post.html](http://keisukeyuki.blogspot.jp/2014/05/blog-post.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
@@ -474,6 +431,7 @@ aside: false
   - 使用来源：[相册](/albums/190597061) · 第 86 行
   - 使用来源：[电影《聲之形》首张宣传画浅谈](/notes/550509861) · 第 12 行
 - [http://koenokatachi-movie.com/](http://koenokatachi-movie.com/) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`review`
+  - 解析自 [https://dou.bz/3ysQT1](https://dou.bz/3ysQT1)；来自：[海报墙](/albums/13432051) · 第 15 行
   - 解析自 [https://douc.cc/3ysQT1](https://douc.cc/3ysQT1)；来自：[广播室 · 第 22 页](/broadcast/page/22) · 第 16 行
   - 解析自 [https://douc.cc/3ysQT1](https://douc.cc/3ysQT1)；来自：[广播室 · 第 25 页](/broadcast/page/25) · 第 16 行
   - 使用来源：[关于](/about) · 第 14 行
@@ -567,24 +525,18 @@ aside: false
 
 ## mantan-web.jp
 
-- [http://mantan-web.jp/2014/04/29/20140428dog00m200045000c.html](http://mantan-web.jp/2014/04/29/20140428dog00m200045000c.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://mantan-web.jp/2014/04/29/20140428dog00m200045000c.html](/external-articles/mantan-web.jp/c0badc6778f79b82670f) · [原站](http://mantan-web.jp/2014/04/29/20140428dog00m200045000c.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/0OASzl](https://douc.cc/0OASzl)；来自：[广播室 · 第 68 页](/broadcast/page/68) · 第 16 行
-- [http://mantan-web.jp/2015/05/30/20150529dog00m200066000c.html](http://mantan-web.jp/2015/05/30/20150529dog00m200066000c.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[《吹响悠风号》第十二回演出小析](/notes/505913072) · 第 49 行
-- [http://mantan-web.jp/2015/05/30/20150529dog00m200066000c.html?utm_medium=twitter&utm_source=twitterfeed](http://mantan-web.jp/2015/05/30/20150529dog00m200066000c.html?utm_medium=twitter&utm_source=twitterfeed) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://mantan-web.jp/2015/05/30/20150529dog00m200066000c.html?utm_medium=twitter&utm_source=twitterfeed](/external-articles/mantan-web.jp/45de3f5ba66b6ea6e98d) · [原站](http://mantan-web.jp/2015/05/30/20150529dog00m200066000c.html?utm_medium=twitter&utm_source=twitterfeed) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/38y9Af](https://douc.cc/38y9Af)；来自：[广播室 · 第 36 页](/broadcast/page/36) · 第 16 行
-- [http://mantan-web.jp/2016/09/11/20160910dog00m200008000c.html](http://mantan-web.jp/2016/09/11/20160910dog00m200008000c.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://mantan-web.jp/2016/09/11/20160910dog00m200008000c.html](/external-articles/mantan-web.jp/49c0a32e5b50dc307a87) · [原站](http://mantan-web.jp/2016/09/11/20160910dog00m200008000c.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/39bw6J](https://douc.cc/39bw6J)；来自：[广播室 · 第 15 页](/broadcast/page/15) · 第 26 行
-  - 使用来源：[电影《聲之形》导演山田尚子谈选角理由](/notes/569110361) · 第 34 行
-- [http://mantan-web.jp/2016/09/17/20160917dog00m200025000c.html](http://mantan-web.jp/2016/09/17/20160917dog00m200025000c.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[相册](/albums/190597061) · 第 55 行
 
 ## moca-news.net
 
-- [http://moca-news.net/article/20140427/201404271222a/01/?afid=difa](http://moca-news.net/article/20140427/201404271222a/01/?afid=difa) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://moca-news.net/article/20140427/201404271222a/01/?afid=difa](/external-articles/moca-news.net/5ef2c143df6943ded34e) · [原站](http://moca-news.net/article/20140427/201404271222a/01/?afid=difa) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/1Kg2lW](https://douc.cc/1Kg2lW)；来自：[广播室 · 第 70 页](/broadcast/page/70) · 第 30 行
-  - 使用来源：[幕后&周边](/albums/13433748) · 第 145 行
-- [http://moca-news.net/article/20160902/2016090216000a_/01/?afid=difa](http://moca-news.net/article/20160902/2016090216000a_/01/?afid=difa) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://moca-news.net/article/20160902/2016090216000a_/01/?afid=difa](/external-articles/moca-news.net/76148588081ad8793c0b) · [原站](http://moca-news.net/article/20160902/2016090216000a_/01/?afid=difa) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/4FDmKI](https://douc.cc/4FDmKI)；来自：[广播室 · 第 17 页](/broadcast/page/17) · 第 30 行
 
 ## movie.douban.com
@@ -813,12 +765,6 @@ aside: false
 - [http://natalie.mu/comic/news/196038](/external-articles/natalie.mu/553ada6d1f98d36c6b29) · [原站](http://natalie.mu/comic/news/196038) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/4xHm89](https://douc.cc/4xHm89)；来自：[广播室 · 第 21 页](/broadcast/page/21) · 第 18 行
 
-## nazism.cocolog-nifty.com
-
-- [http://nazism.cocolog-nifty.com/blog/2013/01/post-f272.html](http://nazism.cocolog-nifty.com/blog/2013/01/post-f272.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[《玉子市场》的人物魅力](/notes/274238773) · 第 13 行
-  - 使用来源：[☆ 玉子 · 公告栏](/rooms/2794121#widget-13432767) · 第 22 行
-
 ## news.ameba.jp
 
 - [http://news.ameba.jp/20120301-517/](http://news.ameba.jp/20120301-517/) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`review`
@@ -829,19 +775,9 @@ aside: false
 - [http://news.nicovideo.jp/watch/nw980770](http://news.nicovideo.jp/watch/nw980770) · 视频平台 · 抓取策略：`metadata`
   - 解析自 [https://douc.cc/1oqrod](https://douc.cc/1oqrod)；来自：[广播室 · 第 77 页](/broadcast/page/77) · 第 28 行
 
-## news.qq.com
-
-- [http://news.qq.com/a/20160122/007534.htm](http://news.qq.com/a/20160122/007534.htm) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[新星★Papico](/notes/536415117) · 第 41 行
-
-## news.walkerplus.com
-
-- [http://news.walkerplus.com/article/87023/](http://news.walkerplus.com/article/87023/) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[相册](/albums/190597061) · 第 83 行
-
 ## nextsociety.blog102.fc2.com
 
-- [http://nextsociety.blog102.fc2.com/blog-entry-2322.html](http://nextsociety.blog102.fc2.com/blog-entry-2322.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://nextsociety.blog102.fc2.com/blog-entry-2322.html](/external-articles/nextsociety.blog102.fc2.com/5c3b14ed3c36cdf0fc03) · [原站](http://nextsociety.blog102.fc2.com/blog-entry-2322.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/43ecke](https://douc.cc/43ecke)；来自：[广播室 · 第 70 页](/broadcast/page/70) · 第 26 行
 
 ## now.ameba.jp
@@ -856,11 +792,8 @@ aside: false
 
 ## nuruwota.blog4.fc2.com
 
-- [http://nuruwota.blog4.fc2.com/blog-entry-1443.html](http://nuruwota.blog4.fc2.com/blog-entry-1443.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[☆ 悠风 etc. · 公告栏](/rooms/2794117#widget-190150869) · 第 54 行
-- [http://nuruwota.blog4.fc2.com/blog-entry-3004.html](http://nuruwota.blog4.fc2.com/blog-entry-3004.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://nuruwota.blog4.fc2.com/blog-entry-3004.html](/external-articles/nuruwota.blog4.fc2.com/a539539e20f02aa062e4) · [原站](http://nuruwota.blog4.fc2.com/blog-entry-3004.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/36HO4r](https://douc.cc/36HO4r)；来自：[广播室 · 第 67 页](/broadcast/page/67) · 第 32 行
-  - 使用来源：[《玉子爱情故事》解读：新干线=倒计时，接住传声筒=终点](/notes/433476997) · 第 39 行
 
 ## osatomi.jugem.jp
 
@@ -886,8 +819,6 @@ aside: false
 
 ## priority1.blog51.fc2.com
 
-- [http://priority1.blog51.fc2.com/blog-category-3.html](http://priority1.blog51.fc2.com/blog-category-3.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[☆ 轻音 · 公告栏](/rooms/2794136#widget-13432819) · 第 26 行
 - [http://priority1.blog51.fc2.com/blog-entry-1729.html](/external-articles/priority1.blog51.fc2.com/23322d97dcce28593e3a) · [原站](http://priority1.blog51.fc2.com/blog-entry-1729.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/3YoBq0](https://douc.cc/3YoBq0)；来自：[广播室 · 第 87 页](/broadcast/page/87) · 第 32 行
 - [http://priority1.blog51.fc2.com/blog-entry-1740.html](/external-articles/priority1.blog51.fc2.com/8169f1ce9fc82b4d26cd) · [原站](http://priority1.blog51.fc2.com/blog-entry-1740.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
@@ -950,27 +881,25 @@ aside: false
 
 ## rdm.ne.jp
 
-- [http://rdm.ne.jp/sound/column/tamacomanu](http://rdm.ne.jp/sound/column/tamacomanu) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[☆ 玉子 · 公告栏](/rooms/2794121#widget-13432767) · 第 59 行
-- [http://rdm.ne.jp/sound/column/tamacomanu/4014](http://rdm.ne.jp/sound/column/tamacomanu/4014) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://rdm.ne.jp/sound/column/tamacomanu/4014](/external-articles/rdm.ne.jp/4a23d535bcd1e4f28b49) · [原站](http://rdm.ne.jp/sound/column/tamacomanu/4014) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/4EFOwC](https://douc.cc/4EFOwC)；来自：[广播室 · 第 87 页](/broadcast/page/87) · 第 18 行
-- [http://rdm.ne.jp/sound/column/tamacomanu/4023](http://rdm.ne.jp/sound/column/tamacomanu/4023) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://rdm.ne.jp/sound/column/tamacomanu/4023](/external-articles/rdm.ne.jp/b1e2e5626f6b50dd8d28) · [原站](http://rdm.ne.jp/sound/column/tamacomanu/4023) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/2cPWe6](https://douc.cc/2cPWe6)；来自：[广播室 · 第 87 页](/broadcast/page/87) · 第 16 行
-- [http://rdm.ne.jp/sound/column/tamacomanu/4037](http://rdm.ne.jp/sound/column/tamacomanu/4037) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://rdm.ne.jp/sound/column/tamacomanu/4037](/external-articles/rdm.ne.jp/00c2c730184e19cbd0af) · [原站](http://rdm.ne.jp/sound/column/tamacomanu/4037) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/3X0kB0](https://douc.cc/3X0kB0)；来自：[广播室 · 第 87 页](/broadcast/page/87) · 第 14 行
-- [http://rdm.ne.jp/sound/column/tamacomanu/4043](http://rdm.ne.jp/sound/column/tamacomanu/4043) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://rdm.ne.jp/sound/column/tamacomanu/4043](/external-articles/rdm.ne.jp/e3a5b4784a8d62905091) · [原站](http://rdm.ne.jp/sound/column/tamacomanu/4043) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/0kUWI1](https://douc.cc/0kUWI1)；来自：[广播室 · 第 86 页](/broadcast/page/86) · 第 32 行
-- [http://rdm.ne.jp/sound/column/tamacomanu/4844](http://rdm.ne.jp/sound/column/tamacomanu/4844) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://rdm.ne.jp/sound/column/tamacomanu/4844](/external-articles/rdm.ne.jp/a032136b7cd1419d4954) · [原站](http://rdm.ne.jp/sound/column/tamacomanu/4844) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/21O92J](https://douc.cc/21O92J)；来自：[广播室 · 第 86 页](/broadcast/page/86) · 第 30 行
-- [http://rdm.ne.jp/sound/column/tamacomanu/4853](http://rdm.ne.jp/sound/column/tamacomanu/4853) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://rdm.ne.jp/sound/column/tamacomanu/4853](/external-articles/rdm.ne.jp/9e46c5596f64011b3c1b) · [原站](http://rdm.ne.jp/sound/column/tamacomanu/4853) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/2XF7KD](https://douc.cc/2XF7KD)；来自：[广播室 · 第 86 页](/broadcast/page/86) · 第 26 行
-- [http://rdm.ne.jp/sound/column/tamacomanu/5550](http://rdm.ne.jp/sound/column/tamacomanu/5550) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://rdm.ne.jp/sound/column/tamacomanu/5550](/external-articles/rdm.ne.jp/32900b843bd585750e53) · [原站](http://rdm.ne.jp/sound/column/tamacomanu/5550) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/4jISkK](https://douc.cc/4jISkK)；来自：[广播室 · 第 86 页](/broadcast/page/86) · 第 22 行
-- [http://rdm.ne.jp/sound/column/tamacomanu/5563](http://rdm.ne.jp/sound/column/tamacomanu/5563) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://rdm.ne.jp/sound/column/tamacomanu/5563](/external-articles/rdm.ne.jp/a629e80719f42896aad2) · [原站](http://rdm.ne.jp/sound/column/tamacomanu/5563) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/2gyX7V](https://douc.cc/2gyX7V)；来自：[广播室 · 第 86 页](/broadcast/page/86) · 第 20 行
-- [http://rdm.ne.jp/sound/column/tamacomanu/5849](http://rdm.ne.jp/sound/column/tamacomanu/5849) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://rdm.ne.jp/sound/column/tamacomanu/5849](/external-articles/rdm.ne.jp/6c69408a7395eb4fc26e) · [原站](http://rdm.ne.jp/sound/column/tamacomanu/5849) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/2FrSUn](https://douc.cc/2FrSUn)；来自：[广播室 · 第 86 页](/broadcast/page/86) · 第 16 行
-- [http://rdm.ne.jp/sound/column/tamacomanu/5853](http://rdm.ne.jp/sound/column/tamacomanu/5853) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://rdm.ne.jp/sound/column/tamacomanu/5853](/external-articles/rdm.ne.jp/9a29afa4bdb075f4da96) · [原站](http://rdm.ne.jp/sound/column/tamacomanu/5853) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/3G0tSH](https://douc.cc/3G0tSH)；来自：[广播室 · 第 86 页](/broadcast/page/86) · 第 14 行
 
 ## rubeusu-trend.com
@@ -1363,6 +1292,7 @@ aside: false
 - [https://site.douban.com/211330/widget/photos/13433748/photo/2180602045/](https://site.douban.com/211330/widget/photos/13433748/photo/2180602045/) · 豆瓣其他页面 · 抓取策略：`metadata`
   - 解析自 [https://douc.cc/21vtfQ](https://douc.cc/21vtfQ)；来自：[广播室 · 第 66 页](/broadcast/page/66) · 第 20 行
 - [https://site.douban.com/211330/widget/photos/13433748/photo/2204080047/](https://site.douban.com/211330/widget/photos/13433748/photo/2204080047/) · 豆瓣其他页面 · 抓取策略：`metadata`
+  - 解析自 [https://dou.bz/1pDOrE](https://dou.bz/1pDOrE)；来自：[幕后&周边](/albums/13433748) · 第 21 行
   - 解析自 [https://douc.cc/1pDOrE](https://douc.cc/1pDOrE)；来自：[广播室 · 第 30 页](/broadcast/page/30) · 第 14 行
 - [https://site.douban.com/211330/widget/photos/190597061/](https://site.douban.com/211330/widget/photos/190597061/) · 豆瓣其他页面 · 抓取策略：`metadata`
   - 使用来源：[相册](/albums/190597061) · 第 5 行
@@ -1399,15 +1329,15 @@ aside: false
   - 使用来源：[《玉子爱情故事》官网故事简介](/notes/325869921) · 第 25 行
 - [http://tamakolovestory.com/introduction/](http://tamakolovestory.com/introduction/) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`review`
   - 使用来源：[《玉子爱情故事》官网故事简介](/notes/325869921) · 第 12 行
-- [http://tamakolovestory.com/news/#3](http://tamakolovestory.com/news/#3) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://tamakolovestory.com/news/#3](/external-articles/tamakolovestory.com/b950e5fb1b8c12994e58) · [原站](http://tamakolovestory.com/news/#3) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/0LAcPz](https://douc.cc/0LAcPz)；来自：[广播室 · 第 79 页](/broadcast/page/79) · 第 16 行
 - [http://tamakolovestory.com/news/#4](/external-articles/tamakolovestory.com/bb6b135e1e00078396b8) · [原站](http://tamakolovestory.com/news/#4) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/0IW5Dj](https://douc.cc/0IW5Dj)；来自：[广播室 · 第 79 页](/broadcast/page/79) · 第 26 行
 - [http://tamakolovestory.com/news/?id=13](/external-articles/tamakolovestory.com/accebf2f3802a140cb59) · [原站](http://tamakolovestory.com/news/?id=13) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/0dxXj7](https://douc.cc/0dxXj7)；来自：[广播室 · 第 76 页](/broadcast/page/76) · 第 14 行
-- [http://tamakolovestory.com/news/?id=24](http://tamakolovestory.com/news/?id=24) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://tamakolovestory.com/news/?id=24](/external-articles/tamakolovestory.com/51437d56d51db82dc700) · [原站](http://tamakolovestory.com/news/?id=24) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/07OHDB](https://douc.cc/07OHDB)；来自：[广播室 · 第 74 页](/broadcast/page/74) · 第 28 行
-- [http://tamakolovestory.com/news/?id=33](http://tamakolovestory.com/news/?id=33) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://tamakolovestory.com/news/?id=33](/external-articles/tamakolovestory.com/4c1986e693aecf279f95) · [原站](http://tamakolovestory.com/news/?id=33) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/0A8LSE](https://douc.cc/0A8LSE)；来自：[广播室 · 第 71 页](/broadcast/page/71) · 第 28 行
 - [http://tamakolovestory.com/news/?id=39](/external-articles/tamakolovestory.com/5830bd0a27f582e31085) · [原站](http://tamakolovestory.com/news/?id=39) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/3qCVFZ](https://douc.cc/3qCVFZ)；来自：[广播室 · 第 61 页](/broadcast/page/61) · 第 14 行
@@ -1438,7 +1368,7 @@ aside: false
   - 使用来源：[海报墙](/albums/13432051) · 第 23 行
 - [http://tamakolovestory.com/special/interview/](/external-articles/tamakolovestory.com/022110e027f0b8c0e285) · [原站](http://tamakolovestory.com/special/interview/) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 使用来源：[广播室 · 第 64 页](/broadcast/page/64) · 第 16 行
-- [http://tamakolovestory.com/special/interview/今回は「映画」ということをだいぶ意識](http://tamakolovestory.com/special/interview/今回は「映画」ということをだいぶ意識) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://tamakolovestory.com/special/interview/今回は「映画」ということをだいぶ意識](/external-articles/tamakolovestory.com/d3cd09c2662cac725fe6) · [原站](http://tamakolovestory.com/special/interview/今回は「映画」ということをだいぶ意識) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 使用来源：[广播室 · 第 67 页](/broadcast/page/67) · 第 30 行
 - [http://tamakolovestory.com/theater/](http://tamakolovestory.com/theater/) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`review`
   - 解析自 [https://douc.cc/1RbQlm](https://douc.cc/1RbQlm)；来自：[广播室 · 第 52 页](/broadcast/page/52) · 第 18 行
@@ -1452,16 +1382,10 @@ aside: false
 - [http://tamakomarket.com/](http://tamakomarket.com/) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`review`
   - 使用来源：[☆ 玉子 · 公告栏](/rooms/2794121#widget-13432767) · 第 17 行
 
-## tehepero-tini.hatenablog.jp
-
-- [http://tehepero-tini.hatenablog.jp/entry/2014/12/07/220120](http://tehepero-tini.hatenablog.jp/entry/2014/12/07/220120) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[☆ 玉子 · 公告栏](/rooms/2794121#widget-13432767) · 第 55 行
-- [http://tehepero-tini.hatenablog.jp/entry/2015/01/01/232746](http://tehepero-tini.hatenablog.jp/entry/2015/01/01/232746) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[☆ 玉子 · 公告栏](/rooms/2794121#widget-13432767) · 第 56 行
-
 ## theta360.com
 
 - [https://theta360.com/s/myykG2lvld68JWnyipGqO8NqG](https://theta360.com/s/myykG2lvld68JWnyipGqO8NqG) · 图片 / 全景资料链接 · 抓取策略：`metadata`
+  - 解析自 [https://dou.bz/1vpgzh](https://dou.bz/1vpgzh)；来自：[相册](/albums/190597061) · 第 79 行
   - 解析自 [https://douc.cc/1vpgzh](https://douc.cc/1vpgzh)；来自：[广播室 · 第 13 页](/broadcast/page/13) · 第 30 行
   - 使用来源：[通过“存在于世上”的他们传达的东西——电影《聲之形》导演山田尚子访谈（Comic Natalie）](/notes/581837681) · 第 153 行
 
@@ -1482,7 +1406,7 @@ aside: false
 
 ## tower.jp
 
-- [http://tower.jp/store/news/2014/04/140404nanl_tamako?kid=psmantw](http://tower.jp/store/news/2014/04/140404nanl_tamako?kid=psmantw) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://tower.jp/store/news/2014/04/140404nanl_tamako?kid=psmantw](/external-articles/tamakolovestory.com/ec920300665e64108ab4) · [原站](http://tower.jp/store/news/2014/04/140404nanl_tamako?kid=psmantw) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/1xU0hw](https://douc.cc/1xU0hw)；来自：[广播室 · 第 76 页](/broadcast/page/76) · 第 18 行
 
 ## trackback.blogsys.jp
@@ -1492,15 +1416,17 @@ aside: false
 
 ## tsurebashi.blog123.fc2.com
 
-- [http://tsurebashi.blog123.fc2.com/blog-entry-347.html](http://tsurebashi.blog123.fc2.com/blog-entry-347.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://tsurebashi.blog123.fc2.com/blog-entry-347.html](/external-articles/tsurebashi.blog123.fc2.com/a6fc0b72609e8cbd3c54) · [原站](http://tsurebashi.blog123.fc2.com/blog-entry-347.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/3HuPI4](https://douc.cc/3HuPI4)；来自：[广播室 · 第 68 页](/broadcast/page/68) · 第 32 行
-- [http://tsurebashi.blog123.fc2.com/blog-entry-348.html](http://tsurebashi.blog123.fc2.com/blog-entry-348.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://tsurebashi.blog123.fc2.com/blog-entry-348.html](/external-articles/tsurebashi.blog123.fc2.com/d84054efc961cebf6537) · [原站](http://tsurebashi.blog123.fc2.com/blog-entry-348.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/0eHYUd](https://douc.cc/0eHYUd)；来自：[广播室 · 第 69 页](/broadcast/page/69) · 第 14 行
 
 ## twitter.com
 
 - [https://twitter.com/Pan0831/status/749802976244408320](https://twitter.com/Pan0831/status/749802976244408320) · 社交帖子 / 个人主页 · 抓取策略：`metadata`
   - 使用来源：[商店街日常](/albums/13431474) · 第 34 行
+- [https://twitter.com/SHARP_JP/status/520435929253568513](https://twitter.com/SHARP_JP/status/520435929253568513) · 社交帖子 / 个人主页 · 抓取策略：`metadata`
+  - 解析自 [https://douc.cc/1UMqh3](https://douc.cc/1UMqh3)；来自：[广播室 · 第 50 页](/broadcast/page/50) · 第 32 行
 - [https://twitter.com/ShindyMonkey/status/779674792848793600](https://twitter.com/ShindyMonkey/status/779674792848793600) · 社交帖子 / 个人主页 · 抓取策略：`metadata`
   - 使用来源：[电影《聲之形》映后座谈会报告1（登台者：山田尚子）](/notes/584217092) · 第 12 行
 - [https://twitter.com/SuperMnemonic](https://twitter.com/SuperMnemonic) · 社交帖子 / 个人主页 · 抓取策略：`metadata`
@@ -1512,6 +1438,7 @@ aside: false
 - [https://twitter.com/anime_eupho/status/579253985208479744](https://twitter.com/anime_eupho/status/579253985208479744) · 社交帖子 / 个人主页 · 抓取策略：`metadata`
   - 使用来源：[相册](/albums/13431950) · 第 118 行
 - [https://twitter.com/anime_eupho/status/598867212028379137](https://twitter.com/anime_eupho/status/598867212028379137) · 社交帖子 / 个人主页 · 抓取策略：`metadata`
+  - 解析自 [https://douc.cc/1FFTJy](https://douc.cc/1FFTJy)；来自：[广播室 · 第 36 页](/broadcast/page/36) · 第 24 行
   - 使用来源：[相册](/albums/13431950) · 第 97 行
 - [https://twitter.com/cmykpaste/status/887596020468637698](https://twitter.com/cmykpaste/status/887596020468637698) · 社交帖子 / 个人主页 · 抓取策略：`metadata`
   - 使用来源：[相册](/albums/190597061) · 第 11 行
@@ -1522,10 +1449,15 @@ aside: false
   - 使用来源：[相册](/albums/13431950) · 第 69 行
 - [https://twitter.com/honekawap/status/660315448056025088](https://twitter.com/honekawap/status/660315448056025088) · 社交帖子 / 个人主页 · 抓取策略：`metadata`
   - 使用来源：[第二届京阿尼＆Do答谢会：导演对谈＆山田尚子导演签名会活动报告](/notes/525677843) · 第 57 行
+- [https://twitter.com/kagonokouji/status/513700108420915201](https://twitter.com/kagonokouji/status/513700108420915201) · 社交帖子 / 个人主页 · 抓取策略：`metadata`
+  - 解析自 [https://douc.cc/3vicON](https://douc.cc/3vicON)；来自：[广播室 · 第 54 页](/broadcast/page/54) · 第 14 行
 - [https://twitter.com/kanekosandes/status/519712759752060929](https://twitter.com/kanekosandes/status/519712759752060929) · 社交帖子 / 个人主页 · 抓取策略：`metadata`
   - 使用来源：[幕后&周边](/albums/13433748) · 第 49 行
 - [https://twitter.com/kanekosanndesu/status/574930949995020288](https://twitter.com/kanekosanndesu/status/574930949995020288) · 社交帖子 / 个人主页 · 抓取策略：`metadata`
   - 使用来源：[幕后&周边](/albums/13433748) · 第 34 行
+- [https://twitter.com/koenokatachi_M](https://twitter.com/koenokatachi_M) · 社交帖子 / 个人主页 · 抓取策略：`metadata`
+  - 解析自 [https://dou.bz/3yQaKK](https://dou.bz/3yQaKK)；来自：[海报墙](/albums/13432051) · 第 15 行
+  - 解析自 [https://douc.cc/3yQaKK](https://douc.cc/3yQaKK)；来自：[广播室 · 第 25 页](/broadcast/page/25) · 第 16 行
 - [https://twitter.com/los_endos_](https://twitter.com/los_endos_) · 社交帖子 / 个人主页 · 抓取策略：`metadata`
   - 使用来源：[4/19《玉子市场》温习上映会&制作人员漫谈会活动报告](/notes/347460778) · 第 10 行
 - [https://twitter.com/los_endos_/status/464770324601401344](https://twitter.com/los_endos_/status/464770324601401344) · 社交帖子 / 个人主页 · 抓取策略：`metadata`
@@ -1536,6 +1468,8 @@ aside: false
   - 使用来源：[电影《聲之形》映后座谈会报告2（登台者：山田尚子、西屋太志）](/notes/585518914) · 第 12 行
 - [https://twitter.com/pinklovemoto](https://twitter.com/pinklovemoto) · 社交帖子 / 个人主页 · 抓取策略：`metadata`
   - 使用来源：[电影《聲之形》映后座谈会报告1（登台者：山田尚子）](/notes/584217092) · 第 27 行
+- [https://twitter.com/satosatomi58/status/502129486389723136](https://twitter.com/satosatomi58/status/502129486389723136) · 社交帖子 / 个人主页 · 抓取策略：`metadata`
+  - 解析自 [https://douc.cc/3WxegX](https://douc.cc/3WxegX)；来自：[广播室 · 第 56 页](/broadcast/page/56) · 第 26 行
 - [https://twitter.com/tobyr2ta9/status/781155152057159681](https://twitter.com/tobyr2ta9/status/781155152057159681) · 社交帖子 / 个人主页 · 抓取策略：`metadata`
   - 使用来源：[电影《聲之形》映后座谈会报告2（登台者：山田尚子、西屋太志）](/notes/585518914) · 第 12 行
 - [https://twitter.com/tomo_kat/status/456601037705457664](https://twitter.com/tomo_kat/status/456601037705457664) · 社交帖子 / 个人主页 · 抓取策略：`metadata`
@@ -1547,9 +1481,9 @@ aside: false
 
 ## ukatensei.blog50.fc2.com
 
-- [http://ukatensei.blog50.fc2.com/blog-entry-797.html](http://ukatensei.blog50.fc2.com/blog-entry-797.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://ukatensei.blog50.fc2.com/blog-entry-797.html](/external-articles/ukatensei.blog50.fc2.com/ca5b6b219c42ce25c013) · [原站](http://ukatensei.blog50.fc2.com/blog-entry-797.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/1LktvO](https://douc.cc/1LktvO)；来自：[广播室 · 第 61 页](/broadcast/page/61) · 第 18 行
-- [http://ukatensei.blog50.fc2.com/blog-entry-798.html](http://ukatensei.blog50.fc2.com/blog-entry-798.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://ukatensei.blog50.fc2.com/blog-entry-798.html](/external-articles/ukatensei.blog50.fc2.com/c8f4bff88fb71f2edeab) · [原站](http://ukatensei.blog50.fc2.com/blog-entry-798.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/2yLhw0](https://douc.cc/2yLhw0)；来自：[广播室 · 第 61 页](/broadcast/page/61) · 第 16 行
 
 ## v.youku.com
@@ -1593,6 +1527,7 @@ aside: false
 - [http://v.youku.com/v_show/id_XMTczOTgxMDc0OA==.html](http://v.youku.com/v_show/id_XMTczOTgxMDc0OA==.html) · 视频平台 · 抓取策略：`metadata`
   - 使用来源：[广播室 · 第 10 页](/broadcast/page/10) · 第 30 行
 - [http://v.youku.com/v_show/id_XMTgwODE3Mjg5Ng==.html](http://v.youku.com/v_show/id_XMTgwODE3Mjg5Ng==.html) · 视频平台 · 抓取策略：`metadata`
+  - 解析自 [https://dou.bz/3fRkJT](https://dou.bz/3fRkJT)；来自：[相册](/albums/190597061) · 第 17 行
   - 使用来源：[相册](/albums/index) · 第 23 行
   - 使用来源：[广播室 · 第 7 页](/broadcast/page/7) · 第 26 行
   - 使用来源：[☆ 聲之形 · 视频](/rooms/3598399#widget-191513700) · 第 76 行
@@ -1810,29 +1745,25 @@ aside: false
 
 ## www.animate.tv
 
-- [http://www.animate.tv/news/details.php?id=1401535119&p=1](http://www.animate.tv/news/details.php?id=1401535119&p=1) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://www.animate.tv/news/details.php?id=1401535119&p=1](/external-articles/www.animatetimes.com/f7f8d041b719969ae88c) · [原站](http://www.animate.tv/news/details.php?id=1401535119&p=1) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/2rYVHg](https://douc.cc/2rYVHg)；来自：[广播室 · 第 59 页](/broadcast/page/59) · 第 30 行
-  - 使用来源：[幕后&周边](/albums/13433748) · 第 60 行
 
 ## www.anime-chu-2.com
 
 - [http://www.anime-chu-2.com/story/05/](http://www.anime-chu-2.com/story/05/) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`review`
   - 解析自 [https://douc.cc/3aowDg](https://douc.cc/3aowDg)；来自：[广播室 · 第 80 页](/broadcast/page/80) · 第 26 行
 
-## www.anime-recorder.com
-
-- [http://www.anime-recorder.com/ArticleDetail.aspx?seq_no=9559](http://www.anime-recorder.com/ArticleDetail.aspx?seq_no=9559) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[相册](/albums/190597061) · 第 41 行
-
 ## www.artsbj.com
 
 - [http://www.artsbj.com/show-19-501928-1.html](http://www.artsbj.com/show-19-501928-1.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`review`
+  - 解析自 [https://dou.bz/0wRXIb](https://dou.bz/0wRXIb)；来自：[相册](/albums/190597061) · 第 79 行
   - 解析自 [https://douc.cc/0wRXIb](https://douc.cc/0wRXIb)；来自：[广播室 · 第 13 页](/broadcast/page/13) · 第 30 行
   - 使用来源：[通过“存在于世上”的他们传达的东西——电影《聲之形》导演山田尚子访谈（Comic Natalie）](/notes/581837681) · 第 153 行
 
 ## www.asahi.com
 
 - [http://www.asahi.com/articles/DA3S12553913.html](http://www.asahi.com/articles/DA3S12553913.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+  - 原链接尚不可恢复；可读已归档译文：[“约定”的手语，在缠绕的手指中展现“表情”](/notes/581373515)
   - 使用来源：[“约定”的手语，在缠绕的手指中展现“表情”——导演山田尚子谈电影《聲之形》（《朝日新闻》）](/notes/581373515) · 第 12 行
 
 ## www.bilibili.com
@@ -1861,7 +1792,7 @@ aside: false
 
 - [http://www.cinematoday.jp/image/N0062531_l](http://www.cinematoday.jp/image/N0062531_l) · 图片 / 全景资料链接 · 抓取策略：`metadata`
   - 使用来源：[幕后&周边](/albums/13433748) · 第 150 行
-- [http://www.cinematoday.jp/page/N0062531](http://www.cinematoday.jp/page/N0062531) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://www.cinematoday.jp/page/N0062531](/external-articles/www.cinematoday.jp/fd0cf4147e2a64311d25) · [原站](http://www.cinematoday.jp/page/N0062531) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/49MqFL](https://douc.cc/49MqFL)；来自：[广播室 · 第 71 页](/broadcast/page/71) · 第 32 行
 
 ## www.douban.com
@@ -1898,34 +1829,20 @@ aside: false
 
 ## www.excite.co.jp
 
-- [http://www.excite.co.jp/News/bit/E1475063249559.html](http://www.excite.co.jp/News/bit/E1475063249559.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[结尾的曲子是在京都动画附近的河滩上边哭边想到的——电影《聲之形》配乐牛尾宪辅访谈（excite映后访谈)](/notes/621091894) · 第 13 行
-- [http://www.excite.co.jp/News/bit/E1475237612490.html](http://www.excite.co.jp/News/bit/E1475237612490.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[影像与音乐的反复结构／引用重松清《咖喱饭》的意义——记者饭田一史谈电影《聲之形》](/notes/621946123) · 第 13 行
-- [http://www.excite.co.jp/News/reviewbook/20140617/E1402938201318.html](http://www.excite.co.jp/News/reviewbook/20140617/E1402938201318.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://www.excite.co.jp/News/reviewbook/20140617/E1402938201318.html](/external-articles/www.excite.co.jp/5405ece115cd62c70d7a) · [原站](http://www.excite.co.jp/News/reviewbook/20140617/E1402938201318.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/2sosWj](https://douc.cc/2sosWj)；来自：[广播室 · 第 58 页](/broadcast/page/58) · 第 24 行
   - 使用来源：[广播室 · 第 56 页](/broadcast/page/56) · 第 16 行
-  - 使用来源：[《玉子爱情故事》excite山田尚子导演访谈（后篇）](/notes/409767702) · 第 10 行
-- [http://www.excite.co.jp/News/reviewmov/20140616/E1402850805404.html](http://www.excite.co.jp/News/reviewmov/20140616/E1402850805404.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://www.excite.co.jp/News/reviewmov/20140616/E1402850805404.html](/external-articles/www.excite.co.jp/489556bb3f999cc3486c) · [原站](http://www.excite.co.jp/News/reviewmov/20140616/E1402850805404.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/2IaKa2](https://douc.cc/2IaKa2)；来自：[广播室 · 第 58 页](/broadcast/page/58) · 第 28 行
   - 使用来源：[广播室 · 第 56 页](/broadcast/page/56) · 第 24 行
-  - 使用来源：[《玉子爱情故事》excite山田尚子导演访谈（前篇）](/notes/400308340) · 第 11 行
-- [http://www.excite.co.jp/News/reviewmov/20160916/E1473959561942.html](http://www.excite.co.jp/News/reviewmov/20160916/E1473959561942.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[耳朵听不见是硝子的一种个性——电影《聲之形》导演山田尚子访谈（excite专访前篇）](/notes/581998436) · 第 12 行
-- [http://www.excite.co.jp/News/reviewmov/20160918/E1474130571077.html](http://www.excite.co.jp/News/reviewmov/20160918/E1474130571077.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[让将也发出使他好好活下去的第一声啼哭——电影《聲之形》导演山田尚子访谈（excite专访后篇）](/notes/582222645) · 第 12 行
 
 ## www.hanakotoba.name
 
 - [http://www.hanakotoba.name/](http://www.hanakotoba.name/) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`review`
   - 使用来源：[人工索引](/curated/index) · 第 153 行
   - 使用来源：[宇宙的入口 · 索引②](/rooms/2793793#widget-17754656) · 第 109 行
-- [http://www.hanakotoba.name/archives/2005/09/post_139.html](http://www.hanakotoba.name/archives/2005/09/post_139.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://www.hanakotoba.name/archives/2005/09/post_139.html](/external-articles/www.hanakotoba.name/973100aab3681ff331c8) · [原站](http://www.hanakotoba.name/archives/2005/09/post_139.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/47UkK9](https://douc.cc/47UkK9)；来自：[广播室 · 第 46 页](/broadcast/page/46) · 第 20 行
-  - 使用来源：[《玉子爱情故事》预告片考察汇总及作品展望](/notes/338329832) · 第 50 行
-  - 使用来源：[《玉子爱情故事》ED解读：真苹果与假苹果，熊猫与狗](/notes/435337731) · 第 150 行
-- [http://www.hanakotoba.name/archives/2005/09/post_208.html](http://www.hanakotoba.name/archives/2005/09/post_208.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[《玉子爱情故事》ED解读：真苹果与假苹果，熊猫与狗](/notes/435337731) · 第 23 行
 
 ## www.hatago.co.jp
 
@@ -1944,7 +1861,7 @@ aside: false
 
 ## www.kogyotsushin.com
 
-- [http://www.kogyotsushin.com/archives/minitheater/](http://www.kogyotsushin.com/archives/minitheater/) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://www.kogyotsushin.com/archives/minitheater/](/external-articles/www.kogyotsushin.com/ffac6729f4c8845fc800) · [原站](http://www.kogyotsushin.com/archives/minitheater/) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/2em5q4](https://douc.cc/2em5q4)；来自：[广播室 · 第 65 页](/broadcast/page/65) · 第 22 行
 
 ## www.korg.com
@@ -1974,103 +1891,10 @@ aside: false
 - [http://www.kyotoanimation.co.jp/information/?id=794](http://www.kyotoanimation.co.jp/information/?id=794) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`review`
   - 解析自 [https://douc.cc/043kin](https://douc.cc/043kin)；来自：[广播室 · 第 82 页](/broadcast/page/82) · 第 32 行
   - 使用来源：[海报墙](/albums/13432051) · 第 31 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?author=18](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?author=18) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`review`
-  - 使用来源：[关于](/about) · 第 7 行
-  - 使用来源：[宇宙的入口 · About PPK](/rooms/2793793#widget-13430830) · 第 125 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?m=20170725](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?m=20170725) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`review`
-  - 使用来源：[梦境☆Papico](/notes/630626923) · 第 31 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1042](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1042) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[庆祝☆Papico](/notes/507086258) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1100](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1100) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[牙医☆Papico](/notes/512288929) · 第 11 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1145](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1145) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[秋意渐露☆Papico](/notes/515999854) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1193](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1193) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[星星与音乐☆Papico](/notes/520501904) · 第 11 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1248](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1248) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[Tutti☆Papico](/notes/524707046) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1286](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1286) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[2015年☆Papico](/notes/529201220) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1322](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1322) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[新星★Papico](/notes/536415117) · 第 11 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1368](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1368) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[创作者☆Papico](/notes/541065079) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1414](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1414) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[再过不久☆Papico](/notes/547187777) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1493](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1493) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[兔子与新月☆Papico](/notes/560290293) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1567](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1567) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[薯片☆Papico](/notes/572029004) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1595](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1595) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[聲之形☆Papico](/notes/578163214) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1650](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1650) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[电影《聲之形》☆Papico](/notes/583640613) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1686](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1686) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[聲之形☆Papico](/notes/589189219) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1725](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1725) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[喜爱的东西☆Papico](/notes/594375309) · 第 11 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1756](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1756) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[极音☆Papico](/notes/599081646) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1790](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1790) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[聲之形☆Papico](/notes/604396376) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1830](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1830) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[3月1日☆Papico](/notes/608843975) · 第 11 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1865](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1865) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1865](/external-articles/www.kyotoanimation.co.jp/b503ab0d36b0697a0d46) · [原站](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1865) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 使用来源：[广播室 · 第 5 页](/broadcast/page/5) · 第 26 行
-  - 使用来源：[春☆Papico](/notes/614170395) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1892](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1892) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[玉子☆Papico](/notes/617677191) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1945](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1945) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[出来啦☆Papico](/notes/622694100) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1987](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1987) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[电影☆Papico](/notes/626780778) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2050](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2050) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[梦境☆Papico](/notes/630626923) · 第 11 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2094](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2094) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[夏天……☆Papico](/notes/634384397) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2133](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2133) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[创作☆Papico](/notes/638128887) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2172](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2172) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[哇～☆Papico](/notes/641740675) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2223](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2223) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[红色夹克衫☆Papico](/notes/645545220) · 第 11 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2261](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2261) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[丽兹与青鸟☆Papico](/notes/649190492) · 第 11 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2313](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2313) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[玉子与青鸟☆Papico](/notes/653967636) · 第 11 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2361](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2361) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[丽兹与青鸟☆Papico](/notes/657510394) · 第 11 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2395](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2395) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[丽兹与青鸟☆Papico](/notes/661229588) · 第 11 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2495](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2495) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[丽兹与青鸟☆Papico](/notes/666011890) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2541](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2541) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[丽兹亦青鸟☆Papico](/notes/669962541) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2598](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2598) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[谈谈丽兹☆喜欢的场景☆Papico](/notes/673585518) · 第 11 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=363](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=363) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[玉子爱情故事☆Papico](/notes/410073605) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=404](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=404) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[电影☆Papico](/notes/410095370) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=475](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=475) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=475](/external-articles/www.kyotoanimation.co.jp/e9b57498b9bbb1bb6124) · [原站](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=475) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/3nwEW2](https://douc.cc/3nwEW2)；来自：[广播室 · 第 56 页](/broadcast/page/56) · 第 20 行
-  - 使用来源：[电影充☆Papico](/notes/410464332) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=552](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=552) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[By always thinking…☆Papico](/notes/430242140) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=654](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=654) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[米饭☆Papico](/notes/441842568) · 第 11 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=711](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=711) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[一步一个脚印☆Papico](/notes/467449573) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=762](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=762) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[羊☆Papico](/notes/480506533) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=811](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=811) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[烤肉☆Papico](/notes/485196288) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=860](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=860) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[玉子与饼藏☆Papico](/notes/490420693) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=909](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=909) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[电影☆上映☆悠风☆Papico](/notes/496648491) · 第 10 行
-- [http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=968](http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=968) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[高中生☆Papico](/notes/502324234) · 第 11 行
 
 ## www.lightnovel.cn
 
@@ -2153,9 +1977,9 @@ aside: false
   - 解析自 [https://douc.cc/02QoCw](https://douc.cc/02QoCw)；来自：[广播室 · 第 45 页](/broadcast/page/45) · 第 30 行
 - [http://www.tbs.co.jp/anime/k-on/k-on_tv/index-j.html](http://www.tbs.co.jp/anime/k-on/k-on_tv/index-j.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`review`
   - 使用来源：[☆ 轻音 · 公告栏](/rooms/2794136#widget-13432819) · 第 17 行
-- [http://www.tbs.co.jp/anime/k-on/k-on_tv/news/news.html#201401171800](http://www.tbs.co.jp/anime/k-on/k-on_tv/news/news.html#201401171800) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://www.tbs.co.jp/anime/k-on/k-on_tv/news/news.html#201401171800](/external-articles/www.tbs.co.jp/7e7824f72610c5bc27cc) · [原站](http://www.tbs.co.jp/anime/k-on/k-on_tv/news/news.html#201401171800) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/2HvcCe](https://douc.cc/2HvcCe)；来自：[广播室 · 第 81 页](/broadcast/page/81) · 第 18 行
-- [http://www.tbs.co.jp/anime/k-on/k-on_tv/news/news.html#201410071930](http://www.tbs.co.jp/anime/k-on/k-on_tv/news/news.html#201410071930) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://www.tbs.co.jp/anime/k-on/k-on_tv/news/news.html#201410071930](/external-articles/www.tbs.co.jp/2441ae4af90ccc4c369b) · [原站](http://www.tbs.co.jp/anime/k-on/k-on_tv/news/news.html#201410071930) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/3ikwTG](https://douc.cc/3ikwTG)；来自：[广播室 · 第 52 页](/broadcast/page/52) · 第 16 行
 
 ## www.tudou.com
@@ -2171,10 +1995,15 @@ aside: false
 - [http://www.uji-genji.jp/ch/genji/](http://www.uji-genji.jp/ch/genji/) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`review`
   - 使用来源：[《吹响悠风号》第八回演出小析](/notes/501830142) · 第 65 行
 
-## www.watch-watcher.xyz
+## www.youtube.com
 
-- [http://www.watch-watcher.xyz/article/418614927.html](http://www.watch-watcher.xyz/article/418614927.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
-  - 使用来源：[第二届京阿尼＆Do答谢会：导演对谈＆山田尚子导演签名会活动报告](/notes/525677843) · 第 127 行
+- [http://www.youtube.com/watch?v=mLEb0rU_zlg](http://www.youtube.com/watch?v=mLEb0rU_zlg) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`review`
+  - 解析自 [https://douc.cc/2b9fIW](https://douc.cc/2b9fIW)；来自：[广播室 · 第 77 页](/broadcast/page/77) · 第 20 行
+- [http://www.youtube.com/watch?v=rVWx5YHmvFo](http://www.youtube.com/watch?v=rVWx5YHmvFo) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`review`
+  - 解析自 [https://douc.cc/0rpuuO](https://douc.cc/0rpuuO)；来自：[广播室 · 第 84 页](/broadcast/page/84) · 第 16 行
+- [https://www.youtube.com/watch?v=NbElewFH464](https://www.youtube.com/watch?v=NbElewFH464) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`review`
+  - 解析自 [https://dou.bz/0vMqgF](https://dou.bz/0vMqgF)；来自：[海报墙](/albums/13432051) · 第 15 行
+  - 解析自 [https://douc.cc/0vMqgF](https://douc.cc/0vMqgF)；来自：[广播室 · 第 25 页](/broadcast/page/25) · 第 16 行
 
 ## www42.atwiki.jp
 
@@ -2188,23 +2017,23 @@ aside: false
 
 ## yaraon.blog109.fc2.com
 
-- [http://yaraon.blog109.fc2.com/blog-entry-20232.html](http://yaraon.blog109.fc2.com/blog-entry-20232.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://yaraon.blog109.fc2.com/blog-entry-20232.html](/external-articles/yaraon.blog109.fc2.com/03bbd7c3357e86ab1ed3) · [原站](http://yaraon.blog109.fc2.com/blog-entry-20232.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/2VuJuH](https://douc.cc/2VuJuH)；来自：[广播室 · 第 85 页](/broadcast/page/85) · 第 22 行
-- [http://yaraon.blog109.fc2.com/blog-entry-20238.html](http://yaraon.blog109.fc2.com/blog-entry-20238.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://yaraon.blog109.fc2.com/blog-entry-20238.html](/external-articles/yaraon.blog109.fc2.com/0ff0ea3bd1657e58e33c) · [原站](http://yaraon.blog109.fc2.com/blog-entry-20238.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/37J6wy](https://douc.cc/37J6wy)；来自：[广播室 · 第 85 页](/broadcast/page/85) · 第 20 行
-- [http://yaraon.blog109.fc2.com/blog-entry-21550.html](http://yaraon.blog109.fc2.com/blog-entry-21550.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://yaraon.blog109.fc2.com/blog-entry-21550.html](/external-articles/yaraon.blog109.fc2.com/19e47818f537dc57bb5f) · [原站](http://yaraon.blog109.fc2.com/blog-entry-21550.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/4BsiBV](https://douc.cc/4BsiBV)；来自：[广播室 · 第 80 页](/broadcast/page/80) · 第 32 行
-- [http://yaraon.blog109.fc2.com/blog-entry-21736.html](http://yaraon.blog109.fc2.com/blog-entry-21736.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://yaraon.blog109.fc2.com/blog-entry-21736.html](/external-articles/yaraon.blog109.fc2.com/f224cac40ab6d8e21e90) · [原站](http://yaraon.blog109.fc2.com/blog-entry-21736.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/2iNWt8](https://douc.cc/2iNWt8)；来自：[广播室 · 第 80 页](/broadcast/page/80) · 第 24 行
-- [http://yaraon.blog109.fc2.com/blog-entry-23519.html](http://yaraon.blog109.fc2.com/blog-entry-23519.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://yaraon.blog109.fc2.com/blog-entry-23519.html](/external-articles/yaraon.blog109.fc2.com/22fd811cb691329b57e7) · [原站](http://yaraon.blog109.fc2.com/blog-entry-23519.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/10nNGU](https://douc.cc/10nNGU)；来自：[广播室 · 第 71 页](/broadcast/page/71) · 第 14 行
-- [http://yaraon.blog109.fc2.com/blog-entry-23801.html](http://yaraon.blog109.fc2.com/blog-entry-23801.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://yaraon.blog109.fc2.com/blog-entry-23801.html](/external-articles/yaraon.blog109.fc2.com/5eff0f3e240d3960b120) · [原站](http://yaraon.blog109.fc2.com/blog-entry-23801.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/2h6aYR](https://douc.cc/2h6aYR)；来自：[广播室 · 第 65 页](/broadcast/page/65) · 第 14 行
-- [http://yaraon.blog109.fc2.com/blog-entry-23878.html](http://yaraon.blog109.fc2.com/blog-entry-23878.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://yaraon.blog109.fc2.com/blog-entry-23878.html](/external-articles/yaraon.blog109.fc2.com/b654dba5b52e99c22381) · [原站](http://yaraon.blog109.fc2.com/blog-entry-23878.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/13BUQp](https://douc.cc/13BUQp)；来自：[广播室 · 第 63 页](/broadcast/page/63) · 第 22 行
-- [http://yaraon.blog109.fc2.com/blog-entry-23887.html](http://yaraon.blog109.fc2.com/blog-entry-23887.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://yaraon.blog109.fc2.com/blog-entry-23887.html](/external-articles/yaraon.blog109.fc2.com/205faca164544b397628) · [原站](http://yaraon.blog109.fc2.com/blog-entry-23887.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/41N4ZM](https://douc.cc/41N4ZM)；来自：[广播室 · 第 63 页](/broadcast/page/63) · 第 18 行
-- [http://yaraon.blog109.fc2.com/blog-entry-27462.html](http://yaraon.blog109.fc2.com/blog-entry-27462.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
+- [http://yaraon.blog109.fc2.com/blog-entry-27462.html](/external-articles/yaraon.blog109.fc2.com/670ca9c92b75d1de5225) · [原站](http://yaraon.blog109.fc2.com/blog-entry-27462.html) · 其他网页（文章 / 官网 / 博客） · 抓取策略：`fetch_article`
   - 解析自 [https://douc.cc/3DwyqQ](https://douc.cc/3DwyqQ)；来自：[广播室 · 第 50 页](/broadcast/page/50) · 第 26 行
 
 ## zh.wikipedia.org

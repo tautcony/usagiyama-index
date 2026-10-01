@@ -252,11 +252,13 @@ def preprocess(html: str, cfg: Config = CONFIG) -> str:
     """[A] 把豆瓣的松散 HTML 规范化为结构良好的 HTML。"""
     soup = BeautifulSoup(html, "lxml")
 
-    for tag in soup.find_all(DROP_TAGS):
+    for tag in reversed(soup.find_all(DROP_TAGS)):
         tag.decompose()
 
     # 空的对齐占位单元格 / 清浮动 div
-    for tag in soup.find_all(True):
+    # Remove descendants first: decompose() destroys their attrs too, so a
+    # parent removed from a prebuilt list must not leave dead children to visit.
+    for tag in reversed(soup.find_all(True)):
         if not isinstance(tag, Tag):
             continue
         classes = tag.get("class") or []
@@ -268,7 +270,7 @@ def preprocess(html: str, cfg: Config = CONFIG) -> str:
         tag.unwrap()
 
     # 空的 <p>/<div>/<span> 清掉，避免产生空段落
-    for tag in soup.find_all(["p", "div", "span"]):
+    for tag in reversed(soup.find_all(["p", "div", "span"])):
         if not _text_of(tag) and not tag.find(["img", "br"]):
             tag.decompose()
 

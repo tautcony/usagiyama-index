@@ -310,6 +310,12 @@ def emit_links_index(
                 f"- {target_link}{original_link} · {target.get('category', '待分类')} · "
                 f"抓取策略：`{target.get('action', 'review')}`"
             )
+            capture = (captures or {}).get(url, {})
+            for alternative in capture.get('localAlternatives', []):
+                lines.append(
+                    f"  - 原链接尚不可恢复；可读{alternative['kind']}："
+                    f"[{alternative['title']}]({alternative['route']})"
+                )
             short_references: set[tuple[str, Any]] = set()
             for source in target.get("resolvedFrom", []):
                 short_url = str(source["url"])

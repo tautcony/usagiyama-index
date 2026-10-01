@@ -43,3 +43,15 @@ def test_hatenablog_does_not_fall_back_to_site_shell_when_entry_is_missing(tmp_p
     assert parse_capture(
         "https://cycle-junrei.hatenablog.jp/entry/1", _capture(tmp_path, html), tmp_path
     ) is None
+
+
+def test_tbs_selects_exact_news_fragment_and_never_month_index(tmp_path):
+    html = '<div class="news_box" id="other"><h3>Wrong</h3>' + '无关' * 100 + '</div><a id="201401171800"></a><div class="news_title"><h3>原新闻</h3><div class="news_body">' + '原文' * 100 + '</div></div>'
+    capture = _capture(tmp_path, html)
+    url = 'https://www.tbs.co.jp/anime/k-on/k-on_tv/news/news1401.html#201401171800'
+    capture['finalUrl'] = url
+    result = parse_capture(url, capture, tmp_path)
+    assert result.title == '原新闻'
+    assert 'Wrong' not in result.content_html
+    capture['finalUrl'] = url.split('#')[0]
+    assert parse_capture(url, capture, tmp_path) is None

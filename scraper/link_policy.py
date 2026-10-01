@@ -93,6 +93,8 @@ def classify_external_link(url: str) -> dict[str, str]:
         if re.search(r"/entry-\d+\.html$", path):
             return {"category": "其他网页（文章 / 官网 / 博客）", "action": "fetch_article", "reason": "Ameblo 文章详情路径"}
         return {"category": "其他网页（文章 / 官网 / 博客）", "action": "metadata", "reason": "Ameblo 博客主页，不当作文章正文"}
+    if host in {"rdm.ne.jp", "rittor-music.jp"} and path.rstrip('/') == '/sound/column/tamacomanu':
+        return {"category": "专栏索引", "action": "fetch_article", "reason": "已核实的玉子音乐专栏目录，有独立正文适配器"}
     if _matches(host, ARTICLE_HOSTS) and path not in {"", "/"}:
         return {"category": "其他网页（文章 / 官网 / 博客）", "action": "fetch_article", "reason": "已知文章/博客/新闻发布域名"}
     strong_article_path = any(
