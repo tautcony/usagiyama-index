@@ -400,10 +400,6 @@ A列１席の後ろの扉から瀬波、山田、小川、竹田の順でシア�
 初稿　2014.04.22
 クレジット追記　2014.04.22
 
-![](/media/external-articles/priority1.blog51.fc2.com/438aa8b5bca01b9d4cbe/b4189bb4e1b0-0.gif)
-
-[Tweet](https://twitter.com/share)
-
 - コメント : [1](http://priority1.blog51.fc2.com/blog-entry-1772.html#comment-top)
 
 *本页归档自 [原站页面](http://priority1.blog51.fc2.com/blog-entry-1772.html)*

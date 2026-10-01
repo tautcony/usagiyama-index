@@ -34,6 +34,4 @@ archivedAt: "2026-10-01"
 　この、たまこの「一歩踏み出して」バランスポイントを見つけた結果が、最後の駅のホームのシーンにおける「もち蔵、大好き…どうぞ」という、もち蔵の気持ちに対する、たまこの真正面からの返答となります。、
 　もち蔵に対して有しているたまこの微妙な心情の流れを、バトンを上手くキャッチするまでの過程を通して、非常に情緒的に描いている素晴らしい演出でした。
 
-![FC2 Management](/media/external-articles/billy106.blog.fc2.com/fc1feaeece380bb9e9ff/d2b76ddc14f5-counter_img.gif)
-
 *本页归档自 [原站页面](http://billy106.blog.fc2.com/blog-entry-12.html)*

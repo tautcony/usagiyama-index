@@ -319,10 +319,6 @@ archivedAt: "2026-09-30"
  [**海外の反応系サイト**](http://animeyoubi.blog.fc2.com/blog-entry-123.html#.Uhj8_D-9bR8)でこの回の外国人の反応を翻訳していました
  演出の秀逸さを指摘している声がやはりありましたｗ
 
-![](/media/external-articles/priority1.blog51.fc2.com/e6c21f4dbb56afe4cae1/b4189bb4e1b0-0.gif)
-
-[Tweet](https://twitter.com/share)
-
 - コメント : [15](http://priority1.blog51.fc2.com/blog-entry-1744.html#comment-top)
 
 *本页归档自 [原站页面](http://priority1.blog51.fc2.com/blog-entry-1744.html)*

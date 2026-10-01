@@ -445,10 +445,6 @@ GFTからブキャナン・バスステーションまでとりあえずサク�
 [（４）３日目（10月14日：イベント２日目）](http://priority1.blog51.fc2.com/blog-entry-1603.html)
 [（５）最終日（10月15～16日：聖地巡礼）](http://priority1.blog51.fc2.com/blog-entry-1604.html)**
 
-![](/media/external-articles/priority1.blog51.fc2.com/f898dfedc2c5cc8aee6c/b4189bb4e1b0-0.gif)
-
-[Tweet](https://twitter.com/share)
-
 - コメント : [0](http://priority1.blog51.fc2.com/blog-entry-1602.html#comment-top)
 
 *本页归档自 [原站页面](http://priority1.blog51.fc2.com/blog-entry-1602.html)*

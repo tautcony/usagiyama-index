@@ -94,10 +94,6 @@ archivedAt: "2026-09-30"
 というわけで、「けいおん！」では遂に描かれなかった性や恋愛を通じたキャラクターの成長が、「たまこラ」で描かれることを期待しつつ、それがどのような表現になるのか、描写になるのか、楽しみにして待ちたいと思います
 それはきっと、楽しいことばかりでもなく、辛いことばかりでもなく、ときめきばかりでもなく、不安ばかりでもない、そして確実に成長する、そういう物語になるだろうことを、今から確信していますｗ
 
-![](/media/external-articles/priority1.blog51.fc2.com/fcc79e4fe1f35d186fee/b4189bb4e1b0-0.gif)
-
-[Tweet](https://twitter.com/share)
-
 - コメント : [0](http://priority1.blog51.fc2.com/blog-entry-1760.html#comment-top)
 
 *本页归档自 [原站页面](http://priority1.blog51.fc2.com/blog-entry-1760.html)*

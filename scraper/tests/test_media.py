@@ -740,3 +740,28 @@ class TestSuffixFollowsContent:
 
         assert mapping == {url: "/media/notes/123/p7.jpg"}
         assert refs[0].local == "/media/notes/123/p7.jpg"
+
+
+@pytest.mark.parametrize('suffix', ['.html', '.php'])
+def test_gif_dynamic_endpoint_uses_true_suffix_and_reuses_existing(cfg, suffix):
+    transport = TestSuffixFollowsContent._StubTransport(GIF)
+    media = MediaArchive(transport, cfg=cfg)
+    dest, local = media.external_article_image_path('example.com', 'post', 'https://example.com/counter' + suffix)
+    first = media.download('https://example.com/counter' + suffix, dest, local)
+    assert first.ok and first.local_path.suffix == '.gif'
+    assert first.local_url.endswith('.gif')
+    calls = len(transport.calls)
+    second = media.download('https://example.com/counter' + suffix, dest, local)
+    assert second.ok and second.from_cache and second.local_url == first.local_url
+    assert len(transport.calls) == calls
+
+
+def test_suffix_heal_reuses_identical_canonical_file(cfg):
+    directory = cfg.media_dir / 'external-articles'
+    directory.mkdir(parents=True)
+    wrong = directory / 'counter.html'
+    right = directory / 'counter.gif'
+    wrong.write_bytes(GIF)
+    right.write_bytes(GIF)
+    assert MediaArchive(None, cfg=cfg).heal_suffix(wrong) == right
+    assert not wrong.exists() and right.read_bytes() == GIF

@@ -30,10 +30,6 @@ archivedAt: "2026-09-30"
 
 以上の点は、補完できるように今後の視聴で注意してみたいと思います
 
-![](/media/external-articles/priority1.blog51.fc2.com/6e0cda7e6ccbaae4c7a9/b4189bb4e1b0-0.gif)
-
-[Tweet](https://twitter.com/share)
-
 - コメント : [2](http://priority1.blog51.fc2.com/blog-entry-1778.html#comment-top)
 
 *本页归档自 [原站页面](http://priority1.blog51.fc2.com/blog-entry-1778.html)*

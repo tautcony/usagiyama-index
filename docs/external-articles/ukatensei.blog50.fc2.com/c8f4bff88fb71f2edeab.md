@@ -246,6 +246,4 @@ JR在来線改札を通り過ぎ、エスカレーターを駆け下り。
 
 \*引用画像は全て比較研究目的で掲載しており、著作権は全て京都アニメーション・うさぎ山商店街にあります、ので。
 
-[Tweet](https://twitter.com/share)
-
 *本页归档自 [原站页面](http://ukatensei.blog50.fc2.com/blog-entry-798.html)*

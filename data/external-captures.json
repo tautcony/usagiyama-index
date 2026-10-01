@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "updatedAt": "2026-10-01T15:15:28+08:00"
+    "updatedAt": "2026-10-01T15:37:17+08:00"
   },
   "http://ameblo.jp/clown-happy/entry-11835509608.html": {
     "requestedUrl": "http://ameblo.jp/clown-happy/entry-11835509608.html",
@@ -1134,10 +1134,7 @@
       "https://stat.ameba.jp/user_images/20120120/16/cola-tea/6c/bd/j/o0550037211745114006.jpg?caw=800": "/media/external-articles/ameblo.jp/caeab0f1f7fcf99553eb/c0b07445a0fa-o0550037211745114006.jpg",
       "https://stat.ameba.jp/user_images/20120120/16/cola-tea/ae/ac/j/o0550038311745125010.jpg?caw=800": "/media/external-articles/ameblo.jp/caeab0f1f7fcf99553eb/cc006e46ebae-o0550038311745125010.jpg",
       "https://stat.ameba.jp/user_images/20120120/16/cola-tea/12/3b/j/t02200281_0800102011745122962.jpg?caw=800": "/media/external-articles/ameblo.jp/caeab0f1f7fcf99553eb/6aeead19f520-t02200281_0800102011745122962.jpg",
-      "https://stat.ameba.jp/user_images/20120213/22/cola-tea/e1/85/j/o0800055711792541673.jpg?caw=800": "/media/external-articles/ameblo.jp/caeab0f1f7fcf99553eb/19bcd3d9861b-o0800055711792541673.jpg",
-      "https://stat.ameba.jp/user_images/20120121/11/cola-tea/5d/bf/j/o0265039011746569308.jpg?caw=800": "/media/external-articles/ameblo.jp/caeab0f1f7fcf99553eb/111f07f5fdbf-o0265039011746569308.jpg",
-      "https://stat.ameba.jp/user_images/20120120/16/cola-tea/00/cc/j/t02200254_0600069211745121147.jpg?caw=800": "/media/external-articles/ameblo.jp/caeab0f1f7fcf99553eb/fe86fa24da16-t02200254_0600069211745121147.jpg",
-      "https://stat.ameba.jp/user_images/20120214/22/cola-tea/fd/2b/j/o0500038411794731217.jpg?caw=800": "/media/external-articles/ameblo.jp/caeab0f1f7fcf99553eb/2b1c9b01ad66-o0500038411794731217.jpg"
+      "https://stat.ameba.jp/user_images/20120120/16/cola-tea/00/cc/j/t02200254_0600069211745121147.jpg?caw=800": "/media/external-articles/ameblo.jp/caeab0f1f7fcf99553eb/fe86fa24da16-t02200254_0600069211745121147.jpg"
     },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
@@ -1865,9 +1862,7 @@
     "rawResponse": "scraper/state/cache/web.archive.org/39b9f1a09a605ca8fb6528ce8abf8e718667c555.body",
     "archivedImages": {
       "http://ecx.images-amazon.com/images/I/51ZrpTfGIjL.jpg": "/media/external-articles/anifav.com/0dd47089c37750dde0c2/4ae7dfaa34c9-51ZrpTfGIjL.jpg",
-      "http://www.assoc-amazon.jp/e/ir?t=seikaisha-22&l=ur2&o=9": "/media/external-articles/anifav.com/0dd47089c37750dde0c2/35f9c39e9fee-ir.gif",
-      "http://anifav.com/res/images/ranking.png": "/media/external-articles/anifav.com/0dd47089c37750dde0c2/e7b6ac4146b4-ranking.png",
-      "http://b.st-hatena.com/images/entry-button/button-only.gif": "/media/external-articles/anifav.com/0dd47089c37750dde0c2/3abdca1d7ad5-button-only.gif"
+      "http://anifav.com/res/images/ranking.png": "/media/external-articles/anifav.com/0dd47089c37750dde0c2/e7b6ac4146b4-ranking.png"
     }
   },
   "http://anime-eupho.com/news/?id=53": {
@@ -1893,8 +1888,7 @@
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
     "archivedImages": {
-      "https://anime-eupho.com/img/news/150828_fanbook.jpg": "/media/external-articles/anime-eupho.com/7f9ba7fb1f4f0d406dd0/361d09fcc378-150828_fanbook.jpg",
-      "https://anime-eupho.com/img/news/page/pageTop.png": "/media/external-articles/anime-eupho.com/7f9ba7fb1f4f0d406dd0/1ecb7cca44a7-pageTop.png"
+      "https://anime-eupho.com/img/news/150828_fanbook.jpg": "/media/external-articles/anime-eupho.com/7f9ba7fb1f4f0d406dd0/361d09fcc378-150828_fanbook.jpg"
     },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
@@ -2074,14 +2068,7 @@
     "rawResponse": "scraper/state/cache/b.hatena.ne.jp/0bc09d94dfe5dcabdc7b9a6aac72d7c41dc5f9c8.body",
     "archivedImages": {
       "https://b.st-hatena.com/entryimage/articles/17482-1387158046.jpg": "/media/external-articles/hatenanews.com/2b795a2e03b87a0a1270/e0e9c24d5d0f-17482-1387158046.jpg",
-      "https://b.hatena.ne.jp/entry/image/http://b.hatena.ne.jp/articles/201312/17474": "/media/external-articles/hatenanews.com/2b795a2e03b87a0a1270/c2072146c9a5-17474.gif",
-      "https://b.hatena.ne.jp/entry/image/http://b.hatena.ne.jp/articles/201312/17490": "/media/external-articles/hatenanews.com/2b795a2e03b87a0a1270/23a6e8e6a585-17490.gif",
-      "https://cdn-ak.f.st-hatena.com/images/fotolife/h/hatenabookmarknews/20131212/20131212195253.jpg?1386845585": "/media/external-articles/hatenanews.com/2b795a2e03b87a0a1270/f1afd0f75993-20131212195253.jpg",
-      "https://b.hatena.ne.jp/entry/image/http://hatenanews.com/articles/201310/16430": "/media/external-articles/hatenanews.com/2b795a2e03b87a0a1270/a4e92d7b2cd4-16430.gif",
-      "https://b.hatena.ne.jp/entry/image/http://hatenanews.com/articles/201010/1809": "/media/external-articles/hatenanews.com/2b795a2e03b87a0a1270/771ba923d6d5-1809.gif",
-      "https://b.hatena.ne.jp/entry/image/http://hatenanews.com/articles/201106/4402": "/media/external-articles/hatenanews.com/2b795a2e03b87a0a1270/74908854203b-4402.gif",
-      "https://b.hatena.ne.jp/entry/image/http://hatenanews.com/articles/201310/16602": "/media/external-articles/hatenanews.com/2b795a2e03b87a0a1270/532fea011d0a-16602.gif",
-      "https://b.hatena.ne.jp/entry/image/http://www.kyotoanimation.co.jp/": "/media/external-articles/hatenanews.com/2b795a2e03b87a0a1270/2d4029875c5f-www.kyotoanimation.co.gif"
+      "https://cdn-ak.f.st-hatena.com/images/fotolife/h/hatenabookmarknews/20131212/20131212195253.jpg?1386845585": "/media/external-articles/hatenanews.com/2b795a2e03b87a0a1270/f1afd0f75993-20131212195253.jpg"
     }
   },
   "http://billy106.blog.fc2.com/blog-entry-12.html": {
@@ -2147,10 +2134,7 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "rawResponse": "scraper/state/cache/web.archive.org/85d029bcaf5fda8116aea275226be48b25a119e7.body",
-    "archivedImages": {
-      "http://media.fc2.com/counter_img.php?id=595": "/media/external-articles/billy106.blog.fc2.com/fc1feaeece380bb9e9ff/d2b76ddc14f5-counter_img.gif"
-    }
+    "rawResponse": "scraper/state/cache/web.archive.org/85d029bcaf5fda8116aea275226be48b25a119e7.body"
   },
   "http://birthofblues.livedoor.biz/archives/51638698.html": {
     "requestedUrl": "http://birthofblues.livedoor.biz/archives/51638698.html",
@@ -2176,53 +2160,9 @@
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
     "archivedImages": {
-      "https://b.hatena.ne.jp/entry/image/https://yuukoku.net/gate.cgi?1121=1790766194": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/7b95d0a19a60-gate.gif",
-      "https://blogroll.livedoor.net/url/https://katuru.com/rss/6290035.html": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/ef998754dde3-6290035.gif",
-      "https://b.hatena.ne.jp/entry/image/https://katuru.com/rss/6290035.html": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/08558efd54b4-6290035.gif",
-      "https://blogroll.livedoor.net/url/http://www.2nn.jp/mnewsplus/1790778666/": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/28b9a2e67d65-1790778666.png",
-      "https://blogroll.livedoor.net/url/https://yuukoku.net/gate.cgi?1121=1790766194": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/4b92197e737f-gate.gif",
-      "https://blogroll.livedoor.net/url/http://www.2nn.jp/newsplus/1790776163/": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/8fbe31157f2d-1790776163.png",
-      "https://blogroll.livedoor.net/url/http://www.2nn.jp/news4plus/1790772479/": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/5d9ff7a8978a-1790772479.png",
-      "https://b.hatena.ne.jp/entry/image/http://www.2nn.jp/news4plus/1790772479/": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/1d97dad41b56-1790772479.gif",
-      "https://b.hatena.ne.jp/entry/image/http://www.2nn.jp/mnewsplus/1790778666/": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/857e2dd28a23-1790778666.gif",
-      "https://blogroll.livedoor.net/url/https://kabumatome.doorblog.jp/archives/66033138.html": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/65e48d33f034-66033138.gif",
-      "https://b.hatena.ne.jp/entry/image/https://kabumatome.doorblog.jp/archives/66033138.html": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/e50dc75fec7f-66033138.gif",
-      "https://b.hatena.ne.jp/entry/image/http://www.2nn.jp/newsplus/1790776163/": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/8adf44faa620-1790776163.gif",
-      "https://blogroll.livedoor.net/url/https://chosonsinbo.com/jp/2026/09/30-264/": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/882a53184e04-30-264.gif",
-      "https://blogroll.livedoor.net/url/https://access-journal.jp/91397": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/7626ab26fe20-91397.gif",
-      "https://b.hatena.ne.jp/entry/image/https://access-journal.jp/91397": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/df9067ba3d9c-91397.gif",
-      "https://b.hatena.ne.jp/entry/image/https://chosonsinbo.com/jp/2026/09/30-264/": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/44f3a484a5c0-30-264.gif",
-      "https://blogroll.livedoor.net/url/https://realsound.jp/2026/09/post-2537932.html": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/3900f6e7c73e-post-2537932.gif",
-      "https://b.hatena.ne.jp/entry/image/https://realsound.jp/2026/09/post-2537932.html": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/f9752c039b97-post-2537932.gif",
-      "https://b.hatena.ne.jp/entry/image/https://specificasia.blog.jp/archives/1084533877.html": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/89f1eb726ddd-1084533877.gif",
-      "https://blogroll.livedoor.net/url/https://specificasia.blog.jp/archives/1084533877.html": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/e8695621ac0c-1084533877.gif",
-      "https://blogroll.livedoor.net/url/https://dailynk.jp/archives/323400": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/3485fdb7498d-323400.gif",
-      "https://b.hatena.ne.jp/entry/image/https://dailynk.jp/archives/323400": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/50591673a430-323400.gif",
-      "https://blogroll.livedoor.net/url/https://touchlab.jp/2026/09/tesla_roadster_postponed/": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/bedcc54f4b6e-tesla_roadster_postponed.gif",
-      "https://b.hatena.ne.jp/entry/image/https://touchlab.jp/2026/09/tesla_roadster_postponed/": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/e3ffe4e45881-tesla_roadster_postponed.gif",
-      "https://blogroll.livedoor.net/url/https://jigensha.info/2026/09/30/kuruwa-quest-471-ibaraki-tsukubamirai-adaka-sarumai/?utm_source=rss&utm_medium=rss&utm_campaign=kuruwa-quest-471-ibaraki-tsukubamirai-adaka-sarumai": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/2e27afb0c15a-kuruwa-quest-471-ibaraki-tsukubamirai-adaka-sarumai.gif",
-      "https://b.hatena.ne.jp/entry/image/https://jigensha.info/2026/09/30/kuruwa-quest-471-ibaraki-tsukubamirai-adaka-sarumai/?utm_source=rss&utm_medium=rss&utm_campaign=kuruwa-quest-471-ibaraki-tsukubamirai-adaka-sarumai": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/2921c4420509-kuruwa-quest-471-ibaraki-tsukubamirai-adaka-sarumai.gif",
-      "https://b.hatena.ne.jp/entry/image/https://facta.co.jp/article/202610074.html": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/776b8b8c4181-202610074.gif",
-      "https://blogroll.livedoor.net/url/https://animedeeply.com/tvod/42884/": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/ebea61d09a4b-42884.gif",
-      "https://blogroll.livedoor.net/url/http://dailycult.blogspot.com/2026/09/colabocolabo.html": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/a1f85cad07e8-colabocolabo.png",
-      "https://b.hatena.ne.jp/entry/image/http://dailycult.blogspot.com/2026/09/colabocolabo.html": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/d7e7b9e56fe0-colabocolabo.gif",
-      "https://blogroll.livedoor.net/url/https://winbet.jp/uganda-vs-congo-dr-05-10-2026/": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/2439c799bb5f-uganda-vs-congo-dr-05-10-2026.gif",
-      "https://b.hatena.ne.jp/entry/image/https://animedeeply.com/tvod/42884/": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/fbfceada3161-42884.gif",
-      "https://blogroll.livedoor.net/url/http://brog.keiten.net/?eid=1100793": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/c5a99813fdfc-brog.keiten.gif",
-      "https://b.hatena.ne.jp/entry/image/http://brog.keiten.net/?eid=1100793": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/419a23f2906e-brog.keiten.gif",
-      "https://b.hatena.ne.jp/entry/image/https://winbet.jp/uganda-vs-congo-dr-05-10-2026/": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/ed3473ecd230-uganda-vs-congo-dr-05-10-2026.gif",
-      "https://blogroll.livedoor.net/url/https://k-10.jugem.jp/?eid=2764": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/0e93566540e9-k-10.jugem.gif",
-      "https://blogroll.livedoor.net/url/https://zarutoro.livedoor.biz/archives/52026286.html": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/38009e5fb48c-52026286.gif",
-      "https://blogroll.livedoor.net/url/https://facta.co.jp/article/202610074.html": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/4402905e0074-202610074.gif",
-      "https://b.hatena.ne.jp/entry/image/large/https://birthofblues.livedoor.biz/archives/51638698.html": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/8fbfd858473a-51638698.gif",
       "http://ecx.images-amazon.com/images/I/61idQTcXsdL.jpg": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/31052bd1cc25-61idQTcXsdL.jpg",
-      "https://b.hatena.ne.jp/entry/image/https://zarutoro.livedoor.biz/archives/52026286.html": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/006d1707acbb-52026286.gif",
       "http://ecx.images-amazon.com/images/I/51uU2WgxqfL._SL160_.jpg": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/0275a2d2deb5-51uU2WgxqfL._SL160_.jpg",
-      "http://ecx.images-amazon.com/images/I/61idQTcXsdL._SL160_.jpg": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/e1aadd70c497-61idQTcXsdL._SL160_.jpg",
-      "https://b.hatena.ne.jp/entry/image/https://k-10.jugem.jp/?eid=2764": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/ea190ff4cfa8-k-10.jugem.gif"
-    },
-    "imageFailures": {
-      "https://blogroll.livedoor.net/img/blog_favicon.ico?t=20230912": "https://blogroll.livedoor.net/img/blog_favicon.ico?t=20230912 → HTTP 200 · image/x-icon · 16958B · 本次网络请求，疑似错误页"
+      "http://ecx.images-amazon.com/images/I/61idQTcXsdL._SL160_.jpg": "/media/external-articles/birthofblues.livedoor.biz/248b05bdc70609f585a7/e1aadd70c497-61idQTcXsdL._SL160_.jpg"
     },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
@@ -2735,9 +2675,6 @@
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
     "rawResponse": "scraper/state/cache/web.archive.org/700c70a194d48a649e5ddda3b017568838dcc24b.body",
-    "archivedImages": {
-      "https://b.st-hatena.com/images/entry-button/button-only@2x.png": "/media/external-articles/columii.jp/5fe6e734f410423d7c7b/90825b574675-button-only_2x.png"
-    },
     "imageFailures": {
       "http://columii.jp:80/movie/images/article/eigaka.jpg": "https://web.archive.org/web/20160618145242im_/http://columii.jp:80/movie/images/article/eigaka.jpg → HTTP 404 · text/html · 4642B · 来自缓存（2026-10-01T13:15:22+08:00），源站无此尺寸；https://web.archive.org/web/…",
       "http://columii.jp:80/movie/images/article/dbook.jpg": "https://web.archive.org/web/20160618145242im_/http://columii.jp:80/movie/images/article/dbook.jpg → HTTP 404 · text/html · 4641B · 来自缓存（2026-10-01T13:15:29+08:00），源站无此尺寸；https://web.archive.org/web/2…"
@@ -2770,8 +2707,7 @@
       "http://cdn-ak.f.st-hatena.com/images/fotolife/c/cycle_junrei/20140616/20140616223839.jpg": "/media/external-articles/cycle-junrei.hatenablog.jp/708e1b52a25837d7a7df/0d7782880912-20140616223839.jpg",
       "http://cdn-ak.f.st-hatena.com/images/fotolife/c/cycle_junrei/20140616/20140616223123.jpg": "/media/external-articles/cycle-junrei.hatenablog.jp/708e1b52a25837d7a7df/22d96e84ab17-20140616223123.jpg",
       "http://cdn-ak.f.st-hatena.com/images/fotolife/c/cycle_junrei/20140616/20140616222650.jpg": "/media/external-articles/cycle-junrei.hatenablog.jp/708e1b52a25837d7a7df/24d5f86b947a-20140616222650.jpg",
-      "http://cdn-ak.f.st-hatena.com/images/fotolife/c/cycle_junrei/20140615/20140615145815.jpg": "/media/external-articles/cycle-junrei.hatenablog.jp/708e1b52a25837d7a7df/76a63d65dcc2-20140615145815.jpg",
-      "https://cdn.profile-image.st-hatena.com/users/cycle_junrei/profile.png?1403060606": "/media/external-articles/cycle-junrei.hatenablog.jp/708e1b52a25837d7a7df/5fc8c631cd94-profile.png"
+      "http://cdn-ak.f.st-hatena.com/images/fotolife/c/cycle_junrei/20140615/20140615145815.jpg": "/media/external-articles/cycle-junrei.hatenablog.jp/708e1b52a25837d7a7df/76a63d65dcc2-20140615145815.jpg"
     },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
@@ -2863,10 +2799,7 @@
       "date": "2012-03-29"
     },
     "restoredFromCache": true,
-    "rawResponse": "scraper/state/cache/web.archive.org/32862463a1964a228fe1fa28a65060d1dc99cc85.body",
-    "archivedImages": {
-      "http://b.st-hatena.com/images/entry-button/button-only.gif": "/media/external-articles/d.hatena.ne.jp/03670388009b6a78116b/3abdca1d7ad5-button-only.gif"
-    }
+    "rawResponse": "scraper/state/cache/web.archive.org/32862463a1964a228fe1fa28a65060d1dc99cc85.body"
   },
   "http://d.hatena.ne.jp/beaux25/20131203/1386080367": {
     "requestedUrl": "http://d.hatena.ne.jp/beaux25/20131203/1386080367",
@@ -2979,11 +2912,7 @@
       "http://cdn-ak.f.st-hatena.com/images/fotolife/i/ike_tomo/20140501/20140501221309.jpg": "/media/external-articles/d.hatena.ne.jp/ed425cbc6b9393904587/7c1ae9ab1df7-20140501221309.jpg",
       "http://cdn-ak.f.st-hatena.com/images/fotolife/i/ike_tomo/20140501/20140501231316.jpg": "/media/external-articles/d.hatena.ne.jp/ed425cbc6b9393904587/b6fbba264e64-20140501231316.jpg",
       "http://cdn-ak.f.st-hatena.com/images/fotolife/i/ike_tomo/20140501/20140501234956.jpg": "/media/external-articles/d.hatena.ne.jp/ed425cbc6b9393904587/882b10ce95a1-20140501234956.jpg",
-      "http://cdn-ak.f.st-hatena.com/images/fotolife/i/ike_tomo/20140502/20140502000513.jpg": "/media/external-articles/d.hatena.ne.jp/ed425cbc6b9393904587/6385f211a8fb-20140502000513.jpg",
-      "http://b.st-hatena.com/images/entry-button/button-only.gif": "/media/external-articles/d.hatena.ne.jp/ed425cbc6b9393904587/3abdca1d7ad5-button-only.gif",
-      "http://d.hatena.ne.jp/images/b_entry_de.gif": "/media/external-articles/d.hatena.ne.jp/ed425cbc6b9393904587/7b6a2900fc86-b_entry_de.gif",
-      "http://b.hatena.ne.jp/entry/image/http://d.hatena.ne.jp/ike_tomo/20140501/1398959756": "/media/external-articles/d.hatena.ne.jp/ed425cbc6b9393904587/ce6078d0c626-1398959756.gif",
-      "http://r.hatena.ne.jp/images/popup.gif": "/media/external-articles/d.hatena.ne.jp/ed425cbc6b9393904587/2bae1fd18d0a-popup.gif"
+      "http://cdn-ak.f.st-hatena.com/images/fotolife/i/ike_tomo/20140502/20140502000513.jpg": "/media/external-articles/d.hatena.ne.jp/ed425cbc6b9393904587/6385f211a8fb-20140502000513.jpg"
     }
   },
   "http://d.hatena.ne.jp/los_endos/20130212/1360679189": {
@@ -3938,9 +3867,7 @@
       "http://cdn-ak.f.st-hatena.com/images/fotolife/t/tatsu2/20120724/20120724223904.png": "/media/external-articles/d.hatena.ne.jp/c940a6ee0693b4af6d24/412c3fc9ef01-20120724223904.png",
       "http://cdn-ak.f.st-hatena.com/images/fotolife/t/tatsu2/20120724/20120724224304.png": "/media/external-articles/d.hatena.ne.jp/c940a6ee0693b4af6d24/2050edc2183b-20120724224304.png",
       "http://cdn-ak.f.st-hatena.com/images/fotolife/t/tatsu2/20120724/20120724224853.png": "/media/external-articles/d.hatena.ne.jp/c940a6ee0693b4af6d24/c8f63c856f6b-20120724224853.png",
-      "http://ecx.images-amazon.com/images/I/51-lKAtTvqL._SL160_.jpg": "/media/external-articles/d.hatena.ne.jp/c940a6ee0693b4af6d24/1e19781adca6-51-lKAtTvqL._SL160_.jpg",
-      "http://d.hatena.ne.jp/images/b_entry_lg.gif": "/media/external-articles/d.hatena.ne.jp/c940a6ee0693b4af6d24/41ff7057404b-b_entry_lg.gif",
-      "http://b.hatena.ne.jp/entry/image/http://d.hatena.ne.jp/tatsu2/20120724/p1": "/media/external-articles/d.hatena.ne.jp/c940a6ee0693b4af6d24/c82b76b5f661-p1.gif"
+      "http://ecx.images-amazon.com/images/I/51-lKAtTvqL._SL160_.jpg": "/media/external-articles/d.hatena.ne.jp/c940a6ee0693b4af6d24/1e19781adca6-51-lKAtTvqL._SL160_.jpg"
     }
   },
   "http://d.hatena.ne.jp/tunderealrovski/20130315/p1": {
@@ -4032,7 +3959,6 @@
       "https://cdn-ak.f.st-hatena.com/images/fotolife/u/ukkah/20131105/20131105021555.jpg": "/media/external-articles/ukkah.hatenadiary.org/ef8422ab39dcbb3f6c25/fcbfce97e53b-20131105021555.jpg",
       "https://cdn-ak.f.st-hatena.com/images/fotolife/u/ukkah/20131105/20131105021558.jpg": "/media/external-articles/ukkah.hatenadiary.org/ef8422ab39dcbb3f6c25/e6579482a10d-20131105021558.jpg",
       "https://cdn-ak.f.st-hatena.com/images/fotolife/u/ukkah/20131105/20131105021557.jpg": "/media/external-articles/ukkah.hatenadiary.org/ef8422ab39dcbb3f6c25/1d2c218adb88-20131105021557.jpg",
-      "https://cdn.profile-image.st-hatena.com/users/ukkah/profile.png": "/media/external-articles/ukkah.hatenadiary.org/ef8422ab39dcbb3f6c25/a7c5a8d4f3f9-profile.gif",
       "https://cdn-ak.f.st-hatena.com/images/fotolife/u/ukkah/20131105/20131105021556.jpg": "/media/external-articles/ukkah.hatenadiary.org/ef8422ab39dcbb3f6c25/b10451179c93-20131105021556.jpg",
       "https://cdn-ak.f.st-hatena.com/images/fotolife/u/ukkah/20131105/20131105021551.jpg": "/media/external-articles/ukkah.hatenadiary.org/ef8422ab39dcbb3f6c25/4438b5401a70-20131105021551.jpg"
     },
@@ -4181,7 +4107,6 @@
     "finalAction": "fetch_article",
     "rawResponse": "scraper/state/cache/web.archive.org/4a7839d42a0df61207ca9ccaed4230ea46a7405e.body",
     "archivedImages": {
-      "http://ddnavi.com/wp/wp-content/uploads/2014/02/1x1.png": "/media/external-articles/ddnavi.com/e13e8dfc0f794e64594d/bc0bd4d04c0a-1x1.png",
       "http://ddnavi.com/wp/wp-content/uploads/2013/05/twiani_banner664x140.jpg": "/media/external-articles/ddnavi.com/e13e8dfc0f794e64594d/45d74fe1da4d-twiani_banner664x140.jpg"
     },
     "imageFailures": {
@@ -4327,13 +4252,7 @@
       "http://img.f.hatena.ne.jp/images/fotolife/h/hatenabookmarknews/20101013/20101013223958.png": "/media/external-articles/hatenanews.com/a461f301d633f1d481d7/2fdd92b8887a-20101013223958.png",
       "http://img.f.hatena.ne.jp/images/fotolife/h/hatenabookmarknews/20101014/20101014162551.png": "/media/external-articles/hatenanews.com/a461f301d633f1d481d7/7218b5fe2dda-20101014162551.png",
       "http://img.f.hatena.ne.jp/images/fotolife/h/hatenabookmarknews/20101014/20101014005157.png": "/media/external-articles/hatenanews.com/a461f301d633f1d481d7/fe7b78c179fa-20101014005157.png",
-      "https://b.hatena.ne.jp/entry/image/http://hatenanews.com/articles/201009/1778": "/media/external-articles/hatenanews.com/a461f301d633f1d481d7/d24c9484b9c1-1778.gif",
-      "https://b.hatena.ne.jp/entry/image/http://kyoto-cmex.jp/event/event02.html": "/media/external-articles/hatenanews.com/a461f301d633f1d481d7/910535962272-event02.gif",
-      "https://b.hatena.ne.jp/entry/image/http://hatenanews.com/articles/201007/1351": "/media/external-articles/hatenanews.com/a461f301d633f1d481d7/d07af579397c-1351.gif",
-      "http://img.f.hatena.ne.jp/images/fotolife/h/hatenabookmarknews/20101001/20101001195616.png": "/media/external-articles/hatenanews.com/a461f301d633f1d481d7/c140d732c956-20101001195616.png",
-      "https://b.hatena.ne.jp/entry/image/http://hatenanews.com/articles/201007/1350": "/media/external-articles/hatenanews.com/a461f301d633f1d481d7/b873aee55a05-1350.gif",
-      "https://b.hatena.ne.jp/entry/image/http://hatenanews.com/articles/201005/1214": "/media/external-articles/hatenanews.com/a461f301d633f1d481d7/b0d5ddab4792-1214.gif",
-      "https://b.hatena.ne.jp/entry/image/http://hatenanews.com/articles/201002/878": "/media/external-articles/hatenanews.com/a461f301d633f1d481d7/606391c7bae5-878.gif"
+      "http://img.f.hatena.ne.jp/images/fotolife/h/hatenabookmarknews/20101001/20101001195616.png": "/media/external-articles/hatenanews.com/a461f301d633f1d481d7/c140d732c956-20101001195616.png"
     },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
@@ -4749,12 +4668,7 @@
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
     "archivedImages": {
-      "http://pbs.twimg.com/profile_images/751247615644143616/SOcaH2tI_normal.jpg": "/media/external-articles/htt123.blog.jp/496125e83b55e7ba11dc/6eaf47ffe948-SOcaH2tI_normal.jpg",
-      "https://livedoor.blogimg.jp/htt123/imgs/d/a/daffbb11-s.jpg": "/media/external-articles/htt123.blog.jp/496125e83b55e7ba11dc/2ec7d6981218-daffbb11-s.jpg",
-      "http://pbs.twimg.com/profile_images/635373462333198337/T39fIGIv_normal.jpg": "/media/external-articles/htt123.blog.jp/496125e83b55e7ba11dc/4d681c5b8006-T39fIGIv_normal.jpg"
-    },
-    "imageFailures": {
-      "http://pbs.twimg.com/profile_images/635373462333198337/T39fIGIv_normal.jpg": "http://pbs.twimg.com/profile_images/635373462333198337/T39fIGIv_normal.jpg → HTTP 404 · image/jpeg · 0B · 本次网络请求，源站无此尺寸"
+      "https://livedoor.blogimg.jp/htt123/imgs/d/a/daffbb11-s.jpg": "/media/external-articles/htt123.blog.jp/496125e83b55e7ba11dc/2ec7d6981218-daffbb11-s.jpg"
     },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
@@ -4854,7 +4768,6 @@
     "finalAction": "fetch_article",
     "archivedImages": {
       "https://livedoor.blogimg.jp/htt123/imgs/6/b/6b3bd4e5-s.jpg": "/media/external-articles/htt123.blog.jp/c6f3d6f4d0ae87fb6894/9d908c3e1053-6b3bd4e5-s.jpg",
-      "http://pbs.twimg.com/profile_images/751247615644143616/SOcaH2tI_normal.jpg": "/media/external-articles/htt123.blog.jp/c6f3d6f4d0ae87fb6894/6eaf47ffe948-SOcaH2tI_normal.jpg",
       "https://livedoor.blogimg.jp/htt123/imgs/c/8/c81ede57-s.jpg": "/media/external-articles/htt123.blog.jp/c6f3d6f4d0ae87fb6894/ea9da2be18a9-c81ede57-s.jpg"
     },
     "recoveryMethod": "primary",
@@ -4994,7 +4907,6 @@
       "https://livedoor.blogimg.jp/jin115/imgs/f/7/f7a0c9d6.jpg": "/media/external-articles/jin115.com/0f6b2c9ba60edcb1047c/702ee5e211e9-f7a0c9d6.jpg",
       "https://jin115.com/common_images/footer_linebtn.png": "/media/external-articles/jin115.com/0f6b2c9ba60edcb1047c/c9755d0cb36d-footer_linebtn.png",
       "https://jin115.com/common_images/title_comment_l.png": "/media/external-articles/jin115.com/0f6b2c9ba60edcb1047c/3a94f280fd92-title_comment_l.png",
-      "https://jin115.com/common_images/button_top.png": "/media/external-articles/jin115.com/0f6b2c9ba60edcb1047c/65c09becd9ee-button_top.png",
       "https://livedoor.blogimg.jp/jin115/imgs/b/5/b57edca1.jpg": "/media/external-articles/jin115.com/0f6b2c9ba60edcb1047c/005f2ccb0881-b57edca1.jpg",
       "https://livedoor.blogimg.jp/jin115/imgs/9/a/9a666047.jpg": "/media/external-articles/jin115.com/0f6b2c9ba60edcb1047c/95a55192d358-9a666047.jpg",
       "https://livedoor.blogimg.jp/jin115/imgs/7/6/76e129b4.jpg": "/media/external-articles/jin115.com/0f6b2c9ba60edcb1047c/167d13d23978-76e129b4.jpg",
@@ -5757,9 +5669,7 @@
     "restoredFromCache": true,
     "rawResponse": "scraper/state/cache/web.archive.org/d41087ce18155d8528f5c8ab2ab842e05b92d0cb.body",
     "archivedImages": {
-      "https://moca-news.net/article/20140427/2014042712220a_/image/!001.jpg": "/media/external-articles/moca-news.net/5ef2c143df6943ded34e/c3f4e5d41020-_001.jpg",
-      "https://moca-news.net/expansion.jpg": "/media/external-articles/moca-news.net/5ef2c143df6943ded34e/a33a0c0d701f-expansion.jpg",
-      "https://moca-news.net/expansion_over.jpg": "/media/external-articles/moca-news.net/5ef2c143df6943ded34e/9e5e0c5997a7-expansion_over.jpg"
+      "https://moca-news.net/article/20140427/2014042712220a_/image/!001.jpg": "/media/external-articles/moca-news.net/5ef2c143df6943ded34e/c3f4e5d41020-_001.jpg"
     }
   },
   "http://moca-news.net/article/20160902/2016090216000a_/01/?afid=difa": {
@@ -5859,10 +5769,6 @@
       "http://moca-news.net:80/article/20160902/2016090216000a_/image/!014.jpg": "https://web.archive.org/web/20180407081111im_/http://moca-news.net:80/article/20160902/2016090216000a_/image/!014.jpg → HTTP 404 · text/html · 4705B · 来自缓存（2026-10-01T13:17:48+08:00），源站无此尺寸；https://w…",
       "http://moca-news.net:80/article/20160902/2016090216000a_/image/!015.jpg": "https://web.archive.org/web/20180407081111im_/http://moca-news.net:80/article/20160902/2016090216000a_/image/!015.jpg → HTTP 404 · text/html · 4705B · 来自缓存（2026-10-01T13:17:54+08:00），源站无此尺寸；https://w…",
       "http://moca-news.net:80/article/20160902/2016090216000a_/image/!901.jpg": "https://web.archive.org/web/20180407081111im_/http://moca-news.net:80/article/20160902/2016090216000a_/image/!901.jpg → HTTP 404 · text/html · 4705B · 来自缓存（2026-10-01T13:17:53+08:00），源站无此尺寸；https://w…"
-    },
-    "archivedImages": {
-      "http://moca-news.net:80/expansion.jpg": "/media/external-articles/moca-news.net/76148588081ad8793c0b/1bf58020577e-expansion.jpg",
-      "http://moca-news.net:80/expansion_over.jpg": "/media/external-articles/moca-news.net/76148588081ad8793c0b/e29f60d2b6a7-expansion_over.jpg"
     }
   },
   "http://natalie.mu/comic/news/192446": {
@@ -6263,33 +6169,10 @@
     "finalAction": "fetch_article",
     "archivedImages": {
       "https://ogre.natalie.mu/media/pp/static/comic/koenokatachi/photo02s.jpg": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/6621b71471c5-photo02s.webp",
-      "https://ogre.natalie.mu/media/pp/static/comic/koenokatachi/item01-movie.jpg": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/18332e46e889-item01-movie.webp",
       "https://ogre.natalie.mu/media/pp/static/comic/koenokatachi/photo05s.jpg": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/049930379f36-photo05s.webp",
-      "https://ogre.natalie.mu/media/news/comic/2024/0725/koenokatachi_bamen_04.jpg?impolicy=thumb_fill&cropPlace=Center&width=268&height=268": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/d8e282592349-koenokatachi_bamen_04.webp",
-      "https://ogre.natalie.mu/media/news/eiga/2024/0725/koenokatachi_202407_04.jpg?impolicy=thumb_fill&cropPlace=Center&width=268&height=268": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/476ff8bcf9b1-koenokatachi_202407_04.webp",
-      "https://ogre.natalie.mu/media/pp/static/comic/cmoa-matome/thumb_inbox_600.jpg?imwidth=240&imdensity=1": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/351ce31b4452-thumb_inbox_600.webp",
-      "https://ogre.natalie.mu/media/pp/cmoa-denshi-2018-2020/cmoa-denshi-2018-2020_thumb_X.jpg?imwidth=240&imdensity=1": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/2336ce2b7e03-cmoa-denshi-2018-2020_thumb_X.webp",
-      "https://ogre.natalie.mu/media/pp/jamijami-umedaabi-itagakiparu/jamijami-umedaabi-itagakiparu_thumb_X_v2.jpg?imwidth=240&imdensity=1": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/a5f4a918612f-jamijami-umedaabi-itagakiparu_thumb_X_v2.webp",
-      "https://ogre.natalie.mu/media/news/comic/2026/0930/keyvisual_umaru100.jpg?impolicy=thumb_fit&width=180&height=180": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/eb73f5209395-keyvisual_umaru100.webp",
-      "https://ogre.natalie.mu/media/news/comic/2026/0930/CHANPON.jpg?impolicy=thumb_fill&cropPlace=North&width=180&height=180": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/a5e62472217e-CHANPON.webp",
-      "https://ogre.natalie.mu/media/news/comic/2026/0930/DSOD_key.jpg?impolicy=thumb_fill&cropPlace=North&width=180&height=180": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/2fe77d5220c4-DSOD_key.jpg",
       "https://ogre.natalie.mu/media/pp/static/comic/koenokatachi/photo01s.jpg": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/ac8469616bad-photo01s.avif",
       "https://ogre.natalie.mu/media/pp/static/comic/koenokatachi/photo03s.jpg": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/b161f92b65e3-photo03s.avif",
-      "https://ogre.natalie.mu/media/pp/static/comic/koenokatachi/photo04s.jpg": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/575ea4314152-photo04s.avif",
-      "https://ogre.natalie.mu/media/pp/static/comic/koenokatachi/profile.jpg": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/e7824ed114b9-profile.avif",
-      "https://ogre.natalie.mu/media/news/comic/2026/0917/koenokatachi_DolbyCinemavisual.jpg?impolicy=thumb_fit&width=268&height=268": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/02b619d4a3aa-koenokatachi_DolbyCinemavisual.avif",
-      "https://ogre.natalie.mu/media/news/eiga/2024/1001/jonetsutairiku_202410.jpg?impolicy=thumb_fill&cropPlace=West&width=268&height=268": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/acc31e682962-jonetsutairiku_202410.avif",
-      "https://ogre.natalie.mu/media/news/comic/2023/0806/koenokatachi_stage_1.jpg?impolicy=thumb_fit&width=268&height=268": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/056deede819b-koenokatachi_stage_1.avif",
-      "https://ogre.natalie.mu/media/news/stage/2023/0718/koekumi.jpg?impolicy=thumb_fit&width=268&height=268": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/ff933a886cdd-koekumi.avif",
-      "https://ogre.natalie.mu/media/pp/cmoa-denshi-2021-2023/cmoa-denshi-2021-2023_thumb_X.jpg?imwidth=240&imdensity=1": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/de091a363b9f-cmoa-denshi-2021-2023_thumb_X.avif",
-      "https://ogre.natalie.mu/media/pp/balmy-comic-shikinagiakira/balmy-comic-shikinagiakira_thumb_X.jpg?imwidth=240&imdensity=1": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/bcdc8082752b-balmy-comic-shikinagiakira_thumb_X.avif",
-      "https://ogre.natalie.mu/media/news/comic/2023/0725/defaultimage_zasshilist.jpg?impolicy=thumb_fill&cropPlace=Center&width=180&height=180": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/4100e7ef4ca7-defaultimage_zasshilist.avif",
-      "https://ogre.natalie.mu/media/news/comic/2023/0725/defaultimage_comicslist.jpg?impolicy=thumb_fill&cropPlace=Center&width=180&height=180": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/57c6b1f06e58-defaultimage_comicslist.avif",
-      "https://ogre.natalie.mu/media/news/comic/2026/0930/re04_KV4_jpn.jpg?impolicy=thumb_face_crop&width=180&height=180": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/007e452fb713-re04_KV4_jpn.avif",
-      "https://ogre.natalie.mu/media/news/comic/2026/0930/sabutoichi.jpg?impolicy=thumb_face_crop&width=180&height=180": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/9f9758faaec5-sabutoichi.avif",
-      "https://ogre.natalie.mu/media/news/comic/2026/0930/saekohaomou_1.jpg?impolicy=thumb_face_crop&width=180&height=180": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/c059e965d749-saekohaomou_1.avif",
-      "https://ogre.natalie.mu/media/news/comic/2026/0930/mahoyo_charavisual.jpg?impolicy=thumb_fill&cropPlace=North&width=180&height=180": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/6e20df18cd03-mahoyo_charavisual.avif",
-      "https://ogre.natalie.mu/media/news/comic/2026/0930/kusuriya_season3_Nazotoki_1.jpg?impolicy=thumb_fit&width=180&height=180": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/85b403257d49-kusuriya_season3_Nazotoki_1.avif"
+      "https://ogre.natalie.mu/media/pp/static/comic/koenokatachi/photo04s.jpg": "/media/external-articles/natalie.mu/21b75991ccc0ce94f2ee/575ea4314152-photo04s.avif"
     },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
@@ -6361,7 +6244,6 @@
       "https://images-fe.ssl-images-amazon.com/images/I/51IAlCE7RDL._SS70_.jpg": "/media/external-articles/natalie.mu/7788587e7a42aca4935f/604a88b55cca-51IAlCE7RDL._SS70_.jpg",
       "https://images-fe.ssl-images-amazon.com/images/I/51LMIxO0LmL._SS70_.jpg": "/media/external-articles/natalie.mu/7788587e7a42aca4935f/034fedc7cf2e-51LMIxO0LmL._SS70_.jpg",
       "https://images-fe.ssl-images-amazon.com/images/I/61qMI4pnQzL._SS70_.jpg": "/media/external-articles/natalie.mu/7788587e7a42aca4935f/d24cdbc2ac2e-61qMI4pnQzL._SS70_.jpg",
-      "https://ogre.natalie.mu/asset/natalie/common/polar/desktop/image/common/loading.gif": "/media/external-articles/natalie.mu/7788587e7a42aca4935f/f9e3619a0b82-loading.gif",
       "https://ogre.natalie.mu/asset/natalie/common/polar/common/image/comic/blank_artist.png?impolicy=thumb_fit&width=180&height=180": "/media/external-articles/natalie.mu/7788587e7a42aca4935f/a11aecd1e5fe-blank_artist.webp",
       "https://ogre.natalie.mu/artist/59072/20180419/irinomiyu_art201804.jpg?impolicy=thumb_fit&width=180&height=180": "/media/external-articles/natalie.mu/7788587e7a42aca4935f/3b6c78d5fe5d-irinomiyu_art201804.webp",
       "https://ogre.natalie.mu/asset/natalie/common/polar/common/image/follow_tag.png?impolicy=thumb_fit&width=180&height=180": "/media/external-articles/natalie.mu/7788587e7a42aca4935f/de86b93a9ded-follow_tag.webp",
@@ -6445,10 +6327,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://nazism.cocolog-nifty.com/blog/qrcode.png": "/media/external-articles/nazism.cocolog-nifty.com/7945132a72b82a7030e9/16d316177bb9-qrcode.png",
-      "https://updates.cocolog-nifty.com/images/nifty/logo_userpage.gif": "/media/external-articles/nazism.cocolog-nifty.com/7945132a72b82a7030e9/df9d9c7b4bac-logo_userpage.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -6588,7 +6466,6 @@
     "restoredFromCache": true,
     "rawResponse": "scraper/state/cache/web.archive.org/7ff81dcc06b54532d943f4e2505242eac602b7ff.body",
     "archivedImages": {
-      "http://mat1.gtimg.com/news/dc/images/16x9_adjust_img.png": "/media/external-articles/news.qq.com/9657e43f2a95c1603811/db97d9a557fe-16x9_adjust_img.png",
       "http://img1.gtimg.com/news/pics/hv1/150/229/2009/130693770.jpg": "/media/external-articles/news.qq.com/9657e43f2a95c1603811/1eefd2c912d3-130693770.jpg"
     }
   },
@@ -6723,7 +6600,6 @@
     "finalAction": "fetch_article",
     "rawResponse": "scraper/state/cache/nextsociety.blog.fc2.com/30cdc1b3e7f16ae2c43df68a79e846776bb799b0.body",
     "archivedImages": {
-      "http://b.st-hatena.com/images/entry-button/button-only.gif": "/media/external-articles/nextsociety.blog102.fc2.com/5c3b14ed3c36cdf0fc03/3abdca1d7ad5-button-only.gif",
       "http://s3.feedly.com/img/follows/feedly-follow-rectangle-volume-medium_2x.png": "/media/external-articles/nextsociety.blog102.fc2.com/5c3b14ed3c36cdf0fc03/d30553070e89-feedly-follow-rectangle-volume-medium_2x.png"
     }
   },
@@ -6880,8 +6756,7 @@
       "http://blog-imgs-30-origin.fc2.com/n/u/r/nuruwota/20081206cla03.jpg": "/media/external-articles/nuruwota.blog4.fc2.com/ff6026658f517948af1c/05f4a13b0bd5-20081206cla03.jpg",
       "http://blog-imgs-30-origin.fc2.com/n/u/r/nuruwota/k-on_10_010ss.png": "/media/external-articles/nuruwota.blog4.fc2.com/ff6026658f517948af1c/ddfd9fc6cf0f-k-on_10_010ss.png",
       "http://blog-imgs-30-origin.fc2.com/n/u/r/nuruwota/201012282048548e2.jpg": "/media/external-articles/nuruwota.blog4.fc2.com/ff6026658f517948af1c/4bc1cbfd9da2-201012282048548e2.jpg",
-      "http://blog-imgs-18-origin.fc2.com/n/u/r/nuruwota/noimage3.jpg": "/media/external-articles/nuruwota.blog4.fc2.com/ff6026658f517948af1c/4d22dfecaf9a-noimage3.jpg",
-      "http://b.st-hatena.com/images/entry-button/button-only.gif": "/media/external-articles/nuruwota.blog4.fc2.com/ff6026658f517948af1c/3abdca1d7ad5-button-only.gif"
+      "http://blog-imgs-18-origin.fc2.com/n/u/r/nuruwota/noimage3.jpg": "/media/external-articles/nuruwota.blog4.fc2.com/ff6026658f517948af1c/4d22dfecaf9a-noimage3.jpg"
     }
   },
   "http://nuruwota.blog4.fc2.com/blog-entry-3004.html": {
@@ -6960,8 +6835,7 @@
     "rawResponse": "scraper/state/cache/web.archive.org/e6467c0a371344fcbd51a04e98e1f83a186a68de.body",
     "archivedImages": {
       "http://blog-imgs-63-origin.fc2.com/n/u/r/nuruwota/20140501120004995.png": "/media/external-articles/nuruwota.blog4.fc2.com/a539539e20f02aa062e4/b13fda511787-20140501120004995.png",
-      "http://blog-imgs-63-origin.fc2.com/n/u/r/nuruwota/ekiImage.gif": "/media/external-articles/nuruwota.blog4.fc2.com/a539539e20f02aa062e4/e9efa80402e1-ekiImage.gif",
-      "http://b.st-hatena.com/images/entry-button/button-only.gif": "/media/external-articles/nuruwota.blog4.fc2.com/a539539e20f02aa062e4/3abdca1d7ad5-button-only.gif"
+      "http://blog-imgs-63-origin.fc2.com/n/u/r/nuruwota/ekiImage.gif": "/media/external-articles/nuruwota.blog4.fc2.com/a539539e20f02aa062e4/e9efa80402e1-ekiImage.gif"
     }
   },
   "http://priority1.blog51.fc2.com/blog-category-3.html": {
@@ -6989,7 +6863,6 @@
     "finalAction": "fetch_article",
     "archivedImages": {
       "https://blogthumbnail.fc2.com/760x420/34/p/r/i/priority1/27title.jpg": "/media/external-articles/priority1.blog51.fc2.com/03dc89cc735023c8db02/730ef5070b4c-27title.jpg",
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/03dc89cc735023c8db02/b4189bb4e1b0-0.gif",
       "https://blogthumbnail.fc2.com/760x420/45/p/r/i/priority1/26title.jpg": "/media/external-articles/priority1.blog51.fc2.com/03dc89cc735023c8db02/9db98f13b9b9-26title.jpg",
       "https://blogthumbnail.fc2.com/760x420/45/p/r/i/priority1/25title.jpg": "/media/external-articles/priority1.blog51.fc2.com/03dc89cc735023c8db02/bd819954b666-25title.jpg",
       "https://blogthumbnail.fc2.com/760x420/45/p/r/i/priority1/24title.jpg": "/media/external-articles/priority1.blog51.fc2.com/03dc89cc735023c8db02/931a066842e8-24title.jpg"
@@ -7054,9 +6927,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/1.gif": "/media/external-articles/priority1.blog51.fc2.com/431647773ee6781403c2/1796f71df900-1.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -7113,9 +6983,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/82d9102f5704276fcf5c/b4189bb4e1b0-0.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -7204,7 +7071,6 @@
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/P1000130s.jpg": "/media/external-articles/priority1.blog51.fc2.com/e2597b86d77ffc081c59/8e38ab7f3048-P1000130s.jpg",
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/P1000114.jpg": "/media/external-articles/priority1.blog51.fc2.com/e2597b86d77ffc081c59/b60b0863b8be-P1000114.jpg",
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/P1000134.jpg": "/media/external-articles/priority1.blog51.fc2.com/e2597b86d77ffc081c59/686a0ba310b7-P1000134.jpg",
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/e2597b86d77ffc081c59/b4189bb4e1b0-0.gif",
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/P1000133s.jpg": "/media/external-articles/priority1.blog51.fc2.com/e2597b86d77ffc081c59/2213c62e17c2-P1000133s.jpg",
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/P1000127s.jpg": "/media/external-articles/priority1.blog51.fc2.com/e2597b86d77ffc081c59/7133e03a771c-P1000127s.jpg"
     },
@@ -7310,7 +7176,6 @@
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/P1000233.jpg": "/media/external-articles/priority1.blog51.fc2.com/f898dfedc2c5cc8aee6c/f157fdd993e8-P1000233.jpg",
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/P1000260s.jpg": "/media/external-articles/priority1.blog51.fc2.com/f898dfedc2c5cc8aee6c/76418e207228-P1000260s.jpg",
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/P1000262.jpg": "/media/external-articles/priority1.blog51.fc2.com/f898dfedc2c5cc8aee6c/f1943667f337-P1000262.jpg",
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/f898dfedc2c5cc8aee6c/b4189bb4e1b0-0.gif",
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/P1000261s.jpg": "/media/external-articles/priority1.blog51.fc2.com/f898dfedc2c5cc8aee6c/c3dfa120b2f5-P1000261s.jpg",
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/P1000264.jpg": "/media/external-articles/priority1.blog51.fc2.com/f898dfedc2c5cc8aee6c/483543ba880f-P1000264.jpg"
     },
@@ -7402,7 +7267,6 @@
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/P1000363Ts.jpg": "/media/external-articles/priority1.blog51.fc2.com/7b864da8903fc4585a34/5f195844a48c-P1000363Ts.jpg",
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/P1000354s.jpg": "/media/external-articles/priority1.blog51.fc2.com/7b864da8903fc4585a34/ba4d826c6553-P1000354s.jpg",
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/P1000377s.jpg": "/media/external-articles/priority1.blog51.fc2.com/7b864da8903fc4585a34/44f0dbf54094-P1000377s.jpg",
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/7b864da8903fc4585a34/b4189bb4e1b0-0.gif",
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/P1000380s.jpg": "/media/external-articles/priority1.blog51.fc2.com/7b864da8903fc4585a34/60ab844aa582-P1000380s.jpg",
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/P1000374.jpg": "/media/external-articles/priority1.blog51.fc2.com/7b864da8903fc4585a34/1a8ad016094f-P1000374.jpg"
     },
@@ -7522,7 +7386,6 @@
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/P1000617.jpg": "/media/external-articles/priority1.blog51.fc2.com/f6daec06d0871f43ec7b/3ff5707be873-P1000617.jpg",
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/P1000619s.jpg": "/media/external-articles/priority1.blog51.fc2.com/f6daec06d0871f43ec7b/ea98be6c8e08-P1000619s.jpg",
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/P1000614T.jpg": "/media/external-articles/priority1.blog51.fc2.com/f6daec06d0871f43ec7b/2c1b4ac7ac6c-P1000614T.jpg",
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/f6daec06d0871f43ec7b/b4189bb4e1b0-0.gif",
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/P1000585s.jpg": "/media/external-articles/priority1.blog51.fc2.com/f6daec06d0871f43ec7b/8edd4484f7de-P1000585s.jpg",
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/P1000620s.jpg": "/media/external-articles/priority1.blog51.fc2.com/f6daec06d0871f43ec7b/dd826093c328-P1000620s.jpg"
     },
@@ -7584,7 +7447,6 @@
     "finalAction": "fetch_article",
     "archivedImages": {
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/tirasis.jpg": "/media/external-articles/priority1.blog51.fc2.com/257ab3cebd70e8b7b3f5/ca5b2bacd957-tirasis.jpg",
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/257ab3cebd70e8b7b3f5/b4189bb4e1b0-0.gif",
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/hitotubasis.jpg": "/media/external-articles/priority1.blog51.fc2.com/257ab3cebd70e8b7b3f5/af5c6c0f0e91-hitotubasis.jpg"
     },
     "recoveryMethod": "primary",
@@ -7659,7 +7521,6 @@
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/07_20121203074818s.jpg": "/media/external-articles/priority1.blog51.fc2.com/7956778e396bb0d505fc/fe17e9e46a56-07_20121203074818s.jpg",
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/05_20121203074718s.jpg": "/media/external-articles/priority1.blog51.fc2.com/7956778e396bb0d505fc/3b24cebe6d03-05_20121203074718s.jpg",
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/02_20121203074457s.jpg": "/media/external-articles/priority1.blog51.fc2.com/7956778e396bb0d505fc/73ea9b5af543-02_20121203074457s.jpg",
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/7956778e396bb0d505fc/b4189bb4e1b0-0.gif",
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/01_20121203074456s.jpg": "/media/external-articles/priority1.blog51.fc2.com/7956778e396bb0d505fc/2971fd02487c-01_20121203074456s.jpg",
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/kobe00s.jpg": "/media/external-articles/priority1.blog51.fc2.com/7956778e396bb0d505fc/74b55a9c1429-kobe00s.jpg"
     },
@@ -7726,9 +7587,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/eb025d684219b5c775f9/b4189bb4e1b0-0.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -7792,9 +7650,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/5.gif": "/media/external-articles/priority1.blog51.fc2.com/0804eb86617ecd34334d/35586532bbe5-5.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -7851,9 +7706,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/1d169fa6c8f128276a19/b4189bb4e1b0-0.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -7916,7 +7768,6 @@
       "http://blog-imgs-58.fc2.com/p/r/i/priority1/00_20130519020917s.jpg": "/media/external-articles/priority1.blog51.fc2.com/23322d97dcce28593e3a/f2cbc112bb9f-00_20130519020917s.jpg",
       "http://blog-imgs-58.fc2.com/p/r/i/priority1/03_20130519020958s.jpg": "/media/external-articles/priority1.blog51.fc2.com/23322d97dcce28593e3a/8b08b5a08edf-03_20130519020958s.jpg",
       "http://blog-imgs-58.fc2.com/p/r/i/priority1/motimoti.jpg": "/media/external-articles/priority1.blog51.fc2.com/23322d97dcce28593e3a/8363b36d2a07-motimoti.jpg",
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/23322d97dcce28593e3a/b4189bb4e1b0-0.gif",
       "http://blog-imgs-58.fc2.com/p/r/i/priority1/04_20130519020957s.jpg": "/media/external-articles/priority1.blog51.fc2.com/23322d97dcce28593e3a/035c9593c092-04_20130519020957s.jpg",
       "http://blog-imgs-58.fc2.com/p/r/i/priority1/06_20130519020955s.jpg": "/media/external-articles/priority1.blog51.fc2.com/23322d97dcce28593e3a/52f35a7360c9-06_20130519020955s.jpg",
       "http://blog-imgs-58.fc2.com/p/r/i/priority1/05_20130519020956s.jpg": "/media/external-articles/priority1.blog51.fc2.com/23322d97dcce28593e3a/789faf6c60cc-05_20130519020956s.jpg"
@@ -7980,9 +7831,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/2.gif": "/media/external-articles/priority1.blog51.fc2.com/8169f1ce9fc82b4d26cd/747d08953195-2.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -8114,7 +7962,6 @@
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/free0745s.jpg": "/media/external-articles/priority1.blog51.fc2.com/e6c21f4dbb56afe4cae1/a50b5ef373c7-free0745s.jpg",
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/free0744s.jpg": "/media/external-articles/priority1.blog51.fc2.com/e6c21f4dbb56afe4cae1/b9f6024818ba-free0744s.jpg",
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/free0746.jpg": "/media/external-articles/priority1.blog51.fc2.com/e6c21f4dbb56afe4cae1/e92f5d96f7f5-free0746.jpg",
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/e6c21f4dbb56afe4cae1/b4189bb4e1b0-0.gif",
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/free0751.jpg": "/media/external-articles/priority1.blog51.fc2.com/e6c21f4dbb56afe4cae1/0c2a9e5bc31d-free0751.jpg",
       "http://blog-imgs-55.fc2.com/p/r/i/priority1/free0749.jpg": "/media/external-articles/priority1.blog51.fc2.com/e6c21f4dbb56afe4cae1/d7a27e567ed6-free0749.jpg"
     },
@@ -8181,9 +8028,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/4.gif": "/media/external-articles/priority1.blog51.fc2.com/75d4b69cf5f0a53b613f/2246f3e44ab3-4.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -8247,9 +8091,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/9fef5257af8bd0f4060a/b4189bb4e1b0-0.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -8313,9 +8154,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/fcc79e4fe1f35d186fee/b4189bb4e1b0-0.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -8379,9 +8217,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/720ae51d3b738da54488/b4189bb4e1b0-0.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -8438,9 +8273,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/d71f6303767be433cbda/b4189bb4e1b0-0.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -8520,7 +8352,6 @@
       "http://blog-imgs-67.fc2.com/p/r/i/priority1/tls15s.jpg": "/media/external-articles/priority1.blog51.fc2.com/f0b57729c6d73eb304c2/9eece1e95ad1-tls15s.jpg",
       "http://blog-imgs-67.fc2.com/p/r/i/priority1/tls16s.jpg": "/media/external-articles/priority1.blog51.fc2.com/f0b57729c6d73eb304c2/504e83f83944-tls16s.jpg",
       "http://blog-imgs-67.fc2.com/p/r/i/priority1/tls08s.jpg": "/media/external-articles/priority1.blog51.fc2.com/f0b57729c6d73eb304c2/92693671317e-tls08s.jpg",
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/f0b57729c6d73eb304c2/b4189bb4e1b0-0.gif",
       "http://blog-imgs-67.fc2.com/p/r/i/priority1/tls13s.jpg": "/media/external-articles/priority1.blog51.fc2.com/f0b57729c6d73eb304c2/a46a45a078e0-tls13s.jpg",
       "http://blog-imgs-67.fc2.com/p/r/i/priority1/tlskv2s.jpg": "/media/external-articles/priority1.blog51.fc2.com/f0b57729c6d73eb304c2/59409823482f-tlskv2s.jpg"
     },
@@ -8601,7 +8432,6 @@
       "http://blog-imgs-67.fc2.com/p/r/i/priority1/041911ys.jpg": "/media/external-articles/priority1.blog51.fc2.com/438aa8b5bca01b9d4cbe/f18597f1a442-041911ys.jpg",
       "http://blog-imgs-67.fc2.com/p/r/i/priority1/041912ts.jpg": "/media/external-articles/priority1.blog51.fc2.com/438aa8b5bca01b9d4cbe/8c67a3847786-041912ts.jpg",
       "http://blog-imgs-67.fc2.com/p/r/i/priority1/041913ys.jpg": "/media/external-articles/priority1.blog51.fc2.com/438aa8b5bca01b9d4cbe/fee50d1d1854-041913ys.jpg",
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/438aa8b5bca01b9d4cbe/b4189bb4e1b0-0.gif",
       "http://blog-imgs-67.fc2.com/p/r/i/priority1/041912y_2014042018430483ds.jpg": "/media/external-articles/priority1.blog51.fc2.com/438aa8b5bca01b9d4cbe/6ac1bd485a10-041912y_2014042018430483ds.jpg",
       "http://blog-imgs-67.fc2.com/p/r/i/priority1/041905ys.jpg": "/media/external-articles/priority1.blog51.fc2.com/438aa8b5bca01b9d4cbe/ae2bee8fd92d-041905ys.jpg"
     },
@@ -8668,9 +8498,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/1.gif": "/media/external-articles/priority1.blog51.fc2.com/1310079dae6b09b3731e/1796f71df900-1.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -8734,9 +8561,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/275fe254ec5a369bb10c/b4189bb4e1b0-0.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -8800,9 +8624,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/6e0cda7e6ccbaae4c7a9/b4189bb4e1b0-0.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -8873,9 +8694,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/41663c560f700c48f23c/b4189bb4e1b0-0.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -8932,9 +8750,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/7cd7e2f37880c04ffd30/b4189bb4e1b0-0.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -8991,9 +8806,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/669191f56363feed7bcc/b4189bb4e1b0-0.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -9064,9 +8876,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/171eac6c955838ecd667/b4189bb4e1b0-0.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -9123,9 +8932,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/341f34eab20a4f32390e/b4189bb4e1b0-0.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -9190,8 +8996,7 @@
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
     "archivedImages": {
-      "http://blog-imgs-64.fc2.com/p/r/i/priority1/01_201405131556506be.jpg": "/media/external-articles/priority1.blog51.fc2.com/9e1d6e63398fb09e4a99/882c8a78cc8c-01_201405131556506be.jpg",
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/9e1d6e63398fb09e4a99/b4189bb4e1b0-0.gif"
+      "http://blog-imgs-64.fc2.com/p/r/i/priority1/01_201405131556506be.jpg": "/media/external-articles/priority1.blog51.fc2.com/9e1d6e63398fb09e4a99/882c8a78cc8c-01_201405131556506be.jpg"
     },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
@@ -9262,7 +9067,6 @@
       "http://blog-imgs-64.fc2.com/p/r/i/priority1/hasi04.jpg": "/media/external-articles/priority1.blog51.fc2.com/c6dc5c394675f6b200aa/495863bf2e8c-hasi04.jpg",
       "http://blog-imgs-64.fc2.com/p/r/i/priority1/hasi03.jpg": "/media/external-articles/priority1.blog51.fc2.com/c6dc5c394675f6b200aa/fb01d995a1cd-hasi03.jpg",
       "http://blog-imgs-64.fc2.com/p/r/i/priority1/hasi05.jpg": "/media/external-articles/priority1.blog51.fc2.com/c6dc5c394675f6b200aa/064e24bc22bd-hasi05.jpg",
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/c6dc5c394675f6b200aa/b4189bb4e1b0-0.gif",
       "http://blog-imgs-64.fc2.com/p/r/i/priority1/hasi02.jpg": "/media/external-articles/priority1.blog51.fc2.com/c6dc5c394675f6b200aa/ba17d0d6ed42-hasi02.jpg",
       "http://blog-imgs-64.fc2.com/p/r/i/priority1/hasi06.jpg": "/media/external-articles/priority1.blog51.fc2.com/c6dc5c394675f6b200aa/898e2df4db33-hasi06.jpg"
     },
@@ -9329,9 +9133,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/4b0d329f68a012da1b30/b4189bb4e1b0-0.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -9388,9 +9189,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/5f8cf94b2e4a97903db5/b4189bb4e1b0-0.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -9454,9 +9252,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/a948ae8bd321deb36acb/b4189bb4e1b0-0.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -9520,9 +9315,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/2a803bc6a86d017b711d/b4189bb4e1b0-0.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -9579,9 +9371,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/1.gif": "/media/external-articles/priority1.blog51.fc2.com/734a2849a5c96c4cbfd3/1796f71df900-1.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -9638,9 +9427,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/2.gif": "/media/external-articles/priority1.blog51.fc2.com/596652a0d6948a877dd3/747d08953195-2.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -9704,9 +9490,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/ececc4ac779db708c2d3/b4189bb4e1b0-0.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -9838,7 +9621,6 @@
       "http://blog-imgs-67.fc2.com/p/r/i/priority1/061s.jpg": "/media/external-articles/priority1.blog51.fc2.com/16a974bf71b49d7da4ae/e7cb4b1297a4-061s.jpg",
       "http://blog-imgs-67.fc2.com/p/r/i/priority1/013.jpg": "/media/external-articles/priority1.blog51.fc2.com/16a974bf71b49d7da4ae/4379e479b2af-013.jpg",
       "http://blog-imgs-67.fc2.com/p/r/i/priority1/014.jpg": "/media/external-articles/priority1.blog51.fc2.com/16a974bf71b49d7da4ae/6bd36484fbb7-014.jpg",
-      "http://static.fc2.com/image/clap/number/green/1.gif": "/media/external-articles/priority1.blog51.fc2.com/16a974bf71b49d7da4ae/1796f71df900-1.gif",
       "http://blog-imgs-67.fc2.com/p/r/i/priority1/016.jpg": "/media/external-articles/priority1.blog51.fc2.com/16a974bf71b49d7da4ae/c0960193d60d-016.jpg",
       "http://blog-imgs-67.fc2.com/p/r/i/priority1/018.jpg": "/media/external-articles/priority1.blog51.fc2.com/16a974bf71b49d7da4ae/0e95a4d0e184-018.jpg"
     },
@@ -9898,9 +9680,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/3.gif": "/media/external-articles/priority1.blog51.fc2.com/db23adbd47c6f207d86e/628dd9d72d98-3.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -9957,9 +9736,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/1.gif": "/media/external-articles/priority1.blog51.fc2.com/179fa9ca9d43c9220f1e/1796f71df900-1.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -10016,9 +9792,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/e2e83b6a245d809f4913/b4189bb4e1b0-0.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -10082,9 +9855,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/338f9839b13ce98ce531/b4189bb4e1b0-0.gif"
-    },
     "recoveryMethod": "primary",
     "recoveryAttempts": [
       {
@@ -10146,7 +9916,6 @@
       "http://blog-imgs-45.fc2.com/p/r/i/priority1/animekobe02s.jpg": "/media/external-articles/priority1.blog51.fc2.com/6c6e437193675547b164/9af62f2f93be-animekobe02s.jpg",
       "http://blog-imgs-45.fc2.com/p/r/i/priority1/animekobe03s.jpg": "/media/external-articles/priority1.blog51.fc2.com/6c6e437193675547b164/f47ea1a3443f-animekobe03s.jpg",
       "http://blog-imgs-45.fc2.com/p/r/i/priority1/vlippan171416s.jpg": "/media/external-articles/priority1.blog51.fc2.com/6c6e437193675547b164/feab9c48cb6c-vlippan171416s.jpg",
-      "http://static.fc2.com/image/clap/number/green/0.gif": "/media/external-articles/priority1.blog51.fc2.com/6c6e437193675547b164/b4189bb4e1b0-0.gif",
       "http://blog-imgs-45.fc2.com/p/r/i/priority1/flower01s.jpg": "/media/external-articles/priority1.blog51.fc2.com/6c6e437193675547b164/f33d96c80fbb-flower01s.jpg"
     },
     "recoveryMethod": "primary",
@@ -11621,17 +11390,6 @@
     "fromCache": true,
     "finalCategory": "其他网页（文章 / 官网 / 博客）",
     "finalAction": "fetch_article",
-    "archivedImages": {
-      "http://tamakolovestory.com/images/special/interview/img2.jpg": "/media/external-articles/tamakolovestory.com/022110e027f0b8c0e285/742b8cc586ef-img2.jpg",
-      "http://tamakolovestory.com/images/special/interview/img1.jpg": "/media/external-articles/tamakolovestory.com/022110e027f0b8c0e285/9e52086cbac5-img1.jpg",
-      "http://tamakolovestory.com/images/special/interview/img4.jpg": "/media/external-articles/tamakolovestory.com/022110e027f0b8c0e285/70b39cf20874-img4.jpg",
-      "http://tamakolovestory.com/images/special/interview/img5.jpg": "/media/external-articles/tamakolovestory.com/022110e027f0b8c0e285/8f4a9549ed97-img5.jpg",
-      "http://tamakolovestory.com/images/special/interview/img6.jpg": "/media/external-articles/tamakolovestory.com/022110e027f0b8c0e285/6f20c0d1803c-img6.jpg",
-      "http://tamakolovestory.com/images/special/interview/img3.jpg": "/media/external-articles/tamakolovestory.com/022110e027f0b8c0e285/9a697f474127-img3.jpg",
-      "http://tamakolovestory.com/images/special/interview/img8.jpg": "/media/external-articles/tamakolovestory.com/022110e027f0b8c0e285/bbf0e4b0601e-img8.jpg",
-      "http://tamakolovestory.com/images/special/interview/img9.jpg": "/media/external-articles/tamakolovestory.com/022110e027f0b8c0e285/2ea42a659b40-img9.jpg",
-      "http://tamakolovestory.com/images/special/interview/img7.jpg": "/media/external-articles/tamakolovestory.com/022110e027f0b8c0e285/4f3633fcd941-img7.jpg"
-    },
     "recoveryMethod": "canonical_url",
     "recoveryAttempts": [
       {
@@ -12117,8 +11875,7 @@
       "http://blog-imgs-68.fc2.com/t/s/u/tsurebashi/s-IMG_8947.jpg": "/media/external-articles/tsurebashi.blog123.fc2.com/a6fc0b72609e8cbd3c54/f50bfcd4362b-s-IMG_8947.jpg",
       "http://blog-imgs-68.fc2.com/t/s/u/tsurebashi/s-IMG_8959.jpg": "/media/external-articles/tsurebashi.blog123.fc2.com/a6fc0b72609e8cbd3c54/d29132a39730-s-IMG_8959.jpg",
       "http://blog-imgs-68.fc2.com/t/s/u/tsurebashi/tmkv.jpg": "/media/external-articles/tsurebashi.blog123.fc2.com/a6fc0b72609e8cbd3c54/864adcf34a67-tmkv.jpg",
-      "http://blog-imgs-68.fc2.com/t/s/u/tsurebashi/s-IMG_0330a.jpg": "/media/external-articles/tsurebashi.blog123.fc2.com/a6fc0b72609e8cbd3c54/9f5311f6ea76-s-IMG_0330a.jpg",
-      "http://static.fc2.com/image/clap/number/white/7.gif": "/media/external-articles/tsurebashi.blog123.fc2.com/a6fc0b72609e8cbd3c54/e59a36b1176d-7.gif"
+      "http://blog-imgs-68.fc2.com/t/s/u/tsurebashi/s-IMG_0330a.jpg": "/media/external-articles/tsurebashi.blog123.fc2.com/a6fc0b72609e8cbd3c54/9f5311f6ea76-s-IMG_0330a.jpg"
     }
   },
   "http://tsurebashi.blog123.fc2.com/blog-entry-348.html": {
@@ -12217,8 +11974,7 @@
       "http://blog-imgs-68.fc2.com/t/s/u/tsurebashi/s-IMG_8881.jpg": "/media/external-articles/tsurebashi.blog123.fc2.com/d84054efc961cebf6537/ce3b30e006ff-s-IMG_8881.jpg",
       "http://blog-imgs-68.fc2.com/t/s/u/tsurebashi/s-IMG_8918_201404292218198df.jpg": "/media/external-articles/tsurebashi.blog123.fc2.com/d84054efc961cebf6537/0f6838232c14-s-IMG_8918_201404292218198df.jpg",
       "http://blog-imgs-68.fc2.com/t/s/u/tsurebashi/s-850070398.jpg": "/media/external-articles/tsurebashi.blog123.fc2.com/d84054efc961cebf6537/f2efc00761fa-s-850070398.jpg",
-      "http://blog-imgs-68.fc2.com/t/s/u/tsurebashi/s-IMG_8713_2014042922494181f.jpg": "/media/external-articles/tsurebashi.blog123.fc2.com/d84054efc961cebf6537/6e80fb001f4a-s-IMG_8713_2014042922494181f.jpg",
-      "http://static.fc2.com/image/clap/number/white/5.gif": "/media/external-articles/tsurebashi.blog123.fc2.com/d84054efc961cebf6537/8996bc4760cd-5.gif"
+      "http://blog-imgs-68.fc2.com/t/s/u/tsurebashi/s-IMG_8713_2014042922494181f.jpg": "/media/external-articles/tsurebashi.blog123.fc2.com/d84054efc961cebf6537/6e80fb001f4a-s-IMG_8713_2014042922494181f.jpg"
     }
   },
   "http://ukatensei.blog50.fc2.com/blog-entry-797.html": {
@@ -12348,8 +12104,7 @@
       "http://blog-imgs-67.fc2.com/u/k/a/ukatensei/b_tamakolove_c_0050.png": "/media/external-articles/ukatensei.blog50.fc2.com/ca5b6b219c42ce25c013/d0fba4fd5f29-b_tamakolove_c_0050.png",
       "http://blog-imgs-67.fc2.com/u/k/a/ukatensei/b_tamakolove_p_0014-1kai.jpg": "/media/external-articles/ukatensei.blog50.fc2.com/ca5b6b219c42ce25c013/4d73b5dfcfd8-b_tamakolove_p_0014-1kai.jpg",
       "http://blog-imgs-67.fc2.com/u/k/a/ukatensei/b_tamakolove_c_0051-1.png": "/media/external-articles/ukatensei.blog50.fc2.com/ca5b6b219c42ce25c013/1c0ac7467241-b_tamakolove_c_0051-1.png",
-      "http://blog-imgs-67.fc2.com/u/k/a/ukatensei/b_tamakolove_c_0051.png": "/media/external-articles/ukatensei.blog50.fc2.com/ca5b6b219c42ce25c013/a5b42d323d00-b_tamakolove_c_0051.png",
-      "http://static.fc2.com/image/clap/number/white/1.gif": "/media/external-articles/ukatensei.blog50.fc2.com/ca5b6b219c42ce25c013/da95145630e6-1.gif"
+      "http://blog-imgs-67.fc2.com/u/k/a/ukatensei/b_tamakolove_c_0051.png": "/media/external-articles/ukatensei.blog50.fc2.com/ca5b6b219c42ce25c013/a5b42d323d00-b_tamakolove_c_0051.png"
     }
   },
   "http://ukatensei.blog50.fc2.com/blog-entry-798.html": {
@@ -12878,11 +12633,6 @@
     "finalAction": "fetch_article",
     "rawResponse": "scraper/state/cache/www.cinematoday.jp/a6a514ee4893134a4b935f4189404c1153b4b506.body",
     "archivedImages": {
-      "https://img.cinematoday.jp/img/socials/v201610032030/m_balloon_icon.png": "/media/external-articles/www.cinematoday.jp/fd0cf4147e2a64311d25/07195d505a73-m_balloon_icon.png",
-      "https://img.cinematoday.jp/img/socials/v201610032030/hatenabookmark-logo.png": "/media/external-articles/www.cinematoday.jp/fd0cf4147e2a64311d25/1b69683d410c-hatenabookmark-logo.png",
-      "https://img.cinematoday.jp/img/socials/v202311301558/twitter_80x80.png": "/media/external-articles/www.cinematoday.jp/fd0cf4147e2a64311d25/704c6b5bb8f3-twitter_80x80.png",
-      "https://img.cinematoday.jp/img/socials/v201610032030/FB-f-Logo__blue_100.png": "/media/external-articles/www.cinematoday.jp/fd0cf4147e2a64311d25/dd0bde7917a6-FB-f-Logo__blue_100.png",
-      "https://img.cinematoday.jp/img/socials/v202607211100/google_preferred_source_ja.png": "/media/external-articles/www.cinematoday.jp/fd0cf4147e2a64311d25/75e8b303752d-google_preferred_source_ja.png",
       "https://img.cinematoday.jp/a/GcWCW1AXYRIp/_size_640x/_v_1398501558/main.jpg": "/media/external-articles/www.cinematoday.jp/fd0cf4147e2a64311d25/47477088e372-main.jpg"
     }
   },
@@ -16651,12 +16401,7 @@
       "https://www.lmaga.jp/wp-content/uploads/2016/09/koen01-900x485.jpg": "/media/external-articles/www.lmaga.jp/6881d764428bfdc6f6b4/bfdd49009b67-koen01-900x485.jpg",
       "https://www.lmaga.jp/wp-content/uploads/2016/09/koe_02-900x485.jpg": "/media/external-articles/www.lmaga.jp/6881d764428bfdc6f6b4/d91d88c254ec-koe_02-900x485.jpg",
       "https://www.lmaga.jp/wp-content/uploads/2016/10/koe_top.jpg": "/media/external-articles/www.lmaga.jp/6881d764428bfdc6f6b4/333397d38c07-koe_top.jpg",
-      "https://www.lmaga.jp/wp-content/themes/lmaga/img/common/ico_twitter.png": "/media/external-articles/www.lmaga.jp/6881d764428bfdc6f6b4/d74f364da8fd-ico_twitter.png",
-      "https://www.lmaga.jp/wp-content/themes/lmaga/img/common/ico_link.png": "/media/external-articles/www.lmaga.jp/6881d764428bfdc6f6b4/e95ab78f6de9-ico_link.png",
       "https://www.lmaga.jp/wp-content/uploads/2016/09/koe031-900x485.jpg": "/media/external-articles/www.lmaga.jp/6881d764428bfdc6f6b4/79790401f012-koe031-900x485.jpg",
-      "https://www.lmaga.jp/wp-content/themes/lmaga/img/common/ico_facebook.png": "/media/external-articles/www.lmaga.jp/6881d764428bfdc6f6b4/c8203cc3a1e8-ico_facebook.png",
-      "https://www.lmaga.jp/wp-content/themes/lmaga/img/common/ico_bookmark.png": "/media/external-articles/www.lmaga.jp/6881d764428bfdc6f6b4/f8191d612b09-ico_bookmark.png",
-      "https://www.lmaga.jp/wp-content/themes/lmaga/img/common/ico_line.png": "/media/external-articles/www.lmaga.jp/6881d764428bfdc6f6b4/d25f477cd32d-ico_line.png",
       "https://www.lmaga.jp/wp-content/uploads/2016/09/koe04-900x485.jpg": "/media/external-articles/www.lmaga.jp/6881d764428bfdc6f6b4/b080778eee29-koe04-900x485.jpg"
     },
     "recoveryMethod": "primary",
@@ -16887,10 +16632,8 @@
     "restoredFromCache": true,
     "rawResponse": "scraper/state/cache/yaraon.blog109.fc2.com/6356cadb8a8ae1b20c799781593ffd3065782320.body",
     "archivedImages": {
-      "http://b.hatena.ne.jp/entry/image/http://yaraon.blog109.fc2.com/blog-entry-20232.html": "/media/external-articles/yaraon.blog109.fc2.com/03bbd7c3357e86ab1ed3/fb0692c48442-blog-entry-20232.gif",
       "http://blog-imgs-61.fc2.com/y/a/r/yaraon/large__20131130131617594s.jpg": "/media/external-articles/yaraon.blog109.fc2.com/03bbd7c3357e86ab1ed3/e90ded570dee-large__20131130131617594s.jpg",
-      "http://blog-imgs-61.fc2.com/y/a/r/yaraon/mainVisual_201311301316194f6.png": "/media/external-articles/yaraon.blog109.fc2.com/03bbd7c3357e86ab1ed3/ed1dff51fc1f-mainVisual_201311301316194f6.png",
-      "http://static.fc2.com/image/clap/number/white/2.gif": "/media/external-articles/yaraon.blog109.fc2.com/03bbd7c3357e86ab1ed3/4edf67597d1a-2.gif"
+      "http://blog-imgs-61.fc2.com/y/a/r/yaraon/mainVisual_201311301316194f6.png": "/media/external-articles/yaraon.blog109.fc2.com/03bbd7c3357e86ab1ed3/ed1dff51fc1f-mainVisual_201311301316194f6.png"
     }
   },
   "http://yaraon.blog109.fc2.com/blog-entry-20238.html": {
@@ -16949,9 +16692,7 @@
     "restoredFromCache": true,
     "rawResponse": "scraper/state/cache/yaraon.blog109.fc2.com/7bbc27a0a1221a7d2d5e2b86985c0508dfa10e4b.body",
     "archivedImages": {
-      "http://b.hatena.ne.jp/entry/image/http://yaraon.blog109.fc2.com/blog-entry-20238.html": "/media/external-articles/yaraon.blog109.fc2.com/0ff0ea3bd1657e58e33c/09bb391dee3f-blog-entry-20238.gif",
-      "http://blog-imgs-61.fc2.com/y/a/r/yaraon/mainVisual_201311301316194f6s.png": "/media/external-articles/yaraon.blog109.fc2.com/0ff0ea3bd1657e58e33c/b02def338de4-mainVisual_201311301316194f6s.png",
-      "http://static.fc2.com/image/clap/number/white/3.gif": "/media/external-articles/yaraon.blog109.fc2.com/0ff0ea3bd1657e58e33c/b88509b22449-3.gif"
+      "http://blog-imgs-61.fc2.com/y/a/r/yaraon/mainVisual_201311301316194f6s.png": "/media/external-articles/yaraon.blog109.fc2.com/0ff0ea3bd1657e58e33c/b02def338de4-mainVisual_201311301316194f6s.png"
     }
   },
   "http://yaraon.blog109.fc2.com/blog-entry-21550.html": {
@@ -17010,12 +16751,10 @@
     "restoredFromCache": true,
     "rawResponse": "scraper/state/cache/yaraon.blog109.fc2.com/116da85a0cd32e83feada396d33aff40467174c1.body",
     "archivedImages": {
-      "http://b.hatena.ne.jp/entry/image/http://yaraon.blog109.fc2.com/blog-entry-21550.html": "/media/external-articles/yaraon.blog109.fc2.com/19e47818f537dc57bb5f/37f876372bb9-blog-entry-21550.gif",
       "http://blog-imgs-47.fc2.com/y/a/r/yaraon/2014012913360693as.jpg": "/media/external-articles/yaraon.blog109.fc2.com/19e47818f537dc57bb5f/429e5d307d51-2014012913360693as.jpg",
       "http://blog-imgs-47.fc2.com/y/a/r/yaraon/BfHbupaCcAAfSin.jpg": "/media/external-articles/yaraon.blog109.fc2.com/19e47818f537dc57bb5f/f9ad1779b9e3-BfHbupaCcAAfSin.jpg",
       "http://blog-imgs-47.fc2.com/y/a/r/yaraon/201401270657370000.jpg": "/media/external-articles/yaraon.blog109.fc2.com/19e47818f537dc57bb5f/bb5b8187c282-201401270657370000.jpg",
-      "http://blog-imgs-47.fc2.com/y/a/r/yaraon/20140129134745467s.jpg": "/media/external-articles/yaraon.blog109.fc2.com/19e47818f537dc57bb5f/b75b1a0df719-20140129134745467s.jpg",
-      "http://static.fc2.com/image/clap/number/white/4.gif": "/media/external-articles/yaraon.blog109.fc2.com/19e47818f537dc57bb5f/e54bb74cd38c-4.gif"
+      "http://blog-imgs-47.fc2.com/y/a/r/yaraon/20140129134745467s.jpg": "/media/external-articles/yaraon.blog109.fc2.com/19e47818f537dc57bb5f/b75b1a0df719-20140129134745467s.jpg"
     }
   },
   "http://yaraon.blog109.fc2.com/blog-entry-21736.html": {
@@ -17074,10 +16813,8 @@
     "restoredFromCache": true,
     "rawResponse": "scraper/state/cache/yaraon.blog109.fc2.com/97b20512b220c51935e75b1ea9f9a2bb6e7caf0a.body",
     "archivedImages": {
-      "http://b.hatena.ne.jp/entry/image/http://yaraon.blog109.fc2.com/blog-entry-21736.html": "/media/external-articles/yaraon.blog109.fc2.com/f224cac40ab6d8e21e90/6a58ea09a418-blog-entry-21736.gif",
       "http://blog-imgs-66.fc2.com/y/a/r/yaraon/201402070612049c1.png": "/media/external-articles/yaraon.blog109.fc2.com/f224cac40ab6d8e21e90/799fbf3519e0-201402070612049c1.png",
-      "http://blog-imgs-66.fc2.com/y/a/r/yaraon/111_201402070608063eb.jpg": "/media/external-articles/yaraon.blog109.fc2.com/f224cac40ab6d8e21e90/03b4e216a20a-111_201402070608063eb.jpg",
-      "http://static.fc2.com/image/clap/number/white/2.gif": "/media/external-articles/yaraon.blog109.fc2.com/f224cac40ab6d8e21e90/4edf67597d1a-2.gif"
+      "http://blog-imgs-66.fc2.com/y/a/r/yaraon/111_201402070608063eb.jpg": "/media/external-articles/yaraon.blog109.fc2.com/f224cac40ab6d8e21e90/03b4e216a20a-111_201402070608063eb.jpg"
     }
   },
   "http://yaraon.blog109.fc2.com/blog-entry-23519.html": {
@@ -17136,9 +16873,7 @@
     "restoredFromCache": true,
     "rawResponse": "scraper/state/cache/yaraon.blog109.fc2.com/997017e8b2499cac22fa92532b9e3bfe9cdcf501.body",
     "archivedImages": {
-      "http://b.hatena.ne.jp/entry/image/http://yaraon.blog109.fc2.com/blog-entry-23519.html": "/media/external-articles/yaraon.blog109.fc2.com/22fd811cb691329b57e7/72694fcdec2d-blog-entry-23519.gif",
-      "http://blog-imgs-64.fc2.com/y/a/r/yaraon/1398535640954s.jpg": "/media/external-articles/yaraon.blog109.fc2.com/22fd811cb691329b57e7/7352dbbecf47-1398535640954s.jpg",
-      "http://static.fc2.com/image/clap/number/white/3.gif": "/media/external-articles/yaraon.blog109.fc2.com/22fd811cb691329b57e7/b88509b22449-3.gif"
+      "http://blog-imgs-64.fc2.com/y/a/r/yaraon/1398535640954s.jpg": "/media/external-articles/yaraon.blog109.fc2.com/22fd811cb691329b57e7/7352dbbecf47-1398535640954s.jpg"
     }
   },
   "http://yaraon.blog109.fc2.com/blog-entry-23801.html": {
@@ -17197,9 +16932,7 @@
     "restoredFromCache": true,
     "rawResponse": "scraper/state/cache/yaraon.blog109.fc2.com/6a3d8acbb87cd4b9d41f25d9ba47949aaa608428.body",
     "archivedImages": {
-      "http://b.hatena.ne.jp/entry/image/http://yaraon.blog109.fc2.com/blog-entry-23801.html": "/media/external-articles/yaraon.blog109.fc2.com/5eff0f3e240d3960b120/6f8336e0b398-blog-entry-23801.gif",
-      "http://blog-imgs-64.fc2.com/y/a/r/yaraon/201405071804168f7.jpg": "/media/external-articles/yaraon.blog109.fc2.com/5eff0f3e240d3960b120/544549e9b608-201405071804168f7.jpg",
-      "http://static.fc2.com/image/clap/number/white/5.gif": "/media/external-articles/yaraon.blog109.fc2.com/5eff0f3e240d3960b120/8996bc4760cd-5.gif"
+      "http://blog-imgs-64.fc2.com/y/a/r/yaraon/201405071804168f7.jpg": "/media/external-articles/yaraon.blog109.fc2.com/5eff0f3e240d3960b120/544549e9b608-201405071804168f7.jpg"
     }
   },
   "http://yaraon.blog109.fc2.com/blog-entry-23878.html": {
@@ -17258,11 +16991,9 @@
     "restoredFromCache": true,
     "rawResponse": "scraper/state/cache/yaraon.blog109.fc2.com/52d0584fbebde8cf43af7094ca7800e24c731b99.body",
     "archivedImages": {
-      "http://b.hatena.ne.jp/entry/image/http://yaraon.blog109.fc2.com/blog-entry-23878.html": "/media/external-articles/yaraon.blog109.fc2.com/b654dba5b52e99c22381/5a5c9b614d12-blog-entry-23878.gif",
       "http://blog-imgs-64.fc2.com/y/a/r/yaraon/201405071804168f7.jpg": "/media/external-articles/yaraon.blog109.fc2.com/b654dba5b52e99c22381/544549e9b608-201405071804168f7.jpg",
       "http://blog-imgs-64.fc2.com/y/a/r/yaraon/54_2014051219515752b.jpg": "/media/external-articles/yaraon.blog109.fc2.com/b654dba5b52e99c22381/bbd4c57b92e5-54_2014051219515752b.jpg",
-      "http://blog-imgs-64.fc2.com/y/a/r/yaraon/20140512195533886.jpg": "/media/external-articles/yaraon.blog109.fc2.com/b654dba5b52e99c22381/bf62fc23a340-20140512195533886.jpg",
-      "http://static.fc2.com/image/clap/number/white/3.gif": "/media/external-articles/yaraon.blog109.fc2.com/b654dba5b52e99c22381/b88509b22449-3.gif"
+      "http://blog-imgs-64.fc2.com/y/a/r/yaraon/20140512195533886.jpg": "/media/external-articles/yaraon.blog109.fc2.com/b654dba5b52e99c22381/bf62fc23a340-20140512195533886.jpg"
     }
   },
   "http://yaraon.blog109.fc2.com/blog-entry-23887.html": {
@@ -17321,9 +17052,7 @@
     "restoredFromCache": true,
     "rawResponse": "scraper/state/cache/yaraon.blog109.fc2.com/760c458332890e85d13d8cd6424630ebc4d236d7.body",
     "archivedImages": {
-      "http://b.hatena.ne.jp/entry/image/http://yaraon.blog109.fc2.com/blog-entry-23887.html": "/media/external-articles/yaraon.blog109.fc2.com/205faca164544b397628/9d06936f2e7c-blog-entry-23887.gif",
-      "http://blog-imgs-64.fc2.com/y/a/r/yaraon/201405071804168f7.jpg": "/media/external-articles/yaraon.blog109.fc2.com/205faca164544b397628/544549e9b608-201405071804168f7.jpg",
-      "http://static.fc2.com/image/clap/number/white/2.gif": "/media/external-articles/yaraon.blog109.fc2.com/205faca164544b397628/4edf67597d1a-2.gif"
+      "http://blog-imgs-64.fc2.com/y/a/r/yaraon/201405071804168f7.jpg": "/media/external-articles/yaraon.blog109.fc2.com/205faca164544b397628/544549e9b608-201405071804168f7.jpg"
     }
   },
   "http://yaraon.blog109.fc2.com/blog-entry-27462.html": {
@@ -17382,10 +17111,8 @@
     "restoredFromCache": true,
     "rawResponse": "scraper/state/cache/yaraon.blog109.fc2.com/15602e4b6fa8807336d28382effd188c90471c0a.body",
     "archivedImages": {
-      "http://b.hatena.ne.jp/entry/image/http://yaraon.blog109.fc2.com/blog-entry-27462.html": "/media/external-articles/yaraon.blog109.fc2.com/670ca9c92b75d1de5225/dd1c0ede9387-blog-entry-27462.gif",
       "http://blog-imgs-64.fc2.com/y/a/r/yaraon/fg_20141010203052c63s.jpg": "/media/external-articles/yaraon.blog109.fc2.com/670ca9c92b75d1de5225/508e34a24f5f-fg_20141010203052c63s.jpg",
-      "http://blog-imgs-64.fc2.com/y/a/r/yaraon/201410102027010c1.jpg": "/media/external-articles/yaraon.blog109.fc2.com/670ca9c92b75d1de5225/f5393abd422e-201410102027010c1.jpg",
-      "http://static.fc2.com/image/clap/number/white/2.gif": "/media/external-articles/yaraon.blog109.fc2.com/670ca9c92b75d1de5225/4edf67597d1a-2.gif"
+      "http://blog-imgs-64.fc2.com/y/a/r/yaraon/201410102027010c1.jpg": "/media/external-articles/yaraon.blog109.fc2.com/670ca9c92b75d1de5225/f5393abd422e-201410102027010c1.jpg"
     }
   },
   "https://dou.bz/0vMqgF": {

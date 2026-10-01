@@ -109,10 +109,6 @@ archivedAt: "2026-09-30"
 
 今回はこんなとこで。あとからちょっと加筆改訂
 
-![](/media/external-articles/priority1.blog51.fc2.com/a948ae8bd321deb36acb/b4189bb4e1b0-0.gif)
-
-[Tweet](https://twitter.com/share)
-
 - コメント : [0](http://priority1.blog51.fc2.com/blog-entry-1789.html#comment-top)
 
 *本页归档自 [原站页面](http://priority1.blog51.fc2.com/blog-entry-1789.html)*

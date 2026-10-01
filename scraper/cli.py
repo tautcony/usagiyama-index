@@ -62,6 +62,7 @@ from .links import (
 )
 from .link_policy import classify_external_link
 from .external_recovery import ExternalRecovery, cached_short_destinations, external_image_variants, usable_article
+from .external_media import reconcile_external_media
 from .external_articles import (
     detect_capture_access_failure,
     extract_image_sources,
@@ -908,6 +909,12 @@ class SyncContext:
     def save_data(self) -> None:
         with self._save_lock:
             self._save_data()
+
+    def refresh_external_media(self) -> None:
+        counts = reconcile_external_media(self.external_captures, self.media, self.cfg.data_dir.parent)
+        if any(counts.values()):
+            log.info("外部图片整理：%s", counts)
+            self.save_data()
 
     def save_external_capture(self, url: str, capture: dict[str, Any]) -> None:
         """Persist one concurrent external result with its metadata snapshot."""
@@ -2356,6 +2363,7 @@ def stage_external(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
         result = runner.run(
             targets, handler, key_of, desc="外部文章原始抓取", limit=limit
         )
+        ctx.refresh_external_media()
         image_items: list[tuple[str, str, str, str]] = []
         for article_url, capture in (() if pages_only else list(ctx.external_captures.items())):
             if capture.get("fetchStatus") != "fetched":
@@ -2459,6 +2467,7 @@ def generate_site(ctx: SyncContext, *, verbose: bool = False) -> dict[str, Any]:
     """把抓取结果渲染成 VitePress 站点产物。"""
     cfg = ctx.cfg
     record_resolved_destinations(ctx.external_captures)
+    ctx.refresh_external_media()
     ctx.refresh_album_media()
     ctx.refresh_unavailable()
     captured_articles = load_captured_articles(

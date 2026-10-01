@@ -99,6 +99,11 @@ REMOVE_SELECTORS = (
     ".socialicons", ".infoarea", ".posted", ".blogHeader",
     ".ft", ".vctitle", ".vctab", ".vctool",
     ".sp-navigation", ".sp-footer-navigation", ".sp-sideblock",
+    ".fc2_footer", ".fc2button-clap", "#yads", ".adcount",
+    ".hatena-bookmark-button", ".sectionfooter", ".mod-actionButtons",
+    ".main-social", ".ct-snsbar-holder", ".main_share",
+    ".twitter-tweet .avatar", ".thumbnail_exp", ".thumbnail_exp_ov",
+    ".button_top", ".pageTop", ".NA_theater_preloader", ".rv-player-adjust-img",
 )
 
 
@@ -199,11 +204,31 @@ def _select_body(
     return None, "unmatched"
 
 
-def _strip_site_extras(body: Tag, host: str) -> None:
+def _strip_site_extras(body: Tag, host: str, base_url: str = "") -> None:
     """Remove publisher chrome that can be nested inside an article body."""
     for selector in REMOVE_SELECTORS:
         for node in body.select(selector):
             node.decompose()
+
+    # These are counters/widgets, including dynamic .html/.php endpoints that
+    # return GIF bytes. Never use image size alone: inline emoji, rank labels
+    # and small article illustrations carry real content.
+    for image in body.find_all("img"):
+        source = str(image.get("data-src") or image.get("data-original") or image.get("src") or "")
+        parsed = urlparse(urljoin(base_url, source))
+        image_host = (parsed.hostname or "").lower()
+        widget = (
+            (image_host == "b.hatena.ne.jp" and parsed.path.startswith("/entry/image/"))
+            or (image_host == "b.st-hatena.com" and parsed.path.startswith("/images/entry-button/"))
+            or (image_host == "static.fc2.com" and parsed.path.startswith("/image/clap/"))
+            or (image_host == "media.fc2.com" and parsed.path == "/counter_img.php")
+            or (image_host.endswith("assoc-amazon.jp") and parsed.path == "/e/ir")
+        )
+        tracking_pixel = (
+            str(image.get("width", "")) == "1" and str(image.get("height", "")) == "1"
+        ) or (parsed.path.rsplit("/", 1)[-1].lower() == "1x1.png" and not image.get("alt"))
+        if widget or tracking_pixel:
+            image.decompose()
 
     # Older Ameba themes put a hand-written related-post list at the end of
     # the article body instead of in a sidebar or a separately marked widget.
@@ -259,6 +284,9 @@ def parse_capture(url: str, capture: dict[str, Any], workspace: Path) -> Externa
         str(source): str(local)
         for source, local in (capture.get("archivedImages") or {}).items()
     }
+    # Filter before rewriting src to local URLs so endpoint evidence remains
+    # available. The download queue uses this exact same filter.
+    _strip_site_extras(body, host, final_url)
     for anchor in body.find_all("a", href=True):
         href = str(anchor.get("href", "")).strip()
         if href and not href.startswith("#"):
@@ -274,7 +302,6 @@ def parse_capture(url: str, capture: dict[str, Any], workspace: Path) -> Externa
             image["src"] = image_map.get(source_url, source_url)
             image.attrs.pop("data-src", None)
             image.attrs.pop("data-original", None)
-    _strip_site_extras(body, host)
     text = body.get_text(" ", strip=True)
     minimum_text = article_minimum_text(adapter)
     if len(text) < minimum_text or re.search(r"(?i)domain (?:has )?expired|404 not found|page not found", text[:500]):
@@ -321,12 +348,12 @@ def extract_image_sources(
     final_url = str(capture.get("finalUrl") or url)
     host = (urlparse(final_url).hostname or urlparse(url).hostname or "").lower()
     soup = BeautifulSoup(decode_html(raw, str(capture.get("contentType", ""))), "lxml")
-    body, _ = _select_body(soup, host, urlparse(final_url).path, urlparse(final_url).fragment)
+    body, adapter = _select_body(soup, host, urlparse(final_url).path, urlparse(final_url).fragment)
     if body is None:
         return []
-    _strip_site_extras(body, host)
+    _strip_site_extras(body, host, final_url)
     text = body.get_text(" ", strip=True)
-    if len(text) < 80 or re.search(
+    if len(text) < article_minimum_text(adapter) or re.search(
         r"(?i)domain (?:has )?expired|404 not found|page not found", text[:500]
     ):
         return []

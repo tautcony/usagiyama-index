@@ -55,3 +55,39 @@ def test_tbs_selects_exact_news_fragment_and_never_month_index(tmp_path):
     assert 'Wrong' not in result.content_html
     capture['finalUrl'] = url.split('#')[0]
     assert parse_capture(url, capture, tmp_path) is None
+
+
+def test_widgets_filtered_before_local_rewrite_and_from_download_queue(tmp_path):
+    from scraper.external_articles import extract_image_sources
+    html = '<article>' + '正文' * 100 + '''
+      <img src="photo.jpg" width="16" height="16" alt="小幅插画">
+      <img src="emoji.gif" class="emoji" width="16" height="16" alt="笑">
+      <div class="fc2button-clap"><img src="//static.fc2.com/image/clap/number/green/0.gif"></div>
+      <img src="https://b.hatena.ne.jp/entry/image/http://example.com/article.html">
+      <img src="https://media.fc2.com/counter_img.php?id=595">
+      <img src="pixel.php" width="1" height="1">
+      <img src="data:image/gif;base64,placeholder" data-src="1x1.png" alt="">
+      <span class="thumbnail_link"><img class="thumbnail" src="main.jpg"><img class="thumbnail_exp" src="expansion.jpg"></span>
+      <div class="main_share"><img src="share.png"></div>
+      <blockquote class="twitter-tweet"><span class="avatar"><img src="avatar.jpg"></span><p>引用文字</p><img src="tweet-photo.jpg"></blockquote>
+    </article>'''
+    capture = _capture(tmp_path, html)
+    url = 'https://example.com/article.html'
+    capture['finalUrl'] = url
+    capture['archivedImages'] = {'https://b.hatena.ne.jp/entry/image/http://example.com/article.html': '/media/external-articles/example/counter.gif'}
+    sources = extract_image_sources(url, capture, tmp_path)
+    assert sources == [f'https://example.com/{name}' for name in ('photo.jpg', 'emoji.gif', 'main.jpg', 'tweet-photo.jpg')]
+    article = parse_capture(url, capture, tmp_path)
+    assert article is not None
+    assert 'counter.gif' not in article.content_html
+    assert '引用文字' in article.content_html
+    assert 'emoji.gif' in article.content_html
+
+
+def test_short_cocolog_article_uses_same_image_threshold(tmp_path):
+    from scraper.external_articles import extract_image_sources
+    capture = _capture(tmp_path, '<div class="entry-content">' + '正文' * 12 + '<img src="photo.jpg"></div>')
+    url = 'https://example.cocolog-nifty.com/post.html'
+    capture['finalUrl'] = url
+    assert parse_capture(url, capture, tmp_path) is not None
+    assert extract_image_sources(url, capture, tmp_path) == ['https://example.cocolog-nifty.com/photo.jpg']

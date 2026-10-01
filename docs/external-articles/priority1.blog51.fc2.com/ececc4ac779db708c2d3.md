@@ -98,10 +98,6 @@ archivedAt: "2026-09-30"
 
 今回はこんなとこで
 
-![](/media/external-articles/priority1.blog51.fc2.com/ececc4ac779db708c2d3/b4189bb4e1b0-0.gif)
-
-[Tweet](https://twitter.com/share)
-
 - コメント : [0](http://priority1.blog51.fc2.com/blog-entry-1796.html#comment-top)
 
 *本页归档自 [原站页面](http://priority1.blog51.fc2.com/blog-entry-1796.html)*

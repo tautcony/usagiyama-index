@@ -451,7 +451,7 @@ class MediaArchive:
                 return candidate
         return None
 
-    def _heal_suffix(self, path: Path) -> Path:
+    def heal_suffix(self, path: Path) -> Path:
         """后缀与真实格式不符时就地改名，返回改名后的路径。
 
         这是给"URL 后缀撒谎"时代的存量文件兜底的：新下载已经由
@@ -464,6 +464,9 @@ class MediaArchive:
         if target == path:
             return path
         if target.exists():
+            if files_equal(path, target):
+                path.unlink()
+                return target
             log.warning(
                 "后缀与内容不符但纠正目标已被占用，保持原样：%s（实际是 %s）→ %s",
                 path.name,
@@ -500,7 +503,7 @@ class MediaArchive:
         # 只看 dest 会让每次运行都把它当"没下过"而重复下载。
         existing = None if force else self._existing_archived(dest)
         if existing is not None:
-            existing = self._heal_suffix(existing)
+            existing = self.heal_suffix(existing)
             result.ok = True
             result.local_path = existing
             result.local_url = with_name(local_url, existing.name)

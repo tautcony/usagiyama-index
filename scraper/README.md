@@ -83,6 +83,8 @@ uv run python -m scraper.cli sync --stages external --archive --recheck-unavaila
 
 `--concurrency` 只并行处理互相独立的外链目标及其图片；每个 worker 使用独立传输会话，并共享请求间隔限制。外部文章页按域名保存在 `docs/external-articles/<域名>/<文章ID>.md`；图片保存在 `docs/public/media/external-articles/<域名>/<文章ID>/`，成功归档后页面引用本地图片。默认仍为单 worker。
 
+外部正文渲染与图片队列共用控件过滤规则，排除点赞、收藏计数、分享、头像、放大按钮和跟踪像素；不按小尺寸或 GIF 格式删除正文表情、标签及插画。`sync` 的 external 阶段与 `emit` 都会整理已有图片记录：只有原始 HTML 仍能解析时才清理已不属于正文的记录及无人引用的对应文件。缓存缺失时保留已有归档。图片文件名按真实字节格式修正，`.html`、`.php` 端点返回的 GIF 保存为 `.gif`；已完成的存量图片也会检查并同步修正本地引用，无需强制重下载。
+
 ```sh
 npm run sync -- --i-have-read-robots --full-check-note 261864994
 ```
