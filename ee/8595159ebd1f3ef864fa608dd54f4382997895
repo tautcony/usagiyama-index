@@ -1,0 +1,100 @@
+docs/.vitepress/theme/custom.css
+  s_bd4e34e7143f8c::t_29f0bbec17589e 144,165-169
+docs/external-articles/anime-eupho.com/7f9ba7fb1f4f0d406dd0.md
+  s_4d0e1af78d3e08::t_ce1ff18057b3e9 1-69
+docs/external-articles/hatena.blog/03670388009b6a78116b.md
+  s_4d0e1af78d3e08::t_f508566bf8f165 1-15
+docs/external-articles/nazism.cocolog-nifty.com/7945132a72b82a7030e9.md
+  s_4d0e1af78d3e08::t_4b72e7188e1d77 1-122
+reviews/2026-09-30/external-links/domain-policy.md
+  s_bd4e34e7143f8c::t_4ed2430cbf4ba2 1-25
+reviews/2026-09-30/external-links/strategy.md
+  s_10b41b30cea068::t_15898f78aebeb4 3,5,7-9,19,25,27,55,72,74-75,130,132,139-142,144,149,154-331
+scraper/README.md
+  s_bd4e34e7143f8c::t_82e65bd643167a 43-46,55-72,108
+scraper/browser.py
+  s_bd4e34e7143f8c::t_112f30ce610d15 33,397,418,420
+scraper/cli.py
+  s_4d0e1af78d3e08::t_b267a1f1bd7d65 24-25,30,54,59-68,115,118,137,139,145,148-153,155,211-217,318,350-357,359-362,419-433,475-477,541-547,842,861-862,887-915,958-961,993,1090-1091,1213,1245-1247,1902-1928,1935,1944,1946-1951,2003,2009,2050,2063-2064,2071-2072,2086-2368,2379,2389,2392-2394,2396-2400,2495-2504,2508-2515,2522,2528-2533,2610-2614,2623,2668-2671,2761-2779,2812-2815,2817-2820,2970-2972
+scraper/external_articles.py
+  s_4d0e1af78d3e08::t_8c5a7dcfc03a51 1-286
+scraper/html2md.py
+  s_bd4e34e7143f8c::t_3e1fb83dd44dd9 23,34-36,334-363
+scraper/http_client.py
+  s_bd4e34e7143f8c::t_d6acb66d1d9fda 34,332,435-449,547,554,669,778-780,786-791,851
+scraper/media.py
+  s_1cc2ef5666e33f::t_5c6955acfaac61 28,66,73-75,84,111-122,427-439,490-491,524-526,528-530,550-552
+scraper/models.py
+  s_6428ccdd58229b::t_7527e432ad4f9d 310-318
+scraper/progress.py
+  s_bd4e34e7143f8c::t_151b7f23b35832 20,22,143,192-195,282-293,499-500,509-510,545,577-588,590-592,594-596,598-606,608-618
+scraper/resolver.py
+  s_bd4e34e7143f8c::t_51e3f079e7a639 60,155
+scraper/tests/test_external_articles.py
+  s_47bb883b524a1c::t_af4eb7a668585c 1-45
+scraper/tests/test_media.py
+  s_1cc2ef5666e33f::t_a4eb8438945b7a 25-26,33,42-44
+scraper/transport.py
+  s_bd4e34e7143f8c::t_090e3c8eb9e633 69-71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ee8595159ebd1f3ef864fa608dd54f4382997895",
+  "prompts": {},
+  "humans": {
+    "h_3705811fa4502c": {
+      "author": "TautCony <i@tautcony.xyz>"
+    }
+  },
+  "sessions": {
+    "s_10b41b30cea068": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0f294-c6f1-7f91-b5f0-1a54c3750db7",
+        "model": "unknown"
+      },
+      "human_author": "TautCony <i@tautcony.xyz>"
+    },
+    "s_1cc2ef5666e33f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0f303-16d7-76d0-939a-5fc0497c6adf",
+        "model": "unknown"
+      },
+      "human_author": "TautCony <i@tautcony.xyz>"
+    },
+    "s_47bb883b524a1c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0f319-bbea-7d83-85ba-4ea3be1ad5c2",
+        "model": "unknown"
+      },
+      "human_author": "TautCony <i@tautcony.xyz>"
+    },
+    "s_4d0e1af78d3e08": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0f316-6602-7d91-802d-4d20b8109a7c",
+        "model": "unknown"
+      },
+      "human_author": "TautCony <i@tautcony.xyz>"
+    },
+    "s_6428ccdd58229b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0f2b8-55f0-70e0-93fd-1ebeddb1358a",
+        "model": "unknown"
+      },
+      "human_author": "TautCony <i@tautcony.xyz>"
+    },
+    "s_bd4e34e7143f8c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0f2a9-d2c0-7e92-93c9-b3476a5ca482",
+        "model": "unknown"
+      },
+      "human_author": "TautCony <i@tautcony.xyz>"
+    }
+  }
+}
