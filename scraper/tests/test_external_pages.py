@@ -184,7 +184,7 @@ class TestSidebarWithExternal:
         ctx = EmitContext(external_routes={"https://www.douban.com/topic/1/": "/external/topic-1"})
         text = SiteEmitter(cfg, ctx).emit_sidebar(groups, {}).read_text(encoding="utf-8")
         payload = json.loads(text.split("= ", 1)[1].rsplit(" as DefaultTheme.Sidebar", 1)[0])
-        item = payload["/notes/"][0]["items"][0]
+        item = payload["/"][0]["items"][0]["items"][0]
         assert item == {"text": "访谈", "link": "/external/topic-1"}
 
     def test_unarchived_external_entry_has_no_link(self, cfg) -> None:
@@ -197,7 +197,7 @@ class TestSidebarWithExternal:
         text = SiteEmitter(cfg, EmitContext()).emit_sidebar(groups, {}).read_text(encoding="utf-8")
         assert "https://www.douban.com/topic/1/" not in text
         payload = json.loads(text.split("= ", 1)[1].rsplit(" as DefaultTheme.Sidebar", 1)[0])
-        assert "link" not in payload["/notes/"][0]["items"][0]
+        assert "link" not in payload["/"][0]["items"][0]["items"][0]
 
     def test_external_group_added_when_pages_exist(self, cfg) -> None:
         text = SiteEmitter(cfg, EmitContext()).emit_sidebar(
@@ -207,4 +207,6 @@ class TestSidebarWithExternal:
 
     def test_external_group_absent_when_no_pages(self, cfg) -> None:
         text = SiteEmitter(cfg, EmitContext()).emit_sidebar([], {}).read_text(encoding="utf-8")
-        assert "/external/" not in text
+        # The route remains in the global archive navigation when empty.
+        assert '"link": "/external/"' in text
+        assert '"text": "外部文章（0）"' in text

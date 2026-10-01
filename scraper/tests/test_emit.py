@@ -35,7 +35,7 @@ class TestBroadcast:
             link_title="日记标题",
         )]).read_text(encoding="utf-8")
 
-        assert "](/notes/820543319)" in text
+        assert 'href="/notes/820543319"' in text
         assert "site.douban.com" not in text
 
     def test_photo_upload_links_to_local_album(self, cfg) -> None:
@@ -46,7 +46,7 @@ class TestBroadcast:
             object_kind="1025", object_id="2500516321",
         )]).read_text(encoding="utf-8")
 
-        assert "](/albums/13432051)" in text
+        assert 'href="/albums/13432051"' in text
         assert "douc.cc" not in text
 
 
@@ -143,7 +143,7 @@ def _note(note_id: str = "1", **kwargs) -> Note:
 
 def _photo_card(text: str) -> str:
     """取出相册页里的第一张卡片 —— 断言挂在卡片上，「哪张图配哪个链接」才说得清。"""
-    start = text.index('<figure class="photo-card">')
+    start = text.index('<figure class="photo-card"')
     return text[start : text.index("</figure>", start)]
 
 
@@ -302,8 +302,9 @@ class TestEmitSidebar:
         # 提取 JSON 部分验证可解析
         payload = text.split("= ", 1)[1].rsplit(" as DefaultTheme.Sidebar", 1)[0]
         data = json.loads(payload)
-        assert data["/notes/"][0]["text"] == "聲之形"
-        assert data["/notes/"][0]["items"][0]["link"] == "/notes/1"
+        room_items = data["/"][0]["items"]
+        assert room_items[0]["text"] == "☆ 聲之形"
+        assert room_items[0]["items"][0]["link"] == "/notes/1"
 
     def test_unavailable_entry_has_no_link(self, cfg) -> None:
         """未归档条目在 sidebar 里保留文字但**不能**有 link。
@@ -327,7 +328,7 @@ class TestEmitSidebar:
         payload = json.loads(
             text.split("= ", 1)[1].rsplit(" as DefaultTheme.Sidebar", 1)[0]
         )
-        item = payload["/notes/"][0]["items"][0]
+        item = payload["/"][0]["items"][0]["items"][0]
         assert item["text"] == "未归档访谈（未归档）"
         assert "link" not in item
 
@@ -337,8 +338,8 @@ class TestEmitSidebar:
         payload = json.loads(
             path.read_text(encoding="utf-8").split("= ", 1)[1].rsplit(" as DefaultTheme.Sidebar", 1)[0]
         )
-        group = payload["/notes/"][0]
-        assert group["text"] == "尚子的房间"
+        group = payload["/"][0]["items"][0]
+        assert group["text"] == "其他"
         assert group["collapsed"] is True
 
 
@@ -416,14 +417,16 @@ class TestEmitHome:
         assert "poster-wall" in text
         assert "/albums/13432051" in text
         assert "/media/site/avatar.jpg" in text
-        assert "聲之形" in text
+        # Curated index groups are exposed in sidebar/navigation, while the
+        # home page now focuses on the home room and its album wall.
+        assert "归档概况" in text
 
     def test_html_attribute_paths_are_escaped(self, cfg) -> None:
-        album = Album(album_id="1", title="album")
+        album = Album(album_id="13432051", title="album")
         album.photos = [PhotoMeta(
-            photo_id="1", album_id="1", local='/media/x.jpg"><img src=x onerror=alert(1)>'
+            photo_id="1", album_id="13432051", local='/media/x.jpg"><img src=x onerror=alert(1)>'
         )]
-        emitter = SiteEmitter(cfg, EmitContext(album_routes={"1": '/albums/1"><img src=x>'}))
+        emitter = SiteEmitter(cfg, EmitContext(album_routes={"13432051": '/albums/13432051"><img src=x>'}))
         text = emitter.emit_home({"name": "site"}, [], [album]).read_text(encoding="utf-8")
         assert 'x.jpg"><img src=x' not in text
         assert "&quot;" in text
@@ -588,10 +591,11 @@ class TestVideoEscaping:
             external_url="https://v.youku.com/x",
         )
         text = SiteEmitter(cfg).emit_videos([video]).read_text(encoding="utf-8")
-        # 标题落在文本节点里：尖括号必须转义，引号无需转义
-        assert "&lt;标签&gt;" in text
+        # Legacy video routes now redirect to the combined album index and
+        # do not render untrusted video metadata.
+        assert "/albums/#视频" in text
+        assert "标题含" not in text
         assert "<标签>" not in text
-        assert '标题含"引号"' in text
 
     def test_video_external_url_in_attribute_escaped(self, cfg) -> None:
         from scraper.models import Video
@@ -603,5 +607,5 @@ class TestVideoEscaping:
             external_url='https://x/?a=1&b="2"',
         )
         text = SiteEmitter(cfg).emit_videos([video]).read_text(encoding="utf-8")
-        assert "&amp;" in text
-        assert "&quot;2&quot;" in text
+        assert "/albums/#视频" in text
+        assert "https://x/" not in text

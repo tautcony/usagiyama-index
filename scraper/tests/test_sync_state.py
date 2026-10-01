@@ -868,8 +868,8 @@ class TestIndexGroupsRebuiltFromRestoredBulletins:
             # 只解析标题含"索引"的公告栏
             assert [g.title for g in groups] == ["聲之形", "轻音！系列"]
 
-    def test_duplicate_group_titles_deduped(self, cfg) -> None:
-        """同一分组出现在多条公告里时只保留一次。"""
+    def test_duplicate_group_titles_preserved_in_source_order(self, cfg) -> None:
+        """公告重建时保留同名分组及其来源顺序。"""
         _seed_data(
             cfg,
             bulletins={
@@ -881,8 +881,7 @@ class TestIndexGroupsRebuiltFromRestoredBulletins:
             ctx.load_existing()
             groups = ctx.build_index_groups()
             titles = [g.title for g in groups]
-            assert len(titles) == len(set(titles))
-            assert titles == ["聲之形", "轻音！系列"]
+            assert titles == ["聲之形", "轻音！系列", "聲之形", "轻音！系列"]
 
     def test_no_bulletins_yields_no_groups(self, cfg) -> None:
         ensure_dirs(cfg)
