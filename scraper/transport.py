@@ -66,7 +66,9 @@ class Transport(Protocol):
         """抓取原始字节。"""
         ...
 
-    def get_image(self, url: str, *, force: bool = False) -> CachedResponse:
+    def get_image(
+        self, url: str, *, force: bool = False, referer: str | None = None
+    ) -> CachedResponse:
         """抓取图片，强制带 Referer（否则 doubanio 返回 418）。"""
         ...
 

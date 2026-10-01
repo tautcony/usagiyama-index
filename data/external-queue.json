@@ -1,0 +1,5541 @@
+{
+  "http://anime-eupho.com/news/?id=53": {
+    "requestedUrl": "http://anime-eupho.com/news/?id=53",
+    "domain": "anime-eupho.com",
+    "references": [
+      {
+        "file": "albums/13431950.md",
+        "line": 62,
+        "label": "Fan Book 2015年9月23日发售 http://anime-eupho.com/news/?id=53",
+        "form": "text_url",
+        "rawUrl": "http://anime-eupho.com/news/?id=53"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://d.hatena.ne.jp/los_endos/20131201/13859": {
+    "requestedUrl": "http://d.hatena.ne.jp/los_endos/20131201/13859",
+    "domain": "d.hatena.ne.jp",
+    "references": [
+      {
+        "file": "albums/13431950.md",
+        "line": 124,
+        "label": "原画：山田尚子。山田非常喜欢小江（详见： http://d.hatena.ne.jp/los_endos/20131201/13859 ）。",
+        "form": "text_url",
+        "rawUrl": "http://d.hatena.ne.jp/los_endos/20131201/13859"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "https://dou.bz/3ysQT1": {
+    "requestedUrl": "https://dou.bz/3ysQT1",
+    "domain": "dou.bz",
+    "references": [
+      {
+        "file": "albums/13432051.md",
+        "line": 15,
+        "label": "电影《聲之形》9月17日上映！导演：山田尚子，剧本：吉田玲子，角色设计：西屋太志，制作：京都动画，官网：https://dou.bz/3ysQT1，官推：https://dou.bz/3yQaKK，特报：https://dou.bz/0vMqgF",
+        "form": "text_url",
+        "rawUrl": "https://dou.bz/3ysQT1"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "短链接",
+    "action": "resolve",
+    "reason": "解析最终地址后重新分类"
+  },
+  "https://dou.bz/3yQaKK": {
+    "requestedUrl": "https://dou.bz/3yQaKK",
+    "domain": "dou.bz",
+    "references": [
+      {
+        "file": "albums/13432051.md",
+        "line": 15,
+        "label": "电影《聲之形》9月17日上映！导演：山田尚子，剧本：吉田玲子，角色设计：西屋太志，制作：京都动画，官网：https://dou.bz/3ysQT1，官推：https://dou.bz/3yQaKK，特报：https://dou.bz/0vMqgF",
+        "form": "text_url",
+        "rawUrl": "https://dou.bz/3yQaKK"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "短链接",
+    "action": "resolve",
+    "reason": "解析最终地址后重新分类"
+  },
+  "https://dou.bz/0vMqgF": {
+    "requestedUrl": "https://dou.bz/0vMqgF",
+    "domain": "dou.bz",
+    "references": [
+      {
+        "file": "albums/13432051.md",
+        "line": 15,
+        "label": "电影《聲之形》9月17日上映！导演：山田尚子，剧本：吉田玲子，角色设计：西屋太志，制作：京都动画，官网：https://dou.bz/3ysQT1，官推：https://dou.bz/3yQaKK，特报：https://dou.bz/0vMqgF",
+        "form": "text_url",
+        "rawUrl": "https://dou.bz/0vMqgF"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "短链接",
+    "action": "resolve",
+    "reason": "解析最终地址后重新分类"
+  },
+  "https://dou.bz/1pDOrE": {
+    "requestedUrl": "https://dou.bz/1pDOrE",
+    "domain": "dou.bz",
+    "references": [
+      {
+        "file": "albums/13433748.md",
+        "line": 21,
+        "label": "【第2回 京アニ＆Do ファン感謝イベント 2015.10.31】今天的山田尚子，米色黑圆点连衣裙。（图by twitter ID: honekawap）（帽子好像是这顶→ https://dou.bz/1pDOrE ）",
+        "form": "text_url",
+        "rawUrl": "https://dou.bz/1pDOrE"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "短链接",
+    "action": "resolve",
+    "reason": "解析最终地址后重新分类"
+  },
+  "http://www.animate.tv/news/details.php?id=1401535119&p=1": {
+    "requestedUrl": "http://www.animate.tv/news/details.php?id=1401535119&p=1",
+    "domain": "www.animate.tv",
+    "references": [
+      {
+        "file": "albums/13433748.md",
+        "line": 60,
+        "label": "【山田尚子、小川太一、瀬波里梨】大ヒット御礼！ 山田尚子監督を始めとする制作陣が登壇した『たまこラブストーリー』スタッフ舞台挨拶をレポート！ http://www.animate.tv/news/details.php?id=1401535119&p=1",
+        "form": "text_url",
+        "rawUrl": "http://www.animate.tv/news/details.php?id=1401535119&p=1"
+      },
+      {
+        "file": "broadcast/page/59.md",
+        "line": 30,
+        "label": "大ヒット御礼！ 山田尚子監督を始めとする制作陣が登壇した『たまこラブストーリー』スタッフ舞台挨拶をレポート！",
+        "form": "link",
+        "rawUrl": "https://douc.cc/2rYVHg"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/2rYVHg",
+        "references": [
+          {
+            "file": "broadcast/page/59.md",
+            "line": 30,
+            "label": "大ヒット御礼！ 山田尚子監督を始めとする制作陣が登壇した『たまこラブストーリー』スタッフ舞台挨拶をレポート！",
+            "form": "link",
+            "rawUrl": "https://douc.cc/2rYVHg"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://ameblo.jp/nekokanekoneko/entry-11848710846.html": {
+    "requestedUrl": "http://ameblo.jp/nekokanekoneko/entry-11848710846.html",
+    "domain": "ameblo.jp",
+    "references": [
+      {
+        "file": "albums/13433748.md",
+        "line": 77,
+        "label": "http://ameblo.jp/nekokanekoneko/entry-11848710846.html",
+        "form": "text_url",
+        "rawUrl": "http://ameblo.jp/nekokanekoneko/entry-11848710846.html"
+      },
+      {
+        "file": "broadcast/page/62.md",
+        "line": 26,
+        "label": "昨日の続きだよん",
+        "form": "link",
+        "rawUrl": "https://douc.cc/2d88lw"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/2d88lw",
+        "references": [
+          {
+            "file": "broadcast/page/62.md",
+            "line": 26,
+            "label": "昨日の続きだよん",
+            "form": "link",
+            "rawUrl": "https://douc.cc/2d88lw"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "Ameblo 文章详情路径"
+  },
+  "http://ameblo.jp/nekokanekoneko/entry-11847828802.html": {
+    "requestedUrl": "http://ameblo.jp/nekokanekoneko/entry-11847828802.html",
+    "domain": "ameblo.jp",
+    "references": [
+      {
+        "file": "albums/13433748.md",
+        "line": 81,
+        "label": "http://ameblo.jp/nekokanekoneko/entry-11847828802.html",
+        "form": "text_url",
+        "rawUrl": "http://ameblo.jp/nekokanekoneko/entry-11847828802.html"
+      },
+      {
+        "file": "broadcast/page/63.md",
+        "line": 14,
+        "label": "ありがとうございました。",
+        "form": "link",
+        "rawUrl": "https://douc.cc/1jLuHq"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/1jLuHq",
+        "references": [
+          {
+            "file": "broadcast/page/63.md",
+            "line": 14,
+            "label": "ありがとうございました。",
+            "form": "link",
+            "rawUrl": "https://douc.cc/1jLuHq"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "Ameblo 文章详情路径"
+  },
+  "http://moca-news.net/article/20140427/201404271222a/01/?afid=difa": {
+    "requestedUrl": "http://moca-news.net/article/20140427/201404271222a/01/?afid=difa",
+    "domain": "moca-news.net",
+    "references": [
+      {
+        "file": "albums/13433748.md",
+        "line": 145,
+        "label": "劇場版アニメ『たまこラブストーリー』がついに公開。公開初日には洲崎綾・田丸篤志・山田尚子監督らによる舞台挨拶を実施 http://moca-news.net/article/20140427/201404271222a/01/?afid=difa",
+        "form": "text_url",
+        "rawUrl": "http://moca-news.net/article/20140427/201404271222a/01/?afid=difa"
+      },
+      {
+        "file": "broadcast/page/70.md",
+        "line": 30,
+        "label": "劇場版アニメ『たまこラブストーリー』がついに公開。公開初日には洲崎綾・田丸篤志・...",
+        "form": "link",
+        "rawUrl": "https://douc.cc/1Kg2lW"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/1Kg2lW",
+        "references": [
+          {
+            "file": "broadcast/page/70.md",
+            "line": 30,
+            "label": "劇場版アニメ『たまこラブストーリー』がついに公開。公開初日には洲崎綾・田丸篤志・...",
+            "form": "link",
+            "rawUrl": "https://douc.cc/1Kg2lW"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "https://dou.bz/3fRkJT": {
+    "requestedUrl": "https://dou.bz/3fRkJT",
+    "domain": "dou.bz",
+    "references": [
+      {
+        "file": "albums/190597061.md",
+        "line": 17,
+        "label": "日本瑞穗金融集团 CM 电影《聲之形》篇 30秒 https://dou.bz/3fRkJT",
+        "form": "text_url",
+        "rawUrl": "https://dou.bz/3fRkJT"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "短链接",
+    "action": "resolve",
+    "reason": "解析最终地址后重新分类"
+  },
+  "http://www.anime-recorder.com/ArticleDetail.aspx?seq_no=9559": {
+    "requestedUrl": "http://www.anime-recorder.com/ArticleDetail.aspx?seq_no=9559",
+    "domain": "www.anime-recorder.com",
+    "references": [
+      {
+        "file": "albums/190597061.md",
+        "line": 41,
+        "label": "http://www.anime-recorder.com/ArticleDetail.aspx?seq_no=9559",
+        "form": "text_url",
+        "rawUrl": "http://www.anime-recorder.com/ArticleDetail.aspx?seq_no=9559"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://mantan-web.jp/2016/09/17/20160917dog00m200025000c.html": {
+    "requestedUrl": "http://mantan-web.jp/2016/09/17/20160917dog00m200025000c.html",
+    "domain": "mantan-web.jp",
+    "references": [
+      {
+        "file": "albums/190597061.md",
+        "line": 55,
+        "label": "http://mantan-web.jp/2016/09/17/20160917dog00m200025000c.html",
+        "form": "text_url",
+        "rawUrl": "http://mantan-web.jp/2016/09/17/20160917dog00m200025000c.html"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "https://dou.bz/0wRXIb": {
+    "requestedUrl": "https://dou.bz/0wRXIb",
+    "domain": "dou.bz",
+    "references": [
+      {
+        "file": "albums/190597061.md",
+        "line": 79,
+        "label": "山田的这张照片是在岐阜县的主题公园“养老天命反转地”取材时拍摄的。关于“养老天命反转地”可以看一下这篇介绍： https://dou.bz/0wRXIb 360°全景照： https://dou.bz/1vpgzh 这是作品中将也与硝子约会的地方。",
+        "form": "text_url",
+        "rawUrl": "https://dou.bz/0wRXIb"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "短链接",
+    "action": "resolve",
+    "reason": "解析最终地址后重新分类"
+  },
+  "https://dou.bz/1vpgzh": {
+    "requestedUrl": "https://dou.bz/1vpgzh",
+    "domain": "dou.bz",
+    "references": [
+      {
+        "file": "albums/190597061.md",
+        "line": 79,
+        "label": "山田的这张照片是在岐阜县的主题公园“养老天命反转地”取材时拍摄的。关于“养老天命反转地”可以看一下这篇介绍： https://dou.bz/0wRXIb 360°全景照： https://dou.bz/1vpgzh 这是作品中将也与硝子约会的地方。",
+        "form": "text_url",
+        "rawUrl": "https://dou.bz/1vpgzh"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "短链接",
+    "action": "resolve",
+    "reason": "解析最终地址后重新分类"
+  },
+  "http://news.walkerplus.com/article/87023/": {
+    "requestedUrl": "http://news.walkerplus.com/article/87023/",
+    "domain": "news.walkerplus.com",
+    "references": [
+      {
+        "file": "albums/190597061.md",
+        "line": 83,
+        "label": "http://news.walkerplus.com/article/87023/",
+        "form": "text_url",
+        "rawUrl": "http://news.walkerplus.com/article/87023/"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://t.cn/RcfasXQ": {
+    "requestedUrl": "http://t.cn/RcfasXQ",
+    "domain": "t.cn",
+    "references": [
+      {
+        "file": "albums/190597061.md",
+        "line": 89,
+        "label": "山田：我很喜欢松冈出演的电视剧《问题餐厅》，每周都会收看，从第一集开始就对松冈很在意。《聲之形》最先想到的就是想请松冈配音。发邀请时完全是抱着试试看的心态，她愿意出演让我感到很幸运。 http://t.cn/RcfasXQ",
+        "form": "text_url",
+        "rawUrl": "http://t.cn/RcfasXQ"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "短链接",
+    "action": "resolve",
+    "reason": "解析最终地址后重新分类"
+  },
+  "http://columii.jp/movie/column/article-841.html": {
+    "requestedUrl": "http://columii.jp/movie/column/article-841.html",
+    "domain": "columii.jp",
+    "references": [
+      {
+        "file": "albums/190597061.md",
+        "line": 158,
+        "label": "聴覚障がい者の少女との交流描く『聲の形』 映画化への期待 http://columii.jp/movie/column/article-841.html",
+        "form": "text_url",
+        "rawUrl": "http://columii.jp/movie/column/article-841.html"
+      },
+      {
+        "file": "broadcast/page/23.md",
+        "line": 22,
+        "label": "聴覚障がい者の少女との交流描く『聲の形』 映画化への期待｜dメニュー映画×コラミ...",
+        "form": "link",
+        "rawUrl": "https://douc.cc/3pqa1m"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/3pqa1m",
+        "references": [
+          {
+            "file": "broadcast/page/23.md",
+            "line": 22,
+            "label": "聴覚障がい者の少女との交流描く『聲の形』 映画化への期待｜dメニュー映画×コラミ...",
+            "form": "link",
+            "rawUrl": "https://douc.cc/3pqa1m"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://mantan-web.jp/2016/09/11/20160910dog00m200008000c.html": {
+    "requestedUrl": "http://mantan-web.jp/2016/09/11/20160910dog00m200008000c.html",
+    "domain": "mantan-web.jp",
+    "references": [
+      {
+        "file": "broadcast/page/15.md",
+        "line": 26,
+        "label": "松岡茉優：話題のアニメ「聲の形」で男の子役の声優挑戦 “師”山寺宏一への思いも ...",
+        "form": "link",
+        "rawUrl": "https://douc.cc/39bw6J"
+      },
+      {
+        "file": "notes/569110361.md",
+        "line": 34,
+        "label": "MANTANWEB",
+        "form": "link",
+        "rawUrl": "http://mantan-web.jp/2016/09/11/20160910dog00m200008000c.html"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/39bw6J",
+        "references": [
+          {
+            "file": "broadcast/page/15.md",
+            "line": 26,
+            "label": "松岡茉優：話題のアニメ「聲の形」で男の子役の声優挑戦 “師”山寺宏一への思いも ...",
+            "form": "link",
+            "rawUrl": "https://douc.cc/39bw6J"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://moca-news.net/article/20160902/2016090216000a_/01/?afid=difa": {
+    "requestedUrl": "http://moca-news.net/article/20160902/2016090216000a_/01/?afid=difa",
+    "domain": "moca-news.net",
+    "references": [
+      {
+        "file": "broadcast/page/17.md",
+        "line": 30,
+        "label": "电影《声之形》新画面公开，入场者赠品Special book发放决定。 https://douc.cc/4FDmKI # 声之形 #",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/4FDmKI"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/4FDmKI",
+        "references": [
+          {
+            "file": "broadcast/page/17.md",
+            "line": 30,
+            "label": "电影《声之形》新画面公开，入场者赠品Special book发放决定。 https://douc.cc/4FDmKI # 声之形 #",
+            "form": "text_url",
+            "rawUrl": "https://douc.cc/4FDmKI"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://natalie.mu/comic/news/196038": {
+    "requestedUrl": "http://natalie.mu/comic/news/196038",
+    "domain": "natalie.mu",
+    "references": [
+      {
+        "file": "broadcast/page/21.md",
+        "line": 18,
+        "label": "映画「聲の形」大今良時が入野自由の声を聞き「将也を主人公にしてくれた」",
+        "form": "link",
+        "rawUrl": "https://douc.cc/4xHm89"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/4xHm89",
+        "references": [
+          {
+            "file": "broadcast/page/21.md",
+            "line": 18,
+            "label": "映画「聲の形」大今良時が入野自由の声を聞き「将也を主人公にしてくれた」",
+            "form": "link",
+            "rawUrl": "https://douc.cc/4xHm89"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://natalie.mu/comic/news/192446": {
+    "requestedUrl": "http://natalie.mu/comic/news/192446",
+    "domain": "natalie.mu",
+    "references": [
+      {
+        "file": "broadcast/page/22.md",
+        "line": 22,
+        "label": "映画「聲の形」主題歌はaiko！取り乱すほど歓喜「とてもとても幸せです！」",
+        "form": "link",
+        "rawUrl": "https://douc.cc/1kP3rr"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/1kP3rr",
+        "references": [
+          {
+            "file": "broadcast/page/22.md",
+            "line": 22,
+            "label": "映画「聲の形」主題歌はaiko！取り乱すほど歓喜「とてもとても幸せです！」",
+            "form": "link",
+            "rawUrl": "https://douc.cc/1kP3rr"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "https://douc.cc/3yQaKK": {
+    "requestedUrl": "https://douc.cc/3yQaKK",
+    "domain": "douc.cc",
+    "references": [
+      {
+        "file": "broadcast/page/25.md",
+        "line": 16,
+        "label": "电影《声之形》9月17日上映！导演：山田尚子，剧本：吉田玲子，角色设计：西屋太志，制作：京都动画，官网： https://douc.cc/3ysQT1 ，官推： https://douc.cc/3yQaKK ，特报： https://douc.cc/0vMqgF",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/3yQaKK"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "短链接",
+    "action": "resolve",
+    "reason": "解析最终地址后重新分类"
+  },
+  "https://douc.cc/0vMqgF": {
+    "requestedUrl": "https://douc.cc/0vMqgF",
+    "domain": "douc.cc",
+    "references": [
+      {
+        "file": "broadcast/page/25.md",
+        "line": 16,
+        "label": "电影《声之形》9月17日上映！导演：山田尚子，剧本：吉田玲子，角色设计：西屋太志，制作：京都动画，官网： https://douc.cc/3ysQT1 ，官推： https://douc.cc/3yQaKK ，特报： https://douc.cc/0vMqgF",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/0vMqgF"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "短链接",
+    "action": "resolve",
+    "reason": "解析最终地址后重新分类"
+  },
+  "http://npn.co.jp/article/detail/62026740/": {
+    "requestedUrl": "http://npn.co.jp/article/detail/62026740/",
+    "domain": "npn.co.jp",
+    "references": [
+      {
+        "file": "broadcast/page/26.md",
+        "line": 30,
+        "label": "テレビ史上初！ 『けいおん！』全シリーズを1月23日午前11時から24時間一挙放送！ メインキャストから愛情たっぷりのコメントも到着",
+        "form": "link",
+        "rawUrl": "https://douc.cc/3stCCi"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/3stCCi",
+        "references": [
+          {
+            "file": "broadcast/page/26.md",
+            "line": 30,
+            "label": "テレビ史上初！ 『けいおん！』全シリーズを1月23日午前11時から24時間一挙放送！ メインキャストから愛情たっぷりのコメントも到着",
+            "form": "link",
+            "rawUrl": "https://douc.cc/3stCCi"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://blog.livedoor.jp/geek/archives/51506551.html": {
+    "requestedUrl": "http://blog.livedoor.jp/geek/archives/51506551.html",
+    "domain": "blog.livedoor.jp",
+    "references": [
+      {
+        "file": "broadcast/page/31.md",
+        "line": 32,
+        "label": "アニメ 響け！ユーフォニアム オフィシャルファンブック「青春の軌跡がここに――」...",
+        "form": "link",
+        "rawUrl": "https://douc.cc/238Q58"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/238Q58",
+        "references": [
+          {
+            "file": "broadcast/page/31.md",
+            "line": 32,
+            "label": "アニメ 響け！ユーフォニアム オフィシャルファンブック「青春の軌跡がここに――」...",
+            "form": "link",
+            "rawUrl": "https://douc.cc/238Q58"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://mantan-web.jp/2015/05/30/20150529dog00m200066000c.html?utm_medium=twitter&utm_source=twitterfeed": {
+    "requestedUrl": "http://mantan-web.jp/2015/05/30/20150529dog00m200066000c.html?utm_medium=twitter&utm_source=twitterfeed",
+    "domain": "mantan-web.jp",
+    "references": [
+      {
+        "file": "broadcast/page/36.md",
+        "line": 16,
+        "label": "アニメ質問状：「響け！ユーフォ二アム」 キャラ一人一人の思いが本当にいじらしい ...",
+        "form": "link",
+        "rawUrl": "https://douc.cc/38y9Af"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/38y9Af",
+        "references": [
+          {
+            "file": "broadcast/page/36.md",
+            "line": 16,
+            "label": "アニメ質問状：「響け！ユーフォ二アム」 キャラ一人一人の思いが本当にいじらしい ...",
+            "form": "link",
+            "rawUrl": "https://douc.cc/38y9Af"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "https://douc.cc/1FFTJy": {
+    "requestedUrl": "https://douc.cc/1FFTJy",
+    "domain": "douc.cc",
+    "references": [
+      {
+        "file": "broadcast/page/36.md",
+        "line": 24,
+        "label": "5月15日は高坂麗奈の誕生日なのです！！おめでとう麗奈！ということで、石原監督が現場で即興で描いてくださいました！！久美子の後ろ姿ww https://douc.cc/1FFTJy # 吹响悠风号 #",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/1FFTJy"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "短链接",
+    "action": "resolve",
+    "reason": "解析最终地址后重新分类"
+  },
+  "http://d.hatena.ne.jp/los_endos/20150215/1424009846": {
+    "requestedUrl": "http://d.hatena.ne.jp/los_endos/20150215/1424009846",
+    "domain": "d.hatena.ne.jp",
+    "references": [
+      {
+        "file": "broadcast/page/39.md",
+        "line": 30,
+        "label": "高橋良輔監督×山田尚子監督対談レポート",
+        "form": "link",
+        "rawUrl": "https://douc.cc/0oNLii"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/0oNLii",
+        "references": [
+          {
+            "file": "broadcast/page/39.md",
+            "line": 30,
+            "label": "高橋良輔監督×山田尚子監督対談レポート",
+            "form": "link",
+            "rawUrl": "https://douc.cc/0oNLii"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://htt123.blog.jp/archives/1019576443.html": {
+    "requestedUrl": "http://htt123.blog.jp/archives/1019576443.html",
+    "domain": "htt123.blog.jp",
+    "references": [
+      {
+        "file": "broadcast/page/39.md",
+        "line": 32,
+        "label": "山田尚子監督と髙橋良輔監督が「たまこラブストーリー」について語っているのを聴いてきました",
+        "form": "link",
+        "rawUrl": "https://douc.cc/1mmkG1"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/1mmkG1",
+        "references": [
+          {
+            "file": "broadcast/page/39.md",
+            "line": 32,
+            "label": "山田尚子監督と髙橋良輔監督が「たまこラブストーリー」について語っているのを聴いてきました",
+            "form": "link",
+            "rawUrl": "https://douc.cc/1mmkG1"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://animeanime.jp/article/2015/01/29/21773.html": {
+    "requestedUrl": "http://animeanime.jp/article/2015/01/29/21773.html",
+    "domain": "animeanime.jp",
+    "references": [
+      {
+        "file": "broadcast/page/40.md",
+        "line": 22,
+        "label": "「たまこラブストーリー」山田尚子監督インタビュー 第18回文化庁メディア芸術祭ア...",
+        "form": "link",
+        "rawUrl": "https://douc.cc/1SRP5j"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/1SRP5j",
+        "references": [
+          {
+            "file": "broadcast/page/40.md",
+            "line": 22,
+            "label": "「たまこラブストーリー」山田尚子監督インタビュー 第18回文化庁メディア芸術祭ア...",
+            "form": "link",
+            "rawUrl": "https://douc.cc/1SRP5j"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://tamakolovestory.com/news/?id=49": {
+    "requestedUrl": "http://tamakolovestory.com/news/?id=49",
+    "domain": "tamakolovestory.com",
+    "references": [
+      {
+        "file": "broadcast/page/42.md",
+        "line": 22,
+        "label": "北白川たまこ役・洲崎綾さんが”P'sLIVE!02 ～LOVE＆P's～”に出演決定！",
+        "form": "link",
+        "rawUrl": "https://douc.cc/3moe9N"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/3moe9N",
+        "references": [
+          {
+            "file": "broadcast/page/42.md",
+            "line": 22,
+            "label": "北白川たまこ役・洲崎綾さんが”P'sLIVE!02 ～LOVE＆P's～”に出演決定！",
+            "form": "link",
+            "rawUrl": "https://douc.cc/3moe9N"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://ameblo.jp/clown-happy/entry-11958298447.html": {
+    "requestedUrl": "http://ameblo.jp/clown-happy/entry-11958298447.html",
+    "domain": "ameblo.jp",
+    "references": [
+      {
+        "file": "broadcast/page/42.md",
+        "line": 26,
+        "label": "山田監督、おめでとうございます♪",
+        "form": "link",
+        "rawUrl": "https://douc.cc/1MDXF8"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/1MDXF8",
+        "references": [
+          {
+            "file": "broadcast/page/42.md",
+            "line": 26,
+            "label": "山田監督、おめでとうございます♪",
+            "form": "link",
+            "rawUrl": "https://douc.cc/1MDXF8"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "Ameblo 文章详情路径"
+  },
+  "http://ameblo.jp/marjoram-nail/entry-11954282533.html": {
+    "requestedUrl": "http://ameblo.jp/marjoram-nail/entry-11954282533.html",
+    "domain": "ameblo.jp",
+    "references": [
+      {
+        "file": "broadcast/page/43.md",
+        "line": 28,
+        "label": "大森祥子：ブログ更新しました。『けいおん!!』Blu-ray BOX発売です。",
+        "form": "link",
+        "rawUrl": "https://douc.cc/2St1gh"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/2St1gh",
+        "references": [
+          {
+            "file": "broadcast/page/43.md",
+            "line": 28,
+            "label": "大森祥子：ブログ更新しました。『けいおん!!』Blu-ray BOX発売です。",
+            "form": "link",
+            "rawUrl": "https://douc.cc/2St1gh"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "Ameblo 文章详情路径"
+  },
+  "http://www.hanakotoba.name/archives/2005/09/post_139.html": {
+    "requestedUrl": "http://www.hanakotoba.name/archives/2005/09/post_139.html",
+    "domain": "www.hanakotoba.name",
+    "references": [
+      {
+        "file": "broadcast/page/46.md",
+        "line": 20,
+        "label": "【ED】最后两朵挨在一起蒲公英，对应花语“真心的爱”。 https://douc.cc/47UkK9 # 玉子爱情故事 #",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/47UkK9"
+      },
+      {
+        "file": "notes/338329832.md",
+        "line": 50,
+        "label": "“真心的爱”、“装模作样”、“爱的天启”、“离别”",
+        "form": "link",
+        "rawUrl": "http://www.hanakotoba.name/archives/2005/09/post_139.html"
+      },
+      {
+        "file": "notes/435337731.md",
+        "line": 150,
+        "label": "蒲公英花",
+        "form": "link",
+        "rawUrl": "http://www.hanakotoba.name/archives/2005/09/post_139.html"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/47UkK9",
+        "references": [
+          {
+            "file": "broadcast/page/46.md",
+            "line": 20,
+            "label": "【ED】最后两朵挨在一起蒲公英，对应花语“真心的爱”。 https://douc.cc/47UkK9 # 玉子爱情故事 #",
+            "form": "text_url",
+            "rawUrl": "https://douc.cc/47UkK9"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://blog.livedoor.jp/geek/archives/51456007.html": {
+    "requestedUrl": "http://blog.livedoor.jp/geek/archives/51456007.html",
+    "domain": "blog.livedoor.jp",
+    "references": [
+      {
+        "file": "broadcast/page/48.md",
+        "line": 14,
+        "label": "劇場版「たまこラブストーリー」BD アニメイト・ゲーマーズ・とらのあな・ソフマッ...",
+        "form": "link",
+        "rawUrl": "https://douc.cc/46ywkQ"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/46ywkQ",
+        "references": [
+          {
+            "file": "broadcast/page/48.md",
+            "line": 14,
+            "label": "劇場版「たまこラブストーリー」BD アニメイト・ゲーマーズ・とらのあな・ソフマッ...",
+            "form": "link",
+            "rawUrl": "https://douc.cc/46ywkQ"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://d.hatena.ne.jp/los_endos/20141013/1413126122": {
+    "requestedUrl": "http://d.hatena.ne.jp/los_endos/20141013/1413126122",
+    "domain": "d.hatena.ne.jp",
+    "references": [
+      {
+        "file": "broadcast/page/48.md",
+        "line": 20,
+        "label": "映画『たまこラブストーリー』パッケージ発売記念上映&スタッフ舞台挨拶レポート（山田尚子監督・中村伸一P・瀬波里梨P）",
+        "form": "link",
+        "rawUrl": "https://douc.cc/1R2NDD"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/1R2NDD",
+        "references": [
+          {
+            "file": "broadcast/page/48.md",
+            "line": 20,
+            "label": "映画『たまこラブストーリー』パッケージ発売記念上映&スタッフ舞台挨拶レポート（山田尚子監督・中村伸一P・瀬波里梨P）",
+            "form": "link",
+            "rawUrl": "https://douc.cc/1R2NDD"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1865": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1865",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "broadcast/page/5.md",
+        "line": 26,
+        "label": "<a href=\"http://2017年3月31日\">http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1865</a> 大家好！ 春天的气息已经相当浓郁了呢。 各位近来可好？ 我不知是感冒还是怎么了，嗓子变得怪怪的，现在说话声听起来是双重的。 我...",
+        "form": "text_url",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1865"
+      },
+      {
+        "file": "notes/614170395.md",
+        "line": 10,
+        "label": "2017年3月31日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1865"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://ameblo.jp/clown-happy/entry-11937339876.html": {
+    "requestedUrl": "http://ameblo.jp/clown-happy/entry-11937339876.html",
+    "domain": "ameblo.jp",
+    "references": [
+      {
+        "file": "broadcast/page/50.md",
+        "line": 24,
+        "label": "ぎりぎり間に合った～～～っ！",
+        "form": "link",
+        "rawUrl": "https://douc.cc/40XKgI"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/40XKgI",
+        "references": [
+          {
+            "file": "broadcast/page/50.md",
+            "line": 24,
+            "label": "ぎりぎり間に合った～～～っ！",
+            "form": "link",
+            "rawUrl": "https://douc.cc/40XKgI"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "Ameblo 文章详情路径"
+  },
+  "http://yaraon.blog109.fc2.com/blog-entry-27462.html": {
+    "requestedUrl": "http://yaraon.blog109.fc2.com/blog-entry-27462.html",
+    "domain": "yaraon.blog109.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/50.md",
+        "line": 26,
+        "label": "アニメBD/DVDデイリーで『映画 たまこラブストーリー』がBD/DVD共に１位を獲得！ たまこの時代きたわ・・・",
+        "form": "link",
+        "rawUrl": "https://douc.cc/3DwyqQ"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/3DwyqQ",
+        "references": [
+          {
+            "file": "broadcast/page/50.md",
+            "line": 26,
+            "label": "アニメBD/DVDデイリーで『映画 たまこラブストーリー』がBD/DVD共に１位を獲得！ たまこの時代きたわ・・・",
+            "form": "link",
+            "rawUrl": "https://douc.cc/3DwyqQ"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "https://douc.cc/1UMqh3": {
+    "requestedUrl": "https://douc.cc/1UMqh3",
+    "domain": "douc.cc",
+    "references": [
+      {
+        "file": "broadcast/page/50.md",
+        "line": 32,
+        "label": "https://douc.cc/1UMqh3",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/1UMqh3"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "短链接",
+    "action": "resolve",
+    "reason": "解析最终地址后重新分类"
+  },
+  "http://gensoutoshi.blog96.fc2.com/blog-entry-305.html": {
+    "requestedUrl": "http://gensoutoshi.blog96.fc2.com/blog-entry-305.html",
+    "domain": "gensoutoshi.blog96.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/51.md",
+        "line": 22,
+        "label": "【たまこラブストーリー】出町桝形商店街“標語”再現メイキングレポート",
+        "form": "link",
+        "rawUrl": "https://douc.cc/47UF7v"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/47UF7v",
+        "references": [
+          {
+            "file": "broadcast/page/51.md",
+            "line": 22,
+            "label": "【たまこラブストーリー】出町桝形商店街“標語”再現メイキングレポート",
+            "form": "link",
+            "rawUrl": "https://douc.cc/47UF7v"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://blog.livedoor.jp/geek/archives/51455776.html": {
+    "requestedUrl": "http://blog.livedoor.jp/geek/archives/51455776.html",
+    "domain": "blog.livedoor.jp",
+    "references": [
+      {
+        "file": "broadcast/page/51.md",
+        "line": 14,
+        "label": "劇場版 たまこラブストーリーBD発売 「何度観ても心が温まります」 https://douc.cc/2Gym3q",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/2Gym3q"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/2Gym3q",
+        "references": [
+          {
+            "file": "broadcast/page/51.md",
+            "line": 14,
+            "label": "劇場版 たまこラブストーリーBD発売 「何度観ても心が温まります」 https://douc.cc/2Gym3q",
+            "form": "text_url",
+            "rawUrl": "https://douc.cc/2Gym3q"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://www.tbs.co.jp/anime/k-on/k-on_tv/news/news.html#201410071930": {
+    "requestedUrl": "http://www.tbs.co.jp/anime/k-on/k-on_tv/news/news.html#201410071930",
+    "domain": "www.tbs.co.jp",
+    "references": [
+      {
+        "file": "broadcast/page/52.md",
+        "line": 16,
+        "label": "「けいおん！！」Blu-ray Box 店舗オリジナル特典一覧発表！",
+        "form": "link",
+        "rawUrl": "https://douc.cc/3ikwTG"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/3ikwTG",
+        "references": [
+          {
+            "file": "broadcast/page/52.md",
+            "line": 16,
+            "label": "「けいおん！！」Blu-ray Box 店舗オリジナル特典一覧発表！",
+            "form": "link",
+            "rawUrl": "https://douc.cc/3ikwTG"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://ameblo.jp/clown-happy/entry-11935023504.html": {
+    "requestedUrl": "http://ameblo.jp/clown-happy/entry-11935023504.html",
+    "domain": "ameblo.jp",
+    "references": [
+      {
+        "file": "broadcast/page/52.md",
+        "line": 26,
+        "label": "明日はproject758のニコ生です☆",
+        "form": "link",
+        "rawUrl": "https://douc.cc/0vVkNC"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/0vVkNC",
+        "references": [
+          {
+            "file": "broadcast/page/52.md",
+            "line": 26,
+            "label": "明日はproject758のニコ生です☆",
+            "form": "link",
+            "rawUrl": "https://douc.cc/0vVkNC"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "Ameblo 文章详情路径"
+  },
+  "http://htt123.blog.jp/archives/1010756125.html": {
+    "requestedUrl": "http://htt123.blog.jp/archives/1010756125.html",
+    "domain": "htt123.blog.jp",
+    "references": [
+      {
+        "file": "broadcast/page/52.md",
+        "line": 28,
+        "label": "新宿ピカデリーの「たまこラブストーリー」パッケージ発売記念イベントに行ってきました",
+        "form": "link",
+        "rawUrl": "https://douc.cc/4uRNEc"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/4uRNEc",
+        "references": [
+          {
+            "file": "broadcast/page/52.md",
+            "line": 28,
+            "label": "新宿ピカデリーの「たまこラブストーリー」パッケージ発売記念イベントに行ってきました",
+            "form": "link",
+            "rawUrl": "https://douc.cc/4uRNEc"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://tamakolovestory.com/news/?id=46": {
+    "requestedUrl": "http://tamakolovestory.com/news/?id=46",
+    "domain": "tamakolovestory.com",
+    "references": [
+      {
+        "file": "broadcast/page/53.md",
+        "line": 24,
+        "label": "《玉子爱情故事》的Blu-ray＆DVD将于10月4日在新宿Piccadilly举行的发售纪念活动会场上先行发售 https://douc.cc/0AvELN",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/0AvELN"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/0AvELN",
+        "references": [
+          {
+            "file": "broadcast/page/53.md",
+            "line": 24,
+            "label": "《玉子爱情故事》的Blu-ray＆DVD将于10月4日在新宿Piccadilly举行的发售纪念活动会场上先行发售 https://douc.cc/0AvELN",
+            "form": "text_url",
+            "rawUrl": "https://douc.cc/0AvELN"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1807.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1807.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/54.md",
+        "line": 30,
+        "label": "「Free!ES」第12話！絵コンテ・演出／山田尚子を堪能する!! その２",
+        "form": "link",
+        "rawUrl": "https://douc.cc/0QtHPA"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/0QtHPA",
+        "references": [
+          {
+            "file": "broadcast/page/54.md",
+            "line": 30,
+            "label": "「Free!ES」第12話！絵コンテ・演出／山田尚子を堪能する!! その２",
+            "form": "link",
+            "rawUrl": "https://douc.cc/0QtHPA"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "https://douc.cc/3vicON": {
+    "requestedUrl": "https://douc.cc/3vicON",
+    "domain": "douc.cc",
+    "references": [
+      {
+        "file": "broadcast/page/54.md",
+        "line": 14,
+        "label": "ｗ https://douc.cc/3vicON",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/3vicON"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "短链接",
+    "action": "resolve",
+    "reason": "解析最终地址后重新分类"
+  },
+  "http://anifav.com/topics/20140719_3734.html": {
+    "requestedUrl": "http://anifav.com/topics/20140719_3734.html",
+    "domain": "anifav.com",
+    "references": [
+      {
+        "file": "broadcast/page/55.md",
+        "line": 28,
+        "label": "http://anifav.com/topics/20140719_3734.html 这是个电影奇迹。 这句话出自评论家浅田彰所写的散文《电影奇迹》的第一行，我看到《玉子爱情故事》时最先联想到的，就是这个“电影奇迹”所指的温·韦德斯导演的《柏林苍穹下》（1987年...",
+        "form": "text_url",
+        "rawUrl": "http://anifav.com/topics/20140719_3734.html"
+      },
+      {
+        "file": "notes/412701420.md",
+        "line": 11,
+        "label": "http://anifav.com/topics/20140719_3734.html",
+        "form": "link",
+        "rawUrl": "http://anifav.com/topics/20140719_3734.html"
+      },
+      {
+        "file": "broadcast/page/57.md",
+        "line": 24,
+        "label": "「日常系ダイアリー――アニメ批評のためのメモランダム」第06回 うさぎ山商店街・天使の詩――『たまこラブストーリー』試論（前編）／文：高瀬司（アニメルカ）",
+        "form": "link",
+        "rawUrl": "https://douc.cc/0Xz8hN"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/0Xz8hN",
+        "references": [
+          {
+            "file": "broadcast/page/57.md",
+            "line": 24,
+            "label": "「日常系ダイアリー――アニメ批評のためのメモランダム」第06回 うさぎ山商店街・天使の詩――『たまこラブストーリー』試論（前編）／文：高瀬司（アニメルカ）",
+            "form": "link",
+            "rawUrl": "https://douc.cc/0Xz8hN"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=475": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=475",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "broadcast/page/56.md",
+        "line": 20,
+        "label": "映画充☆パピコ",
+        "form": "link",
+        "rawUrl": "https://douc.cc/3nwEW2"
+      },
+      {
+        "file": "notes/410464332.md",
+        "line": 10,
+        "label": "2014年08月25日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=475"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/3nwEW2",
+        "references": [
+          {
+            "file": "broadcast/page/56.md",
+            "line": 20,
+            "label": "映画充☆パピコ",
+            "form": "link",
+            "rawUrl": "https://douc.cc/3nwEW2"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.excite.co.jp/News/reviewbook/20140617/E1402938201318.html": {
+    "requestedUrl": "http://www.excite.co.jp/News/reviewbook/20140617/E1402938201318.html",
+    "domain": "www.excite.co.jp",
+    "references": [
+      {
+        "file": "broadcast/page/56.md",
+        "line": 16,
+        "label": "http://www.excite.co.jp/News/reviewbook/20140617/E1402938201318.html （文中涉及剧透，请斟酌阅读。） ——故事前半是饼藏关注玉子，告白后则是玉子开始关注饼藏。不过饼藏在告白后就再也没付诸过任何行动了呢。 山田：这样概括的...",
+        "form": "text_url",
+        "rawUrl": "http://www.excite.co.jp/News/reviewbook/20140617/E1402938201318.html"
+      },
+      {
+        "file": "notes/409767702.md",
+        "line": 10,
+        "label": "http://www.excite.co.jp/News/reviewbook/20140617/E1402938201318.html",
+        "form": "link",
+        "rawUrl": "http://www.excite.co.jp/News/reviewbook/20140617/E1402938201318.html"
+      },
+      {
+        "file": "broadcast/page/58.md",
+        "line": 24,
+        "label": "たまこともち蔵の恋する過程をまっすぐに「たまこラブストーリー」山田尚子監督に聞く2",
+        "form": "link",
+        "rawUrl": "https://douc.cc/2sosWj"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/2sosWj",
+        "references": [
+          {
+            "file": "broadcast/page/58.md",
+            "line": 24,
+            "label": "たまこともち蔵の恋する過程をまっすぐに「たまこラブストーリー」山田尚子監督に聞く2",
+            "form": "link",
+            "rawUrl": "https://douc.cc/2sosWj"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.excite.co.jp/News/reviewmov/20140616/E1402850805404.html": {
+    "requestedUrl": "http://www.excite.co.jp/News/reviewmov/20140616/E1402850805404.html",
+    "domain": "www.excite.co.jp",
+    "references": [
+      {
+        "file": "broadcast/page/56.md",
+        "line": 24,
+        "label": "http://www.excite.co.jp/News/reviewmov/20140616/E1402850805404.html ——上映后周围反响如何？ 山田：周围的制作人员很多在公映首日就去看了，第二天对我说“非常好！”。这种事还是头一次经历，觉得很欣喜。 ——制作人员应该早...",
+        "form": "text_url",
+        "rawUrl": "http://www.excite.co.jp/News/reviewmov/20140616/E1402850805404.html"
+      },
+      {
+        "file": "notes/400308340.md",
+        "line": 11,
+        "label": "http://www.excite.co.jp/News/reviewmov/20140616/E1402850805404.html",
+        "form": "link",
+        "rawUrl": "http://www.excite.co.jp/News/reviewmov/20140616/E1402850805404.html"
+      },
+      {
+        "file": "broadcast/page/58.md",
+        "line": 28,
+        "label": "京都アニメーションの新たな代表作「たまこラブストーリー」ロングランの秘密。山田尚...",
+        "form": "link",
+        "rawUrl": "https://douc.cc/2IaKa2"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/2IaKa2",
+        "references": [
+          {
+            "file": "broadcast/page/58.md",
+            "line": 28,
+            "label": "京都アニメーションの新たな代表作「たまこラブストーリー」ロングランの秘密。山田尚...",
+            "form": "link",
+            "rawUrl": "https://douc.cc/2IaKa2"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "https://douc.cc/3WxegX": {
+    "requestedUrl": "https://douc.cc/3WxegX",
+    "domain": "douc.cc",
+    "references": [
+      {
+        "file": "broadcast/page/56.md",
+        "line": 26,
+        "label": "小律生日快乐！ https://douc.cc/3WxegX",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/3WxegX"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "短链接",
+    "action": "resolve",
+    "reason": "解析最终地址后重新分类"
+  },
+  "http://anifav.com/topics/20140719_3735.html": {
+    "requestedUrl": "http://anifav.com/topics/20140719_3735.html",
+    "domain": "anifav.com",
+    "references": [
+      {
+        "file": "broadcast/page/57.md",
+        "line": 22,
+        "label": "「日常系ダイアリー――アニメ批評のためのメモランダム」第07回 うさぎ山商店街・天使の詩――『たまこラブストーリー』試論（後編）／文：高瀬司（アニメルカ）",
+        "form": "link",
+        "rawUrl": "https://douc.cc/4tyQLP"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/4tyQLP",
+        "references": [
+          {
+            "file": "broadcast/page/57.md",
+            "line": 22,
+            "label": "「日常系ダイアリー――アニメ批評のためのメモランダム」第07回 うさぎ山商店街・天使の詩――『たまこラブストーリー』試論（後編）／文：高瀬司（アニメルカ）",
+            "form": "link",
+            "rawUrl": "https://douc.cc/4tyQLP"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "https://douc.cc/3T9jc2": {
+    "requestedUrl": "https://douc.cc/3T9jc2",
+    "domain": "douc.cc",
+    "references": [
+      {
+        "file": "broadcast/page/57.md",
+        "line": 14,
+        "label": "「けいおん!!」Blu-ray BOX発売決定!! 2014年11月19日発売予定! https://douc.cc/3T9jc2",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/3T9jc2"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "短链接",
+    "action": "resolve",
+    "reason": "解析最终地址后重新分类"
+  },
+  "http://ameblo.jp/yuri-yamaoka/entry-11881315437.html": {
+    "requestedUrl": "http://ameblo.jp/yuri-yamaoka/entry-11881315437.html",
+    "domain": "ameblo.jp",
+    "references": [
+      {
+        "file": "broadcast/page/58.md",
+        "line": 22,
+        "label": "珍しい組み合わせ！",
+        "form": "link",
+        "rawUrl": "https://douc.cc/3gUiJQ"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/3gUiJQ",
+        "references": [
+          {
+            "file": "broadcast/page/58.md",
+            "line": 22,
+            "label": "珍しい組み合わせ！",
+            "form": "link",
+            "rawUrl": "https://douc.cc/3gUiJQ"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "Ameblo 文章详情路径"
+  },
+  "http://ameblo.jp/clown-happy/entry-11879137051.html": {
+    "requestedUrl": "http://ameblo.jp/clown-happy/entry-11879137051.html",
+    "domain": "ameblo.jp",
+    "references": [
+      {
+        "file": "broadcast/page/58.md",
+        "line": 26,
+        "label": "正解は、金沢駅でした♪",
+        "form": "link",
+        "rawUrl": "https://douc.cc/0BY0hr"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/0BY0hr",
+        "references": [
+          {
+            "file": "broadcast/page/58.md",
+            "line": 26,
+            "label": "正解は、金沢駅でした♪",
+            "form": "link",
+            "rawUrl": "https://douc.cc/0BY0hr"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "Ameblo 文章详情路径"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1796.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1796.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/58.md",
+        "line": 30,
+        "label": "【たまこラブストーリー】 読解メモ 10",
+        "form": "link",
+        "rawUrl": "https://douc.cc/3F8ayw"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/3F8ayw",
+        "references": [
+          {
+            "file": "broadcast/page/58.md",
+            "line": 30,
+            "label": "【たまこラブストーリー】 読解メモ 10",
+            "form": "link",
+            "rawUrl": "https://douc.cc/3F8ayw"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1795.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1795.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/59.md",
+        "line": 14,
+        "label": "【たまこラブストーリー】 感想その２ 『本作の作劇はいかにして携帯を克服したかｗ』 【感想】",
+        "form": "link",
+        "rawUrl": "https://douc.cc/0nayuz"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/0nayuz",
+        "references": [
+          {
+            "file": "broadcast/page/59.md",
+            "line": 14,
+            "label": "【たまこラブストーリー】 感想その２ 『本作の作劇はいかにして携帯を克服したかｗ』 【感想】",
+            "form": "link",
+            "rawUrl": "https://douc.cc/0nayuz"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://ameblo.jp/clown-happy/entry-11873278426.html": {
+    "requestedUrl": "http://ameblo.jp/clown-happy/entry-11873278426.html",
+    "domain": "ameblo.jp",
+    "references": [
+      {
+        "file": "broadcast/page/59.md",
+        "line": 16,
+        "label": "シネマサンシャインかほく https://douc.cc/4heYta",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/4heYta"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/4heYta",
+        "references": [
+          {
+            "file": "broadcast/page/59.md",
+            "line": 16,
+            "label": "シネマサンシャインかほく https://douc.cc/4heYta",
+            "form": "text_url",
+            "rawUrl": "https://douc.cc/4heYta"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "Ameblo 文章详情路径"
+  },
+  "http://d.hatena.ne.jp/los_endos/20140601/1401549063#20140601f1": {
+    "requestedUrl": "http://d.hatena.ne.jp/los_endos/20140601/1401549063#20140601f1",
+    "domain": "d.hatena.ne.jp",
+    "references": [
+      {
+        "file": "broadcast/page/60.md",
+        "line": 14,
+        "label": "映画「たまこラブストーリー」大ヒット御礼 スタッフ舞台挨拶（山田尚子監督・小川太一さん・瀬波里梨P）レポート",
+        "form": "link",
+        "rawUrl": "https://douc.cc/4tGg4u"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/4tGg4u",
+        "references": [
+          {
+            "file": "broadcast/page/60.md",
+            "line": 14,
+            "label": "映画「たまこラブストーリー」大ヒット御礼 スタッフ舞台挨拶（山田尚子監督・小川太一さん・瀬波里梨P）レポート",
+            "form": "link",
+            "rawUrl": "https://douc.cc/4tGg4u"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://ameblo.jp/clown-happy/entry-11867283126.html": {
+    "requestedUrl": "http://ameblo.jp/clown-happy/entry-11867283126.html",
+    "domain": "ameblo.jp",
+    "references": [
+      {
+        "file": "broadcast/page/60.md",
+        "line": 16,
+        "label": "たまこラブストーリースタッフさん舞台挨拶",
+        "form": "link",
+        "rawUrl": "https://douc.cc/10vIt5"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/10vIt5",
+        "references": [
+          {
+            "file": "broadcast/page/60.md",
+            "line": 16,
+            "label": "たまこラブストーリースタッフさん舞台挨拶",
+            "form": "link",
+            "rawUrl": "https://douc.cc/10vIt5"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "Ameblo 文章详情路径"
+  },
+  "http://tamakolovestory.com/news/?id=39": {
+    "requestedUrl": "http://tamakolovestory.com/news/?id=39",
+    "domain": "tamakolovestory.com",
+    "references": [
+      {
+        "file": "broadcast/page/61.md",
+        "line": 14,
+        "label": "「たまこラブストーリー」スタッフ舞台挨拶 決定！",
+        "form": "link",
+        "rawUrl": "https://douc.cc/3qCVFZ"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/3qCVFZ",
+        "references": [
+          {
+            "file": "broadcast/page/61.md",
+            "line": 14,
+            "label": "「たまこラブストーリー」スタッフ舞台挨拶 決定！",
+            "form": "link",
+            "rawUrl": "https://douc.cc/3qCVFZ"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://ukatensei.blog50.fc2.com/blog-entry-798.html": {
+    "requestedUrl": "http://ukatensei.blog50.fc2.com/blog-entry-798.html",
+    "domain": "ukatensei.blog50.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/61.md",
+        "line": 16,
+        "label": "たまこラブストーリー舞台探訪記〜後編〜",
+        "form": "link",
+        "rawUrl": "https://douc.cc/2yLhw0"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/2yLhw0",
+        "references": [
+          {
+            "file": "broadcast/page/61.md",
+            "line": 16,
+            "label": "たまこラブストーリー舞台探訪記〜後編〜",
+            "form": "link",
+            "rawUrl": "https://douc.cc/2yLhw0"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://ukatensei.blog50.fc2.com/blog-entry-797.html": {
+    "requestedUrl": "http://ukatensei.blog50.fc2.com/blog-entry-797.html",
+    "domain": "ukatensei.blog50.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/61.md",
+        "line": 18,
+        "label": "たまこラブストーリー舞台探訪記〜前編〜",
+        "form": "link",
+        "rawUrl": "https://douc.cc/1LktvO"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/1LktvO",
+        "references": [
+          {
+            "file": "broadcast/page/61.md",
+            "line": 18,
+            "label": "たまこラブストーリー舞台探訪記〜前編〜",
+            "form": "link",
+            "rawUrl": "https://douc.cc/1LktvO"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1791.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1791.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/61.md",
+        "line": 20,
+        "label": "【山田尚子作品考】 「映画けいおん！」「たまこラブストーリー」そして…",
+        "form": "link",
+        "rawUrl": "https://douc.cc/0FBrUw"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/0FBrUw",
+        "references": [
+          {
+            "file": "broadcast/page/61.md",
+            "line": 20,
+            "label": "【山田尚子作品考】 「映画けいおん！」「たまこラブストーリー」そして…",
+            "form": "link",
+            "rawUrl": "https://douc.cc/0FBrUw"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://ameblo.jp/clown-happy/entry-11854410021.html": {
+    "requestedUrl": "http://ameblo.jp/clown-happy/entry-11854410021.html",
+    "domain": "ameblo.jp",
+    "references": [
+      {
+        "file": "broadcast/page/61.md",
+        "line": 24,
+        "label": "しあわせ",
+        "form": "link",
+        "rawUrl": "https://douc.cc/27soV5"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/27soV5",
+        "references": [
+          {
+            "file": "broadcast/page/61.md",
+            "line": 24,
+            "label": "しあわせ",
+            "form": "link",
+            "rawUrl": "https://douc.cc/27soV5"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "Ameblo 文章详情路径"
+  },
+  "http://ameblo.jp/clown-happy/entry-11854359420.html": {
+    "requestedUrl": "http://ameblo.jp/clown-happy/entry-11854359420.html",
+    "domain": "ameblo.jp",
+    "references": [
+      {
+        "file": "broadcast/page/61.md",
+        "line": 26,
+        "label": "舞台挨拶～母の日編～",
+        "form": "link",
+        "rawUrl": "https://douc.cc/1Z1tJY"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/1Z1tJY",
+        "references": [
+          {
+            "file": "broadcast/page/61.md",
+            "line": 26,
+            "label": "舞台挨拶～母の日編～",
+            "form": "link",
+            "rawUrl": "https://douc.cc/1Z1tJY"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "Ameblo 文章详情路径"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1790.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1790.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/61.md",
+        "line": 28,
+        "label": "【たまこラブストーリー】 読解メモ 09",
+        "form": "link",
+        "rawUrl": "https://douc.cc/1CvfMS"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/1CvfMS",
+        "references": [
+          {
+            "file": "broadcast/page/61.md",
+            "line": 28,
+            "label": "【たまこラブストーリー】 読解メモ 09",
+            "form": "link",
+            "rawUrl": "https://douc.cc/1CvfMS"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1789.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1789.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/62.md",
+        "line": 18,
+        "label": "【たまこラブストーリー】 読解メモ 08",
+        "form": "link",
+        "rawUrl": "https://douc.cc/05r9Ez"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/05r9Ez",
+        "references": [
+          {
+            "file": "broadcast/page/62.md",
+            "line": 18,
+            "label": "【たまこラブストーリー】 読解メモ 08",
+            "form": "link",
+            "rawUrl": "https://douc.cc/05r9Ez"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://ddnavi.com/news/193933/": {
+    "requestedUrl": "http://ddnavi.com/news/193933/",
+    "domain": "ddnavi.com",
+    "references": [
+      {
+        "file": "broadcast/page/62.md",
+        "line": 28,
+        "label": "【『たまこラブストーリー』レビュー】恋をする全ての人へ、この映画を贈る",
+        "form": "link",
+        "rawUrl": "https://douc.cc/3aub4M"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/3aub4M",
+        "references": [
+          {
+            "file": "broadcast/page/62.md",
+            "line": 28,
+            "label": "【『たまこラブストーリー』レビュー】恋をする全ての人へ、この映画を贈る",
+            "form": "link",
+            "rawUrl": "https://douc.cc/3aub4M"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1788.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1788.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/63.md",
+        "line": 16,
+        "label": "【たまこラブストーリー】 読解メモ 07",
+        "form": "link",
+        "rawUrl": "https://douc.cc/3p9420"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/3p9420",
+        "references": [
+          {
+            "file": "broadcast/page/63.md",
+            "line": 16,
+            "label": "【たまこラブストーリー】 読解メモ 07",
+            "form": "link",
+            "rawUrl": "https://douc.cc/3p9420"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://yaraon.blog109.fc2.com/blog-entry-23887.html": {
+    "requestedUrl": "http://yaraon.blog109.fc2.com/blog-entry-23887.html",
+    "domain": "yaraon.blog109.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/63.md",
+        "line": 18,
+        "label": "『たまこラブストーリー』16日間 興収１億２千万円",
+        "form": "link",
+        "rawUrl": "https://douc.cc/41N4ZM"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/41N4ZM",
+        "references": [
+          {
+            "file": "broadcast/page/63.md",
+            "line": 18,
+            "label": "『たまこラブストーリー』16日間 興収１億２千万円",
+            "form": "link",
+            "rawUrl": "https://douc.cc/41N4ZM"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1787.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1787.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/63.md",
+        "line": 20,
+        "label": "【たまこラブストーリー】 読解メモ 06",
+        "form": "link",
+        "rawUrl": "https://douc.cc/0hJWqk"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/0hJWqk",
+        "references": [
+          {
+            "file": "broadcast/page/63.md",
+            "line": 20,
+            "label": "【たまこラブストーリー】 読解メモ 06",
+            "form": "link",
+            "rawUrl": "https://douc.cc/0hJWqk"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://yaraon.blog109.fc2.com/blog-entry-23878.html": {
+    "requestedUrl": "http://yaraon.blog109.fc2.com/blog-entry-23878.html",
+    "domain": "yaraon.blog109.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/63.md",
+        "line": 22,
+        "label": "『たまこラブストーリー』がミニシアターランキングで3週連続１位に！評判良すぎいいいいい",
+        "form": "link",
+        "rawUrl": "https://douc.cc/13BUQp"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/13BUQp",
+        "references": [
+          {
+            "file": "broadcast/page/63.md",
+            "line": 22,
+            "label": "『たまこラブストーリー』がミニシアターランキングで3週連続１位に！評判良すぎいいいいい",
+            "form": "link",
+            "rawUrl": "https://douc.cc/13BUQp"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1786.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1786.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/63.md",
+        "line": 24,
+        "label": "「たまこラブストーリー」総論：「橋」の物語としてのたまラブ",
+        "form": "link",
+        "rawUrl": "https://douc.cc/1UTfuN"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/1UTfuN",
+        "references": [
+          {
+            "file": "broadcast/page/63.md",
+            "line": 24,
+            "label": "「たまこラブストーリー」総論：「橋」の物語としてのたまラブ",
+            "form": "link",
+            "rawUrl": "https://douc.cc/1UTfuN"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://ameblo.jp/clown-happy/entry-11847287088.html": {
+    "requestedUrl": "http://ameblo.jp/clown-happy/entry-11847287088.html",
+    "domain": "ameblo.jp",
+    "references": [
+      {
+        "file": "broadcast/page/63.md",
+        "line": 32,
+        "label": "舞台挨拶いっくよー！",
+        "form": "link",
+        "rawUrl": "https://douc.cc/4Fvaa7"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/4Fvaa7",
+        "references": [
+          {
+            "file": "broadcast/page/63.md",
+            "line": 32,
+            "label": "舞台挨拶いっくよー！",
+            "form": "link",
+            "rawUrl": "https://douc.cc/4Fvaa7"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "Ameblo 文章详情路径"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1785.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1785.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/64.md",
+        "line": 32,
+        "label": "【たまこラブストーリー】 読解メモ 05",
+        "form": "link",
+        "rawUrl": "https://douc.cc/1Vwzvq"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/1Vwzvq",
+        "references": [
+          {
+            "file": "broadcast/page/64.md",
+            "line": 32,
+            "label": "【たまこラブストーリー】 読解メモ 05",
+            "form": "link",
+            "rawUrl": "https://douc.cc/1Vwzvq"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://tamakolovestory.com/special/interview/": {
+    "requestedUrl": "http://tamakolovestory.com/special/interview/",
+    "domain": "tamakolovestory.com",
+    "references": [
+      {
+        "file": "broadcast/page/64.md",
+        "line": 16,
+        "label": "http://tamakolovestory.com/special/interview/ 前篇 ——请说一下各主要角色的看点。 ・玉子 我想以不损害迄今为止的玉子为前提，去描写不只是对周围的人们，对自己也能珍惜重视的玉子。此前不曾知晓恋爱的玉子面前增添一个新世界...",
+        "form": "text_url",
+        "rawUrl": "http://tamakolovestory.com/special/interview/"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://yaraon.blog109.fc2.com/blog-entry-23801.html": {
+    "requestedUrl": "http://yaraon.blog109.fc2.com/blog-entry-23801.html",
+    "domain": "yaraon.blog109.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/65.md",
+        "line": 14,
+        "label": "『たまこラブストーリー』脚本家の花田十輝さんと、禁書などの監督・錦織博さんも大絶賛！ 「やられたよ‼︎ 完敗だよ！」「ステキな映画でした」",
+        "form": "link",
+        "rawUrl": "https://douc.cc/2h6aYR"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/2h6aYR",
+        "references": [
+          {
+            "file": "broadcast/page/65.md",
+            "line": 14,
+            "label": "『たまこラブストーリー』脚本家の花田十輝さんと、禁書などの監督・錦織博さんも大絶賛！ 「やられたよ‼︎ 完敗だよ！」「ステキな映画でした」",
+            "form": "link",
+            "rawUrl": "https://douc.cc/2h6aYR"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://ameblo.jp/yuri-yamaoka/entry-11844315181.html?timestamp=1399477239": {
+    "requestedUrl": "http://ameblo.jp/yuri-yamaoka/entry-11844315181.html?timestamp=1399477239",
+    "domain": "ameblo.jp",
+    "references": [
+      {
+        "file": "broadcast/page/65.md",
+        "line": 16,
+        "label": "♡たまこラブストーリー♡",
+        "form": "link",
+        "rawUrl": "https://douc.cc/4BDRFM"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/4BDRFM",
+        "references": [
+          {
+            "file": "broadcast/page/65.md",
+            "line": 16,
+            "label": "♡たまこラブストーリー♡",
+            "form": "link",
+            "rawUrl": "https://douc.cc/4BDRFM"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "Ameblo 文章详情路径"
+  },
+  "http://ameblo.jp/clown-happy/entry-11844054985.html": {
+    "requestedUrl": "http://ameblo.jp/clown-happy/entry-11844054985.html",
+    "domain": "ameblo.jp",
+    "references": [
+      {
+        "file": "broadcast/page/65.md",
+        "line": 20,
+        "label": "舞台挨拶～つづき～",
+        "form": "link",
+        "rawUrl": "https://douc.cc/39OArJ"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/39OArJ",
+        "references": [
+          {
+            "file": "broadcast/page/65.md",
+            "line": 20,
+            "label": "舞台挨拶～つづき～",
+            "form": "link",
+            "rawUrl": "https://douc.cc/39OArJ"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "Ameblo 文章详情路径"
+  },
+  "http://www.kogyotsushin.com/archives/minitheater/": {
+    "requestedUrl": "http://www.kogyotsushin.com/archives/minitheater/",
+    "domain": "www.kogyotsushin.com",
+    "references": [
+      {
+        "file": "broadcast/page/65.md",
+        "line": 22,
+        "label": "『たまこラブストーリー』ミニシアターランキングで２週連続１位！",
+        "form": "link",
+        "rawUrl": "https://douc.cc/2em5q4"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/2em5q4",
+        "references": [
+          {
+            "file": "broadcast/page/65.md",
+            "line": 22,
+            "label": "『たまこラブストーリー』ミニシアターランキングで２週連続１位！",
+            "form": "link",
+            "rawUrl": "https://douc.cc/2em5q4"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://ameblo.jp/clown-happy/entry-11841575269.html": {
+    "requestedUrl": "http://ameblo.jp/clown-happy/entry-11841575269.html",
+    "domain": "ameblo.jp",
+    "references": [
+      {
+        "file": "broadcast/page/65.md",
+        "line": 26,
+        "label": "舞台挨拶&プリンシプルについて",
+        "form": "link",
+        "rawUrl": "https://douc.cc/01fLZk"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/01fLZk",
+        "references": [
+          {
+            "file": "broadcast/page/65.md",
+            "line": 26,
+            "label": "舞台挨拶&プリンシプルについて",
+            "form": "link",
+            "rawUrl": "https://douc.cc/01fLZk"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "Ameblo 文章详情路径"
+  },
+  "http://ameblo.jp/clown-happy/entry-11840707028.html": {
+    "requestedUrl": "http://ameblo.jp/clown-happy/entry-11840707028.html",
+    "domain": "ameblo.jp",
+    "references": [
+      {
+        "file": "broadcast/page/66.md",
+        "line": 24,
+        "label": "ただいま！",
+        "form": "link",
+        "rawUrl": "https://douc.cc/1isFCB"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/1isFCB",
+        "references": [
+          {
+            "file": "broadcast/page/66.md",
+            "line": 24,
+            "label": "ただいま！",
+            "form": "link",
+            "rawUrl": "https://douc.cc/1isFCB"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "Ameblo 文章详情路径"
+  },
+  "http://ameblo.jp/clown-happy/entry-11840684002.html": {
+    "requestedUrl": "http://ameblo.jp/clown-happy/entry-11840684002.html",
+    "domain": "ameblo.jp",
+    "references": [
+      {
+        "file": "broadcast/page/66.md",
+        "line": 26,
+        "label": "京都！",
+        "form": "link",
+        "rawUrl": "https://douc.cc/16ddCB"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/16ddCB",
+        "references": [
+          {
+            "file": "broadcast/page/66.md",
+            "line": 26,
+            "label": "京都！",
+            "form": "link",
+            "rawUrl": "https://douc.cc/16ddCB"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "Ameblo 文章详情路径"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1782.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1782.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/67.md",
+        "line": 14,
+        "label": "【たまこラブストーリー】 読解メモ 03 追補",
+        "form": "link",
+        "rawUrl": "https://douc.cc/0Nzw8k"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/0Nzw8k",
+        "references": [
+          {
+            "file": "broadcast/page/67.md",
+            "line": 14,
+            "label": "【たまこラブストーリー】 読解メモ 03 追補",
+            "form": "link",
+            "rawUrl": "https://douc.cc/0Nzw8k"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://d.hatena.ne.jp/ukkah/20140503/p1": {
+    "requestedUrl": "http://d.hatena.ne.jp/ukkah/20140503/p1",
+    "domain": "d.hatena.ne.jp",
+    "references": [
+      {
+        "file": "broadcast/page/67.md",
+        "line": 16,
+        "label": "『たまこラブストーリー』の美意識 山田尚子監督の美意識 - OTALLICA",
+        "form": "link",
+        "rawUrl": "https://douc.cc/2hKHCt"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/2hKHCt",
+        "references": [
+          {
+            "file": "broadcast/page/67.md",
+            "line": 16,
+            "label": "『たまこラブストーリー』の美意識 山田尚子監督の美意識 - OTALLICA",
+            "form": "link",
+            "rawUrl": "https://douc.cc/2hKHCt"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://d.hatena.ne.jp/ike_tomo/20140501/1398959756": {
+    "requestedUrl": "http://d.hatena.ne.jp/ike_tomo/20140501/1398959756",
+    "domain": "d.hatena.ne.jp",
+    "references": [
+      {
+        "file": "broadcast/page/67.md",
+        "line": 20,
+        "label": "『たまこラブストーリー』 「もち蔵」という名前の意味と、山田監督が言う「映画」と、あんこちゃんがやたらエロいのは恋愛年齢が高いから",
+        "form": "link",
+        "rawUrl": "https://douc.cc/0Tl2BW"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/0Tl2BW",
+        "references": [
+          {
+            "file": "broadcast/page/67.md",
+            "line": 20,
+            "label": "『たまこラブストーリー』 「もち蔵」という名前の意味と、山田監督が言う「映画」と、あんこちゃんがやたらエロいのは恋愛年齢が高いから",
+            "form": "link",
+            "rawUrl": "https://douc.cc/0Tl2BW"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1781.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1781.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/67.md",
+        "line": 22,
+        "label": "【たまこラブストーリー】 読解メモ 03",
+        "form": "link",
+        "rawUrl": "https://douc.cc/2XipSr"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/2XipSr",
+        "references": [
+          {
+            "file": "broadcast/page/67.md",
+            "line": 22,
+            "label": "【たまこラブストーリー】 読解メモ 03",
+            "form": "link",
+            "rawUrl": "https://douc.cc/2XipSr"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1780.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1780.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/67.md",
+        "line": 24,
+        "label": "【たまこラブストーリー】 読解メモ 02 追補",
+        "form": "link",
+        "rawUrl": "https://douc.cc/3P93PQ"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/3P93PQ",
+        "references": [
+          {
+            "file": "broadcast/page/67.md",
+            "line": 24,
+            "label": "【たまこラブストーリー】 読解メモ 02 追補",
+            "form": "link",
+            "rawUrl": "https://douc.cc/3P93PQ"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://billy106.blog.fc2.com/blog-entry-12.html": {
+    "requestedUrl": "http://billy106.blog.fc2.com/blog-entry-12.html",
+    "domain": "billy106.blog.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/67.md",
+        "line": 28,
+        "label": "そうだ たまこラブストーリー、観よう。",
+        "form": "link",
+        "rawUrl": "https://douc.cc/053ccv"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/053ccv",
+        "references": [
+          {
+            "file": "broadcast/page/67.md",
+            "line": 28,
+            "label": "そうだ たまこラブストーリー、観よう。",
+            "form": "link",
+            "rawUrl": "https://douc.cc/053ccv"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://chusingura.hatenablog.jp/entry/2014/04/30/222041": {
+    "requestedUrl": "http://chusingura.hatenablog.jp/entry/2014/04/30/222041",
+    "domain": "chusingura.hatenablog.jp",
+    "references": [
+      {
+        "file": "broadcast/page/67.md",
+        "line": 30,
+        "label": "『たまこラブストーリー』に見た「映画」へのこだわり",
+        "form": "link",
+        "rawUrl": "https://douc.cc/2EO3OJ"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/2EO3OJ",
+        "references": [
+          {
+            "file": "broadcast/page/67.md",
+            "line": 30,
+            "label": "『たまこラブストーリー』に見た「映画」へのこだわり",
+            "form": "link",
+            "rawUrl": "https://douc.cc/2EO3OJ"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://nuruwota.blog4.fc2.com/blog-entry-3004.html": {
+    "requestedUrl": "http://nuruwota.blog4.fc2.com/blog-entry-3004.html",
+    "domain": "nuruwota.blog4.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/67.md",
+        "line": 32,
+        "label": "たまこラブストーリー、京都駅 新幹線ホームに見る謎のこだわり演出",
+        "form": "link",
+        "rawUrl": "https://douc.cc/36HO4r"
+      },
+      {
+        "file": "notes/433476997.md",
+        "line": 39,
+        "label": "http://nuruwota.blog4.fc2.com/blog-entry-3004.html",
+        "form": "link",
+        "rawUrl": "http://nuruwota.blog4.fc2.com/blog-entry-3004.html"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/36HO4r",
+        "references": [
+          {
+            "file": "broadcast/page/67.md",
+            "line": 32,
+            "label": "たまこラブストーリー、京都駅 新幹線ホームに見る謎のこだわり演出",
+            "form": "link",
+            "rawUrl": "https://douc.cc/36HO4r"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://tamakolovestory.com/special/interview/今回は「映画」ということをだいぶ意識": {
+    "requestedUrl": "http://tamakolovestory.com/special/interview/今回は「映画」ということをだいぶ意識",
+    "domain": "tamakolovestory.com",
+    "references": [
+      {
+        "file": "broadcast/page/67.md",
+        "line": 30,
+        "label": "『たまこラブストーリー』本予告 - YouTube『たまこラブストーリー』の公式サイトのインタビューで山田尚子監督はこう語っている。http://tamakolovestory.com/special/interview/今回は「映画」ということをだいぶ意識...",
+        "form": "text_url",
+        "rawUrl": "http://tamakolovestory.com/special/interview/今回は「映画」ということをだいぶ意識..."
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://head.hatenadiary.jp/entry/2014/04/29/154026": {
+    "requestedUrl": "http://head.hatenadiary.jp/entry/2014/04/29/154026",
+    "domain": "head.hatenadiary.jp",
+    "references": [
+      {
+        "file": "broadcast/page/68.md",
+        "line": 14,
+        "label": "たまこラブストーリーを褒める",
+        "form": "link",
+        "rawUrl": "https://douc.cc/1732Ot"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/1732Ot",
+        "references": [
+          {
+            "file": "broadcast/page/68.md",
+            "line": 14,
+            "label": "たまこラブストーリーを褒める",
+            "form": "link",
+            "rawUrl": "https://douc.cc/1732Ot"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://mantan-web.jp/2014/04/29/20140428dog00m200045000c.html": {
+    "requestedUrl": "http://mantan-web.jp/2014/04/29/20140428dog00m200045000c.html",
+    "domain": "mantan-web.jp",
+    "references": [
+      {
+        "file": "broadcast/page/68.md",
+        "line": 16,
+        "label": "映画興行成績：GW新作トップは「テルマエ・ロマエ2」",
+        "form": "link",
+        "rawUrl": "https://douc.cc/0OASzl"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/0OASzl",
+        "references": [
+          {
+            "file": "broadcast/page/68.md",
+            "line": 16,
+            "label": "映画興行成績：GW新作トップは「テルマエ・ロマエ2」",
+            "form": "link",
+            "rawUrl": "https://douc.cc/0OASzl"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://tsurebashi.blog123.fc2.com/blog-entry-347.html": {
+    "requestedUrl": "http://tsurebashi.blog123.fc2.com/blog-entry-347.html",
+    "domain": "tsurebashi.blog123.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/68.md",
+        "line": 32,
+        "label": "劇場版 『たまこラブストーリー』 舞台探訪(聖地巡礼)",
+        "form": "link",
+        "rawUrl": "https://douc.cc/3HuPI4"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/3HuPI4",
+        "references": [
+          {
+            "file": "broadcast/page/68.md",
+            "line": 32,
+            "label": "劇場版 『たまこラブストーリー』 舞台探訪(聖地巡礼)",
+            "form": "link",
+            "rawUrl": "https://douc.cc/3HuPI4"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://tsurebashi.blog123.fc2.com/blog-entry-348.html": {
+    "requestedUrl": "http://tsurebashi.blog123.fc2.com/blog-entry-348.html",
+    "domain": "tsurebashi.blog123.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/69.md",
+        "line": 14,
+        "label": "『たまこラブストーリー』 公開初日の京都に行ってみた",
+        "form": "link",
+        "rawUrl": "https://douc.cc/0eHYUd"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/0eHYUd",
+        "references": [
+          {
+            "file": "broadcast/page/69.md",
+            "line": 14,
+            "label": "『たまこラブストーリー』 公開初日の京都に行ってみた",
+            "form": "link",
+            "rawUrl": "https://douc.cc/0eHYUd"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1779.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1779.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/69.md",
+        "line": 16,
+        "label": "【たまらぶ】 読解メモ 02",
+        "form": "link",
+        "rawUrl": "https://douc.cc/45Q2KT"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/45Q2KT",
+        "references": [
+          {
+            "file": "broadcast/page/69.md",
+            "line": 16,
+            "label": "【たまらぶ】 読解メモ 02",
+            "form": "link",
+            "rawUrl": "https://douc.cc/45Q2KT"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://ameblo.jp/clown-happy/entry-11837085671.html": {
+    "requestedUrl": "http://ameblo.jp/clown-happy/entry-11837085671.html",
+    "domain": "ameblo.jp",
+    "references": [
+      {
+        "file": "broadcast/page/69.md",
+        "line": 20,
+        "label": "思い立って",
+        "form": "link",
+        "rawUrl": "https://douc.cc/4uZbhM"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/4uZbhM",
+        "references": [
+          {
+            "file": "broadcast/page/69.md",
+            "line": 20,
+            "label": "思い立って",
+            "form": "link",
+            "rawUrl": "https://douc.cc/4uZbhM"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "Ameblo 文章详情路径"
+  },
+  "http://ameblo.jp/clown-happy/entry-11835509608.html": {
+    "requestedUrl": "http://ameblo.jp/clown-happy/entry-11835509608.html",
+    "domain": "ameblo.jp",
+    "references": [
+      {
+        "file": "broadcast/page/69.md",
+        "line": 22,
+        "label": "じんわりほっこり",
+        "form": "link",
+        "rawUrl": "https://douc.cc/0WV2iC"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/0WV2iC",
+        "references": [
+          {
+            "file": "broadcast/page/69.md",
+            "line": 22,
+            "label": "じんわりほっこり",
+            "form": "link",
+            "rawUrl": "https://douc.cc/0WV2iC"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "Ameblo 文章详情路径"
+  },
+  "http://d.hatena.ne.jp/los_endos/20140429/1398701112": {
+    "requestedUrl": "http://d.hatena.ne.jp/los_endos/20140429/1398701112",
+    "domain": "d.hatena.ne.jp",
+    "references": [
+      {
+        "file": "broadcast/page/69.md",
+        "line": 28,
+        "label": "映画「たまこラブストーリー」で「星とピエロ」店内に登場するレコード・ジャケットのご紹介",
+        "form": "link",
+        "rawUrl": "https://douc.cc/2i8NSJ"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/2i8NSJ",
+        "references": [
+          {
+            "file": "broadcast/page/69.md",
+            "line": 28,
+            "label": "映画「たまこラブストーリー」で「星とピエロ」店内に登場するレコード・ジャケットのご紹介",
+            "form": "link",
+            "rawUrl": "https://douc.cc/2i8NSJ"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1778.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1778.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/69.md",
+        "line": 30,
+        "label": "【たまらぶ】 読解メモ 01追補",
+        "form": "link",
+        "rawUrl": "https://douc.cc/4nX0mX"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/4nX0mX",
+        "references": [
+          {
+            "file": "broadcast/page/69.md",
+            "line": 30,
+            "label": "【たまらぶ】 読解メモ 01追補",
+            "form": "link",
+            "rawUrl": "https://douc.cc/4nX0mX"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1776.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1776.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/70.md",
+        "line": 14,
+        "label": "【たまらぶ】 読解メモ 01",
+        "form": "link",
+        "rawUrl": "https://douc.cc/4nJ7tH"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/4nJ7tH",
+        "references": [
+          {
+            "file": "broadcast/page/70.md",
+            "line": 14,
+            "label": "【たまらぶ】 読解メモ 01",
+            "form": "link",
+            "rawUrl": "https://douc.cc/4nJ7tH"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://cinema.pia.co.jp/news/164225/57046/": {
+    "requestedUrl": "http://cinema.pia.co.jp/news/164225/57046/",
+    "domain": "cinema.pia.co.jp",
+    "references": [
+      {
+        "file": "broadcast/page/70.md",
+        "line": 16,
+        "label": "『たまこラブストーリー』 若者から絶大な支持を集めたアニメ映画が映画初日満足度ランキング第1位に！",
+        "form": "link",
+        "rawUrl": "https://douc.cc/1uaaS8"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/1uaaS8",
+        "references": [
+          {
+            "file": "broadcast/page/70.md",
+            "line": 16,
+            "label": "『たまこラブストーリー』 若者から絶大な支持を集めたアニメ映画が映画初日満足度ランキング第1位に！",
+            "form": "link",
+            "rawUrl": "https://douc.cc/1uaaS8"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1777.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1777.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/70.md",
+        "line": 18,
+        "label": "【たまらぶ】初見感想 そのいち 『まずは総論みたいなのｗ』",
+        "form": "link",
+        "rawUrl": "https://douc.cc/279x99"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/279x99",
+        "references": [
+          {
+            "file": "broadcast/page/70.md",
+            "line": 18,
+            "label": "【たまらぶ】初見感想 そのいち 『まずは総論みたいなのｗ』",
+            "form": "link",
+            "rawUrl": "https://douc.cc/279x99"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://nextsociety.blog102.fc2.com/blog-entry-2322.html": {
+    "requestedUrl": "http://nextsociety.blog102.fc2.com/blog-entry-2322.html",
+    "domain": "nextsociety.blog102.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/70.md",
+        "line": 26,
+        "label": "「たまこラブストーリー」は「恋」による「変化」を描いた青春映画の傑作。",
+        "form": "link",
+        "rawUrl": "https://douc.cc/43ecke"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/43ecke",
+        "references": [
+          {
+            "file": "broadcast/page/70.md",
+            "line": 26,
+            "label": "「たまこラブストーリー」は「恋」による「変化」を描いた青春映画の傑作。",
+            "form": "link",
+            "rawUrl": "https://douc.cc/43ecke"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://d.hatena.ne.jp/makaronisan/20140426/1398523055": {
+    "requestedUrl": "http://d.hatena.ne.jp/makaronisan/20140426/1398523055",
+    "domain": "d.hatena.ne.jp",
+    "references": [
+      {
+        "file": "broadcast/page/70.md",
+        "line": 32,
+        "label": "「たまこラブストーリー」が、傑作だと確信できたのはなぜか",
+        "form": "link",
+        "rawUrl": "https://douc.cc/0ilPva"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/0ilPva",
+        "references": [
+          {
+            "file": "broadcast/page/70.md",
+            "line": 32,
+            "label": "「たまこラブストーリー」が、傑作だと確信できたのはなぜか",
+            "form": "link",
+            "rawUrl": "https://douc.cc/0ilPva"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://yaraon.blog109.fc2.com/blog-entry-23519.html": {
+    "requestedUrl": "http://yaraon.blog109.fc2.com/blog-entry-23519.html",
+    "domain": "yaraon.blog109.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/71.md",
+        "line": 14,
+        "label": "映画『たまこラブストーリー』 評判良すぎいいいいいい！ 「青春期の恋愛映画としては、お手本になるかのような作り」 女性客も多め！",
+        "form": "link",
+        "rawUrl": "https://douc.cc/10nNGU"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/10nNGU",
+        "references": [
+          {
+            "file": "broadcast/page/71.md",
+            "line": 14,
+            "label": "映画『たまこラブストーリー』 評判良すぎいいいいいい！ 「青春期の恋愛映画としては、お手本になるかのような作り」 女性客も多め！",
+            "form": "link",
+            "rawUrl": "https://douc.cc/10nNGU"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://www.cinematoday.jp/page/N0062531": {
+    "requestedUrl": "http://www.cinematoday.jp/page/N0062531",
+    "domain": "www.cinematoday.jp",
+    "references": [
+      {
+        "file": "broadcast/page/71.md",
+        "line": 32,
+        "label": "「けいおん!」監督、最新作『たまこラブストーリー』初日に熱い思いを語る！",
+        "form": "link",
+        "rawUrl": "https://douc.cc/49MqFL"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/49MqFL",
+        "references": [
+          {
+            "file": "broadcast/page/71.md",
+            "line": 32,
+            "label": "「けいおん!」監督、最新作『たまこラブストーリー』初日に熱い思いを語る！",
+            "form": "link",
+            "rawUrl": "https://douc.cc/49MqFL"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://tamakolovestory.com/news/?id=33": {
+    "requestedUrl": "http://tamakolovestory.com/news/?id=33",
+    "domain": "tamakolovestory.com",
+    "references": [
+      {
+        "file": "broadcast/page/71.md",
+        "line": 28,
+        "label": "「たまこラブストーリー」第３週目 入場者プレゼント 配布決定！ https://douc.cc/0A8LSE",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/0A8LSE"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/0A8LSE",
+        "references": [
+          {
+            "file": "broadcast/page/71.md",
+            "line": 28,
+            "label": "「たまこラブストーリー」第３週目 入場者プレゼント 配布決定！ https://douc.cc/0A8LSE",
+            "form": "text_url",
+            "rawUrl": "https://douc.cc/0A8LSE"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://d.hatena.ne.jp/los_endos/20140425/1398352708": {
+    "requestedUrl": "http://d.hatena.ne.jp/los_endos/20140425/1398352708",
+    "domain": "d.hatena.ne.jp",
+    "references": [
+      {
+        "file": "broadcast/page/72.md",
+        "line": 24,
+        "label": "【小論】映画「たまこラブストーリー」公開によせて ～フィルムと糸電話、時間と空間をつなぐもの",
+        "form": "link",
+        "rawUrl": "https://douc.cc/3cgBNC"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/3cgBNC",
+        "references": [
+          {
+            "file": "broadcast/page/72.md",
+            "line": 24,
+            "label": "【小論】映画「たまこラブストーリー」公開によせて ～フィルムと糸電話、時間と空間をつなぐもの",
+            "form": "link",
+            "rawUrl": "https://douc.cc/3cgBNC"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1772.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1772.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/73.md",
+        "line": 22,
+        "label": "【4.19】「たまこまーけっと」おさらい上映会＆スタッフトークショーレポ【京都文博】",
+        "form": "link",
+        "rawUrl": "https://douc.cc/37y5XR"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/37y5XR",
+        "references": [
+          {
+            "file": "broadcast/page/73.md",
+            "line": 22,
+            "label": "【4.19】「たまこまーけっと」おさらい上映会＆スタッフトークショーレポ【京都文博】",
+            "form": "link",
+            "rawUrl": "https://douc.cc/37y5XR"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://d.hatena.ne.jp/los_endos/20140420/1398003204": {
+    "requestedUrl": "http://d.hatena.ne.jp/los_endos/20140420/1398003204",
+    "domain": "d.hatena.ne.jp",
+    "references": [
+      {
+        "file": "broadcast/page/74.md",
+        "line": 16,
+        "label": "「たまこまーけっと」おさらい上映会＆制作スタッフ・トークイベント（山田尚子監督・小川太一さん・竹田明代さん）レポート",
+        "form": "link",
+        "rawUrl": "https://douc.cc/13l2fN"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/13l2fN",
+        "references": [
+          {
+            "file": "broadcast/page/74.md",
+            "line": 16,
+            "label": "「たまこまーけっと」おさらい上映会＆制作スタッフ・トークイベント（山田尚子監督・小川太一さん・竹田明代さん）レポート",
+            "form": "link",
+            "rawUrl": "https://douc.cc/13l2fN"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://tamakolovestory.com/news/?id=24": {
+    "requestedUrl": "http://tamakolovestory.com/news/?id=24",
+    "domain": "tamakolovestory.com",
+    "references": [
+      {
+        "file": "broadcast/page/74.md",
+        "line": 28,
+        "label": "「たまこラブストーリー」オリジナルポップコーンセット発売決定！！ https://douc.cc/07OHDB",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/07OHDB"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/07OHDB",
+        "references": [
+          {
+            "file": "broadcast/page/74.md",
+            "line": 28,
+            "label": "「たまこラブストーリー」オリジナルポップコーンセット発売決定！！ https://douc.cc/07OHDB",
+            "form": "text_url",
+            "rawUrl": "https://douc.cc/07OHDB"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://tamakolovestory.com/news/?id=13": {
+    "requestedUrl": "http://tamakolovestory.com/news/?id=13",
+    "domain": "tamakolovestory.com",
+    "references": [
+      {
+        "file": "broadcast/page/76.md",
+        "line": 14,
+        "label": "TVアニメ『たまこまーけっと』キャラソンリミックス「omochi-tronica EP plus」４月９日発売決定！ https://douc.cc/0dxXj7",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/0dxXj7"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/0dxXj7",
+        "references": [
+          {
+            "file": "broadcast/page/76.md",
+            "line": 14,
+            "label": "TVアニメ『たまこまーけっと』キャラソンリミックス「omochi-tronica EP plus」４月９日発売決定！ https://douc.cc/0dxXj7",
+            "form": "text_url",
+            "rawUrl": "https://douc.cc/0dxXj7"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://tower.jp/store/news/2014/04/140404nanl_tamako?kid=psmantw": {
+    "requestedUrl": "http://tower.jp/store/news/2014/04/140404nanl_tamako?kid=psmantw",
+    "domain": "tower.jp",
+    "references": [
+      {
+        "file": "broadcast/page/76.md",
+        "line": 18,
+        "label": "NO ANIME, NO LIFE.“TOWERanime ♡ たまこラブストーリー” タワーレコード渋谷店・京都店限定で4/19～5/16の期間開催決定！ https://douc.cc/1xU0hw",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/1xU0hw"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/1xU0hw",
+        "references": [
+          {
+            "file": "broadcast/page/76.md",
+            "line": 18,
+            "label": "NO ANIME, NO LIFE.“TOWERanime ♡ たまこラブストーリー” タワーレコード渋谷店・京都店限定で4/19～5/16の期間開催決定！ https://douc.cc/1xU0hw",
+            "form": "text_url",
+            "rawUrl": "https://douc.cc/1xU0hw"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1769.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1769.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/77.md",
+        "line": 14,
+        "label": "【たまこラ】 PV第一弾解禁！ここまでの作品考察、推察のまとめ https://douc.cc/2LZUsd",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/2LZUsd"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/2LZUsd",
+        "references": [
+          {
+            "file": "broadcast/page/77.md",
+            "line": 14,
+            "label": "【たまこラ】 PV第一弾解禁！ここまでの作品考察、推察のまとめ https://douc.cc/2LZUsd",
+            "form": "text_url",
+            "rawUrl": "https://douc.cc/2LZUsd"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "https://douc.cc/2b9fIW": {
+    "requestedUrl": "https://douc.cc/2b9fIW",
+    "domain": "douc.cc",
+    "references": [
+      {
+        "file": "broadcast/page/77.md",
+        "line": 20,
+        "label": "《玉子爱情故事》预告片公开 https://douc.cc/2b9fIW",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/2b9fIW"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "短链接",
+    "action": "resolve",
+    "reason": "解析最终地址后重新分类"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1766.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1766.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/78.md",
+        "line": 30,
+        "label": "【考察】「けいおん！」のその先を描く物語としての「たまこラブストーリー」",
+        "form": "link",
+        "rawUrl": "https://douc.cc/2QePC2"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/2QePC2",
+        "references": [
+          {
+            "file": "broadcast/page/78.md",
+            "line": 30,
+            "label": "【考察】「けいおん！」のその先を描く物語としての「たまこラブストーリー」",
+            "form": "link",
+            "rawUrl": "https://douc.cc/2QePC2"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://tamakolovestory.com/news/#3": {
+    "requestedUrl": "http://tamakolovestory.com/news/#3",
+    "domain": "tamakolovestory.com",
+    "references": [
+      {
+        "file": "broadcast/page/79.md",
+        "line": 16,
+        "label": "情人节企划，附饼藏文件夹的预售票发售决定，详见： https://douc.cc/0LAcPz https://douc.cc/1XKYAg",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/0LAcPz"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/0LAcPz",
+        "references": [
+          {
+            "file": "broadcast/page/79.md",
+            "line": 16,
+            "label": "情人节企划，附饼藏文件夹的预售票发售决定，详见： https://douc.cc/0LAcPz https://douc.cc/1XKYAg",
+            "form": "text_url",
+            "rawUrl": "https://douc.cc/0LAcPz"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://tamakolovestory.com/news/#4": {
+    "requestedUrl": "http://tamakolovestory.com/news/#4",
+    "domain": "tamakolovestory.com",
+    "references": [
+      {
+        "file": "broadcast/page/79.md",
+        "line": 26,
+        "label": "短篇《南国之岛的小德拉》将与《玉子爱情故事》同时上映！该短篇将描绘从兔子山商店街回到南国后的德拉，以及他与王子和乔伊温暖喧闹的日常。 https://douc.cc/0IW5Dj",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/0IW5Dj"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/0IW5Dj",
+        "references": [
+          {
+            "file": "broadcast/page/79.md",
+            "line": 26,
+            "label": "短篇《南国之岛的小德拉》将与《玉子爱情故事》同时上映！该短篇将描绘从兔子山商店街回到南国后的德拉，以及他与王子和乔伊温暖喧闹的日常。 https://douc.cc/0IW5Dj",
+            "form": "text_url",
+            "rawUrl": "https://douc.cc/0IW5Dj"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://jin115.com/archives/52000173.html": {
+    "requestedUrl": "http://jin115.com/archives/52000173.html",
+    "domain": "jin115.com",
+    "references": [
+      {
+        "file": "broadcast/page/80.md",
+        "line": 28,
+        "label": "『けいおん』の京アニ・山田尚子監督「Free!の江ちゃんは最高に可愛かったですよね！」",
+        "form": "link",
+        "rawUrl": "https://douc.cc/3io9VJ"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/3io9VJ",
+        "references": [
+          {
+            "file": "broadcast/page/80.md",
+            "line": 28,
+            "label": "『けいおん』の京アニ・山田尚子監督「Free!の江ちゃんは最高に可愛かったですよね！」",
+            "form": "link",
+            "rawUrl": "https://douc.cc/3io9VJ"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://yaraon.blog109.fc2.com/blog-entry-21736.html": {
+    "requestedUrl": "http://yaraon.blog109.fc2.com/blog-entry-21736.html",
+    "domain": "yaraon.blog109.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/80.md",
+        "line": 24,
+        "label": "劇場版『たまこラブストーリー』たまこの恋愛相手はやっぱりもち蔵かよ！ https://douc.cc/2iNWt8 传声筒、录像带和舞棒是电影的关键道具，一心一意的感情是萌点。",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/2iNWt8"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/2iNWt8",
+        "references": [
+          {
+            "file": "broadcast/page/80.md",
+            "line": 24,
+            "label": "劇場版『たまこラブストーリー』たまこの恋愛相手はやっぱりもち蔵かよ！ https://douc.cc/2iNWt8 传声筒、录像带和舞棒是电影的关键道具，一心一意的感情是萌点。",
+            "form": "text_url",
+            "rawUrl": "https://douc.cc/2iNWt8"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://shine.web.wox.cc/blog/entry14.html": {
+    "requestedUrl": "http://shine.web.wox.cc/blog/entry14.html",
+    "domain": "shine.web.wox.cc",
+    "references": [
+      {
+        "file": "broadcast/page/80.md",
+        "line": 30,
+        "label": "山田尚子与索菲亚·科波拉 https://douc.cc/0MItgA 山田曾在访谈中说过自己喜欢导演索菲亚·科波拉的作品（ https://douc.cc/00eIqo ）。在最新的《中二戀》ED中也能窥见索菲亚对山田的影响（截图出自索菲亚·科波拉的代表作 《处女之死》）。",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/0MItgA"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/0MItgA",
+        "references": [
+          {
+            "file": "broadcast/page/80.md",
+            "line": 30,
+            "label": "山田尚子与索菲亚·科波拉 https://douc.cc/0MItgA 山田曾在访谈中说过自己喜欢导演索菲亚·科波拉的作品（ https://douc.cc/00eIqo ）。在最新的《中二戀》ED中也能窥见索菲亚对山田的影响（截图出自索菲亚·科波拉的代表作 《处女之死》）。",
+            "form": "text_url",
+            "rawUrl": "https://douc.cc/0MItgA"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://yaraon.blog109.fc2.com/blog-entry-21550.html": {
+    "requestedUrl": "http://yaraon.blog109.fc2.com/blog-entry-21550.html",
+    "domain": "yaraon.blog109.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/80.md",
+        "line": 32,
+        "label": "ザ・テレビジョンに『けいおん！』新規描き下ろしイラストが掲載されてるぞ！！ 可愛すぎる・・・・! https://douc.cc/4BsiBV",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/4BsiBV"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/4BsiBV",
+        "references": [
+          {
+            "file": "broadcast/page/80.md",
+            "line": 32,
+            "label": "ザ・テレビジョンに『けいおん！』新規描き下ろしイラストが掲載されてるぞ！！ 可愛すぎる・・・・! https://douc.cc/4BsiBV",
+            "form": "text_url",
+            "rawUrl": "https://douc.cc/4BsiBV"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://www.tbs.co.jp/anime/k-on/k-on_tv/news/news.html#201401171800": {
+    "requestedUrl": "http://www.tbs.co.jp/anime/k-on/k-on_tv/news/news.html#201401171800",
+    "domain": "www.tbs.co.jp",
+    "references": [
+      {
+        "file": "broadcast/page/81.md",
+        "line": 18,
+        "label": "「けいおん！」Blu-ray Box 店舗オリジナル特典一覧発表！ https://douc.cc/2HvcCe",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/2HvcCe"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/2HvcCe",
+        "references": [
+          {
+            "file": "broadcast/page/81.md",
+            "line": 18,
+            "label": "「けいおん！」Blu-ray Box 店舗オリジナル特典一覧発表！ https://douc.cc/2HvcCe",
+            "form": "text_url",
+            "rawUrl": "https://douc.cc/2HvcCe"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1760.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1760.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/82.md",
+        "line": 20,
+        "label": "【考察】 続・空の向こう、星の彼方",
+        "form": "link",
+        "rawUrl": "https://douc.cc/0UbAym"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/0UbAym",
+        "references": [
+          {
+            "file": "broadcast/page/82.md",
+            "line": 20,
+            "label": "【考察】 続・空の向こう、星の彼方",
+            "form": "link",
+            "rawUrl": "https://douc.cc/0UbAym"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1759.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1759.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/83.md",
+        "line": 16,
+        "label": "【映画読解】 空の向こう、星の彼方",
+        "form": "link",
+        "rawUrl": "https://douc.cc/4mGAV7"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/4mGAV7",
+        "references": [
+          {
+            "file": "broadcast/page/83.md",
+            "line": 16,
+            "label": "【映画読解】 空の向こう、星の彼方",
+            "form": "link",
+            "rawUrl": "https://douc.cc/4mGAV7"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://b.hatena.ne.jp/articles/201312/17482": {
+    "requestedUrl": "http://b.hatena.ne.jp/articles/201312/17482",
+    "domain": "b.hatena.ne.jp",
+    "references": [
+      {
+        "file": "broadcast/page/83.md",
+        "line": 28,
+        "label": "自分が死んだ後も、作品は残る 名作を生んだ京アニの監督3人が語るアニメのあれこれ",
+        "form": "link",
+        "rawUrl": "https://douc.cc/2jhVcU"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/2jhVcU",
+        "references": [
+          {
+            "file": "broadcast/page/83.md",
+            "line": 28,
+            "label": "自分が死んだ後も、作品は残る 名作を生んだ京アニの監督3人が語るアニメのあれこれ",
+            "form": "link",
+            "rawUrl": "https://douc.cc/2jhVcU"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://d.hatena.ne.jp/beaux25/20131203/1386080367": {
+    "requestedUrl": "http://d.hatena.ne.jp/beaux25/20131203/1386080367",
+    "domain": "d.hatena.ne.jp",
+    "references": [
+      {
+        "file": "broadcast/page/84.md",
+        "line": 32,
+        "label": "山田尚子さんの発言から - la banane brûléeの日記",
+        "form": "link",
+        "rawUrl": "https://douc.cc/1XtmXX"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/1XtmXX",
+        "references": [
+          {
+            "file": "broadcast/page/84.md",
+            "line": 32,
+            "label": "山田尚子さんの発言から - la banane brûléeの日記",
+            "form": "link",
+            "rawUrl": "https://douc.cc/1XtmXX"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "https://douc.cc/0rpuuO": {
+    "requestedUrl": "https://douc.cc/0rpuuO",
+    "domain": "douc.cc",
+    "references": [
+      {
+        "file": "broadcast/page/84.md",
+        "line": 16,
+        "label": "电影《玉子爱情故事》官网开放 https://douc.cc/2hhDGR 特报第1弹公开 https://douc.cc/0rpuuO # tamakolovestory #",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/0rpuuO"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "短链接",
+    "action": "resolve",
+    "reason": "解析最终地址后重新分类"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1758.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1758.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/84.md",
+        "line": 22,
+        "label": "映画けいおん！時系列順作品解説（2013ver.） https://douc.cc/0jhA26 旧版刚翻完大半又冒出个2013ver.…orz",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/0jhA26"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/0jhA26",
+        "references": [
+          {
+            "file": "broadcast/page/84.md",
+            "line": 22,
+            "label": "映画けいおん！時系列順作品解説（2013ver.） https://douc.cc/0jhA26 旧版刚翻完大半又冒出个2013ver.…orz",
+            "form": "text_url",
+            "rawUrl": "https://douc.cc/0jhA26"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://httesora.blog.fc2.com/blog-entry-14.html": {
+    "requestedUrl": "http://httesora.blog.fc2.com/blog-entry-14.html",
+    "domain": "httesora.blog.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/84.md",
+        "line": 26,
+        "label": "☆ 京アニ&Do CTFK2013 感想・レポ ★ https://douc.cc/3ymZKn 这篇更详细，推荐。",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/3ymZKn"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/3ymZKn",
+        "references": [
+          {
+            "file": "broadcast/page/84.md",
+            "line": 26,
+            "label": "☆ 京アニ&Do CTFK2013 感想・レポ ★ https://douc.cc/3ymZKn 这篇更详细，推荐。",
+            "form": "text_url",
+            "rawUrl": "https://douc.cc/3ymZKn"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://d.hatena.ne.jp/los_endos/20131201/1385905981": {
+    "requestedUrl": "http://d.hatena.ne.jp/los_endos/20131201/1385905981",
+    "domain": "d.hatena.ne.jp",
+    "references": [
+      {
+        "file": "broadcast/page/85.md",
+        "line": 18,
+        "label": "「京アニ&Do C･T･F･K 2013」〜監督対談！レポート（石原立也・武本康...",
+        "form": "link",
+        "rawUrl": "https://douc.cc/38f1le"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/38f1le",
+        "references": [
+          {
+            "file": "broadcast/page/85.md",
+            "line": 18,
+            "label": "「京アニ&Do C･T･F･K 2013」〜監督対談！レポート（石原立也・武本康...",
+            "form": "link",
+            "rawUrl": "https://douc.cc/38f1le"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://d.hatena.ne.jp/ukkah/20131105/p1": {
+    "requestedUrl": "http://d.hatena.ne.jp/ukkah/20131105/p1",
+    "domain": "d.hatena.ne.jp",
+    "references": [
+      {
+        "file": "broadcast/page/85.md",
+        "line": 24,
+        "label": "『境界の彼方』5話 山田尚子演出を見る - OTALLICA",
+        "form": "link",
+        "rawUrl": "https://douc.cc/1gAMfz"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/1gAMfz",
+        "references": [
+          {
+            "file": "broadcast/page/85.md",
+            "line": 24,
+            "label": "『境界の彼方』5話 山田尚子演出を見る - OTALLICA",
+            "form": "link",
+            "rawUrl": "https://douc.cc/1gAMfz"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1744.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1744.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/85.md",
+        "line": 32,
+        "label": "「Free!」第7話！絵コンテ・演出／山田尚子を堪能する!!",
+        "form": "link",
+        "rawUrl": "https://douc.cc/4nxl34"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/4nxl34",
+        "references": [
+          {
+            "file": "broadcast/page/85.md",
+            "line": 32,
+            "label": "「Free!」第7話！絵コンテ・演出／山田尚子を堪能する!!",
+            "form": "link",
+            "rawUrl": "https://douc.cc/4nxl34"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://yaraon.blog109.fc2.com/blog-entry-20238.html": {
+    "requestedUrl": "http://yaraon.blog109.fc2.com/blog-entry-20238.html",
+    "domain": "yaraon.blog109.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/85.md",
+        "line": 20,
+        "label": "『京アニ感謝祭』イベントレポ https://douc.cc/37J6wy",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/37J6wy"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/37J6wy",
+        "references": [
+          {
+            "file": "broadcast/page/85.md",
+            "line": 20,
+            "label": "『京アニ感謝祭』イベントレポ https://douc.cc/37J6wy",
+            "form": "text_url",
+            "rawUrl": "https://douc.cc/37J6wy"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://yaraon.blog109.fc2.com/blog-entry-20232.html": {
+    "requestedUrl": "http://yaraon.blog109.fc2.com/blog-entry-20232.html",
+    "domain": "yaraon.blog109.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/85.md",
+        "line": 22,
+        "label": "『たまこまーけっと』の新作は劇場版！？ 山田監督「たまこをパワーアップさせてます」 https://douc.cc/2VuJuH",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/2VuJuH"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/2VuJuH",
+        "references": [
+          {
+            "file": "broadcast/page/85.md",
+            "line": 22,
+            "label": "『たまこまーけっと』の新作は劇場版！？ 山田監督「たまこをパワーアップさせてます」 https://douc.cc/2VuJuH",
+            "form": "text_url",
+            "rawUrl": "https://douc.cc/2VuJuH"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://rdm.ne.jp/sound/column/tamacomanu/5853": {
+    "requestedUrl": "http://rdm.ne.jp/sound/column/tamacomanu/5853",
+    "domain": "rdm.ne.jp",
+    "references": [
+      {
+        "file": "broadcast/page/86.md",
+        "line": 14,
+        "label": "最終回：対談 山田尚子＋山口優（後編）〜私、音楽になってみたいのかもしれません。 | マニュエラだから作れた『たまこまーけっと』の音楽 | RandoM",
+        "form": "link",
+        "rawUrl": "https://douc.cc/3G0tSH"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/3G0tSH",
+        "references": [
+          {
+            "file": "broadcast/page/86.md",
+            "line": 14,
+            "label": "最終回：対談 山田尚子＋山口優（後編）〜私、音楽になってみたいのかもしれません。 | マニュエラだから作れた『たまこまーけっと』の音楽 | RandoM",
+            "form": "link",
+            "rawUrl": "https://douc.cc/3G0tSH"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://rdm.ne.jp/sound/column/tamacomanu/5849": {
+    "requestedUrl": "http://rdm.ne.jp/sound/column/tamacomanu/5849",
+    "domain": "rdm.ne.jp",
+    "references": [
+      {
+        "file": "broadcast/page/86.md",
+        "line": 16,
+        "label": "第９回：対談 山田尚子＋山口優（前編）〜監督はいちいち言葉で何でも説明しないタイプ | マニュエラだから作れた『たまこまーけっと』の音楽 | RandoM",
+        "form": "link",
+        "rawUrl": "https://douc.cc/2FrSUn"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/2FrSUn",
+        "references": [
+          {
+            "file": "broadcast/page/86.md",
+            "line": 16,
+            "label": "第９回：対談 山田尚子＋山口優（前編）〜監督はいちいち言葉で何でも説明しないタイプ | マニュエラだから作れた『たまこまーけっと』の音楽 | RandoM",
+            "form": "link",
+            "rawUrl": "https://douc.cc/2FrSUn"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://rdm.ne.jp/sound/column/tamacomanu/5563": {
+    "requestedUrl": "http://rdm.ne.jp/sound/column/tamacomanu/5563",
+    "domain": "rdm.ne.jp",
+    "references": [
+      {
+        "file": "broadcast/page/86.md",
+        "line": 20,
+        "label": "第８回：鼎談 藤本功一＋宮川弾＋山口優（後編）〜男がメロディを作るとき | マニュエラだから作れた『たまこまーけっと』の音楽 | RandoM",
+        "form": "link",
+        "rawUrl": "https://douc.cc/2gyX7V"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/2gyX7V",
+        "references": [
+          {
+            "file": "broadcast/page/86.md",
+            "line": 20,
+            "label": "第８回：鼎談 藤本功一＋宮川弾＋山口優（後編）〜男がメロディを作るとき | マニュエラだから作れた『たまこまーけっと』の音楽 | RandoM",
+            "form": "link",
+            "rawUrl": "https://douc.cc/2gyX7V"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://rdm.ne.jp/sound/column/tamacomanu/5550": {
+    "requestedUrl": "http://rdm.ne.jp/sound/column/tamacomanu/5550",
+    "domain": "rdm.ne.jp",
+    "references": [
+      {
+        "file": "broadcast/page/86.md",
+        "line": 22,
+        "label": "第７回：鼎談 藤本功一＋宮川弾＋山口優（前編）〜噂では振付しながら歌詞を考えるそうだけど？ | マニュエラだから作れた『たまこまーけっと』の音楽 | RandoM",
+        "form": "link",
+        "rawUrl": "https://douc.cc/4jISkK"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/4jISkK",
+        "references": [
+          {
+            "file": "broadcast/page/86.md",
+            "line": 22,
+            "label": "第７回：鼎談 藤本功一＋宮川弾＋山口優（前編）〜噂では振付しながら歌詞を考えるそうだけど？ | マニュエラだから作れた『たまこまーけっと』の音楽 | RandoM",
+            "form": "link",
+            "rawUrl": "https://douc.cc/4jISkK"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://d.hatena.ne.jp/tunderealrovski/20130315/p1": {
+    "requestedUrl": "http://d.hatena.ne.jp/tunderealrovski/20130315/p1",
+    "domain": "d.hatena.ne.jp",
+    "references": [
+      {
+        "file": "broadcast/page/86.md",
+        "line": 24,
+        "label": "「たまこまーけっと」とジャンプカット",
+        "form": "link",
+        "rawUrl": "https://douc.cc/1LyX1P"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/1LyX1P",
+        "references": [
+          {
+            "file": "broadcast/page/86.md",
+            "line": 24,
+            "label": "「たまこまーけっと」とジャンプカット",
+            "form": "link",
+            "rawUrl": "https://douc.cc/1LyX1P"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://rdm.ne.jp/sound/column/tamacomanu/4853": {
+    "requestedUrl": "http://rdm.ne.jp/sound/column/tamacomanu/4853",
+    "domain": "rdm.ne.jp",
+    "references": [
+      {
+        "file": "broadcast/page/86.md",
+        "line": 26,
+        "label": "第６回：対談 ゲイリー芦屋＋山口優（後編）〜キャラソンとか劇伴、OP・EDとはまた別の宇宙が、ここにある | マニュエラだから作れた『たまこまーけっと』の音楽 | RandoM",
+        "form": "link",
+        "rawUrl": "https://douc.cc/2XF7KD"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/2XF7KD",
+        "references": [
+          {
+            "file": "broadcast/page/86.md",
+            "line": 26,
+            "label": "第６回：対談 ゲイリー芦屋＋山口優（後編）〜キャラソンとか劇伴、OP・EDとはまた別の宇宙が、ここにある | マニュエラだから作れた『たまこまーけっと』の音楽 | RandoM",
+            "form": "link",
+            "rawUrl": "https://douc.cc/2XF7KD"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://rdm.ne.jp/sound/column/tamacomanu/4844": {
+    "requestedUrl": "http://rdm.ne.jp/sound/column/tamacomanu/4844",
+    "domain": "rdm.ne.jp",
+    "references": [
+      {
+        "file": "broadcast/page/86.md",
+        "line": 30,
+        "label": "第５回：対談 ゲイリー芦屋＋山口優（前編）〜タイムマシンを作っていたようなものです | マニュエラだから作れた『たまこまーけっと』の音楽 | RandoM",
+        "form": "link",
+        "rawUrl": "https://douc.cc/21O92J"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/21O92J",
+        "references": [
+          {
+            "file": "broadcast/page/86.md",
+            "line": 30,
+            "label": "第５回：対談 ゲイリー芦屋＋山口優（前編）〜タイムマシンを作っていたようなものです | マニュエラだから作れた『たまこまーけっと』の音楽 | RandoM",
+            "form": "link",
+            "rawUrl": "https://douc.cc/21O92J"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://rdm.ne.jp/sound/column/tamacomanu/4043": {
+    "requestedUrl": "http://rdm.ne.jp/sound/column/tamacomanu/4043",
+    "domain": "rdm.ne.jp",
+    "references": [
+      {
+        "file": "broadcast/page/86.md",
+        "line": 32,
+        "label": "第４回：対談 片岡知子＋山口優（後編）～全編にちりばめられた80′sっぽさ | マニュエラだから作れた『たまこまーけっと』の音楽 | RandoM",
+        "form": "link",
+        "rawUrl": "https://douc.cc/0kUWI1"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/0kUWI1",
+        "references": [
+          {
+            "file": "broadcast/page/86.md",
+            "line": 32,
+            "label": "第４回：対談 片岡知子＋山口優（後編）～全編にちりばめられた80′sっぽさ | マニュエラだから作れた『たまこまーけっと』の音楽 | RandoM",
+            "form": "link",
+            "rawUrl": "https://douc.cc/0kUWI1"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1740.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1740.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/86.md",
+        "line": 28,
+        "label": "山田尚子監督からキャスト５人へのお手紙書き起こし https://douc.cc/2GcDUr",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/2GcDUr"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/2GcDUr",
+        "references": [
+          {
+            "file": "broadcast/page/86.md",
+            "line": 28,
+            "label": "山田尚子監督からキャスト５人へのお手紙書き起こし https://douc.cc/2GcDUr",
+            "form": "text_url",
+            "rawUrl": "https://douc.cc/2GcDUr"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://rdm.ne.jp/sound/column/tamacomanu/4037": {
+    "requestedUrl": "http://rdm.ne.jp/sound/column/tamacomanu/4037",
+    "domain": "rdm.ne.jp",
+    "references": [
+      {
+        "file": "broadcast/page/87.md",
+        "line": 14,
+        "label": "第３回：対談 片岡知子＋山口優（前編）〜淡々とした女の子らしさで、フランス近代や教会音楽をイメージ | マニュエラだから作れた『たまこまーけっと』の音楽 | RandoM",
+        "form": "link",
+        "rawUrl": "https://douc.cc/3X0kB0"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/3X0kB0",
+        "references": [
+          {
+            "file": "broadcast/page/87.md",
+            "line": 14,
+            "label": "第３回：対談 片岡知子＋山口優（前編）〜淡々とした女の子らしさで、フランス近代や教会音楽をイメージ | マニュエラだから作れた『たまこまーけっと』の音楽 | RandoM",
+            "form": "link",
+            "rawUrl": "https://douc.cc/3X0kB0"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://rdm.ne.jp/sound/column/tamacomanu/4023": {
+    "requestedUrl": "http://rdm.ne.jp/sound/column/tamacomanu/4023",
+    "domain": "rdm.ne.jp",
+    "references": [
+      {
+        "file": "broadcast/page/87.md",
+        "line": 16,
+        "label": "第２回：インタビュー 山口優（後編）〜お琴バージョンでも成り立つ曲を作りたい | マニュエラだから作れた『たまこまーけっと』の音楽 | RandoM",
+        "form": "link",
+        "rawUrl": "https://douc.cc/2cPWe6"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/2cPWe6",
+        "references": [
+          {
+            "file": "broadcast/page/87.md",
+            "line": 16,
+            "label": "第２回：インタビュー 山口優（後編）〜お琴バージョンでも成り立つ曲を作りたい | マニュエラだから作れた『たまこまーけっと』の音楽 | RandoM",
+            "form": "link",
+            "rawUrl": "https://douc.cc/2cPWe6"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://rdm.ne.jp/sound/column/tamacomanu/4014": {
+    "requestedUrl": "http://rdm.ne.jp/sound/column/tamacomanu/4014",
+    "domain": "rdm.ne.jp",
+    "references": [
+      {
+        "file": "broadcast/page/87.md",
+        "line": 18,
+        "label": "第１回：インタビュー 山口優（前編）〜渋谷系ではなく、ソフトロックなんです | マニュエラだから作れた『たまこまーけっと』の音楽 | RandoM",
+        "form": "link",
+        "rawUrl": "https://douc.cc/4EFOwC"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/4EFOwC",
+        "references": [
+          {
+            "file": "broadcast/page/87.md",
+            "line": 18,
+            "label": "第１回：インタビュー 山口優（前編）〜渋谷系ではなく、ソフトロックなんです | マニュエラだから作れた『たまこまーけっと』の音楽 | RandoM",
+            "form": "link",
+            "rawUrl": "https://douc.cc/4EFOwC"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://priority1.blog51.fc2.com/blog-entry-1729.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-entry-1729.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "broadcast/page/87.md",
+        "line": 32,
+        "label": "たまこまーけっと もちもちトーク＆ライブイベント 簡易レポ!! https://douc.cc/3YoBq0 ←ノベライズ２巻＆新作アニメ企画進行中",
+        "form": "text_url",
+        "rawUrl": "https://douc.cc/3YoBq0"
+      }
+    ],
+    "resolvedFrom": [
+      {
+        "url": "https://douc.cc/3YoBq0",
+        "references": [
+          {
+            "file": "broadcast/page/87.md",
+            "line": 32,
+            "label": "たまこまーけっと もちもちトーク＆ライブイベント 簡易レポ!! https://douc.cc/3YoBq0 ←ノベライズ２巻＆新作アニメ企画進行中",
+            "form": "text_url",
+            "rawUrl": "https://douc.cc/3YoBq0"
+          }
+        ]
+      }
+    ],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://nazism.cocolog-nifty.com/blog/2013/01/post-f272.html": {
+    "requestedUrl": "http://nazism.cocolog-nifty.com/blog/2013/01/post-f272.html",
+    "domain": "nazism.cocolog-nifty.com",
+    "references": [
+      {
+        "file": "notes/274238773.md",
+        "line": 13,
+        "label": "たまこまーけっと各話感想",
+        "form": "link",
+        "rawUrl": "http://nazism.cocolog-nifty.com/blog/2013/01/post-f272.html"
+      },
+      {
+        "file": "rooms/2794121.md",
+        "line": 22,
+        "label": "『たまこまーけっと』各話感想",
+        "form": "link",
+        "rawUrl": "http://nazism.cocolog-nifty.com/blog/2013/01/post-f272.html"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=363": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=363",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/410073605.md",
+        "line": 10,
+        "label": "2014年5月28日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=363"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=404": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=404",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/410095370.md",
+        "line": 10,
+        "label": "2014年7月18日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=404"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=552": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=552",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/430242140.md",
+        "line": 10,
+        "label": "2014年9月29日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=552"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.hanakotoba.name/archives/2005/09/post_208.html": {
+    "requestedUrl": "http://www.hanakotoba.name/archives/2005/09/post_208.html",
+    "domain": "www.hanakotoba.name",
+    "references": [
+      {
+        "file": "notes/435337731.md",
+        "line": 23,
+        "label": "玛格丽特花",
+        "form": "link",
+        "rawUrl": "http://www.hanakotoba.name/archives/2005/09/post_208.html"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=654": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=654",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/441842568.md",
+        "line": 11,
+        "label": "2014年10月30日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=654"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=711": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=711",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/467449573.md",
+        "line": 10,
+        "label": "2014年12月5日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=711"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=762": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=762",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/480506533.md",
+        "line": 10,
+        "label": "2015年1月15日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=762"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=811": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=811",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/485196288.md",
+        "line": 10,
+        "label": "2015年2月18日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=811"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=860": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=860",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/490420693.md",
+        "line": 10,
+        "label": "2015年3月23日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=860"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=909": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=909",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/496648491.md",
+        "line": 10,
+        "label": "2015年4月27日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=909"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=968": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=968",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/502324234.md",
+        "line": 11,
+        "label": "2015年6月2日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=968"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://mantan-web.jp/2015/05/30/20150529dog00m200066000c.html": {
+    "requestedUrl": "http://mantan-web.jp/2015/05/30/20150529dog00m200066000c.html",
+    "domain": "mantan-web.jp",
+    "references": [
+      {
+        "file": "notes/505913072.md",
+        "line": 49,
+        "label": "访谈",
+        "form": "link",
+        "rawUrl": "http://mantan-web.jp/2015/05/30/20150529dog00m200066000c.html"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1042": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1042",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/507086258.md",
+        "line": 10,
+        "label": "2015年7月6日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1042"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1100": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1100",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/512288929.md",
+        "line": 11,
+        "label": "2015年8月10日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1100"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1145": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1145",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/515999854.md",
+        "line": 10,
+        "label": "2015年9月7日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1145"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1193": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1193",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/520501904.md",
+        "line": 11,
+        "label": "2015年10月13日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1193"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1248": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1248",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/524707046.md",
+        "line": 10,
+        "label": "2015年11月13日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1248"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.watch-watcher.xyz/article/418614927.html": {
+    "requestedUrl": "http://www.watch-watcher.xyz/article/418614927.html",
+    "domain": "www.watch-watcher.xyz",
+    "references": [
+      {
+        "file": "notes/525677843.md",
+        "line": 127,
+        "label": "CA-50",
+        "form": "link",
+        "rawUrl": "http://www.watch-watcher.xyz/article/418614927.html"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1286": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1286",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/529201220.md",
+        "line": 10,
+        "label": "2015年12月15日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1286"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1322": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1322",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/536415117.md",
+        "line": 11,
+        "label": "2016年1月21日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1322"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://news.qq.com/a/20160122/007534.htm": {
+    "requestedUrl": "http://news.qq.com/a/20160122/007534.htm",
+    "domain": "news.qq.com",
+    "references": [
+      {
+        "file": "notes/536415117.md",
+        "line": 41,
+        "label": "第九大行星",
+        "form": "link",
+        "rawUrl": "http://news.qq.com/a/20160122/007534.htm"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1368": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1368",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/541065079.md",
+        "line": 10,
+        "label": "2016年2月22日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1368"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1414": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1414",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/547187777.md",
+        "line": 10,
+        "label": "2016年3月24日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1414"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1493": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1493",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/560290293.md",
+        "line": 10,
+        "label": "2016年5月26日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1493"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1567": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1567",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/572029004.md",
+        "line": 10,
+        "label": "2016年7月22日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1567"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1595": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1595",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/578163214.md",
+        "line": 10,
+        "label": "2016年8月25日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1595"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://houtaruu.weblog.to/archives/6879881.html": {
+    "requestedUrl": "http://houtaruu.weblog.to/archives/6879881.html",
+    "domain": "houtaruu.weblog.to",
+    "references": [
+      {
+        "file": "notes/580950328.md",
+        "line": 13,
+        "label": "響け！ユーフォニアム【山田尚子＆石原立也 舞台挨拶】",
+        "form": "link",
+        "rawUrl": "http://houtaruu.weblog.to/archives/6879881.html"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://www.asahi.com/articles/DA3S12553913.html": {
+    "requestedUrl": "http://www.asahi.com/articles/DA3S12553913.html",
+    "domain": "www.asahi.com",
+    "references": [
+      {
+        "file": "notes/581373515.md",
+        "line": 12,
+        "label": "《朝日新闻》2016年9月10日晚报",
+        "form": "link",
+        "rawUrl": "http://www.asahi.com/articles/DA3S12553913.html"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://www.excite.co.jp/News/reviewmov/20160916/E1473959561942.html": {
+    "requestedUrl": "http://www.excite.co.jp/News/reviewmov/20160916/E1473959561942.html",
+    "domain": "www.excite.co.jp",
+    "references": [
+      {
+        "file": "notes/581998436.md",
+        "line": 12,
+        "label": "excite",
+        "form": "link",
+        "rawUrl": "http://www.excite.co.jp/News/reviewmov/20160916/E1473959561942.html"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.excite.co.jp/News/reviewmov/20160918/E1474130571077.html": {
+    "requestedUrl": "http://www.excite.co.jp/News/reviewmov/20160918/E1474130571077.html",
+    "domain": "www.excite.co.jp",
+    "references": [
+      {
+        "file": "notes/582222645.md",
+        "line": 12,
+        "label": "excite",
+        "form": "link",
+        "rawUrl": "http://www.excite.co.jp/News/reviewmov/20160918/E1474130571077.html"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1650": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1650",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/583640613.md",
+        "line": 10,
+        "label": "2016年9月26日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1650"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://houtaruu.weblog.to/archives/7271602.html": {
+    "requestedUrl": "http://houtaruu.weblog.to/archives/7271602.html",
+    "domain": "houtaruu.weblog.to",
+    "references": [
+      {
+        "file": "notes/583976644.md",
+        "line": 12,
+        "label": "①",
+        "form": "link",
+        "rawUrl": "http://houtaruu.weblog.to/archives/7271602.html"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://kansai.pia.co.jp/interview/cinema/2016-10/koenokatachi-movie.html": {
+    "requestedUrl": "http://kansai.pia.co.jp/interview/cinema/2016-10/koenokatachi-movie.html",
+    "domain": "kansai.pia.co.jp",
+    "references": [
+      {
+        "file": "notes/586529041.md",
+        "line": 12,
+        "label": "琵雅关西版WEB",
+        "form": "link",
+        "rawUrl": "http://kansai.pia.co.jp/interview/cinema/2016-10/koenokatachi-movie.html"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1686": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1686",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/589189219.md",
+        "line": 10,
+        "label": "2016年10月27日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1686"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1725": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1725",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/594375309.md",
+        "line": 11,
+        "label": "2016年11月28日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1725"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1756": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1756",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/599081646.md",
+        "line": 10,
+        "label": "2016年12月27日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1756"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1790": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1790",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/604396376.md",
+        "line": 10,
+        "label": "2017年1月31日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1790"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1830": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1830",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/608843975.md",
+        "line": 11,
+        "label": "2017年3月1日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1830"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1892": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1892",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/617677191.md",
+        "line": 10,
+        "label": "2017年4月26日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1892"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.excite.co.jp/News/bit/E1475063249559.html": {
+    "requestedUrl": "http://www.excite.co.jp/News/bit/E1475063249559.html",
+    "domain": "www.excite.co.jp",
+    "references": [
+      {
+        "file": "notes/621091894.md",
+        "line": 13,
+        "label": "excite",
+        "form": "link",
+        "rawUrl": "http://www.excite.co.jp/News/bit/E1475063249559.html"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.excite.co.jp/News/bit/E1475237612490.html": {
+    "requestedUrl": "http://www.excite.co.jp/News/bit/E1475237612490.html",
+    "domain": "www.excite.co.jp",
+    "references": [
+      {
+        "file": "notes/621946123.md",
+        "line": 13,
+        "label": "excite",
+        "form": "link",
+        "rawUrl": "http://www.excite.co.jp/News/bit/E1475237612490.html"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1945": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1945",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/622694100.md",
+        "line": 10,
+        "label": "2017年5月30日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1945"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1987": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1987",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/626780778.md",
+        "line": 10,
+        "label": "2017年6月27日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=1987"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2050": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2050",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/630626923.md",
+        "line": 11,
+        "label": "2017年7月25日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2050"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2094": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2094",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/634384397.md",
+        "line": 10,
+        "label": "2017年8月23日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2094"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2133": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2133",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/638128887.md",
+        "line": 10,
+        "label": "2017年9月20日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2133"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2172": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2172",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/641740675.md",
+        "line": 10,
+        "label": "2017年10月19日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2172"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2223": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2223",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/645545220.md",
+        "line": 11,
+        "label": "2017年11月16日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2223"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2261": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2261",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/649190492.md",
+        "line": 11,
+        "label": "2017年12月15日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2261"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2313": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2313",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/653967636.md",
+        "line": 11,
+        "label": "2018年1月18日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2313"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2361": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2361",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/657510394.md",
+        "line": 11,
+        "label": "2018年2月16日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2361"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2395": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2395",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/661229588.md",
+        "line": 11,
+        "label": "2018年3月15日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2395"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2495": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2495",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/666011890.md",
+        "line": 10,
+        "label": "2018年4月16日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2495"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2541": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2541",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/669962541.md",
+        "line": 10,
+        "label": "2018年5月17日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2541"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2598": {
+    "requestedUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2598",
+    "domain": "www.kyotoanimation.co.jp",
+    "references": [
+      {
+        "file": "notes/673585518.md",
+        "line": 11,
+        "label": "2018年6月14日",
+        "form": "link",
+        "rawUrl": "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=2598"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://nuruwota.blog4.fc2.com/blog-entry-1443.html": {
+    "requestedUrl": "http://nuruwota.blog4.fc2.com/blog-entry-1443.html",
+    "domain": "nuruwota.blog4.fc2.com",
+    "references": [
+      {
+        "file": "rooms/2794117.md",
+        "line": 54,
+        "label": "「けいおん」の山田尚子監督のダンサー三部作を君は見たか",
+        "form": "link",
+        "rawUrl": "http://nuruwota.blog4.fc2.com/blog-entry-1443.html"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://d.hatena.ne.jp/tatsu2/20120724/p1": {
+    "requestedUrl": "http://d.hatena.ne.jp/tatsu2/20120724/p1",
+    "domain": "d.hatena.ne.jp",
+    "references": [
+      {
+        "file": "rooms/2794117.md",
+        "line": 55,
+        "label": "「氷菓」14話を観て――山田尚子のカッティング・イン・マジック",
+        "form": "link",
+        "rawUrl": "http://d.hatena.ne.jp/tatsu2/20120724/p1"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://keisukeyuki.blogspot.jp/2014/05/blog-post.html": {
+    "requestedUrl": "http://keisukeyuki.blogspot.jp/2014/05/blog-post.html",
+    "domain": "keisukeyuki.blogspot.jp",
+    "references": [
+      {
+        "file": "rooms/2794121.md",
+        "line": 53,
+        "label": "雑記 たまこラブストーリー",
+        "form": "link",
+        "rawUrl": "http://keisukeyuki.blogspot.jp/2014/05/blog-post.html"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://tehepero-tini.hatenablog.jp/entry/2014/12/07/220120": {
+    "requestedUrl": "http://tehepero-tini.hatenablog.jp/entry/2014/12/07/220120",
+    "domain": "tehepero-tini.hatenablog.jp",
+    "references": [
+      {
+        "file": "rooms/2794121.md",
+        "line": 55,
+        "label": "【たまこラブストーリー『星とピエロ』に登場する実在レコードの紹介】〜邦夫さんの言葉にしないメッセージ〜",
+        "form": "link",
+        "rawUrl": "http://tehepero-tini.hatenablog.jp/entry/2014/12/07/220120"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://tehepero-tini.hatenablog.jp/entry/2015/01/01/232746": {
+    "requestedUrl": "http://tehepero-tini.hatenablog.jp/entry/2015/01/01/232746",
+    "domain": "tehepero-tini.hatenablog.jp",
+    "references": [
+      {
+        "file": "rooms/2794121.md",
+        "line": 56,
+        "label": "【山田尚子監督からのデラちゃん直筆年賀状】",
+        "form": "link",
+        "rawUrl": "http://tehepero-tini.hatenablog.jp/entry/2015/01/01/232746"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://rdm.ne.jp/sound/column/tamacomanu": {
+    "requestedUrl": "http://rdm.ne.jp/sound/column/tamacomanu",
+    "domain": "rdm.ne.jp",
+    "references": [
+      {
+        "file": "rooms/2794121.md",
+        "line": 59,
+        "label": "マニュエラだから作れた『たまこまーけっと』の音楽",
+        "form": "link",
+        "rawUrl": "http://rdm.ne.jp/sound/column/tamacomanu"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "明确文章路径或带文章 ID 的博客 URL"
+  },
+  "http://priority1.blog51.fc2.com/blog-category-3.html": {
+    "requestedUrl": "http://priority1.blog51.fc2.com/blog-category-3.html",
+    "domain": "priority1.blog51.fc2.com",
+    "references": [
+      {
+        "file": "rooms/2794136.md",
+        "line": 26,
+        "label": "TV第二期感想",
+        "form": "link",
+        "rawUrl": "http://priority1.blog51.fc2.com/blog-category-3.html"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://d.hatena.ne.jp/SomeCameRunning/touch/20111203": {
+    "requestedUrl": "http://d.hatena.ne.jp/SomeCameRunning/touch/20111203",
+    "domain": "d.hatena.ne.jp",
+    "references": [
+      {
+        "file": "rooms/2794136.md",
+        "line": 37,
+        "label": "少女たちの小さな秘密——山田尚子監督『映画 けいおん！』",
+        "form": "link",
+        "rawUrl": "http://d.hatena.ne.jp/SomeCameRunning/touch/20111203"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "其他网页（文章 / 官网 / 博客）",
+    "action": "fetch_article",
+    "reason": "已知文章/博客/新闻发布域名"
+  },
+  "http://www.douban.com/note/261864994/": {
+    "requestedUrl": "http://www.douban.com/note/261864994/",
+    "domain": "www.douban.com",
+    "references": [
+      {
+        "file": "",
+        "line": 0,
+        "label": "日记 274238773"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "豆瓣日记 / 话题",
+    "action": "fetch_article",
+    "reason": "豆瓣文章内容路径"
+  },
+  "https://www.douban.com/topic/499780453/": {
+    "requestedUrl": "https://www.douban.com/topic/499780453/",
+    "domain": "www.douban.com",
+    "references": [
+      {
+        "file": "",
+        "line": 0,
+        "label": "穹庐下的魔女"
+      }
+    ],
+    "resolvedFrom": [],
+    "category": "豆瓣日记 / 话题",
+    "action": "fetch_article",
+    "reason": "豆瓣文章内容路径"
+  }
+}

@@ -30,7 +30,7 @@
   版本号取浏览器自己的真实值，不伪造。
 * **不做**：不修改 ``navigator.webdriver``（那是真正的自动化标记），
   不轮换 UA，不轮换代理，不做指纹伪装。
-  降低风险靠的是真 Chrome + 真人登录 + 5~7 秒间隔 + 单线程 + 熔断即停。
+  默认单 worker；外链阶段可显式设置并发，所有 worker 共享 5~7 秒请求间隔。
 """
 
 from __future__ import annotations
@@ -394,8 +394,7 @@ class BrowserFetcher(BaseFetcher):
         """
         driver = self._ensure_driver()
 
-        self._limiter.wait()
-        self._limiter.mark()
+        self._limiter.acquire()
         self.stats.requests += 1
 
         raw = driver.navigate(
@@ -416,9 +415,9 @@ class BrowserFetcher(BaseFetcher):
 
     # ---------------------------------------------------------------- 图片
 
-    def get_image(self, url: str, *, force: bool = False):
+    def get_image(self, url: str, *, force: bool = False, referer: str | None = None):
         """图片仍走 curl_cffi（公开 CDN，不需要登录态）。"""
-        return self._image_fetcher.get_image(url, force=force)
+        return self._image_fetcher.get_image(url, force=force, referer=referer)
 
     def cache_has(self, url: str) -> bool:
         return super().cache_has(url)

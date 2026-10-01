@@ -21,10 +21,13 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
+import ipaddress
 import logging
 import re
 import signal
 import sys
+import threading
 from collections.abc import Callable, Iterable
 from dataclasses import asdict
 from pathlib import Path
@@ -48,11 +51,21 @@ from .config import (
 )
 from .discover import SiteDiscovery, SiteStructure, enumerate_album_photos
 from .emit import EmitContext, SiteEmitter
-from .http_client import CircuitBreakerOpen, Fetcher, estimate_duration
+from .http_client import CircuitBreakerOpen, Fetcher, cache_paths, estimate_duration
 from .html2md import unwrap_link2
 from .transport import Transport
 from .index_map import parse_index
 from .media import MediaArchive, album_image_variants, album_original_variants
+from .links import (
+    emit_links_index, record_resolved_destinations, resolved_destination,
+    resolved_link_targets, scan_external_links,
+)
+from .link_policy import classify_external_link
+from .external_articles import (
+    detect_capture_access_failure,
+    extract_image_sources,
+    load_captured_articles,
+)
 from .models import (
     Album,
     Availability,
@@ -99,9 +112,10 @@ ALL_STAGES = (
     "videos",
     "forum",
     "miniblog",
-    # 站外页面（www.douban.com 的 /topic/、/note/），
+    # 豆瓣日记/话题页面（/note/、/topic/），
     # 因此单独成一个阶段，便于登录后配合 --recheck-unavailable 单独补抓。
     "main",
+    "external",
 )
 
 #: 站外页面的域名（索引①/② 里指向这些域名的条目需要登录）
@@ -120,19 +134,25 @@ def _is_douban_main_host(host: str) -> bool:
 ROBOTS_NOTICE = """
 ⚠️  抓取前请确认你已阅读目标站点的 robots.txt：
 
-    https://site.douban.com/robots.txt  →  User-agent: * / Disallow: /
-    https://www.douban.com/robots.txt   →  部分禁止，并注明 Crawl-delay: 5
+{sites}
 
-本工具以「单线程 + 请求间隔 {interval} + 指数退避 + 熔断」的方式运行。
+本工具默认单 worker；外链阶段可设置并发数，所有 worker 共享请求间隔 {interval}，并使用指数退避与熔断。
 {tier_note}
 请仅将归档结果用于个人保存与阅读。确认理解后，加上 --i-have-read-robots 重新运行。
 """
 
 
-def robots_notice(cfg: Config) -> str:
+def robots_notice(cfg: Config, *, external: bool = False) -> str:
     """填好当前限速档位的 robots 提示文本。"""
     warning = crawl_delay_warning(cfg)
+    sites = (
+        "目标外链来自多个域名；请先逐域阅读其 robots.txt，并确认抓取范围。"
+        if external else
+        "    https://site.douban.com/robots.txt  →  User-agent: * / Disallow: /\n"
+        "    https://www.douban.com/robots.txt   →  部分禁止，并注明 Crawl-delay: 5"
+    )
     return ROBOTS_NOTICE.format(
+        sites=sites,
         interval=describe_delay(cfg.delay_min, cfg.delay_max),
         impersonate=cfg.impersonate,
         tier_note=f"\n⚠️  {warning}\n" if warning else "",
@@ -185,6 +205,13 @@ def _nonnegative_int(value: str) -> int:
     parsed = int(value)
     if parsed < 0:
         raise argparse.ArgumentTypeError("必须大于或等于 0")
+    return parsed
+
+
+def _positive_int(value: str) -> int:
+    parsed = int(value)
+    if parsed < 1:
+        raise argparse.ArgumentTypeError("必须大于 0")
     return parsed
 
 
@@ -288,6 +315,7 @@ def build_parser() -> argparse.ArgumentParser:
         epilog=(
             "示例：\n"
             "  python -m scraper.cli sync --dry-run\n"
+            "  python -m scraper.cli sync --stages external --i-have-read-robots\n"
             "  python -m scraper.cli sync --i-have-read-robots\n"
             "  python -m scraper.cli sync --limit 3 --delay 0.5     # 冒烟测试\n"
             "  python -m scraper.cli sync --speed normal            # 换成 2~3 秒档\n"
@@ -319,7 +347,19 @@ def build_parser() -> argparse.ArgumentParser:
         default=",".join(ALL_STAGES),
         help=f"要执行的阶段，逗号分隔。可选：{','.join(ALL_STAGES)}",
     )
+    p_sync.add_argument(
+        "--skip-domain", action="append", default=[], metavar="DOMAIN",
+        help="外链阶段跳过指定域名及其子域名；可重复传入",
+    )
+    p_sync.add_argument(
+        "--skip-failed", action="store_true",
+        help="external 阶段跳过此前失败的抓取项（包括图片），继续处理其余项目",
+    )
     p_sync.add_argument("--no-emit", action="store_true", help="只抓取，不生成站点产物")
+    p_sync.add_argument(
+        "--concurrency", type=_positive_int, default=1, metavar="N",
+        help="external 阶段并发 worker 数（默认 1；其他阶段仍串行）",
+    )
     p_sync.add_argument(
         "--i-have-read-robots",
         action="store_true",
@@ -376,6 +416,21 @@ def resolve_stages(raw: str) -> list[str]:
     return stages
 
 
+def _normalize_skip_domains(values: Sequence[str]) -> set[str]:
+    domains: set[str] = set()
+    for value in values:
+        domain = (value or "").strip().lower().rstrip(".")
+        if not domain or "://" in domain or "/" in domain or "@" in domain:
+            raise SystemExit(f"--skip-domain 需要主机名，不是 URL：{value!r}")
+        domains.add(domain)
+    return domains
+
+
+def _host_is_skipped(host: str, domains: set[str]) -> bool:
+    host = (host or "").lower().rstrip(".")
+    return any(host == domain or host.endswith("." + domain) for domain in domains)
+
+
 # ------------------------------------------------------------------ 上下文
 
 
@@ -417,6 +472,9 @@ class SyncContext:
         self.miniblog: list[MiniblogStatus] = []
         # 站外页面（需登录），key 为 page_id
         self.external: dict[str, ExternalPage] = {}
+        self.removed_external_page_ids: set[str] = set()
+        self.external_captures: dict[str, dict[str, Any]] = {}
+        self._save_lock = threading.RLock()
         self.index_groups: list[Any] = []
         self.results: list[StageResult] = []
         self.unavailable: list[UnavailableRecord] = []
@@ -480,7 +538,13 @@ class SyncContext:
 
         external = payload_of(read_json(self.cfg.data_dir / "external.json", default={}), {}) or {}
         for page_id, payload in external.items():
-            self.external[page_id] = _external_from_dict(page_id, payload)
+            if _is_archivable_douban_url(str(payload.get("url", ""))):
+                self.external[page_id] = _external_from_dict(page_id, payload)
+            else:
+                self.removed_external_page_ids.add(page_id)
+
+        captures = payload_of(read_json(self.cfg.data_dir / "external-captures.json", default={}), {}) or {}
+        self.external_captures = {str(key): value for key, value in captures.items()}
 
         index_payload = read_json(self.cfg.data_dir / "index.json", default=None)
         index_payload = payload_of(index_payload, [])
@@ -775,6 +839,7 @@ class SyncContext:
         self.emitter.ctx.route_map = {nid: f"/notes/{nid}" for nid in self.notes}
         self.emitter.ctx.external_routes = {
             page.url: page.route for page in self.external.values()
+            if _is_archivable_douban_url(page.url)
         }
         self.emitter.ctx.discussion_routes = {
             discussion.discussion_id: f"/board#discussion-{discussion.discussion_id}"
@@ -793,7 +858,8 @@ class SyncContext:
             if video.widget_id in room_by_widget
         }
         for page in self.external.values():
-            self.emitter.ctx.external_routes.setdefault(page.url.rstrip("/"), page.route)
+            if _is_archivable_douban_url(page.url):
+                self.emitter.ctx.external_routes.setdefault(page.url.rstrip("/"), page.route)
         self.emitter.ctx.album_routes = {aid: f"/albums/{aid}" for aid in self.albums}
         self.emitter.ctx.photo_album_routes = {
             photo.photo_id: (
@@ -818,6 +884,35 @@ class SyncContext:
         }
 
     def save_data(self) -> None:
+        with self._save_lock:
+            self._save_data()
+
+    def save_external_capture(self, url: str, capture: dict[str, Any]) -> None:
+        """Persist one concurrent external result with its metadata snapshot."""
+        with self._save_lock:
+            self.external_captures[url] = capture
+            self._save_data()
+
+    def save_external_image(self, article_url: str, image_url: str, local_url: str) -> None:
+        """Record a downloaded external article image without racing other workers."""
+        with self._save_lock:
+            capture = self.external_captures.setdefault(article_url, {})
+            images = capture.setdefault("archivedImages", {})
+            images[image_url] = local_url
+            failures = capture.get("imageFailures")
+            if isinstance(failures, dict):
+                failures.pop(image_url, None)
+                if not failures:
+                    capture.pop("imageFailures", None)
+            self._save_data()
+
+    def save_external_image_failure(self, article_url: str, image_url: str, error: str) -> None:
+        with self._save_lock:
+            capture = self.external_captures.setdefault(article_url, {})
+            capture.setdefault("imageFailures", {})[image_url] = error
+            self._save_data()
+
+    def _save_data(self) -> None:
         """把中间产物写入 ``data/``（供 ``emit`` 与人工查看）。"""
         cfg = self.cfg
         updated_at = now_iso()
@@ -861,6 +956,10 @@ class SyncContext:
             {pid: p.to_dict() for pid, p in sorted(self.external.items())},
         )
         write_stamped_json(
+            cfg.data_dir / "external-captures.json",
+            {url: capture for url, capture in sorted(self.external_captures.items())},
+        )
+        write_stamped_json(
             cfg.data_dir / "index.json",
             [g.to_dict() for g in self.index_groups],
         )
@@ -891,6 +990,7 @@ class SyncContext:
                 "discussions": len(self.discussions),
                 "miniblog": len(self.miniblog),
                 "external": len(self.external),
+                "externalCaptures": len(self.external_captures),
                 "comments": sum(len(n.comments) for n in self.notes.values())
                 + sum(len(p.comments) for p in self.external.values()),
                 "unavailable": len(self.unavailable),
@@ -987,6 +1087,8 @@ _STAGE_LABELS = {
     "forum": "讨论帖",
     "miniblog": "广播室",
     "main": "站外页面",
+    "external": "外部文章原始抓取",
+    "external-images": "外部文章图片抓取",
 }
 
 
@@ -1108,6 +1210,7 @@ def _external_from_dict(page_id: str, payload: dict[str, Any]) -> ExternalPage:
         title=payload.get("title", ""),
         content_html=payload.get("content_html", ""),
         origin=payload.get("origin", ""),
+        origins=list(payload.get("origins", [])),
     )
     page.status = _status_from_dict(payload.get("status"))
     page.comments = _comments_from_dict(payload)
@@ -1139,6 +1242,9 @@ def prepare_structure(ctx: SyncContext, stages: Sequence[str]) -> SiteStructure:
     这也让中断后的续跑几乎零成本。
     """
     discovery = ctx.discovery
+    if set(stages) == {"external"}:
+        # 外链采集只使用本地 Markdown 清单，不需要请求豆瓣首页/房间。
+        return ctx.structure
     log.info("发现站点结构…")
     discovery.discover_rooms()
 
@@ -1793,14 +1899,40 @@ def _external_page_id(url: str) -> str:
     return slug or "page"
 
 
+def _is_archivable_douban_url(url: str) -> bool:
+    """仅归档豆瓣日记/话题；作品、人物、预告片等保留原站直达链接。"""
+    parsed = urlparse(url)
+    host = (parsed.hostname or "").lower()
+    if not _is_douban_main_host(host):
+        return False
+    return classify_external_link(url).get("action") == "fetch_article"
+
+
+def _prune_non_article_douban_pages(docs_dir: Path) -> None:
+    """Remove stale generated pages for Douban metadata links during emit."""
+    external_dir = docs_dir / "external"
+    if not external_dir.exists():
+        return
+    for path in external_dir.glob("*.md"):
+        if path.name == "index.md":
+            continue
+        text = path.read_text(encoding="utf-8")
+        match = re.search(r"^source:\s*(.+?)\s*$", text, re.MULTILINE)
+        if not match:
+            continue
+        url = match.group(1).strip().strip("\\\"").strip("'")
+        host = (urlparse(url).hostname or "").lower()
+        if _is_douban_main_host(host) and not _is_archivable_douban_url(url):
+            path.unlink()
+
+
 def _external_targets(ctx: SyncContext) -> list[tuple[str, str, str]]:
     """找出已采集内容中指向豆瓣主站的链接，返回 ``[(page_id, url, origin)]``。
 
     手工索引只是链接来源之一。正文里的豆瓣日记链接（例如 ``/note/{id}/``）
     也需要进入站外页清单，否则转换器没有本地路由可用，只能保留原站外链。
     """
-    seen: set[str] = set()
-    targets: list[tuple[str, str, str]] = []
+    by_id: dict[str, tuple[str, list[str]]] = {}
 
     def add(url: str, origin: str) -> None:
         url = unwrap_link2((url or "").strip())
@@ -1809,11 +1941,14 @@ def _external_targets(ctx: SyncContext) -> list[tuple[str, str, str]]:
         host = (urlparse(url).hostname or "").lower()
         if not _is_douban_main_host(host):
             return
-        page_id = _external_page_id(url)
-        if page_id in seen:
+        if not _is_archivable_douban_url(url):
             return
-        seen.add(page_id)
-        targets.append((page_id, url, origin))
+        page_id = _external_page_id(url)
+        if page_id not in by_id:
+            by_id[page_id] = (url, [])
+        origins = by_id[page_id][1]
+        if origin and origin not in origins:
+            origins.append(origin)
 
     for group in ctx.index_groups:
         for entry in group.entries:
@@ -1865,13 +2000,13 @@ def _external_targets(ctx: SyncContext) -> list[tuple[str, str, str]]:
         soup = BeautifulSoup(content, "lxml")
         for anchor in soup.find_all("a", href=True):
             add(str(anchor.get("href", "")), origin)
-    return targets
+    return [(page_id, url, "；".join(origins)) for page_id, (url, origins) in by_id.items()]
 
 
 def stage_main(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
                recheck_unavailable: bool = False, force: bool = False,
                full_check_note_ids: set[str] | None = None) -> StageResult:
-    """阶段 9：补抓已采集内容链接到的豆瓣主站页面（需要登录）。
+    """阶段 9：补抓已采集内容链接到的豆瓣日记/话题页面（需要登录）。
 
     这些页面未登录会 302 到 ``sec.douban.com``，因此只在登录后才有内容。
     用独立的 key（``main:{page_id}``）而不是复用 notes 的 key，
@@ -1912,6 +2047,7 @@ def stage_main(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
 
     def handler(target: tuple[str, str, str]) -> None:
         page_id, url, origin = target
+        origins = [item for item in origin.split("；") if item]
         note_id = page_id.removeprefix("note-")
         full_check = force or note_id in full_check_note_ids
         page = ctx.resolver.resolve(
@@ -1924,13 +2060,16 @@ def stage_main(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
                 existing.status = page.status
             else:
                 ctx.external[page_id] = ExternalPage(
-                    page_id=page_id, url=url, origin=origin, status=page.status
+                    page_id=page_id, url=url, origin=origins[0] if origins else "",
+                    origins=origins, status=page.status
                 )
             record_source_failure(
                 ctx.progress, key_of(target), page.status, stage="main", url=url
             )
             return
         external = parse_external_page(page.html, url, page_id, origin, cfg)
+        external.origin = origins[0] if origins else ""
+        external.origins = origins
         external.status = page.status
         ctx.external[page_id] = external
         ctx.progress.mark_done(
@@ -1940,6 +2079,289 @@ def stage_main(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
         )
 
     result = runner.run(targets, handler, key_of, desc="站外页面", limit=limit)
+    ctx.results.append(result)
+    return result
+
+
+def stage_external(ctx: SyncContext, *, show_progress: bool, limit: int = 0,
+                   recheck_unavailable: bool = False, force: bool = False,
+                   skip_domains: set[str] | None = None,
+                   skip_failed: bool = False,
+                   concurrency: int = 1) -> StageResult:
+    """抓取分类器标记为文章或短链的外部目标，只保存原始响应，不解析正文。"""
+    cfg = ctx.cfg
+    skip_domains = skip_domains or set()
+    links = resolved_link_targets(scan_external_links(cfg.docs_dir), ctx.external_captures)
+    targets = [
+        (url, target) for url, target in links.items()
+        if target.get("action") in {"fetch_article", "resolve"}
+        and not _host_is_skipped(urlparse(url).hostname or "", skip_domains)
+        and (urlparse(url).hostname or "").lower().removeprefix("www.") != "douban.com"
+        and not (urlparse(url).hostname or "").lower().endswith(".douban.com")
+    ]
+    concurrency = max(1, int(concurrency))
+    def key_of(target: tuple[str, dict[str, Any]]) -> str:
+        return "external:" + hashlib.sha256(target[0].encode("utf-8")).hexdigest()[:20]
+
+    runner = StageRunner(
+        ctx.progress, "external", cfg=cfg, show_progress=show_progress,
+        recheck_unavailable=recheck_unavailable, recheck_done=force,
+        recheck_failed=not skip_failed,
+        max_workers=concurrency,
+    )
+    worker_local = threading.local()
+    worker_fetchers: list[Any] = []
+    worker_media_archives: list[MediaArchive] = []
+    worker_lock = threading.Lock()
+
+    def fetcher_for_worker() -> Any:
+        if concurrency == 1:
+            return ctx.fetcher
+        fetcher = getattr(worker_local, "fetcher", None)
+        if fetcher is None:
+            if isinstance(ctx.fetcher, BrowserFetcher):
+                fetcher = BrowserFetcher(cfg, limiter=ctx.fetcher._limiter)
+            else:
+                fetcher = Fetcher(cfg, limiter=ctx.fetcher._limiter)
+            worker_local.fetcher = fetcher
+            with worker_lock:
+                worker_fetchers.append(fetcher)
+        return fetcher
+
+    def media_for_worker() -> MediaArchive:
+        if concurrency == 1:
+            return ctx.media
+        media = getattr(worker_local, "media", None)
+        if media is None:
+            media = MediaArchive(fetcher_for_worker(), None, cfg)
+            worker_local.media = media
+            with worker_lock:
+                worker_media_archives.append(media)
+        return media
+
+    def persist_record(
+        url: str, record: dict[str, Any], key: str, *, status: str = "",
+        detail: str = "", unavailable: bool = False,
+    ) -> None:
+        ctx.save_external_capture(url, record)
+        if unavailable:
+            ctx.progress.mark_unavailable(
+                key, detail, stage="external", url=url
+            )
+        elif status == "done":
+            ctx.progress.mark_done(key, stage="external", detail=detail)
+
+    # Older runs treated FC2's HTTP 200 password page as a successful fetch.
+    # Reclassify cached responses before StageRunner decides which completed
+    # targets to skip. This is an offline check and keeps the original response
+    # for diagnosis or a later retry after access is restored.
+    if not cfg.offline:
+        for target in targets:
+            url, _link = target
+            record = ctx.external_captures.get(url)
+            if not isinstance(record, dict) or record.get("fetchStatus") != "fetched":
+                continue
+            raw_response = str(record.get("rawResponse") or "")
+            if not raw_response:
+                continue
+            raw_path = Path(raw_response)
+            if not raw_path.is_absolute():
+                raw_path = cfg.data_dir.parent / raw_path
+            try:
+                raw = raw_path.read_bytes()
+            except OSError:
+                continue
+            final_url = str(record.get("finalUrl") or url)
+            host = (urlparse(final_url).hostname or "").lower()
+            reason = detect_capture_access_failure(
+                raw, str(record.get("contentType") or ""), host
+            )
+            if reason:
+                record["fetchStatus"] = "access_denied"
+                record["parseStatus"] = "blocked"
+                record["failureReason"] = "password_protected"
+                record["failureDetail"] = reason
+                ctx.save_external_capture(url, record)
+                ctx.progress.mark_unavailable(
+                    key_of(target), reason, stage="external", url=url
+                )
+
+    def handler(target: tuple[str, dict[str, Any]]) -> None:
+        url, link = target
+        record: dict[str, Any] = {
+            "requestedUrl": url,
+            "domain": link.get("domain", ""),
+            "category": link.get("category", ""),
+            "action": link.get("action", ""),
+            "references": link.get("references", []),
+            "fetchedAt": now_iso(),
+            "fetchStatus": "failed",
+            "parseStatus": "pending",
+        }
+        try:
+            fetcher = fetcher_for_worker()
+            response = fetcher.fetch(url, force=force)
+            if link.get("action") == "resolve" and response.from_cache and not response.final_url:
+                # Older cache metadata did not retain redirect destinations.
+                response = fetcher.fetch(url, force=True)
+            final_url = response.final_url or url
+            record.update({
+                "finalUrl": final_url,
+                "httpStatus": response.status,
+                "contentType": response.content_type,
+                "responseBytes": response.size,
+                "fromCache": response.from_cache,
+            })
+            resolved_url = resolved_destination(final_url) if link.get("action") == "resolve" else final_url
+            if resolved_url != final_url:
+                record["resolvedUrl"] = resolved_url
+            final_policy = classify_external_link(resolved_url)
+            record["finalCategory"] = final_policy["category"]
+            record["finalAction"] = final_policy["action"]
+            if not response.ok:
+                record["fetchStatus"] = "http_error"
+            elif link.get("action") == "resolve" and resolved_url != final_url:
+                record["fetchStatus"] = (
+                    "resolved_pending_article" if final_policy["action"] == "fetch_article"
+                    else "resolved_non_article"
+                )
+            elif link.get("action") == "resolve" and final_policy["action"] != "fetch_article":
+                record["fetchStatus"] = "resolved_non_article"
+            elif response.size > 5 * 1024 * 1024:
+                record["fetchStatus"] = "rejected_too_large"
+            elif response.content_type and "html" not in response.content_type.lower() and "xhtml" not in response.content_type.lower():
+                record["fetchStatus"] = "rejected_non_html"
+            elif not response.content:
+                record["fetchStatus"] = "fetched_empty"
+            else:
+                parsed_final = urlparse(final_url)
+                if parsed_final.scheme not in {"http", "https"} or not parsed_final.hostname:
+                    record["fetchStatus"] = "rejected_unsafe_redirect"
+                    persist_record(
+                        url, record, key_of(target),
+                        detail="重定向目标不是 HTTP(S)", unavailable=True,
+                    )
+                    return
+                try:
+                    ip = ipaddress.ip_address(parsed_final.hostname)
+                    if not ip.is_global:
+                        record["fetchStatus"] = "rejected_unsafe_redirect"
+                        persist_record(
+                            url, record, key_of(target),
+                            detail="重定向目标为非公网 IP", unavailable=True,
+                        )
+                        return
+                except ValueError:
+                    pass
+                body_path, _ = cache_paths(cfg, url)
+                record["rawResponse"] = str(body_path.relative_to(cfg.data_dir.parent))
+                access_failure = detect_capture_access_failure(
+                    response.content, response.content_type,
+                    (parsed_final.hostname or "").lower(),
+                )
+                if access_failure:
+                    record["fetchStatus"] = "access_denied"
+                    record["parseStatus"] = "blocked"
+                    record["failureReason"] = "password_protected"
+                    record["failureDetail"] = access_failure
+                else:
+                    record["fetchStatus"] = "fetched"
+            if record["fetchStatus"] in {"fetched", "resolved_non_article", "resolved_pending_article"}:
+                detail = (
+                    f"重定向后分类为 {record.get('finalCategory')}，不保存正文"
+                    if record["fetchStatus"] in {"resolved_non_article", "resolved_pending_article"}
+                    else f"HTML {response.size} bytes"
+                )
+                persist_record(url, record, key_of(target), status="done", detail=detail)
+            else:
+                persist_record(
+                    url, record, key_of(target),
+                    detail=str(record.get("failureDetail") or record["fetchStatus"]),
+                    unavailable=True,
+                )
+        except Exception as exc:
+            record["error"] = f"{type(exc).__name__}: {exc}"
+            ctx.save_external_capture(url, record)
+            raise
+
+    try:
+        result = runner.run(
+            targets, handler, key_of, desc="外部文章原始抓取", limit=limit
+        )
+        image_items: list[tuple[str, str, str, str]] = []
+        for article_url, capture in list(ctx.external_captures.items()):
+            if capture.get("fetchStatus") != "fetched":
+                continue
+            final_url = str(capture.get("finalUrl") or article_url)
+            domain = (urlparse(final_url).hostname or "unknown").lower()
+            article_id = hashlib.sha256(article_url.encode("utf-8")).hexdigest()[:20]
+            image_items.extend(
+                (article_url, image_url, domain, article_id)
+                for image_url in extract_image_sources(
+                    article_url, capture, cfg.data_dir.parent
+                )
+            )
+        image_runner = StageRunner(
+            ctx.progress, "external-images", cfg=cfg,
+            show_progress=show_progress,
+            recheck_unavailable=recheck_unavailable,
+            recheck_done=force,
+            recheck_failed=not skip_failed,
+            max_workers=concurrency,
+        )
+
+        def image_key(item: tuple[str, str, str, str]) -> str:
+            return "external-image:" + hashlib.sha256(
+                (item[0] + "\n" + item[1]).encode("utf-8")
+            ).hexdigest()[:20]
+
+        def image_handler(item: tuple[str, str, str, str]) -> None:
+            article_url, image_url, domain, article_id = item
+            media = media_for_worker()
+            dest, local_url = media.external_article_image_path(
+                domain, article_id, image_url
+            )
+            capture = ctx.external_captures.get(article_url, {})
+            image_referer = str(capture.get("finalUrl") or article_url)
+            downloaded = media.download(
+                image_url, dest, local_url, referer=image_referer,
+                max_bytes=20 * 1024 * 1024,
+            )
+            if not downloaded.ok:
+                ctx.save_external_image_failure(
+                    article_url, image_url, downloaded.error or "图片不可用"
+                )
+                raise RuntimeError(downloaded.error or "图片不可用")
+            ctx.save_external_image(article_url, image_url, downloaded.local_url)
+
+        image_result = image_runner.run(
+            image_items, image_handler, image_key,
+            desc="外部文章图片抓取", limit=limit,
+        )
+        ctx.results.append(image_result)
+    finally:
+        for fetcher in worker_fetchers:
+            try:
+                stats = fetcher.finalize()
+                ctx.fetcher.stats.merge(stats)
+                if getattr(fetcher, "session_expired", False):
+                    ctx.fetcher.session_expired = True
+            finally:
+                fetcher.close()
+        for media in worker_media_archives:
+            ctx.media.downloaded += media.downloaded
+            ctx.media.skipped += media.skipped
+            ctx.media.failed += media.failed
+            ctx.media.archived += media.archived
+            ctx.media.bytes_total += media.bytes_total
+            media.wayback.close()
+    if skip_domains:
+        skipped_count = sum(
+            target.get("action") in {"fetch_article", "resolve"}
+            and _host_is_skipped(urlparse(url).hostname or "", skip_domains)
+            for url, target in links.items()
+        )
+        log.info("按 --skip-domain 跳过 %d 个外链目标：%s", skipped_count, ", ".join(sorted(skip_domains)))
     ctx.results.append(result)
     return result
 
@@ -1954,6 +2376,7 @@ STAGE_FUNCS = {
     "forum": stage_forum,
     "miniblog": stage_miniblog,
     "main": stage_main,
+    "external": stage_external,
 }
 
 
@@ -1963,9 +2386,18 @@ STAGE_FUNCS = {
 def generate_site(ctx: SyncContext, *, verbose: bool = False) -> dict[str, Any]:
     """把抓取结果渲染成 VitePress 站点产物。"""
     cfg = ctx.cfg
+    record_resolved_destinations(ctx.external_captures)
     ctx.refresh_album_media()
     ctx.refresh_unavailable()
+    captured_articles = load_captured_articles(
+        ctx.external_captures, cfg.data_dir.parent
+    )
     ctx.rebuild_context()
+    # Reuse the existing external-route rewriting path so references in notes,
+    # room pages and album descriptions resolve to the archived local article.
+    for article in captured_articles:
+        ctx.emitter.ctx.external_routes[article.url] = article.route
+        ctx.emitter.ctx.external_routes[article.final_url] = article.route
     ctx.build_index_groups()
 
     # Source memberships are projected per widget. Curated index order remains
@@ -2060,21 +2492,45 @@ def generate_site(ctx: SyncContext, *, verbose: bool = False) -> dict[str, Any]:
     ctx.emitter.emit_videos(ctx.videos)
     ctx.emitter.emit_board(ctx.discussions)
     ctx.emitter.emit_broadcast(ctx.miniblog)
-    external_pages = sorted(ctx.external.values(), key=lambda p: p.page_id)
+    _prune_non_article_douban_pages(cfg.docs_dir)
+    # Ignore legacy cached subject/person/trailer pages as well as new targets.
+    external_pages = sorted(
+        (page for page in ctx.external.values() if _is_archivable_douban_url(page.url)),
+        key=lambda p: p.page_id,
+    )
+    for page_id in ctx.removed_external_page_ids:
+        stale_page = cfg.docs_dir / "external" / f"{page_id}.md"
+        if stale_page.exists():
+            stale_page.unlink()
     for page in external_pages:
         ctx.emitter.emit_external(page)
     ctx.emitter.emit_external_index(external_pages)
+    legacy_article_dir = cfg.docs_dir / "external-articles"
+    if legacy_article_dir.is_dir():
+        for stale_article in legacy_article_dir.glob("*.md"):
+            if re.fullmatch(r"[0-9a-f]{20}\.md", stale_article.name):
+                stale_article.unlink()
+    for article in captured_articles:
+        ctx.emitter.emit_captured_article(article)
+    ctx.emitter.emit_captured_article_index(captured_articles)
 
     ctx.emitter.emit_sidebar(
         ctx.index_groups,
         notes,
         albums=albums,
         external_count=len(external_pages),
+        external_article_count=len(captured_articles),
         room_sections=room_sections,
         rooms=ctx.structure.rooms,
     )
 
     ctx.emitter.emit_unavailable_report(ctx.unavailable)
+    emit_links_index(
+        ctx.cfg,
+        external_pages,
+        {article.url: article.route for article in captured_articles},
+        ctx.external_captures,
+    )
     manifest = ctx.build_manifest()
     ctx.emitter.emit_manifest(manifest)
 
@@ -2151,6 +2607,11 @@ def cmd_discover(args: argparse.Namespace) -> int:
 def cmd_sync(args: argparse.Namespace) -> int:
     cfg = _config_from_args(args)
     stages = resolve_stages(args.stages)
+    skip_domains = _normalize_skip_domains(getattr(args, "skip_domain", []) or [])
+    if skip_domains and "external" not in stages:
+        raise SystemExit("--skip-domain 仅适用于 external 阶段；请在 --stages 中包含 external")
+    if getattr(args, "skip_failed", False) and "external" not in stages:
+        raise SystemExit("--skip-failed 仅适用于 external 阶段；请在 --stages 中包含 external")
     full_check_note_ids = set(getattr(args, "full_check_note", []) or [])
     invalid_ids = sorted(note_id for note_id in full_check_note_ids if not note_id.isdigit())
     if invalid_ids:
@@ -2159,7 +2620,7 @@ def cmd_sync(args: argparse.Namespace) -> int:
         raise SystemExit("--full-check-note 需要包含 notes 或 main 阶段")
 
     if not args.i_have_read_robots and not cfg.offline:
-        print(robots_notice(cfg))
+        print(robots_notice(cfg, external="external" in stages))
         return 2
 
     ensure_dirs(cfg)
@@ -2204,6 +2665,10 @@ def cmd_sync(args: argparse.Namespace) -> int:
                     if name in {"notes", "main"}
                     else {}
                 )
+                if name == "external":
+                    extra["skip_domains"] = skip_domains
+                    extra["concurrency"] = args.concurrency
+                    extra["skip_failed"] = getattr(args, "skip_failed", False)
                 func(
                     ctx,
                     show_progress=args.progress,
@@ -2293,6 +2758,25 @@ def _dry_run(ctx: SyncContext, stages: list[str], args: argparse.Namespace) -> i
         page_requests += sum(len(v) for v in structure.forum_topics.values()) + 1
     if "miniblog" in stages:
         page_requests += len(structure.widgets_of("miniblog"))
+    external_candidates = []
+    external_skipped = 0
+    if "external" in stages:
+        skip_domains = _normalize_skip_domains(getattr(args, "skip_domain", []) or [])
+        external_links = resolved_link_targets(
+            scan_external_links(cfg.docs_dir), ctx.external_captures
+        )
+        external_candidates = []
+        for url, item in external_links.items():
+            if item.get("action") not in {"fetch_article", "resolve"}:
+                continue
+            host = urlparse(url).hostname or ""
+            if host.lower().removeprefix("www.") == "douban.com" or host.lower().endswith(".douban.com"):
+                continue
+            if _host_is_skipped(host, skip_domains):
+                external_skipped += 1
+                continue
+            external_candidates.append(url)
+        page_requests += len(external_candidates)
 
     image_requests = 0
     if "notes" in stages:
@@ -2325,8 +2809,15 @@ def _dry_run(ctx: SyncContext, stages: list[str], args: argparse.Namespace) -> i
     print(f"  相册       {len(structure.photo_ids)} 个 / {structure.photo_count} 张")
     print(f"  视频       {len(structure.videos)} 条")
     print(f"  讨论帖     {sum(len(v) for v in structure.forum_topics.values())} 个")
+    if "external" in stages:
+        print(f"  外链文章候选 {len(external_candidates)} 个（仅文章和待解析短链）")
+        if external_skipped:
+            print(f"  域名跳过   {external_skipped} 个（{', '.join(sorted(skip_domains))}）")
     print()
-    print("确认无误后执行：npm run sync -- --i-have-read-robots")
+    if stages == ["external"]:
+        print("确认目标域名 robots 规则后执行：uv run python -m scraper.cli sync --stages external --i-have-read-robots")
+    else:
+        print("确认无误后执行：npm run sync -- --i-have-read-robots")
     return 0
 
 
@@ -2476,6 +2967,9 @@ def _print_summary(ctx: SyncContext) -> None:
     print(f"  广播动态    {len(ctx.miniblog):5d} 条")
     if ctx.external:
         print(f"  站外页面    {len(ctx.external):5d} 个（需登录）")
+    if ctx.external_captures:
+        fetched = sum(item.get("fetchStatus") == "fetched" for item in ctx.external_captures.values())
+        print(f"  外链原始页  {fetched:5d} 个已保存（元数据 {len(ctx.external_captures)} 条）")
     print(f"  不可访问    {len(ctx.unavailable):5d} 个（详见 data/unavailable.md）")
     print(f"  图片下载    {int(media['downloaded']):5d} 张"
           f"（跳过 {int(media['skipped'])}，失败 {int(media['failed'])}，"

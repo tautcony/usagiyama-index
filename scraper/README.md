@@ -40,7 +40,10 @@ uv run python -m scraper.cli <子命令> [参数]
 | --- | --- |
 | `--dry-run` | 只预估规模与耗时，不抓取 |
 | `--i-have-read-robots` | 知情门槛，见下 |
-| `--stages a,b,c` | 只跑指定阶段（`rooms,bulletins,notes,photos,albums,videos,forum,miniblog,main`） |
+| `--stages a,b,c` | 只跑指定阶段（`rooms,bulletins,notes,photos,albums,videos,forum,miniblog,main,external`） |
+| `--skip-domain DOMAIN` | 外链阶段跳过指定域名及其子域名；可重复传入，例如 `--skip-domain dou.bz` |
+| `--skip-failed` | 外链阶段跳过以前失败的页面和图片，继续抓取其他项目；默认会重试失败项 |
+| `--concurrency N` | 外链阶段并发 worker 数，默认 `1`；其他阶段仍串行，请逐步提高 |
 | `--force` | 全站忽略进度并重新请求页面；联网时跳过 HTTP 响应缓存 |
 | `--full-check-note NOTE_ID` | 全量检查指定豆瓣日记；可重复传入多个 ID |
 | `--recheck-unavailable` | 重新探测此前标记为不可访问的页面 |
@@ -48,6 +51,24 @@ uv run python -m scraper.cli <子命令> [参数]
 | `--progress` / `--no-progress` | 显示 / 隐藏进度条 |
 
 普通 `sync` 每次从 room 和各模块列表重新发现内容 ID，并合并标题、日期、回应数和模块归属等列表元数据；再补抓新发现、上次失败或明确要求重试的项目。已完成文章详情会跳过，不会因为列表页有变化就全量重抓所有文章。需要重新检查单篇时，使用 `--full-check-note NOTE_ID`。例如：
+
+外部文章原始响应使用独立阶段，不解析正文。先运行 `emit` 更新按域名分类的清单，再只预演/执行该阶段：
+
+```sh
+npm run emit
+uv run python -m scraper.cli sync --stages external --dry-run --i-have-read-robots
+uv run python -m scraper.cli sync --stages external --limit 2 --i-have-read-robots
+uv run python -m scraper.cli sync --stages external --skip-domain dou.bz --i-have-read-robots
+uv run python -m scraper.cli sync --stages external --skip-domain dou.bz --skip-failed --speed fast --concurrency 3 --i-have-read-robots
+uv run python -m scraper.cli sync --stages external --concurrency 3 --i-have-read-robots
+```
+
+确认小批次结果后可去掉 `--limit 2` 续跑。符合文章条件的页面原始 HTML 保存在 `scraper/state/cache/`，抓取元数据在 `data/external-captures.json`；短链会读取重定向最终地址并重新分类。`metadata`、`review` 和 `skip` 不会进入该阶段。正文提取、评论、媒体处理由后续解析阶段负责。
+
+`--skip-domain` 可重复指定；域名本身及其子域名都会跳过。跳过只对本次运行生效，不会把目标写成永久完成，移除参数后仍可续抓。
+`--skip-failed` 仅影响本次 external 阶段的失败项选择；失败状态保留在进度记录中，去掉参数后仍可重试。它同时适用于文章原始抓取和图片抓取。
+
+`--concurrency` 只并行处理互相独立的外链目标及其图片；每个 worker 使用独立传输会话，并共享请求间隔限制。外部文章页按域名保存在 `docs/external-articles/<域名>/<文章ID>.md`；图片保存在 `docs/public/media/external-articles/<域名>/<文章ID>/`，成功归档后页面引用本地图片。默认仍为单 worker。
 
 ```sh
 npm run sync -- --i-have-read-robots --full-check-note 261864994
@@ -84,7 +105,7 @@ Disallow: /
 
 | 措施 | 默认值 |
 | --- | --- |
-| 并发 | **单线程**，绝不并发 |
+| 并发 | 默认单 worker；仅外链阶段可用 `--concurrency N` 并发 |
 | 请求间隔 | `5.0 ~ 7.0` 秒随机抖动（尊重 `Crawl-delay: 5`） |
 | 退避重试 | 指数增长 + 抖动，5s 起，最多 5 次 |
 | 熔断 | 连续 3 次 `403/418` 立即停止并保存进度 |

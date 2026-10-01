@@ -31,6 +31,7 @@ import hashlib
 import json
 import logging
 import random
+import threading
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -328,6 +329,7 @@ class CachedResponse:
     content_type: str = ""
     fetched_at: str = ""
     from_cache: bool = False
+    final_url: str = ""
 
     @property
     def ok(self) -> bool:
@@ -430,6 +432,21 @@ class RateLimiter:
         self.cfg = cfg
         self._sleep = sleep
         self._last: float | None = None
+        self._lock = threading.Lock()
+
+    def acquire(self) -> None:
+        """Atomically reserve a request start slot across concurrent workers."""
+        while True:
+            with self._lock:
+                if self._last is None:
+                    self._last = time.monotonic()
+                    return
+                delay = random.uniform(self.cfg.delay_min, self.cfg.delay_max)
+                remaining = delay - (time.monotonic() - self._last)
+                if remaining <= 0:
+                    self._last = time.monotonic()
+                    return
+            self._sleep(remaining)
 
     def wait(self) -> None:
         """按需休眠，使本次请求距上次请求开始至少间隔 delay。"""
@@ -527,12 +544,14 @@ class BaseFetcher:
             content_type=meta.get("contentType", ""),
             fetched_at=meta.get("fetchedAt", ""),
             from_cache=True,
+            final_url=meta.get("finalUrl", ""),
         )
 
     def _write_cache(self, resp: CachedResponse) -> None:
         body_path, meta_path = self._cache_paths(resp.url)
         meta = {
             "url": resp.url,
+            "finalUrl": resp.final_url or resp.url,
             "status": resp.status,
             "contentType": resp.content_type,
             "fetchedAt": resp.fetched_at,
@@ -647,6 +666,7 @@ class BaseFetcher:
             content=raw.content,
             content_type=raw.content_type,
             fetched_at=now_iso(),
+            final_url=raw.final_url or url,
         )
 
         blocked = self._classify_blocked(raw, url)
@@ -755,13 +775,20 @@ class BaseFetcher:
     def get_bytes(self, url: str, **kwargs: Any) -> bytes:
         return self.fetch(url, **kwargs).content
 
-    def get_image(self, url: str, *, force: bool = False) -> CachedResponse:
+    def get_image(
+        self, url: str, *, force: bool = False, referer: str | None = None
+    ) -> CachedResponse:
         """抓取图片。
 
         两件事都不能少：带 ``Referer``（否则 doubanio 的防盗链返回 **418**），
         以及换成图片的请求头特征（``image=True``，见 :func:`image_request_headers`）。
         """
-        return self.fetch(url, referer=self.cfg.image_referer, force=force, image=True)
+        return self.fetch(
+            url,
+            referer=referer or self.cfg.image_referer,
+            force=force,
+            image=True,
+        )
 
     # ------------------------------------------------------------------ 收尾
 
@@ -821,8 +848,7 @@ class Fetcher(BaseFetcher):
         else:
             headers = {"Referer": referer} if referer else {}
 
-        self._limiter.wait()
-        self._limiter.mark()
+        self._limiter.acquire()
         self.stats.requests += 1
 
         resp = self._session.get(

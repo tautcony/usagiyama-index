@@ -20,7 +20,7 @@ import re
 from dataclasses import dataclass, field
 from urllib.parse import parse_qs, urlparse
 
-from bs4 import BeautifulSoup, Tag
+from bs4 import BeautifulSoup, NavigableString, Tag
 from markdownify import MarkdownConverter
 
 from .config import CONFIG, Config
@@ -31,6 +31,9 @@ DROP_TAGS = ("script", "style", "noscript", "iframe", "object", "embed")
 UNWRAP_TAGS = ("table", "thead", "tbody", "tfoot", "tr", "td", "th", "center", "font")
 
 LINK2_HOST_MARKER = "douban.com/link2"
+PLAIN_URL_RE = re.compile(
+    r"https?://[^\s<>\]\[()\"'，。；：！？、（）【】《》]+", re.IGNORECASE
+)
 
 # 站内日记链接：site.douban.com/211330/widget/notes/{widget}/note/{note}/
 NOTE_PATH_RE = re.compile(r"/widget/notes/(\d+)/note/(\d+)/?")
@@ -328,7 +331,36 @@ def html_to_markdown(
         wrap=False,
         keep_inline_images_in=["td", "th", "li", "p", "div", "span"],
     )
-    markdown = converter.convert(cleaned)
+    soup = BeautifulSoup(cleaned, "lxml")
+    for text_node in list(soup.find_all(string=True)):
+        if text_node.find_parent(["a", "code", "pre", "script", "style"]):
+            continue
+        raw = str(text_node)
+        matches = list(PLAIN_URL_RE.finditer(raw))
+        if not matches:
+            continue
+        pieces: list[object] = []
+        cursor = 0
+        for match in matches:
+            url = match.group().rstrip(".,;:!?，。；：！？、）】》")
+            suffix = match.group()[len(url):]
+            if not url or converter._rewrite_href(url) == url:
+                continue
+            pieces.append(NavigableString(raw[cursor:match.start()]))
+            anchor = soup.new_tag("a", href=url)
+            anchor.string = url
+            pieces.append(anchor)
+            if suffix:
+                pieces.append(NavigableString(suffix))
+            cursor = match.end()
+        if pieces:
+            pieces.append(NavigableString(raw[cursor:]))
+            first = pieces[0]
+            text_node.replace_with(first)
+            for piece in pieces[1:]:
+                first.insert_after(piece)
+                first = piece
+    markdown = converter.convert(str(soup))
 
     markdown = _fix_empty_links(markdown)
     markdown = _fix_bullets(markdown)

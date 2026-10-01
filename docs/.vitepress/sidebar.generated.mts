@@ -45,7 +45,7 @@ export const sidebar: DefaultTheme.Sidebar = {
       "items": [
         {
           "text": "宇宙的入口",
-          "link": "/",
+          "link": "/rooms/2793793",
           "collapsed": true,
           "items": [
             {
@@ -823,6 +823,10 @@ export const sidebar: DefaultTheme.Sidebar = {
         {
           "text": "站外归档",
           "link": "/external/"
+        },
+        {
+          "text": "外部文章（125）",
+          "link": "/external-articles/"
         },
         {
           "text": "外部链接索引",

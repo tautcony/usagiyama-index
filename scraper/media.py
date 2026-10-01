@@ -25,6 +25,7 @@
 from __future__ import annotations
 
 import logging
+import hashlib
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -62,13 +63,16 @@ SUFFIX_FOR_KIND: dict[str, str] = {
     "jpeg": ".jpg",
     "png": ".png",
     "webp": ".webp",
+    "avif": ".avif",
     "gif": ".gif",
     "bmp": ".bmp",
     "svg": ".svg",
 }
 
 # 允许按真实内容纠正的后缀。不在此列的后缀（站点素材的自定义命名等）一律不动。
-IMAGE_SUFFIXES = frozenset({".jpg", ".jpeg", ".jpe", ".png", ".webp", ".gif", ".bmp", ".svg"})
+IMAGE_SUFFIXES = frozenset(
+    {".jpg", ".jpeg", ".jpe", ".png", ".webp", ".avif", ".gif", ".bmp", ".svg"}
+)
 
 # 豆瓣图片尺寸变体路径片段
 SIZE_SEGMENT_RE = re.compile(r"/view/(?:photo|note)/([a-z]+)/public/")
@@ -77,6 +81,7 @@ NOTE_MEDIA_PREFIX = "/media/notes"
 ALBUM_MEDIA_PREFIX = "/media/albums"
 VIDEO_MEDIA_PREFIX = "/media/videos"
 SITE_MEDIA_PREFIX = "/media/site"
+EXTERNAL_ARTICLE_MEDIA_PREFIX = "/media/external-articles"
 
 # 相册原图的子目录：``media/albums/{albumId}/original/{photoId}.{ext}``。
 # 单独一层目录、而不是与预览图并排放在相册根目录，是因为两者的后缀未必不同
@@ -103,6 +108,18 @@ def sniff_image(data: bytes) -> str | None:
     """识别图片格式；返回 ``None`` 表示不是可识别的图片。"""
     if not data:
         return None
+    # ISO-BMFF image files start with a sized ``ftyp`` box. Require an AVIF
+    # brand so arbitrary MP4/HEIF payloads are not accepted as images.
+    if len(data) >= 12 and data[4:8] == b"ftyp":
+        box_size = int.from_bytes(data[:4], "big")
+        if box_size >= 16:
+            brands = [data[8:12]]
+            brands.extend(
+                data[offset : offset + 4]
+                for offset in range(16, min(box_size, len(data) - 3), 4)
+            )
+            if b"avif" in brands or b"avis" in brands:
+                return "avif"
     head = data.lstrip(b"\xef\xbb\xbf\x00\t\n\r ")
     for prefix, name in MAGIC_PREFIXES:
         if head.startswith(prefix):
@@ -407,6 +424,19 @@ class MediaArchive:
     def site_asset_path(self, name: str) -> tuple[Path, str]:
         return self.cfg.media_dir / "site" / name, f"{SITE_MEDIA_PREFIX}/{name}"
 
+    def external_article_image_path(
+        self, domain: str, article_id: str, url: str
+    ) -> tuple[Path, str]:
+        """Build a stable, collision-resistant path for a captured article image."""
+        domain_slug = re.sub(r"[^a-z0-9.-]+", "_", domain.lower()).strip("._") or "unknown"
+        image_id = hashlib.sha256(url.encode("utf-8")).hexdigest()[:12]
+        name = f"{image_id}-{basename_of(url)}"
+        relative = Path(domain_slug) / article_id / name
+        return (
+            self.cfg.media_dir / "external-articles" / relative,
+            f"{EXTERNAL_ARTICLE_MEDIA_PREFIX}/{relative.as_posix()}",
+        )
+
     # ---------------------------------------------------------------- 下载
 
     def _existing_archived(self, dest: Path) -> Path | None:
@@ -457,6 +487,8 @@ class MediaArchive:
         variants: list[str] | None = None,
         allow_archive: bool = True,
         force: bool = False,
+        referer: str | None = None,
+        max_bytes: int | None = None,
     ) -> MediaResult:
         """下载一张图片到 ``dest``，返回归档结果。
 
@@ -489,9 +521,13 @@ class MediaArchive:
         for candidate in variants or [url]:
             try:
                 resp = (
-                    self.fetcher.get_image(candidate, force=True)
+                    self.fetcher.get_image(
+                        candidate, force=True, **({"referer": referer} if referer else {})
+                    )
                     if force
-                    else self.fetcher.get_image(candidate)
+                    else self.fetcher.get_image(
+                        candidate, **({"referer": referer} if referer else {})
+                    )
                 )
             except CircuitBreakerOpen:
                 raise
@@ -510,6 +546,9 @@ class MediaArchive:
                 # 当图片缓存了）。不清掉的话每次运行都会重放它，所以当场丢弃。
                 if resp.from_cache and resp.ok:
                     self.fetcher.invalidate_cache(candidate)
+                continue
+            if max_bytes is not None and len(resp.content) > max_bytes:
+                failures.append(f"{candidate} → 图片超过上限（{len(resp.content)}B > {max_bytes}B）")
                 continue
 
             # 落盘名字只认内容：URL 后缀是 CDN 的一面之词，实测会撒谎。

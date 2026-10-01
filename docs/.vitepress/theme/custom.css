@@ -141,7 +141,7 @@
   box-shadow: var(--usagi-card-shadow-hover);
 }
 
-.photo-grid .photo-card a {
+.photo-grid .photo-card > a.photo-preview {
   display: block;
   line-height: 0;
 }
@@ -160,6 +160,11 @@
   font-size: 0.78rem;
   line-height: 1.6;
   color: var(--vp-c-text-2);
+}
+
+.photo-grid .photo-card .caption a {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 /* 网格里的 webp 预览图点开看 jpg 原图（见 theme/lightbox.ts），

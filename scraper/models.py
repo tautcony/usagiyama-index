@@ -307,6 +307,15 @@ class ExternalPage:
     origin: str = ""
     """来源：哪个索引分组引入了这个页面。"""
 
+    origins: list[str] = field(default_factory=list)
+    """所有引用该目标的来源页面/分组；origin 保留为旧数据兼容字段。"""
+
+    @property
+    def domain(self) -> str:
+        from urllib.parse import urlparse
+
+        return (urlparse(self.url).hostname or "未知域名").lower().rstrip(".")
+
     comments: list[Comment] = field(default_factory=list)
     status: SourceStatus = field(default_factory=SourceStatus)
 

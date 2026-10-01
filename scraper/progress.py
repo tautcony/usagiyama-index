@@ -17,7 +17,9 @@
 from __future__ import annotations
 
 import logging
+import threading
 import time
+from concurrent.futures import ThreadPoolExecutor
 from collections.abc import Callable, Iterable, Iterator, Sequence
 from dataclasses import dataclass, field
 from enum import StrEnum
@@ -138,6 +140,7 @@ class ProgressStore:
         self._completed: dict[str, str] = {}
         self._stages: dict[str, dict[str, int]] = {}
         self._dirty = 0
+        self._lock = threading.RLock()
         self._started_at = now_iso()
         self.before_save: Callable[[], None] | None = None
         self.load()
@@ -186,6 +189,10 @@ class ProgressStore:
         log.debug("已载入进度：%d 条记录", len(self._items))
 
     def save(self, *, force: bool = False) -> None:
+        with self._lock:
+            self._save(force=force)
+
+    def _save(self, *, force: bool = False) -> None:
         """原子落盘。默认按 ``progress_autosave_every`` 节流。"""
         if self.readonly:
             return
@@ -265,6 +272,18 @@ class ProgressStore:
     # ------------------------------------------------------------------ 记录
 
     def mark(
+        self,
+        key: str,
+        status: ItemStatus | str,
+        *,
+        stage: str = "",
+        detail: str = "",
+        **meta: Any,
+    ) -> ItemRecord:
+        with self._lock:
+            return self._mark(key, status, stage=stage, detail=detail, **meta)
+
+    def _mark(
         self,
         key: str,
         status: ItemStatus | str,
@@ -477,6 +496,8 @@ class StageRunner:
         recheck_unavailable: bool = False,
         recheck_done: bool = False,
         recheck_keys: set[str] | None = None,
+        recheck_failed: bool = True,
+        max_workers: int = 1,
     ) -> None:
         self.store = store
         self.stage = stage
@@ -485,6 +506,8 @@ class StageRunner:
         self.recheck_unavailable = recheck_unavailable
         self.recheck_done = recheck_done
         self.recheck_keys = recheck_keys
+        self.recheck_failed = recheck_failed
+        self.max_workers = max(1, int(max_workers))
 
     def run(
         self,
@@ -519,6 +542,7 @@ class StageRunner:
         pending_keys = set(
             self.store.pending(
                 all_keys,
+                recheck_failed=self.recheck_failed,
                 recheck_unavailable=self.recheck_unavailable,
                 recheck_done=self.recheck_done,
                 recheck_keys=self.recheck_keys,
@@ -549,40 +573,49 @@ class StageRunner:
                 dynamic_ncols=True,
                 leave=True,
             )
-            iterator = bar  # type: ignore[assignment]
+
+        result_lock = threading.Lock()
+
+        def process(item: T) -> bool:
+            key = key_of(item)
+            try:
+                handler(item)
+                record = self.store.get(key)
+                if not self.store.is_terminal(key) and not (
+                    record is not None and record.status == ItemStatus.FAILED
+                ):
+                    self.store.mark_done(key, stage=self.stage)
+                with result_lock:
+                    result.processed += 1
+                return False
+            except Exception as exc:  # noqa: BLE001 - 单点失败不阻塞整体
+                from .http_client import CircuitBreakerOpen
+
+                if isinstance(exc, CircuitBreakerOpen):
+                    raise
+                with result_lock:
+                    result.failed += 1
+                self.store.mark_failed(key, str(exc), stage=self.stage)
+                log.warning("失败 %s：%s", key, exc)
+                return True
 
         try:
-            for item in iterator:
-                key = key_of(item)
-                try:
-                    handler(item)
-                    # 兜底标记：handler 通常已自行 mark_done / mark_unavailable
-                    # 并附带 detail/meta，此时不覆盖；若 handler 漏标，这里补上
-                    # 以保证断点续接可靠。
-                    #
-                    # 判断依据必须是"终态"而不是"done"：handler 主动标记的
-                    # unavailable / skipped 也是终态，用 is_done 会把它们改写成
-                    # done，导致 --recheck-unavailable 永远筛不出这些条目、
-                    # 不可访问清单也会变空。
-                    record = self.store.get(key)
-                    # FAILED is a deliberate retryable outcome, not a missing
-                    # handler mark. Only add the fallback when the handler did
-                    # not record any decision for this key.
-                    if not self.store.is_terminal(key) and not (
-                        record is not None and record.status == ItemStatus.FAILED
-                    ):
-                        self.store.mark_done(key, stage=self.stage)
-                    result.processed += 1
-                except Exception as exc:  # noqa: BLE001 - 单点失败不阻塞整体
-                    from .http_client import CircuitBreakerOpen
-
-                    if isinstance(exc, CircuitBreakerOpen):
-                        raise
-                    result.failed += 1
-                    self.store.mark_failed(key, str(exc), stage=self.stage)
-                    log.warning("失败 %s：%s", key, exc)
-                    if bar is not None:
+            if self.max_workers == 1:
+                outcomes = (process(item) for item in iterator)
+                for failed in outcomes:
+                    if failed and bar is not None:
                         bar.set_postfix_str(f"失败 {result.failed}", refresh=False)
+                    if bar is not None:
+                        bar.update(1)
+            else:
+                # Keep tqdm and progress output on the main thread.
+                with ThreadPoolExecutor(max_workers=self.max_workers) as pool:
+                    outcomes = pool.map(process, todo)
+                    for failed in outcomes:
+                        if failed and bar is not None:
+                            bar.set_postfix_str(f"失败 {result.failed}", refresh=False)
+                        if bar is not None:
+                            bar.update(1)
         finally:
             if bar is not None:
                 bar.close()

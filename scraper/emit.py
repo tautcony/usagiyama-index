@@ -18,6 +18,7 @@ from urllib.parse import urlparse
 from .config import CONFIG, Config
 from .html2md import ConvertContext, html_to_markdown, sanitize_markdown_url, unwrap_link2
 from .index_map import FALLBACK_CATEGORY, LINKS_CATEGORY
+from .links import reference_label, reference_route
 from .models import (
     Album,
     Availability,
@@ -265,6 +266,28 @@ class SiteEmitter:
                 return route
         return None
 
+    def _render_archived_caption(self, caption: str) -> str:
+        """Link captured article URLs in plain-text captions to local pages."""
+        url_pattern = re.compile(
+            r"https?://[^\s<>\]\[()\"'，。；：！？、（）【】《》]+", re.IGNORECASE
+        )
+        parts: list[str] = []
+        cursor = 0
+        for match in url_pattern.finditer(caption):
+            raw_url = match.group()
+            url = raw_url.rstrip(".,;:!?，。；：！？、）】》")
+            route = self._external_route(url)
+            if not route:
+                continue
+            parts.append(html_text(caption[cursor:match.start()]))
+            parts.append(f'<a href="{html_attr(route)}">{html_text(url)}</a>')
+            parts.append(html_text(raw_url[len(url):]))
+            cursor = match.end()
+        if not parts:
+            return html_text(caption)
+        parts.append(html_text(caption[cursor:]))
+        return "".join(parts)
+
     # ------------------------------------------------------------------ 日记
 
     def emit_note(self, note: Note) -> Path:
@@ -403,7 +426,7 @@ class SiteEmitter:
                 f"{img}</a>"
             )
             if caption:
-                inner += f'<p class="caption">{html_text(caption)}</p>'
+                inner += f'<p class="caption">{self._render_archived_caption(caption)}</p>'
             cards.append(
                 f'<figure class="photo-card" id="photo-{html_attr(photo.photo_id)}">'
                 f"{inner}</figure>"
@@ -451,8 +474,9 @@ class SiteEmitter:
             blocks.append(notice)
             self.report.unavailable_pages += 1
 
-        if page.origin:
-            blocks.append(f"*原站索引分组：{html_text(page.origin)}*")
+        origins = page.origins or ([page.origin] if page.origin else [])
+        if origins:
+            blocks.append("*引用自：" + "、".join(self._origin_markdown(item) for item in origins) + "*")
 
         body = html_to_markdown(
             page.content_html,
@@ -480,28 +504,114 @@ class SiteEmitter:
         return path
 
     def emit_external_index(self, pages: Sequence[Any]) -> Path:
-        """渲染 /external/ 索引页。"""
+        """渲染按域名分组的站外归档索引及每个目标的引用来源。"""
         blocks = [
-            frontmatter({"title": "站外文章", "aside": False}),
-            "# 站外文章\n",
-            "原站索引①/② 里有一部分条目直接指向豆瓣主站",
+            frontmatter({"title": "站外归档", "aside": False}),
+            "# 站外归档\n",
+            "按来源域名整理已登记的站外对象；每个目标列出引用它的站内页面或索引分组。",
         ]
         if pages:
-            items = []
+            domains: dict[str, list[Any]] = {}
             for page in pages:
-                badge = ""
-                if page.status.availability != Availability.OK:
-                    badge = f" <small class=\"badge-unavailable\">{page.status.label}</small>"
-                origin = f" — <small>{page.origin}</small>" if page.origin else ""
-                items.append(f"- [{md_escape_link_text(page.title)}]({page.route}){origin}{badge}")
-            blocks.append("\n".join(items))
+                domains.setdefault(page.domain, []).append(page)
+            for domain, domain_pages in sorted(domains.items()):
+                items = [f"## {md_escape_link_text(domain)}\n"]
+                for page in sorted(domain_pages, key=lambda item: (item.title.casefold(), item.page_id)):
+                    badge = ""
+                    if page.status.availability != Availability.OK:
+                        badge = f" <small class=\"badge-unavailable\">{page.status.label}</small>"
+                    items.append(f"- [{md_escape_link_text(page.title or page.page_id)}]({page.route}){badge}")
+                    origins = page.origins or ([page.origin] if page.origin else [])
+                    if origins:
+                        items.append("  - 引用自：" + "；".join(self._origin_markdown(origin) for origin in origins))
+                blocks.append("\n".join(items))
         else:
-            blocks.append("*还没有归档站外文章。*")
+            blocks.append("*还没有归档站外内容（还没有归档站外文章）。*")
 
         path = self.cfg.docs_dir / "external" / "index.md"
         atomic_write_text(path, "\n\n".join(blocks) + "\n")
         self.report.pages.append("external/index.md")
         return path
+
+    def emit_captured_article(self, article: Any) -> Path:
+        """Render an article extracted from a successful external raw capture."""
+        output_path = (
+            self.cfg.docs_dir / "external-articles" / article.domain_slug
+            / f"{article.page_id}.md"
+        )
+        blocks = [
+            frontmatter({
+                "title": article.title,
+                "pageId": article.page_id,
+                "domain": article.domain,
+                "source": article.url,
+                "finalSource": article.final_url if article.final_url != article.url else "",
+                "adapter": article.adapter,
+                "archivedAt": self._archived_at(output_path),
+            }),
+        ]
+        references = list(article.references)
+        if references:
+            rendered = []
+            for ref in references:
+                label = reference_label(ref, self.cfg.docs_dir)
+                route = reference_route(ref, self.cfg.docs_dir)
+                item = f"[{md_escape_link_text(html_text(label))}]({route})" if route else html_text(label)
+                if ref.get("line"):
+                    item += f"（第 {ref['line']} 行）"
+                rendered.append(item)
+            blocks.append("*引用自：" + "、".join(rendered) + "*")
+        body = html_to_markdown(
+            article.content_html,
+            ConvertContext(image_map=article.image_map),
+            self.cfg,
+        )
+        blocks.append(body or "*未能从原始 HTML 提取正文。*")
+        blocks.append(source_footer(article.url))
+        atomic_write_text(output_path, "\n\n".join(blocks) + "\n")
+        self.report.pages.append(
+            f"external-articles/{article.domain_slug}/{article.page_id}.md"
+        )
+        return output_path
+
+    def emit_captured_article_index(self, articles: Sequence[Any]) -> Path:
+        """Render captured articles grouped by source domain and source page."""
+        blocks = [
+            frontmatter({"title": "外部文章归档", "aside": False}),
+            "# 外部文章归档\n",
+            "收录已抓取并成功提取正文的外部文章；每篇列出使用它的站内来源。",
+        ]
+        by_domain: dict[str, list[Any]] = {}
+        for article in articles:
+            by_domain.setdefault(article.domain, []).append(article)
+        for domain, entries in sorted(by_domain.items()):
+            lines = [f"## {md_escape_link_text(domain)}\n"]
+            for article in sorted(entries, key=lambda item: (item.title.casefold(), item.page_id)):
+                lines.append(f"- [{md_escape_link_text(article.title)}]({article.route})")
+                for ref in article.references:
+                    label = reference_label(ref, self.cfg.docs_dir)
+                    route = reference_route(ref, self.cfg.docs_dir)
+                    source = f"[{md_escape_link_text(html_text(label))}]({route})" if route else html_text(label)
+                    if ref.get("line"):
+                        source += f"（第 {ref['line']} 行）"
+                    lines.append(f"  - 使用来源：{source}")
+            blocks.append("\n".join(lines))
+        if not articles:
+            blocks.append("*尚无成功提取正文的外部文章。*")
+        path = self.cfg.docs_dir / "external-articles" / "index.md"
+        atomic_write_text(path, "\n\n".join(blocks) + "\n")
+        self.report.pages.append("external-articles/index.md")
+        return path
+
+    @staticmethod
+    def _origin_markdown(origin: str) -> str:
+        """把已知站内来源转为可点击入口，其余来源保留原标签。"""
+        for prefix, route_prefix in (("日记 ", "/notes/"), ("站外页面 ", "/external/")):
+            if origin.startswith(prefix):
+                object_id = origin[len(prefix):].split(" 的", 1)[0].strip()
+                if object_id and re.fullmatch(r"[A-Za-z0-9_-]+", object_id):
+                    return f"[{html_text(origin)}]({route_prefix}{object_id})"
+        return html_text(origin)
 
     # ---------------------------------------------------------------- 首页
 
@@ -1149,6 +1259,7 @@ class SiteEmitter:
         fallback_notes: Sequence[Note] = (),
         albums: Sequence[Album] = (),
         external_count: int = 0,
+        external_article_count: int = 0,
         room_sections: Sequence[RoomArticleSection] | None = None,
         rooms: Sequence[Room] = (),
     ) -> Path:
@@ -1251,7 +1362,7 @@ class SiteEmitter:
                     module_items.append({"text": widget.title or widget.kind, "link": widget_href})
             room_sidebar.append({
                 "text": room.title,
-                "link": "/" if room.is_home else f"/rooms/{room.room_id}",
+                "link": f"/rooms/{room.room_id}",
                 "collapsed": True,
                 "items": module_items,
             })
@@ -1277,6 +1388,9 @@ class SiteEmitter:
                     {"text": "关于山田尚子", "link": "/about"},
                     {"text": "留言板汇总", "link": "/board"},
                     {"text": "广播室汇总", "link": "/broadcast"},
+                    {"text": "站外归档", "link": "/external/"},
+                    {"text": f"外部文章（{external_article_count}）", "link": "/external-articles/"},
+                    {"text": "外部链接索引", "link": "/links/"},
                 ],
             }
         ]
@@ -1297,7 +1411,7 @@ class SiteEmitter:
         atomic_write_text(self.cfg.sidebar_path, content)
         self.report.pages.append("sidebar.generated.mts")
         nav = [
-            {"text": room.title, "link": "/" if room.is_home else f"/rooms/{room.room_id}"}
+            {"text": room.title, "link": f"/rooms/{room.room_id}"}
             for room in rooms
         ]
         nav_content = (

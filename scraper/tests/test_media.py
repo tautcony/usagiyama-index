@@ -22,13 +22,15 @@ JPEG = b"\xff\xd8\xff\xe0" + b"\x00" * 40
 PNG = b"\x89PNG\r\n\x1a\n" + b"\x00" * 40
 GIF = b"GIF89a" + b"\x00" * 40
 WEBP = b"RIFF\x00\x00\x00\x00WEBP" + b"\x00" * 40
+# Minimal ISO-BMFF ftyp header using AVIF as its major brand.
+AVIF = b"\x00\x00\x00\x1cftypavif\x00\x00\x00\x00mif1avifmiaf"
 HTML_ERROR = b"<!DOCTYPE html><html><body>418</body></html>"
 
 
 class TestSniffImage:
     @pytest.mark.parametrize(
         ("data", "expected"),
-        [(JPEG, "jpeg"), (PNG, "png"), (GIF, "gif"), (WEBP, "webp")],
+        [(JPEG, "jpeg"), (PNG, "png"), (GIF, "gif"), (WEBP, "webp"), (AVIF, "avif")],
     )
     def test_recognises_formats(self, data: bytes, expected: str) -> None:
         assert sniff_image(data) == expected
@@ -36,6 +38,9 @@ class TestSniffImage:
     def test_html_error_page_rejected(self) -> None:
         """豆瓣出错时会返回 HTML，绝不能当成图片存下来。"""
         assert sniff_image(HTML_ERROR) is None
+
+    def test_non_avif_iso_bmff_rejected(self) -> None:
+        assert sniff_image(b"\x00\x00\x00\x18ftypisom\x00\x00\x00\x00isom") is None
 
     def test_empty_and_short_rejected(self) -> None:
         assert sniff_image(b"") is None

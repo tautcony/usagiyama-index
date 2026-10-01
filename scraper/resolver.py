@@ -57,6 +57,7 @@ class ResolvedPage:
     url: str
     html: str = ""
     status: SourceStatus = field(default_factory=SourceStatus)
+    final_url: str = ""
 
     @property
     def ok(self) -> bool:
@@ -151,6 +152,7 @@ class PageResolver:
             return ResolvedPage(
                 url=url,
                 html=resp.text,
+                final_url=resp.final_url or url,
                 status=SourceStatus(
                     availability=Availability.OK,
                     http_status=resp.status,

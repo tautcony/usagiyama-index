@@ -4,7 +4,7 @@ import type { DefaultTheme } from 'vitepress'
 export const nav: DefaultTheme.NavItem[] = [
   {
     "text": "宇宙的入口",
-    "link": "/"
+    "link": "/rooms/2793793"
   },
   {
     "text": "☆ 聲之形",
