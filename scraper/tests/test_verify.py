@@ -136,6 +136,20 @@ class TestCheckLinks:
         )
         assert Verifier(cfg).check_links().passed
 
+    def test_explicit_html_id_is_valid_fragment(self, cfg) -> None:
+        guide = cfg.docs_dir / "guide"
+        guide.mkdir(parents=True, exist_ok=True)
+        (guide / "a.md").write_text(
+            '<figure id="photo-123"><img src="/media/a.jpg"></figure>\n', encoding="utf-8"
+        )
+        media = cfg.docs_dir / "public" / "media" / "a.jpg"
+        media.parent.mkdir(parents=True, exist_ok=True)
+        media.write_bytes(b"test")
+        (cfg.docs_dir / "index.md").write_text(
+            "[照片](/guide/a#photo-123)\n", encoding="utf-8"
+        )
+        assert Verifier(cfg).check_links().passed
+
     def test_relative_heading_fragment_checks_target_page(self, cfg) -> None:
         guide = cfg.docs_dir / "guide"
         guide.mkdir(parents=True, exist_ok=True)
@@ -239,6 +253,14 @@ class TestCheckCounts:
         )
         assert Verifier(cfg).check_links().passed
 
+    def test_ignores_angle_wrapped_external_url_with_parentheses(self, cfg) -> None:
+        notes = cfg.docs_dir / "notes"
+        notes.mkdir(parents=True, exist_ok=True)
+        (notes / "a.md").write_text(
+            '[外链](<https://example.com/wiki/Some_(topic)>)\n', encoding="utf-8"
+        )
+        assert Verifier(cfg).check_links().passed
+
 
 class TestCheckImages:
     def test_dotfiles_are_ignored(self, cfg) -> None:
@@ -263,6 +285,17 @@ class TestCheckImages:
         (media / "tiny.jpg").write_bytes(b"\xff\xd8\xff")
         result = Verifier(cfg).check_images()
         assert not result.passed
+
+    def test_accepts_valid_tiny_gif(self, cfg) -> None:
+        media = cfg.media_dir / "external-articles" / "pixel.gif"
+        media.parent.mkdir(parents=True, exist_ok=True)
+        media.write_bytes(
+            b"GIF89a\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\xff\xff\xff"
+            b"!\xf9\x04\x01\x00\x00\x00\x00,\x00\x00\x00\x00\x01\x00\x01\x00"
+            b"\x00\x02\x02D\x01\x00;"
+        )
+        result = Verifier(cfg).check_images()
+        assert result.passed
 
     def test_passes_for_valid_jpeg(self, cfg) -> None:
         media = cfg.media_dir / "notes" / "1"

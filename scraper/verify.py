@@ -32,16 +32,19 @@ from typing import Any, Iterable
 from .config import CONFIG, Config
 from .emit import COMMENT_HEADING_RE, slug_anchor
 from .html2md import html_to_plain_text, markdown_to_plain_text
-from .media import SUFFIX_FOR_KIND, is_valid_image, read_kind, sniff_image
+from .media import SUFFIX_FOR_KIND, read_kind, sniff_image
 from .util import atomic_write_text, human_size, now_iso, read_json
 
 log = logging.getLogger("usagi.verify")
 
 # Markdown 链接与图片
-MD_LINK_RE = re.compile(r"(?<!!)\[[^\]]*\]\(([^)\s]+)(?:\s+\"[^\"]*\")?\)")
+MD_LINK_RE = re.compile(
+    r'(?<!!)\[[^\]]*\]\((<[^>\s]+>|[^)\s]+)(?:\s+"[^"]*")?\)'
+)
 MD_IMAGE_RE = re.compile(r"!\[[^\]]*\]\(([^)\s]+)(?:\s+\"[^\"]*\")?\)")
 # HTML 中的 src / href（相册与视频页用了裸 HTML）
 HTML_ATTR_RE = re.compile(r'(?:src|href)="([^"]+)"')
+HTML_ID_RE = re.compile(r'\bid=["\']([^"\']+)["\']')
 # frontmatter 块（必须在原始 Markdown 上匹配，不能先转纯文本）
 # 捕获组 1 为 frontmatter 正文，check_frontmatter() 依赖它
 FRONTMATTER_RE = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
@@ -254,6 +257,7 @@ class Verifier:
             targets |= set(HTML_ATTR_RE.findall(text))
 
             for target in targets:
+                target = target[1:-1] if target.startswith("<") and target.endswith(">") else target
                 route, has_fragment, fragment = target.partition("#")
                 if has_fragment and not route:
                     resolved = md_path
@@ -275,10 +279,12 @@ class Verifier:
 
     @staticmethod
     def _heading_ids(path: Path) -> set[str]:
-        """Generate heading IDs with the same slug rules as VitePress."""
+        """Collect explicit HTML IDs and heading slugs used as page anchors."""
         ids: set[str] = set()
         counts: dict[str, int] = {}
-        for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+        text = path.read_text(encoding="utf-8", errors="replace")
+        ids.update(HTML_ID_RE.findall(text))
+        for line in text.splitlines():
             match = re.match(r"^#{1,6}\s+(.+?)\s*#*\s*$", line)
             if not match:
                 continue
@@ -308,10 +314,13 @@ class Verifier:
             result.checked += 1
             size = path.stat().st_size
             total_bytes += size
-            if size < 64:
+            kind = read_kind(path)
+            # A 1×1 tracking/placeholder GIF is a valid 43-byte image; other
+            # tiny payloads (including a three-byte JPEG prefix) are truncated.
+            if size < 64 and kind != "gif":
                 result.add_problem(f"{path.relative_to(media_dir)} 只有 {size} 字节，疑似损坏")
                 continue
-            if not is_valid_image(path):
+            if not kind:
                 head = path.read_bytes()[:80]
                 hint = "疑似 HTML 错误页" if head.lstrip().startswith(b"<") else "无法识别格式"
                 result.add_problem(f"{path.relative_to(media_dir)} 不是有效图片（{hint}）")
