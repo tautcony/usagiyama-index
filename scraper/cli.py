@@ -707,32 +707,45 @@ class SyncContext:
             _unavailable_from_dict(item)
             for item in read_json(self.cfg.data_dir / "unavailable.json", default=[]) or []
         ]
+        external_urls = {
+            "external:" + hashlib.sha256(url.encode("utf-8")).hexdigest()[:20]: url
+            for url in self.external_captures
+        }
+        for record in prior:
+            if record.url in external_urls:
+                record.id = record.id or record.url
+                record.url = external_urls[record.url]
         fresh = list(self.resolver.unavailable)
         recovered = self.resolver.resolved_ok
         superseded = {record.url for record in fresh}
 
-        records = [
-            record
-            for record in prior
-            if record.url not in recovered and record.url not in superseded
-        ]
-        records.extend(fresh)
-
-        known = {record.url for record in records}
+        records: list[UnavailableRecord] = []
+        known: dict[str, UnavailableRecord] = {}
+        for record in prior:
+            if record.url in recovered or record.url in superseded:
+                continue
+            if record.url not in known:
+                known[record.url] = record
+                records.append(record)
+        for record in fresh:
+            if record.url not in known:
+                known[record.url] = record
+                records.append(record)
         for item in ([] if self.cfg.offline else self.progress.unavailable()):
             # 还原不出地址时退回显示内部键，总好过整条丢掉
             url = self._page_url_of(item) or item.key
             if url in known:
+                known[url].id = known[url].id or item.key
                 continue
-            known.add(url)
-            records.append(
-                UnavailableRecord(
-                    url=url,
-                    availability=Availability.UNAVAILABLE,
-                    detail=item.detail,
-                    context=_STAGE_LABELS.get(item.stage, item.stage),
-                )
+            record = UnavailableRecord(
+                url=url,
+                availability=Availability.UNAVAILABLE,
+                detail=item.detail,
+                context=_STAGE_LABELS.get(item.stage, item.stage),
+                id=item.key,
             )
+            known[url] = record
+            records.append(record)
 
         self.unavailable = records
         log.info("不可访问条目：%d 条", len(records))
@@ -776,6 +789,10 @@ class SyncContext:
             page = self.external.get(rest)
             if page is not None:
                 return page.url
+        elif kind == "external":
+            for candidate in self.external_captures:
+                if hashlib.sha256(candidate.encode("utf-8")).hexdigest()[:20] == rest:
+                    return candidate
         return ""
 
     # -------------------------------------------------------------- 索引分组
@@ -1104,6 +1121,7 @@ def _unavailable_from_dict(payload: Any) -> UnavailableRecord:
         wayback_url=payload.get("wayback_url"),
         wayback_timestamp=payload.get("wayback_timestamp"),
         context=str(payload.get("context", "")),
+        id=str(payload.get("id", "")),
     )
 
 

@@ -13,6 +13,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 
 from scraper.cli import SyncContext, merge_by
 from scraper.config import ensure_dirs
@@ -506,6 +507,28 @@ class TestUnavailableReport:
         text, _ = self._render(cfg)
         assert "widget/notes/17565710/note/111/" in text
         assert "日记" in text
+
+    def test_legacy_external_id_is_separate_from_url(self, cfg) -> None:
+        url = "http://www.kyotoanimation.co.jp/staff/anibaka/blog/?p=909"
+        key = "external:" + hashlib.sha256(url.encode("utf-8")).hexdigest()[:20]
+        _seed_data(cfg)
+        write_json(cfg.data_dir / "external-captures.json", {url: {"requestedUrl": url}})
+        write_json(
+            cfg.data_dir / "unavailable.json",
+            [_unavailable_payload(key, Availability.UNAVAILABLE, detail="http_error")],
+        )
+        _seed_progress(cfg, _progress_item(key, stage="external", detail="http_error"))
+
+        with SyncContext(cfg, use_archive=False) as ctx:
+            ctx.load_existing()
+            ctx.refresh_unavailable()
+            assert len(ctx.unavailable) == 1
+            assert ctx.unavailable[0].id == key
+            assert ctx.unavailable[0].url == url
+            ctx.emitter.emit_unavailable_report(ctx.unavailable)
+
+        report = (cfg.data_dir / "unavailable.md").read_text(encoding="utf-8")
+        assert key in report and url in report
 
     def test_records_survive_offline_emit(self, cfg) -> None:
         """已补足的条目必须跨运行留存，否则 ``emit`` 一次就抹掉历史。"""

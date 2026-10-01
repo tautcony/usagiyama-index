@@ -82,6 +82,7 @@ class UnavailableRecord:
     wayback_url: str | None = None
     wayback_timestamp: str | None = None
     context: str = ""
+    id: str = ""
 
 
 def _looks_login_required(url: str) -> bool:

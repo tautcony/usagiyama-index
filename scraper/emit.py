@@ -1439,8 +1439,8 @@ class SiteEmitter:
             "本清单列出源站不可访问、或需要登录才能访问的页面。",
             "已从 Internet Archive 成功补足的条目标记为 **已补足**。",
             "",
-            "| 状态 | 页面 | 上下文 | HTTP | 说明 |",
-            "| --- | --- | --- | ---: | --- |",
+            "| 状态 | 任务 ID | 页面 | 上下文 | HTTP | 说明 |",
+            "| --- | --- | --- | --- | ---: | --- |",
         ]
         labels = {
             str(Availability.ARCHIVED): "已补足",
@@ -1459,11 +1459,11 @@ class SiteEmitter:
             safe_wayback = md_safe_url(wayback) if wayback else ""
             if safe_wayback:
                 label = f"{label}（[快照]({safe_wayback})）"
-            cells = (label, url, context, status or "-", detail)
+            cells = (label, getattr(record, "id", "") or "-", url, context, status or "-", detail)
             lines.append("| " + " | ".join(md_table_cell(cell) for cell in cells) + " |")
 
         if not records:
-            lines.append("| — | 无 | | | 全部内容均已成功归档 |")
+            lines.append("| — | — | 无 | | | 全部内容均已成功归档 |")
 
         path = self.cfg.data_dir / "unavailable.md"
         atomic_write_text(path, "\n".join(lines) + "\n")

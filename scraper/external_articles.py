@@ -110,9 +110,13 @@ def _select_body(
             if _host_matches(host, "fc2.com") and "blog-category-" in path:
                 return None, domain
             for selector in selectors:
+                # Publisher-specific selectors already isolate the article
+                # body, so a short post can still be valid. Keep the higher
+                # floor for generic page-wide heuristics below.
+                minimum_text = 40 if domain.startswith("hatenablog") or domain == "hatenadiary.org" else 80
                 nodes = [
                     candidate for candidate in soup.select(selector)
-                    if len(candidate.get_text(" ", strip=True)) >= 80
+                    if len(candidate.get_text(" ", strip=True)) >= minimum_text
                 ]
                 node = nodes[0] if len(nodes) == 1 else None
                 if node:
@@ -206,7 +210,8 @@ def parse_capture(url: str, capture: dict[str, Any], workspace: Path) -> Externa
             image.attrs.pop("data-original", None)
     _strip_site_extras(body, host)
     text = body.get_text(" ", strip=True)
-    if len(text) < 80 or re.search(r"(?i)domain (?:has )?expired|404 not found|page not found", text[:500]):
+    minimum_text = 40 if adapter.startswith("hatenablog") or adapter == "hatenadiary.org" else 80
+    if len(text) < minimum_text or re.search(r"(?i)domain (?:has )?expired|404 not found|page not found", text[:500]):
         return None
     page_id = hashlib.sha256(url.encode("utf-8")).hexdigest()[:20]
     references = []
