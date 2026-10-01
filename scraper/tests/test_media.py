@@ -140,6 +140,15 @@ class TestNaming:
         _, local = archive.video_thumb_path("783649", "https://x/t.jpg")
         assert local == "/media/videos/783649.jpg"
 
+    def test_external_article_image_path_normalizes_extension_case(self, cfg) -> None:
+        archive = MediaArchive.__new__(MediaArchive)
+        archive.cfg = cfg
+        dest, local = archive.external_article_image_path(
+            "example.com", "article", "https://example.com/image/PHOTO.JPG"
+        )
+        assert dest.suffix == ".jpg"
+        assert local.endswith(".jpg")
+
     def test_album_original_path_is_separate_from_preview(self, cfg) -> None:
         """原图与预览图同在``{photoId}``命名下，必须落在不同目录才不会互相覆盖。"""
         archive = MediaArchive.__new__(MediaArchive)
@@ -641,6 +650,20 @@ class TestSuffixFollowsContent:
         assert result.ok, result.error
         assert result.local_url == "/media/albums/1/p3.webp"
         assert [p.name for p in dest.parent.iterdir()] == ["p3.webp"]
+
+    def test_unrecognized_suffix_is_replaced_with_detected_image_suffix(self, cfg) -> None:
+        archive = MediaArchive(self._StubTransport(JPEG), cfg=cfg)
+        dest = cfg.media_dir / "external-articles" / "1" / "pixel.unknown"
+
+        result = archive.download(
+            "https://example.com/pixel.unknown",
+            dest,
+            "/media/external-articles/1/pixel.unknown",
+        )
+
+        assert result.ok, result.error
+        assert result.local_url == "/media/external-articles/1/pixel.jpg"
+        assert (dest.parent / "pixel.jpg").is_file()
 
     def test_existing_wrong_suffix_is_healed_without_refetch(self, cfg) -> None:
         """存量假后缀：下次 sync 时就地改名，且不该为它再发一次请求。"""

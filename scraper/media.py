@@ -69,11 +69,7 @@ SUFFIX_FOR_KIND: dict[str, str] = {
     "svg": ".svg",
 }
 
-# 允许按真实内容纠正的后缀。不在此列的后缀（站点素材的自定义命名等）一律不动。
-IMAGE_SUFFIXES = frozenset(
-    {".jpg", ".jpeg", ".jpe", ".png", ".webp", ".avif", ".gif", ".bmp", ".svg"}
-)
-
+# 已知图片格式对应的标准后缀。
 # 豆瓣图片尺寸变体路径片段
 SIZE_SEGMENT_RE = re.compile(r"/view/(?:photo|note)/([a-z]+)/public/")
 # 站点媒体目录
@@ -163,7 +159,7 @@ def read_kind(path: Path) -> str:
 def correct_suffix(path: Path, kind: str) -> Path:
     """把 ``path`` 的后缀纠正成 ``kind`` 对应的真实后缀。
 
-    后缀不认识（不在 :data:`IMAGE_SUFFIXES` 里）或本已正确时原样返回。
+    后缀缺失、不受浏览器识别、大小写不规范或与内容不符时，统一改为标准后缀。
 
     **必须做这一步**：豆瓣的 ``/view/photo/large/public/p{id}.webp`` 会返回
     ``Content-Type: image/webp`` 而 body 是 JPEG 字节（``raw`` 尺寸那份的字节原封不动），
@@ -172,8 +168,7 @@ def correct_suffix(path: Path, kind: str) -> Path:
     落盘名字只认内容。
     """
     wanted = SUFFIX_FOR_KIND.get(kind)
-    suffix = path.suffix.lower()
-    if not wanted or suffix not in IMAGE_SUFFIXES or suffix == wanted:
+    if not wanted or path.suffix == wanted:
         return path
     return path.with_suffix(wanted)
 
@@ -430,7 +425,9 @@ class MediaArchive:
         """Build a stable, collision-resistant path for a captured article image."""
         domain_slug = re.sub(r"[^a-z0-9.-]+", "_", domain.lower()).strip("._") or "unknown"
         image_id = hashlib.sha256(url.encode("utf-8")).hexdigest()[:12]
-        name = f"{image_id}-{basename_of(url)}"
+        original_name = basename_of(url)
+        suffix = Path(original_name).suffix.lower()
+        name = f"{image_id}-{Path(original_name).stem}{suffix}"
         relative = Path(domain_slug) / article_id / name
         return (
             self.cfg.media_dir / "external-articles" / relative,
